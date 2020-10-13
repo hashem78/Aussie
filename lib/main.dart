@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:Aussie/screens/explore.dart';
+import 'package:Aussie/screens/main.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  print("The statement 'this machine is connected to the Internet' is: ");
   print(await DataConnectionChecker().hasConnection);
-  print("Current status: ${await DataConnectionChecker().connectionStatus}");
-  print("Last results: ${DataConnectionChecker().lastTryResults}");
 
   runApp(MyApp());
 }
@@ -14,60 +14,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: Typography.material2018().white,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      initialRoute: "/",
+      routes: {
+        "/": (BuildContext context) => MainScreen(),
+        "/explore": (BuildContext context) => ExploreScreen(),
+      },
     );
   }
 }
