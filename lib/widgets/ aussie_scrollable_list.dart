@@ -1,3 +1,4 @@
+import 'package:Aussie/size_config.dart';
 import 'package:flutter/material.dart';
 
 class AussieScrollableList extends StatelessWidget {
@@ -5,34 +6,34 @@ class AussieScrollableList extends StatelessWidget {
   final List<Widget> children;
   final EdgeInsets childPadding;
   final Axis scrollDirection;
-  final double height;
+  final double heightFactor;
   const AussieScrollableList({
     Key key,
     @required this.title,
-    this.children,
+    @required this.children,
     this.childPadding = const EdgeInsets.all(0.0),
     this.scrollDirection = Axis.vertical,
-    @required this.height,
+    @required this.heightFactor,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, bottom: 1),
-            child: Text(
-              title,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            title,
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
           ),
         ),
         Container(
-          height: height,
+          height: heightFactor * SizeConfig.blockSizeVertical,
           padding: EdgeInsets.only(top: 8),
           child: ListView(
+            addAutomaticKeepAlives: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: scrollDirection,
             children: children

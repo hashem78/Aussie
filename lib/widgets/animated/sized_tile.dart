@@ -1,34 +1,50 @@
 import 'dart:math';
 
+import 'package:Aussie/screens/details.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/widgets/sized_tile.dart';
 
 class AnimatedSizedImageTile extends StatefulWidget {
-  final String imageUrl;
   final String title;
   final int widthFactor;
   final int heightFactor;
   final SizedImageTile sizeTile;
+  final Details detailsScreen;
+  final CachedNetworkImage image;
+
   AnimatedSizedImageTile({
-    Key key,
-    this.imageUrl,
-    this.title,
+    @required this.title,
+    @required this.image,
     this.widthFactor,
     this.heightFactor,
-  })  : sizeTile = SizedImageTile(
+  })  : detailsScreen = null,
+        sizeTile = SizedImageTile(
           title: title,
-          imageUrl: imageUrl,
+          image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
-        ),
-        super(key: key);
+        );
+  AnimatedSizedImageTile.withDetails({
+    @required this.title,
+    @required this.image,
+    this.widthFactor,
+    this.heightFactor,
+    @required this.detailsScreen,
+  }) : sizeTile = SizedImageTile.withDetails(
+          title: title,
+          image: image,
+          widthFactor: widthFactor,
+          heightFactor: heightFactor,
+          detailsScreen: detailsScreen,
+        );
   @override
   _AnimatedSizedTileState createState() => _AnimatedSizedTileState();
 }
 
 class _AnimatedSizedTileState extends State<AnimatedSizedImageTile>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Animation<Offset> animation;
   AnimationController animationController;
   @override
@@ -44,6 +60,7 @@ class _AnimatedSizedTileState extends State<AnimatedSizedImageTile>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SlideTransition(
       position: animation,
       child: widget.sizeTile,
@@ -55,4 +72,7 @@ class _AnimatedSizedTileState extends State<AnimatedSizedImageTile>
     animationController.dispose();
     super.dispose();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

@@ -70,9 +70,7 @@ class MainScreen extends StatelessWidget {
                         elevation: 2,
                         primary: kausBlue,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50),
-                          ),
+                          borderRadius: kaussieRadius,
                         ),
                       ),
                       onPressed: () {
