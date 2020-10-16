@@ -1,4 +1,4 @@
-import 'package:Aussie/screens/explore.dart';
+import 'package:Aussie/screens/landing.dart';
 import 'package:Aussie/screens/main.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (BuildContext context) => MainScreen(),
-        "/explore": (BuildContext context) => ExploreScreen(),
+        "/": (BuildContext context) => LandingScreen(),
+        "/explore": (BuildContext context) => MainScreen(),
       },
     );
   }

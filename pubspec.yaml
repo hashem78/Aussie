@@ -34,6 +34,9 @@ dependencies:
   expand_widget: ^1.1.0
   url_launcher: ^5.7.2
   smooth_star_rating: ^1.1.1
+  bottom_navy_bar: ^5.5.0
+  auto_size_text: ^2.1.0
+
 
 
 

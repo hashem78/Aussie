@@ -1,114 +1,108 @@
+import 'package:Aussie/screens/explore.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  static final title = "Explore";
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int currentIndex = 0;
+  PageController _controller = PageController();
+  var tabs = [ExploreScreen()];
+  void onPageChanged(int page) {
+    setState(() {
+      this.currentIndex = page;
+      this._controller.animateToPage(page,
+          duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final kausFlag = Center(
-      child: Hero(
-        tag: "auFlag",
-        child: Image.asset(
-          'assests/images/au.png',
-          height: 50 * SizeConfig.blockSizeVertical,
-          width: 50 * SizeConfig.blockSizeHorizontal,
-          fit: BoxFit.scaleDown,
-        ),
-      ),
-    );
-    final kausOutLine = FractionallySizedBox(
-      child: Image.asset(
-        'assests/images/auOutLine.png',
-        height: 50 * SizeConfig.blockSizeVertical,
-        width: 80 * SizeConfig.blockSizeHorizontal,
-        fit: BoxFit.scaleDown,
-      ),
-    );
-
     return Scaffold(
-      body: CustomPaint(
-        painter: MainScreenPainter(),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Positioned(
-              top: SizeConfig.blockSizeVertical,
-              child: Align(
-                child: kausOutLine,
-              ),
+      extendBody: true,
+      backgroundColor: kausBlue,
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        child: BottomNavyBar(
+          backgroundColor: Color(0xff141414),
+          selectedIndex: currentIndex,
+          itemCornerRadius: 8,
+          curve: Curves.easeIn,
+          showElevation: false,
+          onItemSelected: onPageChanged,
+          items: [
+            BottomNavyBarItem(
+              icon: Icon(Icons.explore),
+              title: Text('Explore'),
+              activeColor: kausBlue,
+              textAlign: TextAlign.center,
             ),
-            Positioned(
-              top: 17 * SizeConfig.blockSizeVertical,
-              child: Align(
-                child: Text(
-                  "Aussie",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: kausBlue, fontSize: 60),
-                ),
+            BottomNavyBarItem(
+              icon: Icon(FontAwesomeIcons.coffee),
+              title: Text(
+                'Food & Drinks',
+                maxLines: 2,
               ),
+              activeColor: Colors.amberAccent,
+              textAlign: TextAlign.center,
             ),
-            kausFlag,
-            Positioned(
-              bottom: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    "Oy!",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 120,
-                    ),
-                  ),
-                  Container(
-                    height: SizeConfig.blockSizeVertical * 15,
-                    width: SizeConfig.blockSizeHorizontal * 60,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 2,
-                        primary: kausBlue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: kaussieRadius,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/explore");
-                      },
-                      child: Text(
-                        "Meet Austrialia!",
-                        style: TextStyle(fontSize: 21),
-                      ),
-                    ),
-                  ),
-                ],
+            BottomNavyBarItem(
+              icon: Icon(Icons.message),
+              title: Text(
+                'Messages test for mes teset test test ',
               ),
+              activeColor: Colors.pink,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
+              activeColor: Colors.blue,
+              textAlign: TextAlign.center,
             ),
           ],
         ),
       ),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _controller,
+        onPageChanged: onPageChanged,
+        children: tabs,
+      ),
     );
   }
 }
 
-class MainScreenPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final width = size.width;
-    final height = size.height;
-    Paint paint2 = Paint();
-    paint2.color = kausBlue;
-    canvas.drawRect(Rect.fromLTWH(0, 0, width, height / 2), paint2);
-
-    Paint paint = Paint();
-    paint.color = kausRed;
-    canvas.drawRect(Rect.fromLTWH(0, height / 2, width, height / 2), paint);
-  }
-
-  @override
-  bool shouldRepaint(MainScreenPainter oldDelegate) => false;
-
-  @override
-  bool shouldRebuildSemantics(MainScreenPainter oldDelegate) => false;
-}
+Widget buildImage(imageUrl) => CachedNetworkImage(
+      imageUrl: imageUrl,
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+      placeholder: (context, url) => Container(
+        color: Colors.lightBlueAccent,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );

@@ -48,7 +48,13 @@ class Details extends StatelessWidget {
     return Scaffold(
       backgroundColor: kausBlue,
       body: NestedScrollView(
-        headerSliverBuilder: (_, __) => [AussieSliverAppBar(title)],
+        headerSliverBuilder: (_, __) => [
+          AussieSliverAppBar(
+            title: title,
+            showHero: true,
+            automaticallyImplyLeading: true,
+          )
+        ],
         body: ListView(
           addAutomaticKeepAlives: true,
           physics: BouncingScrollPhysics(),

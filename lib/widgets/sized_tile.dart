@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
@@ -82,17 +83,14 @@ class SizedTileSwatch extends StatelessWidget {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          color: kausBlue.withAlpha(150),
+          color: kausBlue.withAlpha(240),
           width: widthFactor * SizeConfig.blockSizeHorizontal,
           height: heightFactor / 3 * SizeConfig.blockSizeVertical,
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(fontSize: 5),
-              ),
+          child: Center(
+            child: AutoSizeText(
+              title,
+              maxLines: 1,
+              style: TextStyle(fontSize: 30),
             ),
           ),
         ),

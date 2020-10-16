@@ -1,25 +1,41 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
 
 class AussieSliverAppBar extends StatelessWidget {
   final String title;
-  const AussieSliverAppBar(
+  final bool showHero;
+  final bool automaticallyImplyLeading;
+  const AussieSliverAppBar({
     this.title,
-  );
+    @required this.showHero,
+    this.automaticallyImplyLeading = false,
+  }) : assert(showHero != null);
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      elevation: 0,
+      expandedHeight: 70,
+      pinned: true,
+      automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor: kausBlue,
-      title: Text(title),
+      flexibleSpace: FlexibleSpaceBar(
+        title: AutoSizeText(
+          title,
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
+      ),
       centerTitle: true,
       actions: [
-        Hero(
-          tag: "auFlag",
-          child: Image.asset('assests/images/au.png'),
-        ),
+        if (showHero)
+          Hero(
+            tag: "auFlag",
+            child: Image.asset('assests/images/au.png'),
+          ),
       ],
     );
   }
