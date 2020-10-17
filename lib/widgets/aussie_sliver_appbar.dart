@@ -8,10 +8,10 @@ class AussieSliverAppBar extends StatelessWidget {
   final bool showHero;
   final bool automaticallyImplyLeading;
   const AussieSliverAppBar({
-    this.title,
+    @required this.title,
     @required this.showHero,
     this.automaticallyImplyLeading = false,
-  }) : assert(showHero != null);
+  }) : assert(showHero != null && title != null);
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:Aussie/screens/explore.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:Aussie/screens/food_drinks.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
-  var tabs = [ExploreScreen()];
+  var tabs = [ExploreScreen(), FoodNDrinks()];
   void onPageChanged(int page) {
     setState(() {
       this.currentIndex = page;
