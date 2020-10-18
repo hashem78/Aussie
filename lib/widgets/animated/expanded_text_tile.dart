@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-
 class AnimatedExpandingTextTile extends StatefulWidget {
   final String text;
   final String title;
@@ -61,10 +59,10 @@ class _AnimatedExpandingTextTileState extends State<AnimatedExpandingTextTile>
       child: Container(
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          borderRadius: kaussieRadius,
-          boxShadow: widget.showShadow
-              ? [BoxShadow(blurRadius: 5, color: Colors.black)]
-              : null,
+          //borderRadius: kaussieRadius,
+          // boxShadow: widget.showShadow
+          //     ? [BoxShadow(blurRadius: 5, color: Colors.black)]
+          //     : null,
           color: widget.color,
         ),
         child: Padding(

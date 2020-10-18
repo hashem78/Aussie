@@ -1,9 +1,8 @@
+import 'package:Aussie/screens/entertainment.dart';
 import 'package:Aussie/screens/explore.dart';
 import 'package:Aussie/screens/food_drinks.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
 import '../size_config.dart';
@@ -18,65 +17,58 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
-  var tabs = [ExploreScreen(), FoodNDrinks()];
+  var tabs = [ExploreScreen(), Cuisine(), Entertainment()];
   void onPageChanged(int page) {
-    setState(() {
-      this.currentIndex = page;
-      this._controller.animateToPage(page,
-          duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
-    });
+    setState(
+      () {
+        this.currentIndex = page;
+        this._controller.jumpToPage(page);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      extendBody: true,
-      backgroundColor: kausBlue,
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-        child: BottomNavyBar(
-          backgroundColor: Color(0xff141414),
-          selectedIndex: currentIndex,
-          itemCornerRadius: 8,
-          curve: Curves.easeIn,
-          showElevation: false,
-          onItemSelected: onPageChanged,
-          items: [
-            BottomNavyBarItem(
-              icon: Icon(Icons.explore),
-              title: Text('Explore'),
-              activeColor: kausBlue,
-              textAlign: TextAlign.center,
+      bottomNavigationBar: BottomNavyBar(
+        backgroundColor: Color(0xff141414),
+        selectedIndex: currentIndex,
+        itemCornerRadius: 0,
+        curve: Curves.easeInOut,
+        onItemSelected: onPageChanged,
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.explore),
+            title: Text('Explore'),
+            activeColor: kausBlue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.local_pizza),
+            title: Text(
+              'Food|Drinks',
+              maxLines: 2,
             ),
-            BottomNavyBarItem(
-              icon: Icon(FontAwesomeIcons.coffee),
-              title: Text(
-                'Food & Drinks',
-                maxLines: 2,
-              ),
-              activeColor: Colors.amberAccent,
-              textAlign: TextAlign.center,
+            activeColor: Colors.green,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.movie),
+            title: Text(
+              'Entertainment',
+              style: TextStyle(fontSize: 12),
             ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.message),
-              title: Text(
-                'Messages test for mes teset test test ',
-              ),
-              activeColor: Colors.pink,
-              textAlign: TextAlign.center,
-            ),
-            BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-              activeColor: Colors.blue,
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+            activeColor: Colors.grey,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -87,22 +79,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
-Widget buildImage(imageUrl) => CachedNetworkImage(
-      imageUrl: imageUrl,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-      placeholder: (context, url) => Container(
-        color: Colors.lightBlueAccent,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-      errorWidget: (context, url, error) => Icon(Icons.error),
-    );

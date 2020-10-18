@@ -1,7 +1,10 @@
 import 'package:Aussie/screens/main.dart';
+import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/%20aussie_scrollable_list.dart';
 import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
 import 'package:Aussie/widgets/rating_section.dart';
+import 'package:Aussie/widgets/rating_tile.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/screens/details.dart';
@@ -18,62 +21,56 @@ import '../constants.dart';
 class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      physics: ClampingScrollPhysics(),
-      headerSliverBuilder: (context, __) => [
-        AussieSliverAppBar(
-          title: MainScreen.title,
-          showHero: true,
-        )
-      ],
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          AussieScrollableList(
-            heightFactor: 24,
-            childPadding: EdgeInsets.all(5),
-            title: "People",
-            scrollDirection: Axis.horizontal,
-            children: [
-              buildSizedImageTile(62, 20),
-              buildSizedImageTile(62, 20),
-              buildSizedImageTile(62, 20),
-            ],
-          ),
-          AussieScrollableList(
-            title: "Events",
-            heightFactor: 34,
-            childPadding: EdgeInsets.all(5),
-            scrollDirection: Axis.horizontal,
-            children: [
-              ebuildSizedImageTile(97, 31),
-              ebuildSizedImageTile(97, 31),
-              ebuildSizedImageTile(97, 31),
-            ],
-          ),
-          AussieScrollableList(
-            heightFactor: 24,
-            childPadding: EdgeInsets.all(5),
-            title: "Places",
-            scrollDirection: Axis.horizontal,
-            children: [
-              pbuildSizedImageTile(62, 20),
-              pbuildSizedImageTile(62, 20),
-              pbuildSizedImageTile(62, 20),
-            ],
-          ),
-          AussieScrollableList(
-            heightFactor: 24,
-            childPadding: EdgeInsets.all(5),
-            title: "Places",
-            scrollDirection: Axis.horizontal,
-            children: [
-              ebuildSizedImageTile(62, 20),
-              ebuildSizedImageTile(62, 20),
-              ebuildSizedImageTile(62, 20),
-            ],
-          ),
+    var _col = getRandomColor();
+    return Container(
+      color: _col,
+      child: NestedScrollView(
+        physics: ClampingScrollPhysics(),
+        headerSliverBuilder: (context, __) => [
+          AussieSliverAppBar(
+            backgroundColor: _col,
+            title: MainScreen.title,
+            showHero: true,
+          )
         ],
+        body: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            AussieScrollableList(
+              heightFactor: 32,
+              childPadding: EdgeInsets.all(5),
+              title: "People",
+              scrollDirection: Axis.horizontal,
+              children: [
+                buildSizedImageTile(70, 20),
+                buildSizedImageTile(70, 20),
+                buildSizedImageTile(70, 20),
+              ],
+            ),
+            AussieScrollableList(
+              title: "Events",
+              heightFactor: 40,
+              childPadding: EdgeInsets.all(5),
+              scrollDirection: Axis.horizontal,
+              children: [
+                ebuildSizedImageTile(97, 20),
+                ebuildSizedImageTile(97, 20),
+                ebuildSizedImageTile(97, 20),
+              ],
+            ),
+            AussieScrollableList(
+              heightFactor: 32,
+              childPadding: EdgeInsets.all(5),
+              title: "Places",
+              scrollDirection: Axis.horizontal,
+              children: [
+                pbuildSizedImageTile(70, 20),
+                pbuildSizedImageTile(70, 20),
+                pbuildSizedImageTile(70, 20),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -81,13 +78,17 @@ class ExploreScreen extends StatelessWidget {
   Widget ebuildSizedImageTile(int widthFactor, int heighFactor) {
     var image = buildImage(kurl);
     return AnimatedSizedImageTile.withDetails(
+      swatchColor: getRandomColor(),
       widthFactor: widthFactor,
       heightFactor: heighFactor,
       title: "Sydeny Fest",
       image: image,
       detailsScreen: Details(
         title: "Sydney Fest",
-        top: AnimatedBannerImage(image: image),
+        top: AnimatedBannerImage(
+          image: image,
+          heightFactor: 30,
+        ),
         bottom: AussieScrollableList(
           title: "Gallery",
           scrollDirection: Axis.horizontal,
@@ -125,7 +126,14 @@ class ExploreScreen extends StatelessWidget {
               ),
             ],
           ),
-          RatingSection(),
+          RatingSection(
+            title: "People who've rated this",
+            children: [
+              RatingTile(rating: 3, owner: "Jhon Posser", reviewText: klorem),
+              RatingTile(rating: 4, owner: "Jhon Posser", reviewText: klorem),
+              RatingTile(rating: 5, owner: "Jhon Posser", reviewText: klorem),
+            ],
+          ),
         ],
       ),
     );
@@ -135,13 +143,17 @@ class ExploreScreen extends StatelessWidget {
 Widget buildSizedImageTile(int widthFactor, int heighFactor) {
   var image = buildImage(kurl);
   return AnimatedSizedImageTile.withDetails(
+    swatchColor: getRandomColor(),
     widthFactor: widthFactor,
     heightFactor: heighFactor,
     title: "PewdiePie",
     image: image,
     detailsScreen: Details(
       title: "pewdiepie",
-      top: AnimatedBannerImage(image: image),
+      top: AnimatedBannerImage(
+        image: image,
+        heightFactor: 30,
+      ),
       bottom: AussieScrollableList(
         title: "Gallery",
         scrollDirection: Axis.horizontal,
@@ -195,13 +207,17 @@ Widget buildSizedImageTile(int widthFactor, int heighFactor) {
 Widget pbuildSizedImageTile(int widthFactor, int heighFactor) {
   var image = buildImage(kurl);
   return AnimatedSizedImageTile.withDetails(
+    swatchColor: getRandomColor(),
     widthFactor: widthFactor,
     heightFactor: heighFactor,
     title: "Sydeny's big cathedral",
     image: image,
     detailsScreen: Details(
       title: "Sydney Fest",
-      top: AnimatedBannerImage(image: image),
+      top: AnimatedBannerImage(
+        image: image,
+        heightFactor: 30,
+      ),
       bottom: AussieScrollableList(
         title: "Gallery",
         scrollDirection: Axis.horizontal,
@@ -239,7 +255,14 @@ Widget pbuildSizedImageTile(int widthFactor, int heighFactor) {
             ),
           ],
         ),
-        RatingSection(),
+        RatingSection(
+          title: "People who've rated this",
+          children: [
+            RatingTile(rating: 3, owner: "Jhon Posser", reviewText: klorem),
+            RatingTile(rating: 4, owner: "Jhon Posser", reviewText: klorem),
+            RatingTile(rating: 5, owner: "Jhon Posser", reviewText: klorem),
+          ],
+        ),
       ],
     ),
   );

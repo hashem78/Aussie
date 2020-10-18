@@ -13,13 +13,16 @@ class SizedImageTile extends StatelessWidget {
   final int heightFactor;
   final String tag = UniqueKey().toString();
   final Details detailsScreen;
+  final Color swatchColor;
 
   SizedImageTile({
     @required this.title,
     @required this.image,
     this.widthFactor,
     this.heightFactor,
-  }) : detailsScreen = null;
+    swatchColor,
+  })  : swatchColor = swatchColor ?? kausBlue.withAlpha(240),
+        detailsScreen = null;
 
   SizedImageTile.withDetails({
     @required this.image,
@@ -27,7 +30,8 @@ class SizedImageTile extends StatelessWidget {
     this.title,
     this.widthFactor,
     this.heightFactor,
-  });
+    swatchColor,
+  }) : swatchColor = swatchColor ?? kausBlue.withAlpha(240);
 
   @override
   Widget build(BuildContext context) {
@@ -35,55 +39,63 @@ class SizedImageTile extends StatelessWidget {
       width: widthFactor * SizeConfig.blockSizeHorizontal,
       height: heightFactor * SizeConfig.blockSizeVertical,
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(offset: Offset(0, 2), blurRadius: 5)],
-        borderRadius: kaussieRadius,
-      ),
-      child: ClipRRect(
-        borderRadius: kaussieRadius,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            image,
-            SizedTileSwatch(
-              widthFactor: widthFactor,
-              heightFactor: heightFactor,
-              title: title,
-            ),
-            if (detailsScreen != null)
-              Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  splashColor: kausRed.withAlpha(120),
-                  onTap: () => Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => detailsScreen)),
-                ),
+          // boxShadow: [BoxShadow(offset: Offset(0, 2), blurRadius: 5)],
+          //borderRadius: kaussieRadius,
+          ),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          image,
+          SizedTileSwatch(
+            widthFactor: widthFactor,
+            heightFactor: heightFactor,
+            title: title,
+            color: swatchColor,
+          ),
+          if (detailsScreen != null)
+            Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                splashColor: kausRed.withAlpha(120),
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => detailsScreen)),
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }
 }
 
 class SizedTileSwatch extends StatelessWidget {
-  const SizedTileSwatch({
+  SizedTileSwatch({
     Key key,
     @required this.widthFactor,
     @required this.heightFactor,
     @required this.title,
-  }) : super(key: key);
+    this.color,
+  })  : assert(
+          color != null &&
+              widthFactor != null &&
+              heightFactor != null &&
+              title != null,
+          "One of the properties of a swatch were set incorrectly",
+        ),
+        super(key: key);
 
   final int widthFactor;
   final int heightFactor;
   final String title;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
+      bottom: 0,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Container(
-          color: kausBlue.withAlpha(240),
+          color: color,
           width: widthFactor * SizeConfig.blockSizeHorizontal,
           height: heightFactor / 3 * SizeConfig.blockSizeVertical,
           child: Center(

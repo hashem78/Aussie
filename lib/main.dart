@@ -1,12 +1,11 @@
 import 'package:Aussie/screens/landing.dart';
 import 'package:Aussie/screens/main.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  print(await DataConnectionChecker().hasConnection);
+void main() {
+  //WidgetsFlutterBinding.ensureInitialized();
+  //print(await DataConnectionChecker().hasConnection);
 
   runApp(MyApp());
 }

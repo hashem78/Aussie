@@ -68,9 +68,9 @@ class LandingScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         elevation: 2,
                         primary: kausBlue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: kaussieRadius,
-                        ),
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: kaussieRadius,
+                        // ),
                       ),
                       onPressed: () {
                         Navigator.pushNamed(context, "/explore");

@@ -1,11 +1,14 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/screens/details.dart';
-import 'package:Aussie/widgets/rating_tile.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Aussie/screens/details.dart';
+
 class RatingSection extends StatelessWidget {
+  final List<Widget> children;
+  final String title;
   const RatingSection({
     Key key,
+    @required this.children,
+    @required this.title,
   }) : super(key: key);
 
   @override
@@ -13,17 +16,14 @@ class RatingSection extends StatelessWidget {
     return Section(
       children: <Widget>[
         Text(
-          "People who've rated this event...",
-          //textAlign: TextAlign.justify,
+          title,
           style: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic,
           ),
         ),
-        RatingTile(rating: 3, owner: "Jhon Posser", reviewText: klorem),
-        RatingTile(rating: 4, owner: "Jhon Posser", reviewText: klorem),
-        RatingTile(rating: 5, owner: "Jhon Posser", reviewText: klorem),
+        ...children,
       ],
     );
   }

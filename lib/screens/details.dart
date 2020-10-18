@@ -1,12 +1,16 @@
-import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
 import 'package:flutter/material.dart';
+
+import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
 
 import '../constants.dart';
 
 class Section extends StatelessWidget {
   final List<Widget> children;
+  final Color borderColor;
   const Section({
+    Key key,
     @required List<Widget> children,
+    this.borderColor = Colors.grey,
   })  : assert(children != null),
         children = children;
 
@@ -18,8 +22,8 @@ class Section extends StatelessWidget {
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(left: 10, right: 10),
         decoration: BoxDecoration(
-          borderRadius: kaussieRadius,
-          border: Border.all(color: Colors.grey),
+          //borderRadius: kaussieRadius,
+          border: Border.all(color: borderColor),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -35,21 +39,25 @@ class Details extends StatelessWidget {
   final List<Widget> sections;
   final Widget top;
   final Widget bottom;
+  final Color backgroundColor;
 
   Details({
-    @required this.title,
-    @required this.sections,
+    Key key,
     Widget top,
     Widget bottom,
+    @required this.title,
+    @required this.sections,
+    this.backgroundColor = kausBlue,
   })  : top = top ?? Container(),
         bottom = bottom ?? Container();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kausBlue,
+      backgroundColor: backgroundColor,
       body: NestedScrollView(
         headerSliverBuilder: (_, __) => [
           AussieSliverAppBar(
+            backgroundColor: backgroundColor,
             title: title,
             showHero: true,
             automaticallyImplyLeading: true,

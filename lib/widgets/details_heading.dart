@@ -1,11 +1,15 @@
-import 'package:Aussie/size_config.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Aussie/size_config.dart';
+
 class DetailsHeading extends StatelessWidget {
-  const DetailsHeading({
+  final Color color;
+  DetailsHeading({
     Key key,
+    color,
     @required this.title,
-  }) : super(key: key);
+  })  : color = color ?? Colors.green.shade300,
+        super(key: key);
 
   final String title;
 
@@ -19,7 +23,7 @@ class DetailsHeading extends StatelessWidget {
         textAlign: TextAlign.center,
         textScaleFactor: SizeConfig.blockSizeVertical,
         style: TextStyle(
-          color: Colors.green.shade300,
+          color: color,
           fontWeight: FontWeight.w900,
         ),
       ),

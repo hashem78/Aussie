@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:Aussie/screens/details.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import 'package:Aussie/screens/details.dart';
 import 'package:Aussie/widgets/sized_tile.dart';
 
 class AnimatedSizedImageTile extends StatefulWidget {
@@ -13,18 +13,22 @@ class AnimatedSizedImageTile extends StatefulWidget {
   final SizedImageTile sizeTile;
   final Details detailsScreen;
   final CachedNetworkImage image;
+  final Color swatchColor;
 
   AnimatedSizedImageTile({
+    Key key,
     @required this.title,
-    @required this.image,
     this.widthFactor,
     this.heightFactor,
+    @required this.image,
+    this.swatchColor,
   })  : detailsScreen = null,
         sizeTile = SizedImageTile(
           title: title,
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
+          swatchColor: swatchColor,
         );
   AnimatedSizedImageTile.withDetails({
     @required this.title,
@@ -32,12 +36,14 @@ class AnimatedSizedImageTile extends StatefulWidget {
     this.widthFactor,
     this.heightFactor,
     @required this.detailsScreen,
+    this.swatchColor,
   }) : sizeTile = SizedImageTile.withDetails(
           title: title,
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
           detailsScreen: detailsScreen,
+          swatchColor: swatchColor,
         );
   @override
   _AnimatedSizedTileState createState() => _AnimatedSizedTileState();

@@ -1,33 +1,36 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
+import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 
 class RatingTile extends StatelessWidget {
   final String owner;
   final String reviewText;
   final double rating;
-  const RatingTile({
-    Key key,
-    this.owner,
-    this.reviewText,
-    this.rating,
-  }) : super(key: key);
+  final bool isReadOnly;
+  final Color color;
+  RatingTile({
+    @required this.owner,
+    @required this.reviewText,
+    @required this.rating,
+    this.isReadOnly = false,
+    color,
+  })  : assert(isReadOnly != null),
+        color = color ?? Colors.red.shade600;
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(5),
       decoration: BoxDecoration(
-          borderRadius: kaussieRadius,
-          color: Colors.red.shade600,
-          boxShadow: [
-            BoxShadow(blurRadius: 10),
-          ]),
+        //borderRadius: kaussieRadius,
+        color: color,
+        //boxShadow: [BoxShadow(blurRadius: 10)],
+      ),
       child: ListTile(
         title: AnimatedExpandingTextTile(
           title: owner,
           text: reviewText,
-          expandedTextColor: Colors.grey,
+          expandedTextColor: Colors.grey.shade800,
           color: Colors.transparent,
           titleStyle: TextStyle(fontSize: 30),
           maxLines: 3,
@@ -41,7 +44,7 @@ class RatingTile extends StatelessWidget {
             Text("Rating: "),
             SmoothStarRating(
               rating: rating,
-              isReadOnly: false,
+              isReadOnly: isReadOnly,
               size: 25,
               filledIconData: Icons.star,
               halfFilledIconData: Icons.star_half,

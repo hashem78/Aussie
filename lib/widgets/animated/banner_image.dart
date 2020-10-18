@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
 import '../../size_config.dart';
 
 class AnimatedBannerImage extends StatefulWidget {
   final Widget image;
+  final double heightFactor;
   const AnimatedBannerImage({
     Key key,
     this.image,
+    this.heightFactor = 1 / 3,
   }) : super(key: key);
   @override
   _AnimatedBannerImageState createState() => _AnimatedBannerImageState();
@@ -29,6 +30,12 @@ class _AnimatedBannerImageState extends State<AnimatedBannerImage>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     SizeConfig().init(context);
@@ -36,17 +43,12 @@ class _AnimatedBannerImageState extends State<AnimatedBannerImage>
       sizeFactor: animation,
       child: Container(
         margin: EdgeInsets.all(10),
-        height: SizeConfig.screenHeight / 3,
+        height: SizeConfig.blockSizeVertical * widget.heightFactor,
         decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(blurRadius: 5),
-          ],
-          borderRadius: kaussieRadius,
-        ),
-        child: ClipRRect(
-          borderRadius: kaussieRadius,
-          child: widget.image,
-        ),
+            //boxShadow: [BoxShadow(blurRadius: 5)],
+            //borderRadius: kaussieRadius,
+            ),
+        child: widget.image,
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
@@ -7,9 +6,11 @@ class AussieSliverAppBar extends StatelessWidget {
   final String title;
   final bool showHero;
   final bool automaticallyImplyLeading;
+  final Color backgroundColor;
   const AussieSliverAppBar({
     @required this.title,
     @required this.showHero,
+    this.backgroundColor = kausBlue,
     this.automaticallyImplyLeading = false,
   }) : assert(showHero != null && title != null);
 
@@ -19,23 +20,17 @@ class AussieSliverAppBar extends StatelessWidget {
       expandedHeight: 70,
       pinned: true,
       automaticallyImplyLeading: automaticallyImplyLeading,
-      backgroundColor: kausBlue,
+      backgroundColor: backgroundColor,
       flexibleSpace: FlexibleSpaceBar(
-        title: AutoSizeText(
-          title,
-          style: TextStyle(
-            fontSize: 20,
-          ),
-        ),
+        title: Text(title),
         centerTitle: true,
       ),
-      centerTitle: true,
       actions: [
-        if (showHero)
-          Hero(
-            tag: "auFlag",
-            child: Image.asset('assests/images/au.png'),
-          ),
+        if (showHero) Container()
+        // Hero(
+        //   tag: "auFlag",
+        //   child: Image.asset('assests/images/au.png'),
+        // ),
       ],
     );
   }

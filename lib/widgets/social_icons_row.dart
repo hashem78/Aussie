@@ -1,5 +1,5 @@
+import 'package:Aussie/brand_icons_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:Aussie/util/pair.dart';
 import 'package:Aussie/util/social_media_platform.dart';
@@ -10,18 +10,19 @@ class SocialsIconRow extends StatelessWidget {
   /// The tuples represent the desired social media icon and the link to the profile of it's owner
   final List<Pair<SocialMediaPlatform, String>> icons;
   static final Map<SocialMediaPlatform, Pair<IconData, Color>> _internalMap = {
-    SocialMediaPlatform.facebook: Pair(FontAwesomeIcons.facebook, Colors.white),
-    SocialMediaPlatform.twitter: Pair(FontAwesomeIcons.twitter, Colors.blue),
-    SocialMediaPlatform.twitch: Pair(FontAwesomeIcons.twitch, Colors.blue),
-    SocialMediaPlatform.instagram:
-        Pair(FontAwesomeIcons.instagram, Colors.amber),
-    SocialMediaPlatform.snapchat:
-        Pair(FontAwesomeIcons.snapchat, Colors.yellow),
-    SocialMediaPlatform.youtube: Pair(FontAwesomeIcons.youtube, Colors.red),
-    SocialMediaPlatform.tiktok: Pair(FontAwesomeIcons.tiktok, Colors.black),
-    SocialMediaPlatform.googleMaps:
-        Pair(FontAwesomeIcons.mapMarked, Colors.amber),
-    SocialMediaPlatform.pintrest: Pair(FontAwesomeIcons.pinterest, Colors.green)
+    SocialMediaPlatform.facebook: Pair(BrandIcons.facebook, Colors.white),
+    SocialMediaPlatform.twitter: Pair(BrandIcons.twitter, Colors.blue),
+    SocialMediaPlatform.twitch: Pair(BrandIcons.twitch, Colors.blue),
+    SocialMediaPlatform.instagram: Pair(BrandIcons.instagram, Colors.amber),
+    SocialMediaPlatform.snapchat: Pair(BrandIcons.snapchat, Colors.yellow),
+    SocialMediaPlatform.youtube: Pair(BrandIcons.youtube, Colors.red),
+    SocialMediaPlatform.tiktok: Pair(BrandIcons.tiktok, Colors.black),
+    SocialMediaPlatform.googleMaps: Pair(BrandIcons.googlemaps, Colors.amber),
+    SocialMediaPlatform.pintrest: Pair(BrandIcons.pinterest, Colors.green),
+    SocialMediaPlatform.primeVideo: Pair(BrandIcons.prime, Colors.blue),
+    SocialMediaPlatform.netflix: Pair(BrandIcons.netflix, Colors.red),
+    SocialMediaPlatform.hulu: Pair(BrandIcons.hulu, Colors.green),
+    SocialMediaPlatform.youtubeTV: Pair(BrandIcons.youtubetv, Colors.red)
   };
   SocialsIconRow(this.icons);
   @override

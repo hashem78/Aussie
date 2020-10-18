@@ -8,6 +8,10 @@ enum SocialMediaPlatform {
   tiktok,
   googleMaps,
   pintrest,
+  primeVideo,
+  netflix,
+  hulu,
+  youtubeTV,
 }
 
 extension sm2e on String {
