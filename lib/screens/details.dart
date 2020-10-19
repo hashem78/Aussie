@@ -22,7 +22,6 @@ class Section extends StatelessWidget {
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(left: 10, right: 10),
         decoration: BoxDecoration(
-          //borderRadius: kaussieRadius,
           border: Border.all(color: borderColor),
         ),
         child: Column(
@@ -59,14 +58,13 @@ class Details extends StatelessWidget {
           AussieSliverAppBar(
             backgroundColor: backgroundColor,
             title: title,
-            showHero: true,
+            showHero: false,
             automaticallyImplyLeading: true,
           )
         ],
         body: ListView(
           addAutomaticKeepAlives: true,
           physics: BouncingScrollPhysics(),
-          shrinkWrap: true,
           children: [
             top,
             ...sections,

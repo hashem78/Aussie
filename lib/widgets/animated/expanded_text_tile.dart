@@ -58,13 +58,7 @@ class _AnimatedExpandingTextTileState extends State<AnimatedExpandingTextTile>
       position: _animation,
       child: Container(
         margin: EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          //borderRadius: kaussieRadius,
-          // boxShadow: widget.showShadow
-          //     ? [BoxShadow(blurRadius: 5, color: Colors.black)]
-          //     : null,
-          color: widget.color,
-        ),
+        color: widget.color,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

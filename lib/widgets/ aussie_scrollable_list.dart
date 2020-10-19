@@ -31,6 +31,7 @@ class AussieScrollableList extends StatelessWidget {
         ),
         Container(
           height: heightFactor * SizeConfig.blockSizeVertical,
+          width: double.infinity,
           padding: EdgeInsets.only(top: 8),
           child: ListView(
             addAutomaticKeepAlives: true,
