@@ -2,57 +2,30 @@ import 'package:flutter/material.dart';
 
 import '../../size_config.dart';
 
-class AnimatedBannerImage extends StatefulWidget {
+class AnimatedBannerImage extends StatelessWidget {
   final Widget image;
   final double heightFactor;
+  final String heroTag;
   const AnimatedBannerImage({
     Key key,
-    this.image,
+    @required this.image,
     this.heightFactor = 1 / 3,
-  }) : super(key: key);
-  @override
-  _AnimatedBannerImageState createState() => _AnimatedBannerImageState();
-}
-
-class _AnimatedBannerImageState extends State<AnimatedBannerImage>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  AnimationController controller;
-  Animation<double> animation;
-  @override
-  void initState() {
-    super.initState();
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300))
-          ..forward();
-    animation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(curve: Curves.easeIn, parent: controller),
-    );
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+    @required this.heroTag,
+  }) : assert(
+          heightFactor != null && image != null,
+          "An animated banner Image has either it's image, heightFactor or heroTag properties set to null",
+        );
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     SizeConfig().init(context);
-    return SizeTransition(
-      sizeFactor: animation,
-      child: Container(
-        margin: EdgeInsets.all(10),
-        height: SizeConfig.blockSizeVertical * widget.heightFactor,
-        decoration: BoxDecoration(
-            //boxShadow: [BoxShadow(blurRadius: 5)],
-            //borderRadius: kaussieRadius,
-            ),
-        child: widget.image,
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: SizeConfig.blockSizeVertical * heightFactor,
+      child: Hero(
+        tag: heroTag,
+        child: image,
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

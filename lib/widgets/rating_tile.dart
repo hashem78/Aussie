@@ -30,7 +30,7 @@ class RatingTile extends StatelessWidget {
         title: AnimatedExpandingTextTile(
           title: owner,
           text: reviewText,
-          expandedTextColor: Colors.grey.shade800,
+          expandedTextColor: Colors.grey.shade300,
           color: Colors.transparent,
           titleStyle: TextStyle(fontSize: 30),
           maxLines: 3,

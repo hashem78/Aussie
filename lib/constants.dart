@@ -7,7 +7,7 @@ const kausBlue = Color(0xFF0052B4);
 const kausRed = Color(0xFFD80027);
 const kaussieRadius = const BorderRadius.all(Radius.circular(20));
 String kurl =
-    'https://via.placeholder.com/200/${getRandomColor().toString().substring(10, 16)}/FFFFFF';
+    'https://via.placeholder.com/500/${getRandomColor().toString().substring(10, 16)}/FFFFFF';
 const String klorem =
     '''Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas velit vitae enim maximus, vitae pulvinar ligula interdum. Quisque vitae neque efficitur sem condimentum viverra at sed justo. Etiam auctor mattis odio in porta. Quisque eget risus ut felis imperdiet vulputate. Sed cursus ut dui viverra auctor. Nunc venenatis vel neque ut cursus. Aenean ornare eu quam at aliquam.
 

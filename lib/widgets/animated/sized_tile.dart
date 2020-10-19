@@ -3,53 +3,56 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/screens/details.dart';
 import 'package:Aussie/widgets/sized_tile.dart';
 
-class AnimatedSizedImageTile extends StatefulWidget {
+class AnimatedSizedTile extends StatefulWidget {
   final String title;
   final int widthFactor;
   final int heightFactor;
   final SizedTile sizeTile;
-  final Details detailsScreen;
-  final CachedNetworkImage image;
+  final Widget child;
+  final Widget image;
   final Color swatchColor;
-
-  AnimatedSizedImageTile({
+  final int swatchMaxLines;
+  AnimatedSizedTile({
     Key key,
     @required this.title,
     this.widthFactor,
     this.heightFactor,
     @required this.image,
     this.swatchColor,
-  })  : detailsScreen = null,
+    this.swatchMaxLines,
+  })  : child = null,
         sizeTile = SizedTile(
           title: title,
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
           swatchColor: swatchColor,
+          swatchMaxLines: swatchMaxLines,
         );
-  AnimatedSizedImageTile.withDetails({
+  AnimatedSizedTile.withDetails({
     @required this.title,
     @required this.image,
     this.widthFactor,
     this.heightFactor,
-    @required this.detailsScreen,
+    @required this.child,
     this.swatchColor,
+    this.swatchMaxLines,
   }) : sizeTile = SizedTile.withDetails(
           title: title,
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
-          child: detailsScreen,
+          child: child,
           swatchColor: swatchColor,
+          swatchMaxLines: swatchMaxLines,
         );
   @override
   _AnimatedSizedTileState createState() => _AnimatedSizedTileState();
 }
 
-class _AnimatedSizedTileState extends State<AnimatedSizedImageTile>
+class _AnimatedSizedTileState extends State<AnimatedSizedTile>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Animation<Offset> animation;
   AnimationController animationController;

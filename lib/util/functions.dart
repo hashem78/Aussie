@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Aussie/util/pair.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,10 @@ Color getRandomColor() {
   return _col.shade700;
 }
 
-Widget buildImage(imageUrl) => CachedNetworkImage(
+Pair<Widget, String> buildImage(imageUrl) {
+  var _heroTag = UniqueKey().toString();
+  return Pair(
+    CachedNetworkImage(
       imageUrl: imageUrl,
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
@@ -27,4 +31,7 @@ Widget buildImage(imageUrl) => CachedNetworkImage(
         ),
       ),
       errorWidget: (context, url, error) => Icon(Icons.error),
-    );
+    ),
+    _heroTag,
+  );
+}

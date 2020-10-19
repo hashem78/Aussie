@@ -2,6 +2,7 @@ import 'package:Aussie/constants.dart';
 import 'package:Aussie/screens/landing.dart';
 import 'package:Aussie/screens/main.dart';
 import 'package:Aussie/util/functions.dart';
+import 'package:Aussie/widgets/animated/sized_tile.dart';
 import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
 import 'package:Aussie/widgets/sized_tile.dart';
 import 'package:flutter/material.dart';
@@ -43,25 +44,24 @@ class MainScreen extends StatelessWidget {
         ],
         body: ListView(
           physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.all(5),
           children: [
-            SizedTile.withDetails(
+            AnimatedSizedTile.withDetails(
               title: "About famous celebs, the food and what keeps em ticking.",
               swatchMaxLines: 3,
               widthFactor: 100,
               swatchColor: Colors.red,
-              heightFactor: 30,
-              image: buildImage(kurl),
+              heightFactor: 40,
+              image: buildImage(kurl).first,
               child: EFEScreen(),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 1),
             SizedTile(
               title: "About famous celebs, the food and what keeps em ticking.",
               swatchMaxLines: 3,
               widthFactor: 100,
               swatchColor: Colors.red,
-              heightFactor: 30,
-              image: buildImage(kurl),
+              heightFactor: 40,
+              image: buildImage(kurl).first,
             ),
           ],
         ),

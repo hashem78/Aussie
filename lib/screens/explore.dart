@@ -38,7 +38,7 @@ class ExploreScreen extends StatelessWidget {
           children: [
             AussieScrollableList(
               heightFactor: 32,
-              childPadding: EdgeInsets.all(5),
+              childPadding: EdgeInsets.all(1),
               title: "People",
               scrollDirection: Axis.horizontal,
               children: [
@@ -50,17 +50,17 @@ class ExploreScreen extends StatelessWidget {
             AussieScrollableList(
               title: "Events",
               heightFactor: 40,
-              childPadding: EdgeInsets.all(5),
+              childPadding: EdgeInsets.only(right: 1),
               scrollDirection: Axis.horizontal,
               children: [
-                ebuildSizedImageTile(97, 20),
-                ebuildSizedImageTile(97, 20),
-                ebuildSizedImageTile(97, 20),
+                ebuildSizedImageTile(90, 20),
+                ebuildSizedImageTile(90, 20),
+                ebuildSizedImageTile(90, 20),
               ],
             ),
             AussieScrollableList(
               heightFactor: 32,
-              childPadding: EdgeInsets.all(5),
+              childPadding: EdgeInsets.all(1),
               title: "Places",
               scrollDirection: Axis.horizontal,
               children: [
@@ -77,16 +77,20 @@ class ExploreScreen extends StatelessWidget {
 
   Widget ebuildSizedImageTile(int widthFactor, int heighFactor) {
     var image = buildImage(kurl);
-    return AnimatedSizedImageTile.withDetails(
+    return AnimatedSizedTile.withDetails(
       swatchColor: getRandomColor(),
       widthFactor: widthFactor,
       heightFactor: heighFactor,
       title: "Sydeny Fest",
-      image: image,
-      detailsScreen: Details(
+      image: Hero(
+        tag: image.second,
+        child: image.first,
+      ),
+      child: Details(
         title: "Sydney Fest",
         top: AnimatedBannerImage(
-          image: image,
+          heroTag: image.second,
+          image: image.first,
           heightFactor: 30,
         ),
         bottom: AussieScrollableList(
@@ -95,14 +99,14 @@ class ExploreScreen extends StatelessWidget {
           heightFactor: 36,
           childPadding: EdgeInsets.all(5),
           children: [
-            AnimatedSizedImageTile(
-              image: image,
+            AnimatedSizedTile(
+              image: image.first,
               title: "Placeholder",
               widthFactor: 97,
               heightFactor: 26,
             ),
-            AnimatedSizedImageTile(
-              image: image,
+            AnimatedSizedTile(
+              image: image.first,
               title: "Placeholder",
               widthFactor: 97,
               heightFactor: 26,
@@ -142,16 +146,20 @@ class ExploreScreen extends StatelessWidget {
 
 Widget buildSizedImageTile(int widthFactor, int heighFactor) {
   var image = buildImage(kurl);
-  return AnimatedSizedImageTile.withDetails(
+  return AnimatedSizedTile.withDetails(
     swatchColor: getRandomColor(),
     widthFactor: widthFactor,
     heightFactor: heighFactor,
     title: "PewdiePie",
-    image: image,
-    detailsScreen: Details(
+    image: Hero(
+      tag: image.second,
+      child: image.first,
+    ),
+    child: Details(
       title: "pewdiepie",
       top: AnimatedBannerImage(
-        image: image,
+        image: image.first,
+        heroTag: image.second,
         heightFactor: 30,
       ),
       bottom: AussieScrollableList(
@@ -160,14 +168,14 @@ Widget buildSizedImageTile(int widthFactor, int heighFactor) {
         heightFactor: 36,
         childPadding: EdgeInsets.all(5),
         children: [
-          AnimatedSizedImageTile(
-            image: image,
+          AnimatedSizedTile(
+            image: image.first,
             title: "Placeholder",
             widthFactor: 97,
             heightFactor: 26,
           ),
-          AnimatedSizedImageTile(
-            image: image,
+          AnimatedSizedTile(
+            image: image.first,
             title: "Placeholder",
             widthFactor: 97,
             heightFactor: 26,
@@ -206,16 +214,20 @@ Widget buildSizedImageTile(int widthFactor, int heighFactor) {
 
 Widget pbuildSizedImageTile(int widthFactor, int heighFactor) {
   var image = buildImage(kurl);
-  return AnimatedSizedImageTile.withDetails(
+  return AnimatedSizedTile.withDetails(
     swatchColor: getRandomColor(),
     widthFactor: widthFactor,
     heightFactor: heighFactor,
     title: "Sydeny's big cathedral",
-    image: image,
-    detailsScreen: Details(
+    image: Hero(
+      tag: image.second,
+      child: image.first,
+    ),
+    child: Details(
       title: "Sydney Fest",
       top: AnimatedBannerImage(
-        image: image,
+        heroTag: image.second,
+        image: image.first,
         heightFactor: 30,
       ),
       bottom: AussieScrollableList(
@@ -224,14 +236,14 @@ Widget pbuildSizedImageTile(int widthFactor, int heighFactor) {
         heightFactor: 36,
         childPadding: EdgeInsets.all(5),
         children: [
-          AnimatedSizedImageTile(
-            image: image,
+          AnimatedSizedTile(
+            image: image.first,
             title: "Placeholder",
             widthFactor: 97,
             heightFactor: 26,
           ),
-          AnimatedSizedImageTile(
-            image: image,
+          AnimatedSizedTile(
+            image: image.first,
             title: "Placeholder",
             widthFactor: 97,
             heightFactor: 26,

@@ -42,9 +42,9 @@ class SizedTile extends StatelessWidget {
       width: widthFactor * SizeConfig.blockSizeHorizontal,
       height: heightFactor * SizeConfig.blockSizeVertical,
       decoration: BoxDecoration(
-          // boxShadow: [BoxShadow(offset: Offset(0, 2), blurRadius: 5)],
-          //borderRadius: kaussieRadius,
-          ),
+        boxShadow: [BoxShadow(offset: Offset(0, 2), blurRadius: 5)],
+        borderRadius: kaussieRadius,
+      ),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -96,24 +96,17 @@ class SizedTileSwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          color: color,
-          width: widthFactor * SizeConfig.blockSizeHorizontal,
-          height: heightFactor / 4 * SizeConfig.blockSizeVertical,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Center(
-              child: AutoSizeText(
-                title,
-                maxLines: maxLines,
-                minFontSize: 15,
-//              style: TextStyle(fontSize: 30),
-              ),
-            ),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        color: color,
+        width: widthFactor * SizeConfig.blockSizeHorizontal,
+        height: heightFactor / 4 * SizeConfig.blockSizeVertical,
+        child: Center(
+          child: AutoSizeText(
+            title,
+            maxLines: maxLines,
+            minFontSize: 15,
           ),
         ),
       ),

@@ -38,7 +38,7 @@ class Entertainment extends StatelessWidget {
           children: [
             AussieScrollableList(
               heightFactor: 55,
-              childPadding: EdgeInsets.all(5),
+              childPadding: EdgeInsets.only(right: 1),
               title: "Movies",
               scrollDirection: Axis.horizontal,
               children: [
@@ -58,7 +58,7 @@ class Entertainment extends StatelessWidget {
             ),
             AussieScrollableList(
               heightFactor: 50,
-              childPadding: EdgeInsets.all(5),
+              childPadding: EdgeInsets.only(right: 1),
               title: "TV Shows",
               scrollDirection: Axis.horizontal,
               children: [
@@ -91,17 +91,21 @@ class Entertainment extends StatelessWidget {
   Widget buildSizedImageTile(int widthFactor, int heighFactor,
       {String url = "https://tinyurl.com/y5923jao", String title}) {
     var image = buildImage(url);
-    return AnimatedSizedImageTile.withDetails(
+    return AnimatedSizedTile.withDetails(
       swatchColor: Colors.blue,
       widthFactor: widthFactor,
       heightFactor: heighFactor,
       title: title,
-      image: image,
-      detailsScreen: Details(
+      image: Hero(
+        tag: image.second,
+        child: image.first,
+      ),
+      child: Details(
         backgroundColor: _col,
         title: title,
         top: AnimatedBannerImage(
-          image: image,
+          heroTag: image.second,
+          image: image.first,
           heightFactor: 70,
         ),
         bottom: AussieScrollableList(
@@ -110,15 +114,15 @@ class Entertainment extends StatelessWidget {
           heightFactor: 50,
           childPadding: EdgeInsets.all(5),
           children: [
-            AnimatedSizedImageTile(
-              image: image,
+            AnimatedSizedTile(
+              image: image.first,
               title: "Placeholder",
               widthFactor: 60,
               heightFactor: 20,
               swatchColor: Colors.red,
             ),
-            AnimatedSizedImageTile(
-              image: image,
+            AnimatedSizedTile(
+              image: image.first,
               title: "Placeholder",
               widthFactor: 60,
               heightFactor: 20,
