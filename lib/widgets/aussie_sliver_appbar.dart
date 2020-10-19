@@ -11,7 +11,7 @@ class AussieSliverAppBar extends StatelessWidget {
     @required this.title,
     @required this.showHero,
     this.backgroundColor = kausBlue,
-    this.automaticallyImplyLeading = false,
+    this.automaticallyImplyLeading = true,
   }) : assert(showHero != null && title != null);
 
   @override
@@ -26,11 +26,11 @@ class AussieSliverAppBar extends StatelessWidget {
         centerTitle: true,
       ),
       actions: [
-        if (showHero) Container()
-        // Hero(
-        //   tag: "auFlag",
-        //   child: Image.asset('assests/images/au.png'),
-        // ),
+        if (showHero)
+          Hero(
+            tag: "auFlag",
+            child: Image.asset('assests/images/au.png'),
+          ),
       ],
     );
   }

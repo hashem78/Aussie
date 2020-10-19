@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../size_config.dart';
 
-class MainScreen extends StatefulWidget {
+class EFEScreen extends StatefulWidget {
   static final title = "Explore";
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  _EFEScreenState createState() => _EFEScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _EFEScreenState extends State<EFEScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
   var tabs = [ExploreScreen(), Cuisine(), Entertainment()];

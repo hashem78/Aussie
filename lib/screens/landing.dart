@@ -11,8 +11,7 @@ class LandingScreen extends StatelessWidget {
         tag: "auFlag",
         child: Image.asset(
           'assests/images/au.png',
-          height: 50 * SizeConfig.blockSizeVertical,
-          width: 50 * SizeConfig.blockSizeHorizontal,
+          width: 60 * SizeConfig.blockSizeHorizontal,
           fit: BoxFit.scaleDown,
         ),
       ),
@@ -21,14 +20,14 @@ class LandingScreen extends StatelessWidget {
       child: Image.asset(
         'assests/images/auOutLine.png',
         height: 50 * SizeConfig.blockSizeVertical,
-        width: 80 * SizeConfig.blockSizeHorizontal,
+        width: 100 * SizeConfig.blockSizeHorizontal,
         fit: BoxFit.scaleDown,
       ),
     );
 
     return Scaffold(
       body: CustomPaint(
-        painter: MainScreenPainter(),
+        painter: LandingPainter(),
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
@@ -73,7 +72,7 @@ class LandingScreen extends StatelessWidget {
                         // ),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, "/explore");
+                        Navigator.pushNamed(context, "/main");
                       },
                       child: Text(
                         "Meet Austrialia!",
@@ -91,7 +90,7 @@ class LandingScreen extends StatelessWidget {
   }
 }
 
-class MainScreenPainter extends CustomPainter {
+class LandingPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final width = size.width;
@@ -106,8 +105,8 @@ class MainScreenPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(MainScreenPainter oldDelegate) => false;
+  bool shouldRepaint(LandingPainter oldDelegate) => false;
 
   @override
-  bool shouldRebuildSemantics(MainScreenPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(LandingPainter oldDelegate) => false;
 }

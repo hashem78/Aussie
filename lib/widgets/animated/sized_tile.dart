@@ -10,7 +10,7 @@ class AnimatedSizedImageTile extends StatefulWidget {
   final String title;
   final int widthFactor;
   final int heightFactor;
-  final SizedImageTile sizeTile;
+  final SizedTile sizeTile;
   final Details detailsScreen;
   final CachedNetworkImage image;
   final Color swatchColor;
@@ -23,7 +23,7 @@ class AnimatedSizedImageTile extends StatefulWidget {
     @required this.image,
     this.swatchColor,
   })  : detailsScreen = null,
-        sizeTile = SizedImageTile(
+        sizeTile = SizedTile(
           title: title,
           image: image,
           widthFactor: widthFactor,
@@ -37,12 +37,12 @@ class AnimatedSizedImageTile extends StatefulWidget {
     this.heightFactor,
     @required this.detailsScreen,
     this.swatchColor,
-  }) : sizeTile = SizedImageTile.withDetails(
+  }) : sizeTile = SizedTile.withDetails(
           title: title,
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
-          detailsScreen: detailsScreen,
+          child: detailsScreen,
           swatchColor: swatchColor,
         );
   @override
