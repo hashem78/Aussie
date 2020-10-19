@@ -107,6 +107,7 @@ class SizedTileSwatch extends StatelessWidget {
             title,
             maxLines: maxLines,
             minFontSize: 15,
+            textScaleFactor: 1.2,
           ),
         ),
       ),
