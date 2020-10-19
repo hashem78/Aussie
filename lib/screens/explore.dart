@@ -30,7 +30,7 @@ class ExploreScreen extends StatelessWidget {
           AussieSliverAppBar(
             backgroundColor: _col,
             title: EFEScreen.title,
-            showHero: true,
+            showHero: false,
           )
         ],
         body: ListView(
