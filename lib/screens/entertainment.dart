@@ -22,9 +22,9 @@ var _col = getRandomColor();
 class Entertainment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: _col,
-      child: NestedScrollView(
+    return Scaffold(
+      backgroundColor: _col,
+      body: NestedScrollView(
         physics: ClampingScrollPhysics(),
         headerSliverBuilder: (context, __) => [
           AussieSliverAppBar(

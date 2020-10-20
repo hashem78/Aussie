@@ -1,4 +1,4 @@
-import 'package:Aussie/screens/main.dart';
+import 'package:Aussie/screens/efe.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/%20aussie_scrollable_list.dart';
 import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
@@ -22,9 +22,10 @@ class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _col = getRandomColor();
-    return Container(
-      color: _col,
-      child: NestedScrollView(
+    return Scaffold(
+      backgroundColor: _col,
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
         physics: ClampingScrollPhysics(),
         headerSliverBuilder: (context, __) => [
           AussieSliverAppBar(

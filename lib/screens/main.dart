@@ -1,80 +1,45 @@
-import 'package:Aussie/screens/entertainment.dart';
-import 'package:Aussie/screens/explore.dart';
-import 'package:Aussie/screens/food_drinks.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:Aussie/screens/info/info.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import 'package:Aussie/constants.dart';
+import 'package:Aussie/screens/efe.dart';
+import 'package:Aussie/util/functions.dart';
+import 'package:Aussie/widgets/animated/sized_tile.dart';
+import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
 
-class EFEScreen extends StatefulWidget {
-  static final title = "Explore";
-
-  @override
-  _EFEScreenState createState() => _EFEScreenState();
-}
-
-class _EFEScreenState extends State<EFEScreen> {
-  int currentIndex = 0;
-  PageController _controller = PageController();
-  var tabs = [ExploreScreen(), Cuisine(), Entertainment()];
-  void onPageChanged(int page) {
-    setState(
-      () {
-        this.currentIndex = page;
-        this._controller.jumpToPage(page);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
-      bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Color(0xff141414),
-        selectedIndex: currentIndex,
-        itemCornerRadius: 0,
-        curve: Curves.easeInOut,
-        onItemSelected: onPageChanged,
-        items: [
-          BottomNavyBarItem(
-            icon: Icon(Icons.explore),
-            title: Text('Explore'),
-            activeColor: kausBlue,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.local_pizza),
-            title: Text(
-              'Food|Drinks',
-              maxLines: 2,
-            ),
-            activeColor: Colors.green,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.movie),
-            title: Text(
-              'Entertainment',
-              style: TextStyle(fontSize: 12),
-            ),
-            activeColor: Colors.grey,
-            textAlign: TextAlign.center,
-          ),
+      backgroundColor: kausBlue,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool extened) => [
+          AussieSliverAppBar(title: "Main", showHero: true),
         ],
-      ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _controller,
-        onPageChanged: onPageChanged,
-        children: tabs,
+        body: ListView(
+          physics: BouncingScrollPhysics(),
+          children: [
+            AnimatedSizedTile.withDetails(
+              title: "About famous celebs, the food and what keeps em ticking.",
+              swatchMaxLines: 3,
+              widthFactor: 100,
+              swatchColor: Colors.red,
+              heightFactor: 40,
+              image: buildImage(kurl).first,
+              child: EFEScreen(),
+            ),
+            SizedBox(height: 1),
+            AnimatedSizedTile.withDetails(
+              title: "About famous celebs, the food and what keeps em ticking.",
+              swatchMaxLines: 3,
+              widthFactor: 100,
+              swatchColor: Colors.red,
+              heightFactor: 40,
+              image: buildImage(kurl).first,
+              child: InfoScreen(),
+            ),
+          ],
+        ),
       ),
     );
   }

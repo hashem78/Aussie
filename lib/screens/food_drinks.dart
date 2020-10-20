@@ -14,9 +14,9 @@ import '../constants.dart';
 class Cuisine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
-      child: NestedScrollView(
+    return Scaffold(
+      backgroundColor: Colors.green,
+      body: NestedScrollView(
         physics: ClampingScrollPhysics(),
         headerSliverBuilder: (context, __) => [
           AussieSliverAppBar(

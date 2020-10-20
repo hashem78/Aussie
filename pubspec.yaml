@@ -35,6 +35,9 @@ dependencies:
   smooth_star_rating: ^1.1.1
   bottom_navy_bar: ^5.5.0
   auto_size_text: ^2.1.0
+  fl_chart:
+  flutter_svg: ^0.19.0
+  scrollable_positioned_list: ^0.1.8
 
 
 
