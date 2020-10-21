@@ -1,9 +1,8 @@
-import 'package:Aussie/constants.dart';
 import 'package:Aussie/models/animated_pie_chart.dart';
 import 'package:Aussie/size_config.dart';
 import 'package:Aussie/util/functions.dart';
-import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:Aussie/widgets/animated/pie_chart.dart';
+import 'package:Aussie/widgets/aussie_bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class ReligionScreen extends StatefulWidget {
@@ -13,39 +12,31 @@ class ReligionScreen extends StatefulWidget {
 
 class _ReligionScreenState extends State<ReligionScreen> {
   static PageController _scrollController = PageController();
+  static List<String> _titles = [
+    "Islam",
+    "Hinduism",
+    "Judaism",
+    "Sikhism",
+    "Christian",
+    "Atheist"
+  ];
   List<Widget> _children = [
     _buildReligonPages(),
-    _buildPage("Islam"),
-    _buildPage("Hinduism"),
-    _buildPage("Judaism"),
-    _buildPage("Sikhism"),
-    _buildPage("Christian"),
-    _buildPage("Atheist"),
+    ..._titles.map((e) => _buildPage(e)).toList(),
   ];
 
   static Widget _buildPage(String title) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-          ),
-          AnimatedExpandingTextTile(
-            title: "In Australlia",
-            text: klorem,
-          ),
-          AnimatedExpandingTextTile(
-            title: "In Australlia",
-            text: klorem,
-          ),
-        ],
-      ),
+    return ListView(
+      padding: EdgeInsets.zero,
+      children: [
+        AussieBarChart(),
+        AussieBarChart(),
+      ],
     );
   }
 
   int currentPage = 0;
+  String currentAppBarTitle;
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -67,11 +58,13 @@ class _ReligionScreenState extends State<ReligionScreen> {
                 },
               )
             : null,
+        title: currentPage != 0 ? Text(currentAppBarTitle) : null,
       ),
       body: PageView.builder(
         onPageChanged: (int page) {
           setState(() {
             currentPage = page;
+            if (currentPage != 0) currentAppBarTitle = _titles[currentPage - 1];
           });
         },
         physics: NeverScrollableScrollPhysics(),
