@@ -7,10 +7,10 @@ class AnimatedPieChartModel {
   final bool animated;
   final bool hasBadge;
   const AnimatedPieChartModel({
-    this.name,
     this.color = Colors.black,
-    this.value,
     this.animated = false,
     this.hasBadge = false,
-  });
+    @required this.name,
+    @required this.value,
+  }) : assert(name != null && value != null);
 }

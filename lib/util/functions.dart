@@ -11,7 +11,7 @@ Color getRandomColor() {
   return _col.shade700;
 }
 
-Pair<Widget, String> buildImage(imageUrl) {
+Pair<Widget, String> buildImage(String imageUrl, {BoxFit fit = BoxFit.fill}) {
   var _heroTag = UniqueKey().toString();
   return Pair(
     CachedNetworkImage(
@@ -20,7 +20,7 @@ Pair<Widget, String> buildImage(imageUrl) {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.fill,
+            fit: fit,
           ),
         ),
       ),

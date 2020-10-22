@@ -20,16 +20,50 @@ class InfoScreen extends StatelessWidget {
             //AussieBarChart(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-              child: ListTile(
-                tileColor: Colors.deepPurple,
-                leading: SizedBox.fromSize(
-                  size: Size(30, 30),
-                  child: SvgPicture.asset(
-                    'assests/images/pray.svg',
+              child: Ink(
+                color: Colors.deepPurple,
+                child: ListTile(
+                  leading: SizedBox.fromSize(
+                    size: Size(30, 30),
+                    child: SvgPicture.asset(
+                      'assests/images/pray.svg',
+                    ),
                   ),
+                  title: Text("Religon in australia"),
+                  onTap: () => Navigator.pushNamed(context, "/info/religon"),
                 ),
-                title: Text("Religon in australia"),
-                onTap: () => Navigator.pushNamed(context, "/info/religon"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+              child: Ink(
+                color: Colors.deepPurple,
+                child: ListTile(
+                  leading: SizedBox.fromSize(
+                    size: Size(30, 30),
+                    child: SvgPicture.asset(
+                      'assests/images/fauna.svg',
+                    ),
+                  ),
+                  title: Text("Australlian fauna"),
+                  onTap: () => Navigator.pushNamed(context, "/info/fauna"),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+              child: Ink(
+                color: Colors.deepPurple,
+                child: ListTile(
+                  leading: SizedBox.fromSize(
+                    size: Size(30, 30),
+                    child: SvgPicture.asset(
+                      'assests/images/flora.svg',
+                    ),
+                  ),
+                  title: Text("Australlian flora"),
+                  onTap: () => Navigator.pushNamed(context, "/info/flora"),
+                ),
               ),
             ),
           ],

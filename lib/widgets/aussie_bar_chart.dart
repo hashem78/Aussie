@@ -1,139 +1,89 @@
-import 'dart:math';
-
-import 'package:Aussie/constants.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import 'animated/expanded_text_tile.dart';
-
-class AussieBarChart extends StatelessWidget {
-  //final Color color = const Color(0xff81e5cd);
-  final Color color;
-  final Color rodBackgroundColor;
-  final List<Widget> infoWidgets;
+class _ActualAnimatedChart extends StatefulWidget {
   final List<AussieBarChartModel> chartData;
   final double barChartRodWidth;
-  AussieBarChart({
-    this.barChartRodWidth = 22,
-    this.color = Colors.amber,
-    rodBackgroundColor,
-    infoWidgets,
-    chartData,
-  })  : assert(barChartRodWidth != null),
-        rodBackgroundColor = rodBackgroundColor ?? Colors.grey.shade300,
-        chartData = chartData ?? [],
-        infoWidgets = infoWidgets ?? [];
+  final Color rodBackgroundColor;
+  const _ActualAnimatedChart({
+    Key key,
+    this.chartData,
+    this.barChartRodWidth,
+    this.rodBackgroundColor,
+  }) : super(key: key);
+  @override
+  __ActualAnimatedChartState createState() => __ActualAnimatedChartState();
+}
+
+class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
+    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  AnimationController animationController;
+  Animation<double> animation;
+  double _mx = 0;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    )..forward();
+    animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: Curves.linear,
+      ),
+    );
+    var chartData = widget.chartData;
+    for (int i = 0; i < chartData.length; ++i)
+      _mx = chartData[i].y > _mx ? chartData[i].y : _mx;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var infoWidgets = [
-      AnimatedExpandingTextTile(
-        text: klorem,
-        title: "gg",
-        color: Colors.black,
-      )
-    ];
-    var charData = [
-      AussieBarChartModel(76792.0, "1981"),
-      AussieBarChartModel(147487.0, "1991"),
-      AussieBarChartModel(281600.0, "2001"),
-      AussieBarChartModel(476291.0, "2011"),
-      AussieBarChartModel(604200.0, "2016"),
-      AussieBarChartModel(704200.0, "2018"),
-    ];
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: .92,
-            child: Container(
-              padding: EdgeInsets.all(8),
-              color: color,
-              child: Stack(
-                fit: StackFit.expand,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: ListView(
-                      physics: NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        AutoSizeText(
-                          'Muslim population in Australlia',
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          minFontSize: 30,
-                          style: TextStyle(
-                            color: Colors.grey.shade700,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: buildChart(charData),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+    super.build(context);
+    var chartData = widget.chartData;
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget child) {
+        return BarChart(
+          BarChartData(
+            borderData: FlBorderData(show: false),
+            titlesData: FlTitlesData(
+              show: true,
+              leftTitles: SideTitles(showTitles: false),
+              bottomTitles: SideTitles(
+                showTitles: true,
+                getTitles: (double value) => chartData[value.toInt()].title,
+                getTextStyles: (value) => const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
             ),
+            barGroups: buildAussieChartGroupData(animation.value),
           ),
-          ...infoWidgets
-              .map(
-                (e) => Container(
-                  color: color,
-                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-                  child: e,
-                ),
-              )
-              .toList(),
-        ],
-      ),
+          swapAnimationDuration: Duration(milliseconds: 300),
+        );
+      },
     );
   }
 
-  BarChart buildChart(List<AussieBarChartModel> chartData) => BarChart(
-        BarChartData(
-          borderData: FlBorderData(show: false),
-          titlesData: FlTitlesData(
-            show: true,
-            leftTitles: SideTitles(showTitles: false),
-            rightTitles: SideTitles(showTitles: false),
-            topTitles: SideTitles(showTitles: false),
-            bottomTitles: SideTitles(
-              showTitles: true,
-              getTitles: (double value) => chartData[value.toInt()].title,
-              getTextStyles: (value) => const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-          ),
-          barGroups: buildAussieChartGroupData(chartData),
-        ),
-      );
-  List<BarChartGroupData> buildAussieChartGroupData(
-      List<AussieBarChartModel> data) {
-    double mx = 0;
+  List<BarChartGroupData> buildAussieChartGroupData(double factor) {
     List<BarChartGroupData> res = [];
-    for (int i = 0; i < data.length; ++i) mx = data[i].y > mx ? data[i].y : mx;
-    for (int i = 0; i < data.length; ++i) {
+    for (int i = 0; i < widget.chartData.length; ++i) {
       res.add(
         BarChartGroupData(
           x: i,
           barRods: [
             BarChartRodData(
-              width: barChartRodWidth,
-              y: data[i].y,
+              width: widget.barChartRodWidth,
+              y: widget.chartData[i].y * factor,
               borderRadius: BorderRadius.zero,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                y: pow(10, (log(mx) / ln10 + 1).truncateToDouble()),
-                colors: [rodBackgroundColor],
+                y: _mx,
+                colors: [widget.rodBackgroundColor],
               ),
             ),
           ],
@@ -141,6 +91,65 @@ class AussieBarChart extends StatelessWidget {
       );
     }
     return res;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool get wantKeepAlive => false;
+}
+
+class AussieBarChart extends StatelessWidget {
+  //final Color color = const Color(0xff81e5cd);
+  final String title;
+  final Color rodBackgroundColor;
+  final List<AussieBarChartModel> chartData;
+  final double barChartRodWidth;
+  AussieBarChart({
+    Color rodBackgroundColor,
+    @required this.title,
+    @required this.chartData,
+    this.barChartRodWidth = 22,
+  })  : assert(
+          barChartRodWidth != null && chartData != null && title != null,
+          "One or more of a bar chart's members is set to null",
+        ),
+        rodBackgroundColor = rodBackgroundColor ?? Colors.grey.shade300;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AutoSizeText(
+          title,
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          minFontSize: 30,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 3.0 * chartData.length,
+          ),
+          child: _ActualAnimatedChart(
+            chartData: chartData,
+            barChartRodWidth: barChartRodWidth,
+            rodBackgroundColor: rodBackgroundColor,
+          ),
+        ),
+      ],
+    );
   }
 }
 
