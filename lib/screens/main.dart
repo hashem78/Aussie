@@ -1,4 +1,4 @@
-import 'package:Aussie/screens/info/info.dart';
+import 'package:Aussie/screens/statistics/info.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
@@ -36,7 +36,7 @@ class MainScreen extends StatelessWidget {
               swatchColor: Colors.red,
               heightFactor: 40,
               image: buildImage(kurl).first,
-              child: InfoScreen(),
+              child: StatisticsScreen(),
             ),
           ],
         ),

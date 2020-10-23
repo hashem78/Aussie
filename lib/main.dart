@@ -1,8 +1,10 @@
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/screens/info/species.dart';
-import 'package:Aussie/screens/info/religion.dart';
 import 'package:Aussie/screens/landing.dart';
 import 'package:Aussie/screens/main.dart';
+import 'package:Aussie/screens/statistics/energy.dart';
+import 'package:Aussie/screens/statistics/livestock.dart';
+import 'package:Aussie/screens/statistics/religion.dart';
+import 'package:Aussie/screens/statistics/species.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,8 +29,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (BuildContext context) => LandingScreen(),
         "/main": (BuildContext context) => MainScreen(),
-        "/info/religon": (BuildContext context) => ReligionScreen(),
-        "/info/fauna": (BuildContext context) => SpeciesScreen(
+        ReligionScreen.navPath: (BuildContext context) => ReligionScreen(),
+        "/statistics/fauna": (BuildContext context) => SpeciesScreen(
               title: "Australian Fauna",
               models: [
                 SpeciesDescriptionModel(
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
                 )
               ],
             ),
-        "/info/flora": (BuildContext context) => SpeciesScreen(
+        "/statistics/flora": (BuildContext context) => SpeciesScreen(
               title: "Australian Flora",
               models: [
                 SpeciesDescriptionModel(
@@ -52,6 +54,8 @@ class MyApp extends StatelessWidget {
                 ),
               ],
             ),
+        EnergyScreen.navPath: (BuildContext context) => EnergyScreen(),
+        LivestockScreen.navPath: (BuildContext context) => LivestockScreen(),
       },
     );
   }

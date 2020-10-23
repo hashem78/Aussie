@@ -10,6 +10,7 @@ import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 class SpeciesScreen extends StatelessWidget {
   final List<SpeciesDescriptionModel> models;
   final String title;
+
   const SpeciesScreen({
     @required this.models,
     @required this.title,

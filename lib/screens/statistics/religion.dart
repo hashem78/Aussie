@@ -10,6 +10,9 @@ import 'package:Aussie/widgets/animated/pie_chart.dart';
 import 'package:Aussie/widgets/aussie_bar_chart.dart';
 
 class ReligionScreen extends StatefulWidget {
+  static final title = "Religon in Australlia";
+  static final navPath = "/statistics/religon";
+  static final svgName = "pray.svg";
   @override
   _ReligionScreenState createState() => _ReligionScreenState();
 }
@@ -91,6 +94,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
           AnimatedPieChart(
+            title: "",
             aspectRatio: 1.1,
             onBarTapped: (int page) => _scrollController.animateToPage(
               page + 1,
@@ -181,8 +185,8 @@ class _ReligionScreenState extends State<ReligionScreen> {
                 AussieBarChartModel(704200.0, "2018"),
               ],
             ),
-            ReligonSectionTitle(title: "By Gender"),
             AnimatedPieChart(
+              title: "By gender",
               aspectRatio: 1.2,
               chartData: [
                 AnimatedPieChartModel(

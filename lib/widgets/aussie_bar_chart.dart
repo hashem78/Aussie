@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
   AnimationController animationController;
   Animation<double> animation;
   double _mx = 0;
+  double _val = 0;
   @override
   void initState() {
     super.initState();
@@ -37,6 +40,8 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
     var chartData = widget.chartData;
     for (int i = 0; i < chartData.length; ++i)
       _mx = chartData[i].y > _mx ? chartData[i].y : _mx;
+    var _numberOfDigits = log(_mx) / ln10 + 1;
+    _val = pow(10, _numberOfDigits - 1);
   }
 
   @override
@@ -82,7 +87,7 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
               borderRadius: BorderRadius.zero,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
-                y: _mx,
+                y: _val,
                 colors: [widget.rodBackgroundColor],
               ),
             ),
@@ -100,7 +105,7 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
   }
 
   @override
-  bool get wantKeepAlive => false;
+  bool get wantKeepAlive => true;
 }
 
 class AussieBarChart extends StatelessWidget {
