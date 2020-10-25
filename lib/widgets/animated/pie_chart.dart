@@ -3,26 +3,82 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:Aussie/models/animated_pie_chart.dart';
+import 'package:Aussie/models/aussie_pie_chart.dart';
 
-class AnimatedPieChart extends StatefulWidget {
-  final List<AnimatedPieChartModel> chartData;
-  //final PageController controller;
+class Indicator extends StatelessWidget {
+  final Color color;
+  final String text;
+
+  final double size;
+  final Color textColor;
+  final EdgeInsets indicatorMargin;
+
+  const Indicator({
+    this.color,
+    this.text,
+    this.size = 16,
+    this.textColor = const Color(0xff505050),
+    indicatorMargin,
+  }) : indicatorMargin = indicatorMargin ?? const EdgeInsets.only(left: 20);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Container(
+          margin: indicatorMargin,
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: color,
+          ),
+        ),
+        const SizedBox(
+          width: 4,
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class AussiePieChart extends StatefulWidget {
+  final List<AussiePieChartModel> chartData;
+
   final Function(int page) onBarTapped;
   final double aspectRatio;
   final String title;
-  const AnimatedPieChart({
+  final double sectionRadius;
+  final double titleOffset;
+  final EdgeInsets indicatorMargin;
+
+  final bool showIndicators;
+  const AussiePieChart({
     @required this.chartData,
     this.onBarTapped,
-    @required this.aspectRatio,
-    @required this.title,
-  }) : assert(chartData != null && aspectRatio != 0 && title != null);
+    this.aspectRatio = 1.05,
+    this.sectionRadius = 180,
+    this.title,
+    this.titleOffset = .6,
+    this.showIndicators = false,
+    this.indicatorMargin = const EdgeInsets.only(left: 20),
+  })  : assert(chartData != null),
+        assert(showIndicators == null || (indicatorMargin != null));
 
   @override
-  _AnimatedPieChartState createState() => _AnimatedPieChartState();
+  _AussiePieChartState createState() => _AussiePieChartState();
 }
 
-class _AnimatedPieChartState extends State<AnimatedPieChart>
+class _AussiePieChartState extends State<AussiePieChart>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController _controller;
   Animation<double> _animation1;
@@ -55,78 +111,105 @@ class _AnimatedPieChartState extends State<AnimatedPieChart>
       builder: (BuildContext context, Widget child) {
         return Column(
           children: [
-            AutoSizeText(
-              widget.title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              minFontSize: 30,
-              style: TextStyle(
-                color: Colors.grey.shade700,
-                fontWeight: FontWeight.bold,
+            if (widget.title != null)
+              AutoSizeText(
+                widget.title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                minFontSize: 30,
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
             AspectRatio(
               aspectRatio: widget.aspectRatio,
-              child: PieChart(
-                PieChartData(
-                  pieTouchData: PieTouchData(
-                    touchCallback: (PieTouchResponse response) {
-                      setState(
-                        () {
-                          if (response.touchInput is FlPanEnd ||
-                              response.touchInput is FlLongPressEnd) {
-                            if (touchedIndex != null &&
-                                widget.onBarTapped != null)
-                              widget.onBarTapped(touchedIndex);
-
-                            touchedIndex = -1;
-                          } else {
-                            touchedIndex = response.touchedSectionIndex;
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  borderData: FlBorderData(show: false),
-                  sectionsSpace: 0,
-                  sections: List<PieChartSectionData>.generate(
-                    widget.chartData.length,
-                    (index) {
-                      double _size = 40;
-                      double _pos = .93;
-                      double _rad = 180;
-                      double _animVal = widget.chartData[index].value;
-                      String _name = widget.chartData[index].name;
-                      bool _badge = widget.chartData[index].hasBadge;
-                      Color _col = widget.chartData[index].color;
-                      if (touchedIndex == index) {
-                        _size += 10;
-                        _rad += 10;
-                      }
-                      return PieChartSectionData(
-                        radius: _rad,
-                        value:
-                            _animVal * (_animVal == mx ? _animation1.value : 1),
-                        title: _name,
-                        color: _col,
-                        titlePositionPercentageOffset: .6,
-                        badgePositionPercentageOffset: _pos,
-                        badgeWidget: _badge
-                            ? BadgeWidget(
-                                size: _size,
-                                assetName: _name,
-                              )
-                            : null,
-                      );
-                    },
-                  ),
-                ),
-                swapAnimationDuration: Duration(milliseconds: 300),
-              ),
+              child: buildPieChart(),
             ),
+            if (widget.showIndicators)
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: widget.chartData.length,
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    var sectionData = widget.chartData[index];
+                    if (sectionData.indicatorText != null) {
+                      return Indicator(
+                        indicatorMargin: widget.indicatorMargin,
+                        text: sectionData.indicatorText,
+                        color: sectionData.color,
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+              ),
           ],
         );
       },
+    );
+  }
+
+  PieChart buildPieChart() {
+    return PieChart(
+      PieChartData(
+        pieTouchData: PieTouchData(
+          touchCallback: (PieTouchResponse response) {
+            setState(
+              () {
+                if (response.touchInput is FlPanEnd ||
+                    response.touchInput is FlLongPressEnd) {
+                  if (touchedIndex != null && widget.onBarTapped != null)
+                    widget.onBarTapped(touchedIndex);
+
+                  touchedIndex = -1;
+                } else {
+                  touchedIndex = response.touchedSectionIndex;
+                }
+              },
+            );
+          },
+        ),
+        borderData: FlBorderData(show: false),
+        sectionsSpace: 0,
+        centerSpaceRadius: 0,
+        sections: List<PieChartSectionData>.generate(
+          widget.chartData.length,
+          (index) {
+            double _size = 40;
+            double _pos = .93;
+            double _rad = widget.sectionRadius;
+            double _titleOffset = widget.titleOffset;
+            AussiePieChartModel model = widget.chartData[index];
+            double _animVal = model.value;
+            String _name = model.sectionTitle ?? model.value.toString();
+            bool _badge = model.hasBadge;
+            Color _col = model.color;
+            if (touchedIndex == index) {
+              _size += 5;
+              _rad += 5;
+            }
+            return PieChartSectionData(
+              radius: _rad,
+              value: _animVal * (_animVal == mx ? _animation1.value : 1),
+              title: _name,
+              color: _col,
+              titlePositionPercentageOffset: _titleOffset,
+              badgePositionPercentageOffset: _pos,
+              badgeWidget: _badge
+                  ? BadgeWidget(
+                      size: _size,
+                      assetName: _name,
+                    )
+                  : null,
+            );
+          },
+        ),
+      ),
+      swapAnimationDuration: Duration(milliseconds: 300),
     );
   }
 

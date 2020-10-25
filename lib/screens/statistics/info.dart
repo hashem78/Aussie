@@ -1,4 +1,6 @@
 import 'package:Aussie/screens/statistics/energy.dart';
+import 'package:Aussie/screens/statistics/gdp.dart';
+import 'package:Aussie/screens/statistics/heducation.dart';
 import 'package:Aussie/screens/statistics/livestock.dart';
 import 'package:Aussie/screens/statistics/religion.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +94,39 @@ class StatisticsScreen extends StatelessWidget {
                 title: Text("Livestock in Australlia"),
                 onTap: () =>
                     Navigator.pushNamed(context, LivestockScreen.navPath),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+            child: Ink(
+              color: Colors.deepPurple,
+              child: ListTile(
+                leading: SizedBox.fromSize(
+                  size: Size(30, 30),
+                  child: SvgPicture.asset(
+                    'assests/images/${GDPScreen.svgName}',
+                  ),
+                ),
+                title: Text("GDP and The Economy"),
+                onTap: () => Navigator.pushNamed(context, GDPScreen.navPath),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+            child: Ink(
+              color: Colors.deepPurple,
+              child: ListTile(
+                leading: SizedBox.fromSize(
+                  size: Size(30, 30),
+                  child: SvgPicture.asset(
+                    'assests/images/${HEducationScreen.svgName}',
+                  ),
+                ),
+                title: Text("Higher Education"),
+                onTap: () =>
+                    Navigator.pushNamed(context, HEducationScreen.navPath),
               ),
             ),
           ),

@@ -51,24 +51,28 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, Widget child) {
-        return BarChart(
-          BarChartData(
-            borderData: FlBorderData(show: false),
-            titlesData: FlTitlesData(
-              show: true,
-              leftTitles: SideTitles(showTitles: false),
-              bottomTitles: SideTitles(
-                showTitles: true,
-                getTitles: (double value) => chartData[value.toInt()].title,
-                getTextStyles: (value) => const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 25.0),
+          child: BarChart(
+            BarChartData(
+              borderData: FlBorderData(show: false),
+              titlesData: FlTitlesData(
+                show: true,
+                leftTitles: SideTitles(showTitles: false),
+                bottomTitles: SideTitles(
+                  rotateAngle: 45,
+                  showTitles: true,
+                  getTitles: (double value) => chartData[value.toInt()].title,
+                  getTextStyles: (value) => const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
+              barGroups: buildAussieChartGroupData(animation.value),
             ),
-            barGroups: buildAussieChartGroupData(animation.value),
+            swapAnimationDuration: Duration(milliseconds: 300),
           ),
-          swapAnimationDuration: Duration(milliseconds: 300),
         );
       },
     );
@@ -133,8 +137,8 @@ class AussieBarChart extends StatelessWidget {
         AutoSizeText(
           title,
           textAlign: TextAlign.center,
-          maxLines: 2,
-          minFontSize: 30,
+          maxLines: 3,
+          minFontSize: 20,
           style: TextStyle(
             color: Colors.grey.shade700,
             fontWeight: FontWeight.bold,

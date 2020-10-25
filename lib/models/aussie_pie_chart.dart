@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class AnimatedPieChartModel {
-  final String name;
+class AussiePieChartModel {
+  final String sectionTitle;
   final Color color;
   final double value;
   final bool animated;
   final bool hasBadge;
-  const AnimatedPieChartModel({
+  final String indicatorText;
+  const AussiePieChartModel({
     this.color = Colors.black,
     this.animated = false,
     this.hasBadge = false,
-    @required this.name,
+    this.sectionTitle,
     @required this.value,
-  }) : assert(name != null && value != null);
+    this.indicatorText,
+  }) : assert(value != null);
 }

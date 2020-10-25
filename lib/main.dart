@@ -1,3 +1,8 @@
+import 'package:Aussie/screens/statistics/gdp.dart';
+import 'package:Aussie/screens/statistics/heducation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:Aussie/constants.dart';
 import 'package:Aussie/screens/landing.dart';
 import 'package:Aussie/screens/main.dart';
@@ -6,8 +11,6 @@ import 'package:Aussie/screens/statistics/livestock.dart';
 import 'package:Aussie/screens/statistics/religion.dart';
 import 'package:Aussie/screens/statistics/species.dart';
 import 'package:Aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -56,6 +59,8 @@ class MyApp extends StatelessWidget {
             ),
         EnergyScreen.navPath: (BuildContext context) => EnergyScreen(),
         LivestockScreen.navPath: (BuildContext context) => LivestockScreen(),
+        GDPScreen.navPath: (BuildContext context) => GDPScreen(),
+        HEducationScreen.navPath: (BuildContext context) => HEducationScreen(),
       },
     );
   }

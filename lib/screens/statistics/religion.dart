@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/animated_pie_chart.dart';
+import 'package:Aussie/models/aussie_pie_chart.dart';
 import 'package:Aussie/size_config.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
@@ -93,7 +93,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
-          AnimatedPieChart(
+          AussiePieChart(
             title: "",
             aspectRatio: 1.1,
             onBarTapped: (int page) => _scrollController.animateToPage(
@@ -102,42 +102,42 @@ class _ReligionScreenState extends State<ReligionScreen> {
               curve: Curves.easeOutExpo,
             ),
             chartData: [
-              AnimatedPieChartModel(
-                name: "islam",
+              AussiePieChartModel(
+                sectionTitle: "islam",
                 value: 400,
                 color: getRandomColor(),
                 hasBadge: true,
               ),
-              AnimatedPieChartModel(
-                name: "hinduism",
+              AussiePieChartModel(
+                sectionTitle: "hinduism",
                 value: 100,
                 color: getRandomColor(),
                 hasBadge: true,
               ),
-              AnimatedPieChartModel(
-                name: "judaism",
+              AussiePieChartModel(
+                sectionTitle: "judaism",
                 value: 200,
                 color: getRandomColor(),
                 hasBadge: true,
               ),
-              AnimatedPieChartModel(
-                name: "sikhism",
+              AussiePieChartModel(
+                sectionTitle: "sikhism",
                 value: 150,
                 hasBadge: true,
               ),
-              AnimatedPieChartModel(
-                name: "christian",
+              AussiePieChartModel(
+                sectionTitle: "christian",
                 value: 200,
                 hasBadge: true,
                 color: getRandomColor(),
               ),
-              AnimatedPieChartModel(
-                name: "no religon",
+              AussiePieChartModel(
+                sectionTitle: "no religon",
                 value: 50,
                 color: getRandomColor(),
               ),
-              AnimatedPieChartModel(
-                name: "aboriginal",
+              AussiePieChartModel(
+                sectionTitle: "aboriginal",
                 value: 50,
                 color: getRandomColor(),
               ),
@@ -185,17 +185,17 @@ class _ReligionScreenState extends State<ReligionScreen> {
                 AussieBarChartModel(704200.0, "2018"),
               ],
             ),
-            AnimatedPieChart(
+            AussiePieChart(
               title: "By gender",
               aspectRatio: 1.2,
               chartData: [
-                AnimatedPieChartModel(
-                  name: "Female",
+                AussiePieChartModel(
+                  sectionTitle: "Female",
                   value: 10,
                   color: Colors.red.shade900,
                 ),
-                AnimatedPieChartModel(
-                  name: "Male",
+                AussiePieChartModel(
+                  sectionTitle: "Male",
                   value: 20,
                   color: Colors.blue.shade900,
                 ),

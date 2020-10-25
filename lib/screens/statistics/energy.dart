@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/models/animated_pie_chart.dart';
+import 'package:Aussie/models/aussie_pie_chart.dart';
 import 'package:Aussie/util/pair.dart';
 import 'package:Aussie/widgets/animated/pie_chart.dart';
 import 'package:Aussie/widgets/aussie_bar_chart.dart';
@@ -25,17 +25,17 @@ class EnergyScreen extends StatelessWidget {
         body: ListView(
           addAutomaticKeepAlives: true,
           children: [
-            AnimatedPieChart(
+            AussiePieChart(
               title: "Energy production by renewability",
               chartData: [
-                AnimatedPieChartModel(
+                AussiePieChartModel(
                   color: Colors.red,
-                  name: "Renewables(15%)",
+                  sectionTitle: "Renewables(15%)",
                   value: 32694.7,
                 ),
-                AnimatedPieChartModel(
+                AussiePieChartModel(
                   color: Colors.purple,
-                  name: "Non-Renewables(85%)",
+                  sectionTitle: "Non-Renewables(85%)",
                   value: 185945,
                 ),
               ],
