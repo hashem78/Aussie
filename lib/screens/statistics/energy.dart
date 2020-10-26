@@ -25,24 +25,31 @@ class EnergyScreen extends StatelessWidget {
         body: ListView(
           addAutomaticKeepAlives: true,
           children: [
-            AussiePieChart(
-              title: "Energy production by renewability",
-              chartData: [
-                AussiePieChartModel(
-                  color: Colors.red,
-                  sectionTitle: "Renewables(15%)",
-                  value: 32694.7,
-                ),
-                AussiePieChartModel(
-                  color: Colors.purple,
-                  sectionTitle: "Non-Renewables(85%)",
-                  value: 185945,
-                ),
-              ],
-              aspectRatio: 1.5,
+            AspectRatio(
+              aspectRatio: 1,
+              child: AussiePieChart(
+                showIndicators: true,
+                sectionRadius: 100,
+                title: "Energy production by renewability",
+                chartData: [
+                  AussiePieChartModel(
+                    color: Colors.red,
+                    sectionTitle: "15%",
+                    indicatorText: "Renewables",
+                    value: 32694.7,
+                  ),
+                  AussiePieChartModel(
+                    color: Colors.purple,
+                    sectionTitle: "85%",
+                    indicatorText: "Non-Renewables",
+                    value: 185945,
+                  ),
+                ],
+                aspectRatio: 1.5,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
               child: AussieBarChart(
                 title: "Energy generation/Non-renewables (GWh)",
                 chartData: [
@@ -52,14 +59,17 @@ class EnergyScreen extends StatelessWidget {
                 ],
               ),
             ),
-            AussieBarChart(
-              title: "Energy generation/Renewables (GWh)",
-              chartData: [
-                AussieBarChartModel(729.2, "Solar"),
-                AussieBarChartModel(15811.8, "Hydro"),
-                AussieBarChartModel(14744.3, "Wind"),
-                AussieBarChartModel(14744.3, "Other"),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: AussieBarChart(
+                title: "Energy generation/Renewables (GWh)",
+                chartData: [
+                  AussieBarChartModel(729.2, "Solar"),
+                  AussieBarChartModel(15811.8, "Hydro"),
+                  AussieBarChartModel(14744.3, "Wind"),
+                  AussieBarChartModel(14744.3, "Other"),
+                ],
+              ),
             ),
             Divider(
               thickness: 2,

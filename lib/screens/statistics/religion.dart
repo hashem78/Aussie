@@ -188,6 +188,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
             AussiePieChart(
               title: "By gender",
               aspectRatio: 1.2,
+              sectionRadius: 150,
               chartData: [
                 AussiePieChartModel(
                   sectionTitle: "Female",

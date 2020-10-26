@@ -81,13 +81,16 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
   List<BarChartGroupData> buildAussieChartGroupData(double factor) {
     List<BarChartGroupData> res = [];
     for (int i = 0; i < widget.chartData.length; ++i) {
+      var charData = widget.chartData[i];
+      var _yval = charData.y == _mx ? charData.y * .97 : charData.y;
+      _yval = double.parse(_yval.toStringAsPrecision(10));
       res.add(
         BarChartGroupData(
           x: i,
           barRods: [
             BarChartRodData(
               width: widget.barChartRodWidth,
-              y: widget.chartData[i].y * factor,
+              y: _yval * factor,
               borderRadius: BorderRadius.zero,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
