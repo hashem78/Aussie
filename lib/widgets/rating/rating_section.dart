@@ -17,25 +17,31 @@ class RatingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Section(
-      children: <Widget>[
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        ...models
-            .map(
-              (e) => RatingTile(
-                model: e,
-                readOnly: readOnly,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Section(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic,
               ),
-            )
-            .toList(),
-      ],
+            ),
+          ),
+          ...models
+              .map(
+                (e) => RatingTile(
+                  model: e,
+                  readOnly: readOnly,
+                ),
+              )
+              .toList(),
+        ],
+      ),
     );
   }
 }

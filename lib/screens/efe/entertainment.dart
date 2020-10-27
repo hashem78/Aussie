@@ -18,7 +18,7 @@ class Entertainment extends StatelessWidget {
   Widget build(BuildContext context) {
     var tmodel = EntertainmentDetailsModel(
         title: "Rabbit Proof",
-        titleImageUrl: kurl,
+        titleImageUrl: 'https://tinyurl.com/y3otd7tv',
         galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
         socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
         descriptions: {"hi": klorem},
@@ -38,75 +38,24 @@ class Entertainment extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           children: [
             EFEScreen.buildEFETiles(
-                "Movies", List.filled(5, tmodel), 60, 20, 55),
+              "Movies",
+              List.filled(5, tmodel),
+              60,
+              20,
+              55,
+              titleImageHeight: 500,
+            ),
             EFEScreen.buildEFETiles(
-                "Movies", List.filled(5, tmodel), 60, 20, 50),
+              "TV Shows",
+              List.filled(5, tmodel),
+              60,
+              20,
+              50,
+              titleImageHeight: 500,
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-// class EntertainmentDetails extends StatelessWidget {
-//   final Color backgroundColor;
-//   final EntertainmentDetailsModel model;
-//   const EntertainmentDetails({
-//     @required this.model,
-//     this.backgroundColor = Colors.blue,
-//   }) : assert(model != null);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var _titleImgae = buildImage(model.titleImageUrl);
-//     var _gallery = model.galleryImageLinks.map(
-//       (e) {
-//         var _image = buildImage(e.url);
-//         return AnimatedSizedTile(title: e.title, image: _image.first);
-//       },
-//     ).toList();
-//     var _descriptions = <ExpandingTextTile>[];
-//     model.descriptions.forEach((key, value) =>
-//         _descriptions.add(ExpandingTextTile(title: key, text: value)));
-//     var _geners = model.geners.reduce((value, element) => '$value, $element');
-//     return Scaffold(
-//       backgroundColor: backgroundColor,
-//       body: NestedScrollView(
-//         headerSliverBuilder: (_, __) => [
-//           AussieSliverAppBar(
-//             backgroundColor: backgroundColor,
-//             title: model.title,
-//             showHero: false,
-//             automaticallyImplyLeading: true,
-//           )
-//         ],
-//         body: ListView(
-//           addAutomaticKeepAlives: true,
-//           physics: BouncingScrollPhysics(),
-//           children: [
-//             AnimatedBannerImage(
-//               heroTag: _titleImgae.second,
-//               image: _titleImgae.first,
-//               heightFactor: 70,
-//             ),
-//             Section(
-//               children: [
-//                 SocialsIconRow(model.socialMediaPlatforms),
-//                 DetailsHeading(title: model.title, color: Colors.white),
-//                 ..._descriptions,
-//               ],
-//             ),
-//             Text(_geners),
-//             AussieScrollableList(
-//               title: "Gallery",
-//               scrollDirection: Axis.horizontal,
-//               heightFactor: 50,
-//               childPadding: EdgeInsets.all(5),
-//               children: _gallery,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

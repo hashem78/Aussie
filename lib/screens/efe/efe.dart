@@ -14,32 +14,40 @@ import '../../size_config.dart';
 
 class EFEScreen extends StatefulWidget {
   static final title = "Explore";
-  static Widget buildEFETiles(String title, List<EFEModel> models,
-      int widthFactor, int heightFactor, double listHeightFactor) {
-    return Builder(
-      builder: (BuildContext context) => AussieScrollableList(
-        title: title,
-        heightFactor: listHeightFactor,
-        childPadding: EdgeInsets.only(right: 1),
-        scrollDirection: Axis.horizontal,
-        children: models
-            .map(
-              (model) => AnimatedSizedTile.withDetails(
-                widthFactor: widthFactor,
-                heightFactor: heightFactor,
-                title: model.title,
-                image: buildImage(model.titleImageUrl).first,
-                onTap: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => EFEDetails(model: model),
+  static Widget buildEFETiles(
+    String title,
+    List<EFEModel> models,
+    int widthFactor,
+    int heightFactor,
+    double listHeightFactor, {
+    double titleImageHeight = 300,
+  }) =>
+      Builder(
+        builder: (BuildContext context) => AussieScrollableList(
+          title: title,
+          heightFactor: listHeightFactor,
+          childPadding: EdgeInsets.only(right: 1),
+          scrollDirection: Axis.horizontal,
+          children: models
+              .map(
+                (model) => AnimatedSizedTile.withDetails(
+                  widthFactor: widthFactor,
+                  heightFactor: heightFactor,
+                  title: model.title,
+                  image: buildImage(model.titleImageUrl),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => EFEDetails(
+                        model: model,
+                        titleImageHeight: titleImageHeight,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
+              )
+              .toList(),
+        ),
+      );
 
   @override
   _EFEScreenState createState() => _EFEScreenState();

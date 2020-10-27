@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
                   commonName: "null",
                   scientificName: "null",
                   type: "null",
-                  titleImage: buildImage(kurl).first,
+                  titleImage: buildImage(kurl),
                   description: klorem,
                 )
               ],
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
                   commonName: "null",
                   scientificName: "null",
                   type: "null",
-                  titleImage: buildImage(kurl).first,
+                  titleImage: buildImage(kurl),
                   description: klorem,
                 ),
               ],

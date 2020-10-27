@@ -31,10 +31,10 @@ class AussieScrollableList extends StatelessWidget {
         ),
         Container(
           height: heightFactor * SizeConfig.blockSizeVertical,
-          margin: EdgeInsets.only(left: 1),
           width: double.infinity,
           padding: EdgeInsets.only(top: 8),
           child: ListView.builder(
+            padding: EdgeInsets.zero,
             addAutomaticKeepAlives: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: scrollDirection,

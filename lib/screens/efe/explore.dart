@@ -53,11 +53,11 @@ class ExploreScreen extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           children: [
             EFEScreen.buildEFETiles(
-                "People", List.filled(5, _tempPerson), 92, 20, 36),
+                "People", List.filled(5, _tempPerson), 80, 20, 36),
             EFEScreen.buildEFETiles(
-                "Events", List.filled(5, _tempEvent), 97, 36, 42),
+                "Events", List.filled(5, _tempEvent), 90, 20, 42),
             EFEScreen.buildEFETiles(
-                "Places", List.filled(5, _tempPlace), 97, 36, 42),
+                "Places", List.filled(5, _tempPlace), 80, 20, 36),
           ],
         ),
       ),

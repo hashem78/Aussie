@@ -25,7 +25,7 @@ class MainScreen extends StatelessWidget {
               widthFactor: 100,
               swatchColor: Colors.red,
               heightFactor: 40,
-              image: buildImage(kurl).first,
+              image: buildImage(kurl),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) => EFEScreen(),
@@ -39,7 +39,7 @@ class MainScreen extends StatelessWidget {
               widthFactor: 100,
               swatchColor: Colors.red,
               heightFactor: 40,
-              image: buildImage(kurl).first,
+              image: buildImage(kurl),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) => StatisticsScreen(),
