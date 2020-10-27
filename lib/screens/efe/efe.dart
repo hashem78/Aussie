@@ -1,14 +1,45 @@
-import 'package:Aussie/screens/entertainment.dart';
-import 'package:Aussie/screens/explore.dart';
-import 'package:Aussie/screens/food_drinks.dart';
+import 'package:Aussie/models/efe/efe.dart';
+import 'package:Aussie/screens/efe/details.dart';
+import 'package:Aussie/screens/efe/entertainment.dart';
+import 'package:Aussie/screens/efe/explore.dart';
+import 'package:Aussie/screens/efe/food_drinks.dart';
+import 'package:Aussie/util/functions.dart';
+import 'package:Aussie/widgets/animated/sized_tile.dart';
+import 'package:Aussie/widgets/aussie/scrollable_list.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import '../size_config.dart';
+import '../../constants.dart';
+import '../../size_config.dart';
 
 class EFEScreen extends StatefulWidget {
   static final title = "Explore";
+  static Widget buildEFETiles(String title, List<EFEModel> models,
+      int widthFactor, int heightFactor, double listHeightFactor) {
+    return Builder(
+      builder: (BuildContext context) => AussieScrollableList(
+        title: title,
+        heightFactor: listHeightFactor,
+        childPadding: EdgeInsets.only(right: 1),
+        scrollDirection: Axis.horizontal,
+        children: models
+            .map(
+              (model) => AnimatedSizedTile.withDetails(
+                widthFactor: widthFactor,
+                heightFactor: heightFactor,
+                title: model.title,
+                image: buildImage(model.titleImageUrl).first,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => EFEDetails(model: model),
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
 
   @override
   _EFEScreenState createState() => _EFEScreenState();
@@ -17,7 +48,7 @@ class EFEScreen extends StatefulWidget {
 class _EFEScreenState extends State<EFEScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
-  var tabs = [ExploreScreen(), Cuisine(), Entertainment()];
+  var tabs = [ExploreScreen(), FoodAndDrinks(), Entertainment()];
   void onPageChanged(int page) {
     setState(
       () {

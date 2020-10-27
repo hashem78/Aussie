@@ -8,7 +8,7 @@ import 'package:Aussie/widgets/animated/social_icon.dart';
 class SocialsIconRow extends StatelessWidget {
   /// A list of a tuple of strings.
   /// The tuples represent the desired social media icon and the link to the profile of it's owner
-  final List<Pair<SocialMediaPlatform, String>> icons;
+  final Map<SocialMediaPlatform, String> icons;
   static final Map<SocialMediaPlatform, Pair<IconData, Color>> _internalMap = {
     SocialMediaPlatform.facebook: Pair(BrandIcons.facebook, Colors.white),
     SocialMediaPlatform.twitter: Pair(BrandIcons.twitter, Colors.blue),
@@ -27,14 +27,19 @@ class SocialsIconRow extends StatelessWidget {
   SocialsIconRow(this.icons);
   @override
   Widget build(BuildContext context) {
+    final _listOfIcons = <Widget>[];
+    icons.forEach((key, value) => _listOfIcons.add(_buildIcon(key, value)));
     return Wrap(
       spacing: 15,
       alignment: WrapAlignment.center,
-      children:
-          icons.map((e) => buildIcon(_internalMap[e.first], e.second)).toList(),
+      children: _listOfIcons,
     );
   }
 
-  Widget buildIcon(Pair<IconData, Color> iconData, String url) =>
-      AnimatedSocialIcon(iconData.first, iconData.second, url);
+  AnimatedSocialIcon _buildIcon(SocialMediaPlatform platform, String url) =>
+      AnimatedSocialIcon(
+        _internalMap[platform].first,
+        _internalMap[platform].second,
+        url,
+      );
 }

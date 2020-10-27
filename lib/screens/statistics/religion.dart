@@ -7,7 +7,7 @@ import 'package:Aussie/size_config.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:Aussie/widgets/animated/pie_chart.dart';
-import 'package:Aussie/widgets/aussie_bar_chart.dart';
+import 'package:Aussie/widgets/aussie/bar_chart.dart';
 
 class ReligionScreen extends StatefulWidget {
   static final title = "Religon in Australlia";
@@ -215,7 +215,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
                 AussieBarChartModel(12885, "70+"),
               ],
             ),
-            AnimatedExpandingTextTile(
+            ExpandingTextTile(
               text: klorem,
               title: "gg",
               color: Colors.black,

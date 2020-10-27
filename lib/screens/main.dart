@@ -2,10 +2,10 @@ import 'package:Aussie/screens/statistics/info.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/screens/efe.dart';
+import 'package:Aussie/screens/efe/efe.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/sized_tile.dart';
-import 'package:Aussie/widgets/aussie_sliver_appbar.dart';
+import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
 
 class MainScreen extends StatelessWidget {
   @override
@@ -26,7 +26,11 @@ class MainScreen extends StatelessWidget {
               swatchColor: Colors.red,
               heightFactor: 40,
               image: buildImage(kurl).first,
-              child: EFEScreen(),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => EFEScreen(),
+                ),
+              ),
             ),
             SizedBox(height: 1),
             AnimatedSizedTile.withDetails(
@@ -36,7 +40,11 @@ class MainScreen extends StatelessWidget {
               swatchColor: Colors.red,
               heightFactor: 40,
               image: buildImage(kurl).first,
-              child: StatisticsScreen(),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => StatisticsScreen(),
+                ),
+              ),
             ),
           ],
         ),

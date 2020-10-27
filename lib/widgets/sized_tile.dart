@@ -11,8 +11,9 @@ class SizedTile extends StatelessWidget {
   final int widthFactor;
   final int heightFactor;
   final String tag = UniqueKey().toString();
-  final Widget child;
+
   final Color swatchColor;
+  final void Function() onTap;
   final swatchMaxLines;
 
   SizedTile({
@@ -23,15 +24,22 @@ class SizedTile extends StatelessWidget {
     this.heightFactor,
     Color swatchColor,
     this.swatchMaxLines = 1,
-  })  : swatchColor = swatchColor ?? kausBlue.withAlpha(240),
-        child = null;
+  })  : assert(
+          image != null &&
+              title != null &&
+              heightFactor != null &&
+              widthFactor != null,
+          "A property of a sized tile is set null",
+        ),
+        swatchColor = swatchColor ?? kausBlue.withAlpha(240),
+        onTap = null;
 
   SizedTile.withDetails({
     @required this.image,
-    @required this.child,
-    this.title,
-    this.widthFactor,
-    this.heightFactor,
+    @required this.onTap,
+    @required this.title,
+    @required this.widthFactor,
+    @required this.heightFactor,
     swatchColor,
     this.swatchMaxLines = 1,
   }) : swatchColor = swatchColor ?? kausBlue.withAlpha(240);
@@ -52,13 +60,12 @@ class SizedTile extends StatelessWidget {
             title: title,
             color: swatchColor,
           ),
-          if (child != null)
+          if (onTap != null)
             Material(
               type: MaterialType.transparency,
               child: InkWell(
                 splashColor: kausRed.withAlpha(120),
-                onTap: () => Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (_) => child)),
+                onTap: onTap,
               ),
             ),
         ],

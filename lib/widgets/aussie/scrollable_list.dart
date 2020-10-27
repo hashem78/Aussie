@@ -34,18 +34,15 @@ class AussieScrollableList extends StatelessWidget {
           margin: EdgeInsets.only(left: 1),
           width: double.infinity,
           padding: EdgeInsets.only(top: 8),
-          child: ListView(
+          child: ListView.builder(
             addAutomaticKeepAlives: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: scrollDirection,
-            children: children
-                .map(
-                  (e) => Padding(
-                    padding: childPadding,
-                    child: e,
-                  ),
-                )
-                .toList(),
+            itemCount: children.length,
+            itemBuilder: (BuildContext context, int index) => Padding(
+              padding: childPadding,
+              child: children[index],
+            ),
           ),
         ),
       ],

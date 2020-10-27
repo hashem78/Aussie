@@ -56,7 +56,7 @@ class HEducationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            AnimatedExpandingTextTile(text: klorem, title: "Sad"),
+            ExpandingTextTile(text: klorem, title: "Sad"),
             AspectRatio(
               aspectRatio: .633,
               child: AussiePieChart(
@@ -119,7 +119,7 @@ class HEducationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            AnimatedExpandingTextTile(text: klorem, title: "Sad"),
+            ExpandingTextTile(text: klorem, title: "Sad"),
           ],
         ),
       ),

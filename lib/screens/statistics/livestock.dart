@@ -1,6 +1,6 @@
 import 'package:Aussie/constants.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/widgets/aussie_bar_chart.dart';
+import 'package:Aussie/widgets/aussie/bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class LivestockScreen extends StatelessWidget {
@@ -22,11 +22,11 @@ class LivestockScreen extends StatelessWidget {
         body: ListView(
           addAutomaticKeepAlives: true,
           children: [
-            AnimatedExpandingTextTile(
+            ExpandingTextTile(
               title: "The livestock and meat industry",
               text: klorem,
             ),
-            AnimatedExpandingTextTile(
+            ExpandingTextTile(
               text: klorem,
               title: "CN30",
             ),

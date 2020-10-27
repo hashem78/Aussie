@@ -9,7 +9,7 @@ class AnimatedSizedTile extends StatefulWidget {
   final int widthFactor;
   final int heightFactor;
   final SizedTile sizeTile;
-  final Widget child;
+  final Function() onTap;
   final Widget image;
   final Color swatchColor;
   final int swatchMaxLines;
@@ -21,7 +21,7 @@ class AnimatedSizedTile extends StatefulWidget {
     @required this.image,
     this.swatchColor,
     this.swatchMaxLines,
-  })  : child = null,
+  })  : onTap = null,
         sizeTile = SizedTile(
           title: title,
           image: image,
@@ -35,7 +35,7 @@ class AnimatedSizedTile extends StatefulWidget {
     @required this.image,
     this.widthFactor,
     this.heightFactor,
-    @required this.child,
+    @required this.onTap,
     this.swatchColor,
     this.swatchMaxLines,
   }) : sizeTile = SizedTile.withDetails(
@@ -43,7 +43,7 @@ class AnimatedSizedTile extends StatefulWidget {
           image: image,
           widthFactor: widthFactor,
           heightFactor: heightFactor,
-          child: child,
+          onTap: onTap,
           swatchColor: swatchColor,
           swatchMaxLines: swatchMaxLines,
         );

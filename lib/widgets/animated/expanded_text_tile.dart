@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 
-class AnimatedExpandingTextTile extends StatefulWidget {
+class ExpandingTextTile extends StatefulWidget {
   final String text;
   final String title;
   final Color color;
@@ -12,14 +12,13 @@ class AnimatedExpandingTextTile extends StatefulWidget {
   final int maxLines;
   final TextOverflow overflow;
   final Color expandedTextColor;
-  AnimatedExpandingTextTile({
-    Key key,
+  ExpandingTextTile({
     Color color,
-    @required this.text,
     @required this.title,
+    @required this.text,
     this.showShadow = true,
     this.maxLines = 8,
-    titleStyle,
+    TextStyle titleStyle,
     this.overflow = TextOverflow.fade,
     this.expandedTextColor = Colors.white,
   })  : color = color ?? Colors.purple.shade700,
@@ -31,11 +30,10 @@ class AnimatedExpandingTextTile extends StatefulWidget {
             );
 
   @override
-  _AnimatedExpandingTextTileState createState() =>
-      _AnimatedExpandingTextTileState();
+  _ExpandingTextTileState createState() => _ExpandingTextTileState();
 }
 
-class _AnimatedExpandingTextTileState extends State<AnimatedExpandingTextTile>
+class _ExpandingTextTileState extends State<ExpandingTextTile>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController _controller;
   Animation<Offset> _animation;

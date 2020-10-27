@@ -134,7 +134,7 @@ class SpeciesDescription extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 buildDataTable(),
-                AnimatedExpandingTextTile(
+                ExpandingTextTile(
                   text: model.description,
                   title: "Info",
                 )
