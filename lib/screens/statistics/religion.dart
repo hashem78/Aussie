@@ -8,6 +8,7 @@ import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:Aussie/widgets/animated/pie_chart.dart';
 import 'package:Aussie/widgets/aussie/bar_chart.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ReligionScreen extends StatefulWidget {
   static final title = "Religon in Australlia";
@@ -18,7 +19,6 @@ class ReligionScreen extends StatefulWidget {
 }
 
 class _ReligionScreenState extends State<ReligionScreen> {
-  PageController _scrollController = PageController();
   List<String> _titles;
   List<Widget> _children;
 
@@ -35,7 +35,6 @@ class _ReligionScreenState extends State<ReligionScreen> {
       "Aboriginal"
     ];
     _children = [
-      _buildReligonPieChart(),
       ..._titles.map((e) => _buildPage(e)).toList(),
     ];
   }
@@ -47,40 +46,10 @@ class _ReligionScreenState extends State<ReligionScreen> {
     SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.blue,
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity, appBarHeight),
-        child: AnimatedContainer(
-          color: Colors.blue,
-          duration: Duration(milliseconds: 300),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-                size: appBarHeight == 0 ? 0 : 25,
-              ),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-          ),
-          height: appBarHeight,
-        ),
+      appBar: AppBar(
+        elevation: 0,
       ),
-      body: PageView.builder(
-        itemCount: _children.length,
-        onPageChanged: (int page) => setState(
-          () {
-            if (page != 0)
-              appBarHeight = 0;
-            else
-              appBarHeight = kToolbarHeight;
-            currentPage = page;
-          },
-        ),
-        physics: NeverScrollableScrollPhysics(),
-        controller: _scrollController,
-        itemBuilder: (BuildContext context, int index) => _children[index],
-      ),
+      body: _buildReligonPieChart(),
     );
   }
 
@@ -96,10 +65,12 @@ class _ReligionScreenState extends State<ReligionScreen> {
           AussiePieChart(
             title: "",
             aspectRatio: 1.1,
-            onBarTapped: (int page) => _scrollController.animateToPage(
-              page + 1,
-              duration: Duration(seconds: 1),
-              curve: Curves.easeOutExpo,
+            onBarTapped: (int page) => Navigator.push(
+              context,
+              PageTransition(
+                child: _children[page],
+                type: PageTransitionType.rightToLeft,
+              ),
             ),
             chartData: [
               AussiePieChartModel(
@@ -160,13 +131,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
             automaticallyImplyLeading: false,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                _scrollController.animateToPage(
-                  0,
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.linear,
-                );
-              },
+              onPressed: () => Navigator.of(context).pop(),
             ),
             title: Text(title),
           ),

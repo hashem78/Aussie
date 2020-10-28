@@ -6,14 +6,13 @@ import 'package:Aussie/screens/efe/details.dart';
 
 class RatingSection extends StatelessWidget {
   final List<RatingsModel> models;
-  final String title;
+  final String title = "User reviews";
   final bool readOnly;
   const RatingSection({
     Key key,
     @required this.models,
-    @required this.title,
     this.readOnly = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

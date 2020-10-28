@@ -25,5 +25,5 @@ class EventDetailsModel extends EFEModel implements RatingsInterface {
         );
 
   @override
-  Widget buildRatings() => RatingSection(models: ratingModels, title: title);
+  Widget buildRatings() => RatingSection(models: ratingModels);
 }

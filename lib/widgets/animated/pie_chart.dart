@@ -54,7 +54,7 @@ class Indicator extends StatelessWidget {
 class AussiePieChart extends StatefulWidget {
   final List<AussiePieChartModel> chartData;
 
-  final Function(int page) onBarTapped;
+  final void Function(int page) onBarTapped;
   final double aspectRatio;
   final String title;
   final double sectionRadius;

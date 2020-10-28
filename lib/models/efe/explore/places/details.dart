@@ -24,5 +24,5 @@ class PlacesDetailsModel extends EFEModel implements RatingsInterface {
           galleryImageLinks: galleryImageLinks,
         );
   @override
-  Widget buildRatings() => RatingSection(models: ratingModels, title: title);
+  Widget buildRatings() => RatingSection(models: ratingModels);
 }

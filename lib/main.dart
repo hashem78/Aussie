@@ -11,6 +11,7 @@ import 'package:Aussie/screens/statistics/livestock.dart';
 import 'package:Aussie/screens/statistics/religion.dart';
 import 'package:Aussie/screens/statistics/species.dart';
 import 'package:Aussie/util/functions.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() {
   //WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +30,17 @@ class MyApp extends StatelessWidget {
         textTheme: Typography.material2018().white,
       ),
       initialRoute: "/",
+      // ignore: missing_return
+      onGenerateRoute: (RouteSettings settings) {
+        if (settings.name == ReligionScreen.navPath)
+          return PageTransition(
+            child: ReligionScreen(),
+            type: PageTransitionType.rightToLeft,
+          );
+      },
       routes: {
         "/": (BuildContext context) => LandingScreen(),
         "/main": (BuildContext context) => MainScreen(),
-        ReligionScreen.navPath: (BuildContext context) => ReligionScreen(),
         "/statistics/fauna": (BuildContext context) => SpeciesScreen(
               title: "Australian Fauna",
               models: [
