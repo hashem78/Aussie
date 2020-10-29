@@ -26,7 +26,7 @@ class EnergyScreen extends StatelessWidget {
           addAutomaticKeepAlives: true,
           children: [
             AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: 1.19,
               child: AussiePieChart(
                 showIndicators: true,
                 sectionRadius: 100,

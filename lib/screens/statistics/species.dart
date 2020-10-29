@@ -3,9 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/size_config.dart';
+
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpeciesScreen extends StatelessWidget {
   final List<SpeciesDescriptionModel> models;
@@ -17,7 +18,6 @@ class SpeciesScreen extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.blue,
       extendBodyBehindAppBar: true,
@@ -26,8 +26,7 @@ class SpeciesScreen extends StatelessWidget {
         slivers: [
           SliverAppBar(
             stretch: true,
-            expandedHeight: 250,
-            stretchTriggerOffset: 300,
+            expandedHeight: 250.h,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(title),
               stretchModes: [
@@ -40,7 +39,7 @@ class SpeciesScreen extends StatelessWidget {
                     models[index].titleImage,
                 options: CarouselOptions(
                   scrollPhysics: NeverScrollableScrollPhysics(),
-                  height: 250,
+                  height: 250.h,
                   viewportFraction: 1,
                   pageSnapping: false,
                   autoPlay: true,

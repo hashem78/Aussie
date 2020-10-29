@@ -1,17 +1,21 @@
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LandingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    ScreenUtil.init(
+      context,
+      designSize: Size(360, 640),
+      allowFontScaling: true,
+    );
     final kausFlag = Center(
       child: Hero(
         tag: "auFlag",
         child: Image.asset(
           'assests/images/au.png',
-          width: 60 * SizeConfig.blockSizeHorizontal,
+          width: .5.sw,
           fit: BoxFit.scaleDown,
         ),
       ),
@@ -19,8 +23,8 @@ class LandingScreen extends StatelessWidget {
     final kausOutLine = FractionallySizedBox(
       child: Image.asset(
         'assests/images/auOutLine.png',
-        height: 50 * SizeConfig.blockSizeVertical,
-        width: 100 * SizeConfig.blockSizeHorizontal,
+        height: .50.sh,
+        width: 1.sw,
         fit: BoxFit.scaleDown,
       ),
     );
@@ -32,13 +36,13 @@ class LandingScreen extends StatelessWidget {
           alignment: Alignment.topCenter,
           children: [
             Positioned(
-              top: SizeConfig.blockSizeVertical,
+              top: .01.sh,
               child: Align(
                 child: kausOutLine,
               ),
             ),
             Positioned(
-              top: 17 * SizeConfig.blockSizeVertical,
+              top: .17.sh,
               child: Align(
                 child: Text(
                   "Aussie",
@@ -61,8 +65,8 @@ class LandingScreen extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: SizeConfig.blockSizeVertical * 15,
-                    width: SizeConfig.blockSizeHorizontal * 60,
+                    height: .15.sh,
+                    width: .60.sw,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         elevation: 2,

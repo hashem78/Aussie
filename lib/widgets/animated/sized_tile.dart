@@ -52,7 +52,7 @@ class AnimatedSizedTile extends StatefulWidget {
 }
 
 class _AnimatedSizedTileState extends State<AnimatedSizedTile>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   Animation<Offset> animation;
   AnimationController animationController;
   @override

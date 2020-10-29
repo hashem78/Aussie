@@ -14,7 +14,7 @@ class AnimatedSocialIcon extends StatefulWidget {
 }
 
 class _AnimatedSocialIconState extends State<AnimatedSocialIcon>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController controller;
   Animation<Offset> animation;
   @override

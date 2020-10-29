@@ -1,5 +1,5 @@
-import 'package:Aussie/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AussieScrollableList extends StatelessWidget {
   final String title;
@@ -17,7 +17,6 @@ class AussieScrollableList extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,8 +29,7 @@ class AussieScrollableList extends StatelessWidget {
           ),
         ),
         Container(
-          height: heightFactor * SizeConfig.blockSizeVertical,
-          width: double.infinity,
+          height: (heightFactor / 100).sh,
           padding: EdgeInsets.only(top: 8),
           child: ListView.builder(
             padding: EdgeInsets.zero,

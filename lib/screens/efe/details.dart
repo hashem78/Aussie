@@ -8,6 +8,7 @@ import 'package:Aussie/widgets/animated/sized_tile.dart';
 import 'package:Aussie/widgets/aussie/scrollable_list.dart';
 import 'package:Aussie/widgets/social_icons_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Section extends StatelessWidget {
   final List<Widget> children;
@@ -29,11 +30,12 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
   final Color backgroundColor;
   final double titleImageHeight;
   final T model;
-  const EFEDetails({
+  EFEDetails({
     @required this.model,
     this.backgroundColor = Colors.blue,
-    this.titleImageHeight = 200,
-  }) : assert(model != null);
+    titleImageHeight,
+  })  : assert(model != null),
+        titleImageHeight = titleImageHeight ?? 200.h;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,6 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
           SliverAppBar(
             stretch: true,
             expandedHeight: titleImageHeight,
-            stretchTriggerOffset: 300,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.title),
               stretchModes: [

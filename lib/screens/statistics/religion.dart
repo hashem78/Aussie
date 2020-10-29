@@ -1,14 +1,13 @@
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
 import 'package:Aussie/models/aussie_pie_chart.dart';
-import 'package:Aussie/size_config.dart';
+
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:Aussie/widgets/animated/pie_chart.dart';
 import 'package:Aussie/widgets/aussie/bar_chart.dart';
-import 'package:page_transition/page_transition.dart';
 
 class ReligionScreen extends StatefulWidget {
   static final title = "Religon in Australlia";
@@ -34,21 +33,16 @@ class _ReligionScreenState extends State<ReligionScreen> {
       "Atheist",
       "Aboriginal"
     ];
-    _children = [
-      ..._titles.map((e) => _buildPage(e)).toList(),
-    ];
+    _children = _titles.map((e) => _buildPage(e)).toList();
   }
 
   int currentPage = 0;
   double appBarHeight = kToolbarHeight;
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.blue,
-      appBar: AppBar(
-        elevation: 0,
-      ),
+      appBar: AppBar(elevation: 0),
       body: _buildReligonPieChart(),
     );
   }
@@ -63,15 +57,8 @@ class _ReligionScreenState extends State<ReligionScreen> {
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
           AussiePieChart(
-            title: "",
-            aspectRatio: 1.1,
-            onBarTapped: (int page) => Navigator.push(
-              context,
-              PageTransition(
-                child: _children[page],
-                type: PageTransitionType.rightToLeft,
-              ),
-            ),
+            onBarTapped: (int page) => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => _children[page])),
             chartData: [
               AussiePieChartModel(
                 sectionTitle: "islam",
@@ -122,93 +109,67 @@ class _ReligionScreenState extends State<ReligionScreen> {
   Widget _buildPage(String title) {
     return Scaffold(
       backgroundColor: Colors.amber,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool _) => [
-          SliverAppBar(
+      body: CustomScrollView(
+        slivers: [
+          AussieSliverAppBar(
+            title: title,
+            showHero: false,
             backgroundColor: Colors.amber,
-            elevation: 0,
-            collapsedHeight: 63,
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).pop(),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                AussieBarChart(
+                  title: "Muslim population in Australlia",
+                  chartData: [
+                    AussieBarChartModel(76792.0, "1981"),
+                    AussieBarChartModel(147487.0, "1991"),
+                    AussieBarChartModel(281600.0, "2001"),
+                    AussieBarChartModel(476291.0, "2011"),
+                    AussieBarChartModel(604200.0, "2016"),
+                    AussieBarChartModel(704200.0, "2018"),
+                  ],
+                ),
+                AussiePieChart(
+                  title: "By gender",
+                  aspectRatio: 1.2,
+                  sectionRadius: 120,
+                  chartData: [
+                    AussiePieChartModel(
+                      sectionTitle: "Female",
+                      value: 10,
+                      color: Colors.red.shade900,
+                    ),
+                    AussiePieChartModel(
+                      sectionTitle: "Male",
+                      value: 20,
+                      color: Colors.blue.shade900,
+                    ),
+                  ],
+                ),
+                AussieBarChart(
+                  title: "By age",
+                  chartData: [
+                    AussieBarChartModel(129414, "0-9"),
+                    AussieBarChartModel(92388, "10-19"),
+                    AussieBarChartModel(114448, "20-29"),
+                    AussieBarChartModel(119010, "30-39"),
+                    AussieBarChartModel(70574, "40-49"),
+                    AussieBarChartModel(42579, "50-59"),
+                    AussieBarChartModel(22945, "60-69"),
+                    AussieBarChartModel(12885, "70+"),
+                  ],
+                ),
+                ExpandingTextTile(
+                  text: klorem,
+                  title: "gg",
+                  color: Colors.black,
+                ),
+              ],
+              addAutomaticKeepAlives: true,
             ),
-            title: Text(title),
           ),
         ],
-        body: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            AussieBarChart(
-              title: "Muslim population in Australlia",
-              chartData: [
-                AussieBarChartModel(76792.0, "1981"),
-                AussieBarChartModel(147487.0, "1991"),
-                AussieBarChartModel(281600.0, "2001"),
-                AussieBarChartModel(476291.0, "2011"),
-                AussieBarChartModel(604200.0, "2016"),
-                AussieBarChartModel(704200.0, "2018"),
-              ],
-            ),
-            AussiePieChart(
-              title: "By gender",
-              aspectRatio: 1.2,
-              sectionRadius: 150,
-              chartData: [
-                AussiePieChartModel(
-                  sectionTitle: "Female",
-                  value: 10,
-                  color: Colors.red.shade900,
-                ),
-                AussiePieChartModel(
-                  sectionTitle: "Male",
-                  value: 20,
-                  color: Colors.blue.shade900,
-                ),
-              ],
-            ),
-            AussieBarChart(
-              title: "By age",
-              chartData: [
-                AussieBarChartModel(129414, "0-9"),
-                AussieBarChartModel(92388, "10-19"),
-                AussieBarChartModel(114448, "20-29"),
-                AussieBarChartModel(119010, "30-39"),
-                AussieBarChartModel(70574, "40-49"),
-                AussieBarChartModel(42579, "50-59"),
-                AussieBarChartModel(22945, "60-69"),
-                AussieBarChartModel(12885, "70+"),
-              ],
-            ),
-            ExpandingTextTile(
-              text: klorem,
-              title: "gg",
-              color: Colors.black,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ReligonSectionTitle extends StatelessWidget {
-  final String title;
-
-  const ReligonSectionTitle({
-    @required this.title,
-  }) : assert(title != null, "A religion's section title can't be null");
-
-  @override
-  Widget build(BuildContext context) {
-    return AutoSizeText(
-      title,
-      textAlign: TextAlign.center,
-      maxLines: 2,
-      minFontSize: 30,
-      style: TextStyle(
-        color: Colors.grey.shade700,
-        fontWeight: FontWeight.bold,
       ),
     );
   }

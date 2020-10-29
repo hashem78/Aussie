@@ -37,9 +37,8 @@ class HEducationScreen extends StatelessWidget {
             ),
             buildGridView(),
             AspectRatio(
-              aspectRatio: 1.2,
+              aspectRatio: 1.4,
               child: AussiePieChart(
-                title: "Diversity",
                 aspectRatio: 1.4,
                 sectionRadius: 120,
                 chartData: [
@@ -58,7 +57,7 @@ class HEducationScreen extends StatelessWidget {
             ),
             ExpandingTextTile(text: klorem, title: "Sad"),
             AspectRatio(
-              aspectRatio: .633,
+              aspectRatio: .66,
               child: AussiePieChart(
                 aspectRatio: 1.12,
                 indicatorMargin: EdgeInsets.zero,

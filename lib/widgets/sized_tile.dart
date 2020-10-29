@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SizedTile extends StatelessWidget {
   final String title;
@@ -47,8 +47,8 @@ class SizedTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widthFactor * SizeConfig.blockSizeHorizontal,
-      height: heightFactor * SizeConfig.blockSizeVertical,
+      width: (widthFactor / 100).sw,
+      height: (heightFactor / 100).sh,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -103,8 +103,8 @@ class SizedTileSwatch extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         color: color,
-        width: widthFactor * SizeConfig.blockSizeHorizontal,
-        height: heightFactor / 4 * SizeConfig.blockSizeVertical,
+        width: (widthFactor / 100).sw,
+        height: ((heightFactor / 4) / 100).sh,
         child: Center(
           child: AutoSizeText(
             title,

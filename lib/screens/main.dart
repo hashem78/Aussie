@@ -1,4 +1,5 @@
-import 'package:Aussie/screens/statistics/info.dart';
+import 'package:Aussie/screens/info/info.dart';
+import 'package:Aussie/screens/statistics/statistics.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
@@ -12,43 +13,41 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kausBlue,
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool extened) => [
+      body: CustomScrollView(
+        slivers: [
           AussieSliverAppBar(title: "Main", showHero: true),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                buildTile(
+                  "About famous celebs, the food and what keeps em ticking.",
+                  EFEScreen.navPath,
+                ),
+                buildTile(
+                  "General statistics ranging from religion to the economy and education",
+                  StatisticsScreen.navPath,
+                ),
+                buildTile(
+                  "Get to know more about Australia",
+                  InfoScreen.navPath,
+                ),
+              ],
+            ),
+          ),
         ],
-        body: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            AnimatedSizedTile.withDetails(
-              title: "About famous celebs, the food and what keeps em ticking.",
-              swatchMaxLines: 3,
-              widthFactor: 100,
-              swatchColor: Colors.red,
-              heightFactor: 40,
-              image: buildImage(kurl),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => EFEScreen(),
-                ),
-              ),
-            ),
-            SizedBox(height: 1),
-            AnimatedSizedTile.withDetails(
-              title: "About famous celebs, the food and what keeps em ticking.",
-              swatchMaxLines: 3,
-              widthFactor: 100,
-              swatchColor: Colors.red,
-              heightFactor: 40,
-              image: buildImage(kurl),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => StatisticsScreen(),
-                ),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
+
+  Widget buildTile(String title, String route) => Builder(
+        builder: (BuildContext context) => AnimatedSizedTile.withDetails(
+          title: "About famous celebs, the food and what keeps em ticking.",
+          swatchMaxLines: 2,
+          widthFactor: 100,
+          swatchColor: Colors.red,
+          heightFactor: 40,
+          image: buildImage(kurl),
+          onTap: () => Navigator.of(context).pushNamed(route),
+        ),
+      );
 }

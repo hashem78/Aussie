@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:Aussie/util/functions.dart';
 
 import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 var _col = getRandomColor();
 
@@ -43,7 +44,7 @@ class Entertainment extends StatelessWidget {
               60,
               20,
               55,
-              titleImageHeight: 500,
+              titleImageHeight: 500.h,
             ),
             EFEScreen.buildEFETiles(
               "TV Shows",
@@ -51,7 +52,7 @@ class Entertainment extends StatelessWidget {
               60,
               20,
               50,
-              titleImageHeight: 500,
+              titleImageHeight: 500.h,
             ),
           ],
         ),

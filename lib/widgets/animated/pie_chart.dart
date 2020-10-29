@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:Aussie/models/aussie_pie_chart.dart';
 
@@ -18,7 +19,7 @@ class Indicator extends StatelessWidget {
     this.text,
     this.size = 16,
     this.textColor = const Color(0xff505050),
-    indicatorMargin,
+    EdgeInsets indicatorMargin,
   }) : indicatorMargin = indicatorMargin ?? const EdgeInsets.only(left: 20);
 
   @override
@@ -28,8 +29,8 @@ class Indicator extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: indicatorMargin,
-          width: size,
-          height: size,
+          width: size.w,
+          height: size.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: color,
@@ -79,7 +80,7 @@ class AussiePieChart extends StatefulWidget {
 }
 
 class _AussiePieChartState extends State<AussiePieChart>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController _controller;
   Animation<double> _animation1;
 
@@ -108,36 +109,19 @@ class _AussiePieChartState extends State<AussiePieChart>
     super.build(context);
     return AnimatedBuilder(
       animation: _animation1,
-      builder: (BuildContext context, Widget child) {
-        return Column(
-          children: [
-            if (widget.title != null)
-              AutoSizeText(
-                widget.title,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                minFontSize: 30,
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            AspectRatio(
-              aspectRatio: widget.aspectRatio,
-              child: buildPieChart(),
-            ),
-            if (widget.showIndicators)
-              Expanded(
+      child: widget.showIndicators
+          ? Expanded(
+              child: Center(
                 child: ListView.builder(
-                  padding: EdgeInsets.zero,
                   itemCount: widget.chartData.length,
                   physics: BouncingScrollPhysics(),
+                  addAutomaticKeepAlives: true,
                   shrinkWrap: true,
                   itemBuilder: (BuildContext context, int index) {
                     var sectionData = widget.chartData[index];
                     if (sectionData.indicatorText != null) {
                       return Indicator(
-                        indicatorMargin: widget.indicatorMargin,
+                        indicatorMargin: EdgeInsets.zero,
                         text: sectionData.indicatorText,
                         color: sectionData.color,
                       );
@@ -147,6 +131,28 @@ class _AussiePieChartState extends State<AussiePieChart>
                   },
                 ),
               ),
+            )
+          : Container(),
+      builder: (BuildContext context, Widget child) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (widget.title != null)
+              AutoSizeText(
+                widget.title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                minFontSize: 20,
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            AspectRatio(
+              aspectRatio: widget.aspectRatio,
+              child: buildPieChart(),
+            ),
+            child,
           ],
         );
       },
@@ -164,7 +170,6 @@ class _AussiePieChartState extends State<AussiePieChart>
                     response.touchInput is FlLongPressEnd) {
                   if (touchedIndex != null && widget.onBarTapped != null)
                     widget.onBarTapped(touchedIndex);
-
                   touchedIndex = -1;
                 } else {
                   touchedIndex = response.touchedSectionIndex;

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:Aussie/constants.dart';
 
@@ -20,7 +21,7 @@ class AussieSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 60,
+      expandedHeight: 60.h,
       pinned: pinned,
       automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor: backgroundColor,

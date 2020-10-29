@@ -34,7 +34,7 @@ class ExpandingTextTile extends StatefulWidget {
 }
 
 class _ExpandingTextTileState extends State<ExpandingTextTile>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController _controller;
   Animation<Offset> _animation;
 
@@ -54,7 +54,7 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
     super.build(context);
     return SlideTransition(
       position: _animation,
-      child: Container(
+      child: ColoredBox(
         //margin: EdgeInsets.all(5),
         color: widget.color,
         child: Padding(
@@ -74,7 +74,9 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
                       expandOnGesture: false,
                       overflow: widget.overflow,
                       style: TextStyle(
-                          fontSize: 15, color: widget.expandedTextColor),
+                        fontSize: 15,
+                        color: widget.expandedTextColor,
+                      ),
                       maxLines: widget.maxLines,
                     ),
                   ],

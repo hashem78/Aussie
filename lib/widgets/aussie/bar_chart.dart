@@ -3,23 +3,30 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class _ActualAnimatedChart extends StatefulWidget {
+class AussieBarChart extends StatefulWidget {
+  final String title;
+  final Color rodBackgroundColor;
   final List<AussieBarChartModel> chartData;
   final double barChartRodWidth;
-  final Color rodBackgroundColor;
-  const _ActualAnimatedChart({
-    Key key,
-    this.chartData,
-    this.barChartRodWidth,
-    this.rodBackgroundColor,
-  }) : super(key: key);
+  AussieBarChart({
+    Color rodBackgroundColor,
+    @required this.title,
+    @required this.chartData,
+    this.barChartRodWidth = 22,
+  })  : assert(
+          barChartRodWidth != null && chartData != null && title != null,
+          "One or more of a bar chart's members is set to null",
+        ),
+        rodBackgroundColor = rodBackgroundColor ?? Colors.grey.shade300;
+
   @override
-  __ActualAnimatedChartState createState() => __ActualAnimatedChartState();
+  _AussieBarChartState createState() => _AussieBarChartState();
 }
 
-class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _AussieBarChartState extends State<AussieBarChart>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   AnimationController animationController;
   Animation<double> animation;
   double _mx = 0;
@@ -37,60 +44,79 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
         curve: Curves.linear,
       ),
     );
-    var chartData = widget.chartData;
-    for (int i = 0; i < chartData.length; ++i)
-      _mx = chartData[i].y > _mx ? chartData[i].y : _mx;
-    var _numberOfDigits = log(_mx) / ln10 + 1;
-    _val = pow(10, _numberOfDigits - 1);
+
+    widget.chartData.forEach((e) => _mx = e.y > _mx ? e.y : _mx);
+    _val = pow(10, log(_mx) / ln10);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var chartData = widget.chartData;
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (BuildContext context, Widget child) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 25.0),
-          child: BarChart(
-            BarChartData(
-              borderData: FlBorderData(show: false),
-              titlesData: FlTitlesData(
-                show: true,
-                leftTitles: SideTitles(showTitles: false),
-                bottomTitles: SideTitles(
-                  rotateAngle: 45,
-                  showTitles: true,
-                  getTitles: (double value) => chartData[value.toInt()].title,
-                  getTextStyles: (value) => const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ),
-              barGroups: buildAussieChartGroupData(animation.value),
-            ),
-            swapAnimationDuration: Duration(milliseconds: 300),
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        AutoSizeText(
+          widget.title,
+          textAlign: TextAlign.center,
+          maxLines: 3,
+          minFontSize: 20,
+          style: TextStyle(
+            color: Colors.grey.shade700,
+            fontWeight: FontWeight.bold,
           ),
-        );
-      },
+        ),
+        SizedBox(
+          height: 10.h,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 3.0 * widget.chartData.length,
+          ),
+          child: AnimatedBuilder(
+            animation: animation,
+            builder: (BuildContext context, Widget child) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 25.0),
+                child: BarChart(
+                  BarChartData(
+                    borderData: FlBorderData(show: false),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      leftTitles: SideTitles(showTitles: false),
+                      bottomTitles: SideTitles(
+                        rotateAngle: 45,
+                        showTitles: true,
+                        getTitles: (double value) =>
+                            widget.chartData[value.toInt()].title,
+                        getTextStyles: (value) => const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ),
+                    barGroups: buildAussieChartGroupData(animation.value),
+                  ),
+                  swapAnimationDuration: Duration(milliseconds: 300),
+                ),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 
   List<BarChartGroupData> buildAussieChartGroupData(double factor) {
     List<BarChartGroupData> res = [];
     for (int i = 0; i < widget.chartData.length; ++i) {
-      var charData = widget.chartData[i];
-      var _yval = charData.y == _mx ? charData.y * .97 : charData.y;
-      _yval = double.parse(_yval.toStringAsPrecision(10));
       res.add(
         BarChartGroupData(
           x: i,
           barRods: [
             BarChartRodData(
               width: widget.barChartRodWidth,
-              y: _yval * factor,
+              y: widget.chartData[i].y * factor,
               borderRadius: BorderRadius.zero,
               backDrawRodData: BackgroundBarChartRodData(
                 show: true,
@@ -113,56 +139,6 @@ class __ActualAnimatedChartState extends State<_ActualAnimatedChart>
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class AussieBarChart extends StatelessWidget {
-  //final Color color = const Color(0xff81e5cd);
-  final String title;
-  final Color rodBackgroundColor;
-  final List<AussieBarChartModel> chartData;
-  final double barChartRodWidth;
-  AussieBarChart({
-    Color rodBackgroundColor,
-    @required this.title,
-    @required this.chartData,
-    this.barChartRodWidth = 22,
-  })  : assert(
-          barChartRodWidth != null && chartData != null && title != null,
-          "One or more of a bar chart's members is set to null",
-        ),
-        rodBackgroundColor = rodBackgroundColor ?? Colors.grey.shade300;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        AutoSizeText(
-          title,
-          textAlign: TextAlign.center,
-          maxLines: 3,
-          minFontSize: 20,
-          style: TextStyle(
-            color: Colors.grey.shade700,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 3.0 * chartData.length,
-          ),
-          child: _ActualAnimatedChart(
-            chartData: chartData,
-            barChartRodWidth: barChartRodWidth,
-            rodBackgroundColor: rodBackgroundColor,
-          ),
-        ),
-      ],
-    );
-  }
 }
 
 class AussieBarChartModel {
