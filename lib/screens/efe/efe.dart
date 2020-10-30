@@ -4,8 +4,8 @@ import 'package:Aussie/screens/efe/entertainment.dart';
 import 'package:Aussie/screens/efe/explore.dart';
 import 'package:Aussie/screens/efe/food_drinks.dart';
 import 'package:Aussie/util/functions.dart';
-import 'package:Aussie/widgets/animated/sized_tile.dart';
 import 'package:Aussie/widgets/aussie/scrollable_list.dart';
+import 'package:Aussie/widgets/sized_tile.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,7 @@ class EFEScreen extends StatefulWidget {
         scrollDirection: Axis.horizontal,
         children: models
             .map(
-              (model) => AnimatedSizedTile.withDetails(
+              (model) => SizedTile.withDetails(
                 widthFactor: widthFactor,
                 heightFactor: heightFactor,
                 title: model.title,

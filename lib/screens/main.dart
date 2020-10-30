@@ -1,11 +1,11 @@
 import 'package:Aussie/screens/info/info.dart';
 import 'package:Aussie/screens/statistics/statistics.dart';
+import 'package:Aussie/widgets/sized_tile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
 import 'package:Aussie/screens/efe/efe.dart';
 import 'package:Aussie/util/functions.dart';
-import 'package:Aussie/widgets/animated/sized_tile.dart';
 import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
 
 class MainScreen extends StatelessWidget {
@@ -40,7 +40,7 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget buildTile(String title, String route) => Builder(
-        builder: (BuildContext context) => AnimatedSizedTile.withDetails(
+        builder: (BuildContext context) => SizedTile.withDetails(
           title: "About famous celebs, the food and what keeps em ticking.",
           swatchMaxLines: 2,
           widthFactor: 100,

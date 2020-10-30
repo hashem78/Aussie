@@ -2,7 +2,7 @@ import 'package:Aussie/screens/efe/efe.dart';
 import 'package:Aussie/screens/info/fauna.dart';
 import 'package:Aussie/screens/info/flora.dart';
 import 'package:Aussie/screens/info/info.dart';
-import 'package:Aussie/screens/info/weather.dart';
+import 'package:Aussie/screens/info/weather/weather.dart';
 import 'package:Aussie/screens/statistics/gdp.dart';
 import 'package:Aussie/screens/statistics/heducation.dart';
 import 'package:Aussie/screens/statistics/statistics.dart';

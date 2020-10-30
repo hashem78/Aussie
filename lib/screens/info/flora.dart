@@ -1,6 +1,7 @@
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/screens/statistics/species.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:Aussie/models/species/species.dart';
+import 'package:Aussie/screens/info/species/species.dart';
+
 import 'package:flutter/material.dart';
 
 class FloraScreen extends StatelessWidget {
@@ -13,11 +14,11 @@ class FloraScreen extends StatelessWidget {
     return SpeciesScreen(
       title: "Australian Flora",
       models: [
-        SpeciesDescriptionModel(
+        SpeciesDetailsModel(
           commonName: "null",
           scientificName: "null",
           type: "null",
-          titleImage: buildImage(kurl),
+          titleImageUrl: kurl,
           description: klorem,
         ),
       ],

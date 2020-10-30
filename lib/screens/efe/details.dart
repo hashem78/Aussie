@@ -4,8 +4,8 @@ import 'package:Aussie/models/efe/efe.dart';
 
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/widgets/animated/sized_tile.dart';
 import 'package:Aussie/widgets/aussie/scrollable_list.dart';
+import 'package:Aussie/widgets/sized_tile.dart';
 import 'package:Aussie/widgets/social_icons_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,7 +43,7 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
     var _gallery = model.galleryImageLinks.map(
       (e) {
         var _image = buildImage(e.url);
-        return AnimatedSizedTile(
+        return SizedTile(
           title: e.title,
           image: _image,
           widthFactor: 100,
