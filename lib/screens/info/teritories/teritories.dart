@@ -43,11 +43,7 @@ class _TeritoriesScreenState extends State<TeritoriesScreen> {
         cubit.loadMoreAsync(_pageSize);
       }
     });
-    _controller.addStatusListener(
-      (status) {
-        print(status);
-      },
-    );
+
     super.initState();
   }
 
