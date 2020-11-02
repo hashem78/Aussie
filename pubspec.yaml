@@ -3,7 +3,6 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-
 version: 1.0.0+1
 
 environment:
@@ -12,27 +11,24 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-
+  auto_size_text: ^2.1.0
+  bottom_navy_bar: ^5.5.0
+  cached_network_image: ^2.3.2+1
+  carousel_slider: ^2.3.1
   cupertino_icons: ^1.0.0
   data_connection_checker: ^0.3.4
-  cached_network_image: ^2.3.2+1
-  expand_widget: ^1.1.0
-  url_launcher: ^5.7.2
-  smooth_star_rating: ^1.1.1
-  bottom_navy_bar: ^5.5.0
-  auto_size_text: ^2.1.0
-  fl_chart:
-  flutter_svg: ^0.19.0
-  carousel_slider: ^2.3.1
   equatable: ^1.2.5
-  pedantic: ^1.9.0
-  weather_icons: ^2.0.2
+  expand_widget: ^1.1.0
+  fl_chart: null
+  flutter_bloc: ^6.0.6
   flutter_screenutil: ^3.2.0
-
-
-
+  flutter_svg: ^0.19.0
+  infinite_scroll_pagination: ^2.2.1
+  pedantic: ^1.9.0
+  smooth_star_rating: ^1.1.1
+  url_launcher: ^5.7.2
+  weather_icons: ^2.0.2
+  google_maps_flutter: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -46,8 +42,6 @@ flutter:
   assets:
     - assests/images/
   fonts:
-    - family:  BrandIcons
+    - family: BrandIcons
       fonts:
-       - asset: fonts/BrandIcons.ttf
-
-
+        - asset: fonts/BrandIcons.ttf

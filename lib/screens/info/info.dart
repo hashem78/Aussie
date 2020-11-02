@@ -1,5 +1,6 @@
 import 'package:Aussie/screens/info/fauna.dart';
 import 'package:Aussie/screens/info/flora.dart';
+import 'package:Aussie/screens/info/teritories/teritories.dart';
 import 'package:Aussie/screens/info/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,6 +30,11 @@ class InfoScreen extends StatelessWidget {
             WeatherScreen.navPath,
             WeatherScreen.svgName,
             WeatherScreen.title,
+          ),
+          buildTile(
+            TeritoriesScreen.navPath,
+            TeritoriesScreen.svgName,
+            TeritoriesScreen.title,
           ),
         ],
       ),
