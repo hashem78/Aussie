@@ -5,10 +5,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'package:Aussie/models/teritories/teritory.dart';
 
-class TeritoryTile extends StatelessWidget {
-  final TeritoryModel model;
-  const TeritoryTile({
-    @required this.model,
+class PaginatedScreenTile extends StatelessWidget {
+  final Widget title;
+  final Widget subtitle;
+  final void Function() onTap;
+  const PaginatedScreenTile({
+    @required this.title,
+    this.subtitle,
+    this.onTap,
   });
 
   @override
@@ -16,20 +20,10 @@ class TeritoryTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 2.5),
       child: ListTile(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => TeritoryMapScreen(
-              model: model,
-            ),
-          ),
-        ),
         tileColor: Colors.green,
-        title: Text(
-          model.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-        ),
-        subtitle: Text(
-            "Long: ${model.longitude}, Lat: ${model.latitude}, Admin: ${model.admin}"),
+        title: title,
+        subtitle: subtitle,
+        onTap: onTap,
       ),
     );
   }
