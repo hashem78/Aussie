@@ -1,4 +1,4 @@
-import 'package:Aussie/models/weather/weather.dart';
+import 'package:Aussie/models/paginated/weather/weather.dart';
 import 'package:Aussie/screens/info/weather/details.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';

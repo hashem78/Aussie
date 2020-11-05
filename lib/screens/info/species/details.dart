@@ -1,4 +1,4 @@
-import 'package:Aussie/models/species/species.dart';
+import 'package:Aussie/models/paginated/species/species.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/animated/expanded_text_tile.dart';
 import 'package:flutter/material.dart';

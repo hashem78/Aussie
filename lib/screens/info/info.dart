@@ -1,5 +1,6 @@
 import 'package:Aussie/screens/info/fauna.dart';
 import 'package:Aussie/screens/info/flora.dart';
+import 'package:Aussie/screens/info/natural_parks/natural_parks.dart';
 import 'package:Aussie/screens/info/teritories/teritories.dart';
 import 'package:Aussie/screens/info/weather/weather.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,11 @@ class InfoScreen extends StatelessWidget {
             TeritoriesScreen.svgName,
             TeritoriesScreen.title,
           ),
+          buildTile(
+            NaturalParksScreen.navPath,
+            NaturalParksScreen.svgName,
+            NaturalParksScreen.title,
+          ),
         ],
       ),
     );
@@ -60,35 +66,3 @@ class InfoScreen extends StatelessWidget {
         ),
       );
 }
-// Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-//             child: Ink(
-//               color: Colors.deepPurple,
-//               child: ListTile(
-//                 leading: SizedBox.fromSize(
-//                   size: Size(30, 30),
-//                   child: SvgPicture.asset(
-//                     'assests/images/fauna.svg',
-//                   ),
-//                 ),
-//                 title: Text("Australlian fauna"),
-//                 onTap: () => Navigator.pushNamed(context, "/statistics/fauna"),
-//               ),
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
-//             child: Ink(
-//               color: Colors.deepPurple,
-//               child: ListTile(
-//                 leading: SizedBox.fromSize(
-//                   size: Size(30, 30),
-//                   child: SvgPicture.asset(
-//                     'assests/images/flora.svg',
-//                   ),
-//                 ),
-//                 title: Text("Australlian flora"),
-//                 onTap: () => Navigator.pushNamed(context, "/statistics/flora"),
-//               ),
-//             ),
-//           ),

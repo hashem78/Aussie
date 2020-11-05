@@ -1,7 +1,7 @@
-import 'package:Aussie/models/species/species.dart';
+import 'package:Aussie/models/paginated/species/species.dart';
 import 'package:Aussie/screens/info/species/details.dart';
 import 'package:Aussie/screens/searchable_paginated.dart';
-import 'package:Aussie/state/species/flora_cubit.dart';
+import 'package:Aussie/state/paginated/species/flora_cubit.dart';
 import 'package:Aussie/widgets/paginated/tile.dart';
 
 import 'package:flutter/material.dart';

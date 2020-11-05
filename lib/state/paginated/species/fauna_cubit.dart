@@ -4,7 +4,7 @@ import 'package:Aussie/constants.dart';
 import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
 import 'package:Aussie/interfaces/paginated_data_model.dart';
 
-import 'package:Aussie/models/species/species.dart';
+import '../../../models/paginated/species/species.dart';
 import 'package:flutter/material.dart';
 
 import '../common/paginated_screen_state.dart';

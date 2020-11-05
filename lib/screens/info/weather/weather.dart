@@ -1,4 +1,4 @@
-import 'package:Aussie/models/weather/weather.dart';
+import 'package:Aussie/models/paginated/weather/weather.dart';
 import 'package:Aussie/widgets/aussie/weather_tile.dart';
 
 import 'package:flutter/material.dart';

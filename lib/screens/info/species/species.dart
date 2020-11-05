@@ -1,4 +1,4 @@
-import 'package:Aussie/models/species/species.dart';
+import 'package:Aussie/models/paginated/species/species.dart';
 import 'package:Aussie/screens/info/species/details.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';

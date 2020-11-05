@@ -1,10 +1,10 @@
+import 'package:Aussie/models/paginated/weather/card.dart';
+import 'package:Aussie/models/paginated/weather/weather.dart';
 import 'package:Aussie/widgets/aussie/weather_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/weather/card.dart';
-import 'package:Aussie/models/weather/weather.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/aussie/weather_tile.dart';
 

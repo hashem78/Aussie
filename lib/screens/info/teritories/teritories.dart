@@ -1,10 +1,10 @@
-import 'package:Aussie/models/teritories/teritory.dart';
+import 'package:Aussie/models/paginated/teritories/teritory.dart';
+import 'package:Aussie/screens/info/teritories/gmap_screen.dart';
 import 'package:Aussie/screens/searchable_paginated.dart';
+import 'package:Aussie/state/paginated/teritories/teritories_cubit.dart';
 import 'package:Aussie/widgets/paginated/tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:Aussie/state/teritories/teritories_cubit.dart';
 
 class TeritoriesScreen extends StatelessWidget {
   static String navPath = "/main/info/teritories";

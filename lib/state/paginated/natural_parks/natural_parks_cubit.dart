@@ -1,34 +1,31 @@
 import 'dart:collection';
 
-import 'package:Aussie/constants.dart';
 import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
 import 'package:Aussie/interfaces/paginated_data_model.dart';
 
-import 'package:Aussie/models/species/species.dart';
+import '../common/paginated_screen_state.dart';
+import '../../../models/paginated/natural_parks/natural_parks.dart';
 import 'package:flutter/material.dart';
 
-import '../common/paginated_screen_state.dart';
+class NaturalParksCubit extends PaginatedScreenCubit {
+  NaturalParksCubit() : super(PaginatedScreenInitial());
 
-class FloraCubit extends PaginatedScreenCubit {
-  FloraCubit() : super(PaginatedScreenInitial());
-
-  Queue<SpeciesDetailsModel> totalData = Queue.from(List.generate(
-    20,
-    (_) => SpeciesDetailsModel(
-      description: klorem,
-      scientificName: UniqueKey().toString(),
-      commonName: "Lol",
-      type: "kek",
-      titleImageUrl: kurl,
+  Queue<NaturalParkModel> totalData = Queue.from(
+    List.generate(
+      20,
+      (_) => NaturalParkModel(
+        title: UniqueKey().toString(),
+        longitude: "1",
+        latitude: "1",
+        summary: "kkkk",
+        sections: [{}],
+      ),
     ),
-  ));
+  );
 
   void filter(String searchValue) {
-    List<PaginatedDataModel> models = currentData
-        .where(
-          (element) =>
-              (element as SpeciesDetailsModel).commonName == searchValue,
-        )
+    List<NaturalParkModel> models = currentData
+        .where((element) => (element as NaturalParkModel).title == searchValue)
         .toList();
     emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
   }
@@ -39,7 +36,6 @@ class FloraCubit extends PaginatedScreenCubit {
 
   int get _avail => totalData.length;
   Future<void> loadMoreAsync(int amount) async {
-    print("avail in fauna: $_avail");
     if (_avail == 0) {
       emit(
         PaginatedScreenEnd(
@@ -52,7 +48,7 @@ class FloraCubit extends PaginatedScreenCubit {
     if (amount > _avail) {
       amount = _avail;
     }
-    List<SpeciesDetailsModel> models = [...currentData];
+    List<NaturalParkModel> models = [...currentData];
     for (int i = 0; i < amount; ++i) models.add(totalData.removeLast());
 
     currentData = models;

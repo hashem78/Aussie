@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../state/common/paginated_screen_state.dart';
+import '../state/paginated/common/paginated_screen_state.dart';
 
 class SearchablePaginatedScreen extends StatefulWidget {
   final PaginatedScreenCubit cubit;
