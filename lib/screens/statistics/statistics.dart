@@ -13,7 +13,6 @@ class StatisticsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
       appBar: AppBar(title: Text("Statistics"), elevation: 0),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +51,6 @@ class StatisticsScreen extends StatelessWidget {
         builder: (BuildContext context) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 1),
           child: Ink(
-            color: Colors.deepPurple,
             child: ListTile(
               leading: SizedBox.fromSize(
                 size: Size(30, 30),

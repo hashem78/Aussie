@@ -61,7 +61,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
             SliverAppBar(
               backgroundColor: Colors.cyan.shade700,
               stretch: true,
-              expandedHeight: 300.h,
+              expandedHeight: .5.sh,
               flexibleSpace: FlexibleSpaceBar(
                 stretchModes: [
                   StretchMode.zoomBackground,
@@ -70,7 +70,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
                 background: CarouselSlider(
                   items: [buildImage(kurl)],
                   options: CarouselOptions(
-                    height: 300.h,
+                    height: .5.sh,
                     viewportFraction: 1,
                     pageSnapping: false,
                     autoPlay: true,

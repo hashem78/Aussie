@@ -50,15 +50,10 @@ class _WeatherTileState extends State<WeatherTile> {
               ),
               AutoSizeText(
                 "It's currently ${_today.highTemp} in ${_today.title}",
-                minFontSize: 20.sp,
                 softWrap: true,
                 maxLines: 2,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                _today.title,
-                style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 50.sp),
               ),
             ],
           ),

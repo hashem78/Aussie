@@ -27,15 +27,13 @@ class Section extends StatelessWidget {
 }
 
 class EFEDetails<T extends EFEModel> extends StatelessWidget {
-  final Color backgroundColor;
   final double titleImageHeight;
   final T model;
   EFEDetails({
     @required this.model,
-    this.backgroundColor = Colors.blue,
-    titleImageHeight,
+    double titleImageHeight,
   })  : assert(model != null),
-        titleImageHeight = titleImageHeight ?? 200.h;
+        titleImageHeight = titleImageHeight ?? 1.sh;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +44,10 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
         return SizedTile(
           title: e.title,
           image: _image,
-          widthFactor: 100,
+          widthFactor: .97.sw,
           heightFactor: 25,
+          swatchHeightFactor: .06.sh,
+          swatchWidthFactor: 1.sw,
         );
       },
     ).toList();
@@ -56,7 +56,7 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
         _descriptions.add(ExpandingTextTile(title: key, text: value)));
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: Colors.blue,
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
@@ -86,8 +86,7 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
                 AussieScrollableList(
                   title: "Gallery",
                   scrollDirection: Axis.horizontal,
-                  heightFactor: 42,
-                  childPadding: EdgeInsets.symmetric(horizontal: 1),
+                  heightFactor: .42.sh,
                   children: _gallery,
                 ),
               ],

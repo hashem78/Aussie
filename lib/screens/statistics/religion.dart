@@ -114,7 +114,6 @@ class _ReligionScreenState extends State<ReligionScreen> {
           AussieSliverAppBar(
             title: title,
             showHero: false,
-            backgroundColor: Colors.amber,
           ),
           SliverList(
             delegate: SliverChildListDelegate(

@@ -11,8 +11,6 @@ import 'package:Aussie/screens/statistics/statistics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:Aussie/screens/landing.dart';
-import 'package:Aussie/screens/main.dart';
 import 'package:Aussie/screens/statistics/energy.dart';
 import 'package:Aussie/screens/statistics/livestock.dart';
 import 'package:Aussie/screens/statistics/religion.dart';
@@ -31,12 +29,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: Typography.material2018().white,
+        textTheme: Typography.material2018().black,
+        brightness: Brightness.light,
+        canvasColor: Colors.blue,
       ),
-      initialRoute: "/",
+      initialRoute: EFEScreen.navPath,
       routes: {
-        "/": (BuildContext context) => LandingScreen(),
-        "/main": (BuildContext context) => MainScreen(),
         NaturalParksScreen.navPath: (BuildContext context) =>
             NaturalParksScreen(),
         InfoScreen.navPath: (BuildContext context) => InfoScreen(),

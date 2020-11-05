@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AussieScrollableList extends StatelessWidget {
   final String title;
@@ -17,33 +16,18 @@ class AussieScrollableList extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-          ),
+    return SizedBox(
+      height: heightFactor,
+      child: ListView.builder(
+        addAutomaticKeepAlives: true,
+        physics: BouncingScrollPhysics(),
+        scrollDirection: scrollDirection,
+        itemCount: children.length,
+        itemBuilder: (BuildContext context, int index) => Padding(
+          padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
+          child: children[index],
         ),
-        Container(
-          height: (heightFactor / 100).sh,
-          padding: EdgeInsets.only(top: 8),
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            addAutomaticKeepAlives: true,
-            physics: BouncingScrollPhysics(),
-            scrollDirection: scrollDirection,
-            itemCount: children.length,
-            itemBuilder: (BuildContext context, int index) => Padding(
-              padding: childPadding,
-              child: children[index],
-            ),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

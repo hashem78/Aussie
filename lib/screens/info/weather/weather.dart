@@ -18,7 +18,6 @@ class WeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kausBlue,
       body: CustomScrollView(
         slivers: [
           AussieSliverAppBar(

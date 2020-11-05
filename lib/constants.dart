@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
-const kausBlue = Color(0xFF0052B4);
+const kausBlue = Color(0xFF00008b);
 const kausRed = Color(0xFFD80027);
 const kaussieRadius = const BorderRadius.all(Radius.circular(20));
 String kurl =

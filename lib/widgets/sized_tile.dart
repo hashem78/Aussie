@@ -8,8 +8,10 @@ class SizedTile extends StatelessWidget {
   final String title;
 
   final Widget image;
-  final int widthFactor;
-  final int heightFactor;
+  final double widthFactor;
+  final double heightFactor;
+  final double swatchHeightFactor;
+  final double swatchWidthFactor;
   final String tag = UniqueKey().toString();
 
   final Color swatchColor;
@@ -24,11 +26,15 @@ class SizedTile extends StatelessWidget {
     this.heightFactor,
     Color swatchColor,
     this.swatchMaxLines = 1,
+    this.swatchHeightFactor = 40,
+    this.swatchWidthFactor = 100,
   })  : assert(
           image != null &&
               title != null &&
               heightFactor != null &&
-              widthFactor != null,
+              widthFactor != null &&
+              swatchHeightFactor != null &&
+              swatchWidthFactor != null,
           "A property of a sized tile is set null",
         ),
         swatchColor = swatchColor ?? kausBlue.withAlpha(240),
@@ -42,33 +48,42 @@ class SizedTile extends StatelessWidget {
     @required this.heightFactor,
     swatchColor,
     this.swatchMaxLines = 1,
-  }) : swatchColor = swatchColor ?? kausBlue.withAlpha(240);
+    swatchHeightFactor,
+    swatchWidthFactor,
+  })  : swatchColor = swatchColor ?? kausBlue.withAlpha(240),
+        swatchWidthFactor = swatchWidthFactor ?? 1.sw,
+        swatchHeightFactor = swatchHeightFactor ?? .4.sh;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (widthFactor / 100).sw,
-      height: (heightFactor / 100).sh,
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          image,
-          SizedTileSwatch(
-            maxLines: swatchMaxLines,
-            widthFactor: widthFactor,
-            heightFactor: heightFactor,
-            title: title,
-            color: swatchColor,
-          ),
-          if (onTap != null)
-            Material(
-              type: MaterialType.transparency,
-              child: InkWell(
-                splashColor: kausRed.withAlpha(120),
-                onTap: onTap,
-              ),
+      width: widthFactor,
+      height: heightFactor,
+      child: Card(
+        margin: EdgeInsets.zero,
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            image,
+            SizedTileSwatch(
+              maxLines: swatchMaxLines,
+              widthFactor: swatchWidthFactor,
+              heightFactor: swatchHeightFactor,
+              title: title,
+              color: swatchColor,
             ),
-        ],
+            if (onTap != null)
+              Material(
+                type: MaterialType.transparency,
+                child: InkWell(
+                  splashColor: kausRed.withAlpha(120),
+                  onTap: onTap,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
@@ -76,8 +91,8 @@ class SizedTile extends StatelessWidget {
 
 class SizedTileSwatch extends StatelessWidget {
   final int maxLines;
-  final int widthFactor;
-  final int heightFactor;
+  final double widthFactor;
+  final double heightFactor;
   final String title;
   final Color color;
 
@@ -103,14 +118,14 @@ class SizedTileSwatch extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       child: Container(
         color: color,
-        width: (widthFactor / 100).sw,
-        height: ((heightFactor / 4) / 100).sh,
+        width: widthFactor,
+        height: heightFactor,
         child: Center(
           child: AutoSizeText(
             title,
             maxLines: maxLines,
-            minFontSize: 15,
-            textScaleFactor: 1.2,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 60.ssp),
           ),
         ),
       ),

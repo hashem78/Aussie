@@ -1,8 +1,10 @@
 import 'package:Aussie/models/efe/efe.dart';
 import 'package:Aussie/screens/efe/details.dart';
 import 'package:Aussie/screens/efe/entertainment.dart';
-import 'package:Aussie/screens/efe/explore.dart';
+import 'package:Aussie/screens/efe/events.dart';
+import 'package:Aussie/screens/efe/people.dart';
 import 'package:Aussie/screens/efe/food_drinks.dart';
+import 'package:Aussie/screens/efe/places.dart';
 import 'package:Aussie/util/functions.dart';
 import 'package:Aussie/widgets/aussie/scrollable_list.dart';
 import 'package:Aussie/widgets/sized_tile.dart';
@@ -16,25 +18,30 @@ class EFEScreen extends StatefulWidget {
   static final navPath = "/main/efe";
   static Widget buildEFETiles(
     String title,
-    List<EFEModel> models,
-    int widthFactor,
-    int heightFactor,
-    double listHeightFactor, {
+    List<EFEModel> models, {
+    double widthFactor,
+    double heightFactor,
+    double listHeightFactor,
+    double swatchWidthFactor,
+    double swatchHeightFactor,
     double titleImageHeight,
+    Color swatchColor = Colors.transparent,
   }) {
-    titleImageHeight = titleImageHeight ?? 300.h;
+    titleImageHeight = titleImageHeight ?? .5.sh;
     return Builder(
       builder: (BuildContext context) => AussieScrollableList(
         title: title,
         heightFactor: listHeightFactor,
-        childPadding: EdgeInsets.only(right: 1),
         scrollDirection: Axis.horizontal,
         children: models
             .map(
               (model) => SizedTile.withDetails(
                 widthFactor: widthFactor,
                 heightFactor: heightFactor,
+                swatchWidthFactor: swatchWidthFactor,
+                swatchHeightFactor: swatchHeightFactor,
                 title: model.title,
+                swatchColor: swatchColor,
                 image: buildImage(model.titleImageUrl),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -58,7 +65,13 @@ class EFEScreen extends StatefulWidget {
 class _EFEScreenState extends State<EFEScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
-  var tabs = [ExploreScreen(), FoodAndDrinks(), Entertainment()];
+  var tabs = [
+    PeopleScreen(),
+    PlacesScreen(),
+    EventsScreen(),
+    FoodAndDrinks(),
+    Entertainment(),
+  ];
   void onPageChanged(int page) {
     setState(
       () {
@@ -76,17 +89,30 @@ class _EFEScreenState extends State<EFEScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Scaffold(
       bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Color(0xff141414),
         selectedIndex: currentIndex,
         itemCornerRadius: 0,
+        showElevation: true,
         curve: Curves.easeInOut,
         onItemSelected: onPageChanged,
         items: [
           BottomNavyBarItem(
-            icon: Icon(Icons.explore),
-            title: Text('Explore'),
+            icon: Icon(Icons.people),
+            title: Text('People'),
+            activeColor: kausBlue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.place),
+            title: Text('Places'),
+            activeColor: kausBlue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.event),
+            title: Text('Events'),
             activeColor: kausBlue,
             textAlign: TextAlign.center,
           ),
