@@ -101,13 +101,13 @@ class _EFEScreenState extends State<EFEScreen> {
           BottomNavyBarItem(
             icon: Icon(Icons.people),
             title: Text('People'),
-            activeColor: kausBlue,
+            activeColor: Colors.pink,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(
             icon: Icon(Icons.place),
             title: Text('Places'),
-            activeColor: kausBlue,
+            activeColor: Colors.red,
             textAlign: TextAlign.center,
           ),
           BottomNavyBarItem(

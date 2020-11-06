@@ -111,10 +111,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
       backgroundColor: Colors.amber,
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(
-            title: title,
-            showHero: false,
-          ),
+          AussieSliverAppBar(title: title),
           SliverList(
             delegate: SliverChildListDelegate(
               [

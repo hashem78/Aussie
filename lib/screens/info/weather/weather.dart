@@ -22,7 +22,6 @@ class WeatherScreen extends StatelessWidget {
         slivers: [
           AussieSliverAppBar(
             title: WeatherScreen.title,
-            showHero: false,
           ),
           SliverGrid.count(
             crossAxisCount: 2,

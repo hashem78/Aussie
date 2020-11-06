@@ -6,6 +6,7 @@ import 'package:Aussie/models/ratings.dart';
 import 'package:Aussie/screens/efe/efe.dart';
 import 'package:Aussie/util/social_media_platform.dart';
 import 'package:Aussie/widgets/aussie/app_drawer.dart';
+import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,26 +25,7 @@ class Entertainment extends StatelessWidget {
       drawer: AussieAppDrawer(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: .51.sh,
-            backgroundColor: Colors.transparent,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                child: Center(
-                  child: Text(
-                    'People',
-                    style: TextStyle(
-                      fontSize: 200.sp,
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ),
+          AussieSliverAppBar(title: 'Entertainment'),
           SliverList(
             delegate: SliverChildListDelegate(
               [

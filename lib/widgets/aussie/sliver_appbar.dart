@@ -4,37 +4,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AussieSliverAppBar extends StatelessWidget {
   final String title;
-  final bool showHero;
-  final bool automaticallyImplyLeading;
 
-  final bool pinned;
   const AussieSliverAppBar({
     @required this.title,
-    @required this.showHero,
-    this.automaticallyImplyLeading = true,
-    this.pinned = false,
-  }) : assert(showHero != null && title != null);
+  }) : assert(title != null);
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 60.h,
-      pinned: pinned,
-      automaticallyImplyLeading: automaticallyImplyLeading,
+      expandedHeight: .51.sh,
+      backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
-        title: AutoSizeText(
-          title,
-          maxFontSize: 13,
-        ),
-        centerTitle: true,
-      ),
-      actions: [
-        if (showHero)
-          Hero(
-            tag: "auFlag",
-            child: Image.asset('assests/images/au.png'),
+        background: Container(
+          child: Center(
+            child: AutoSizeText(
+              title,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 200.sp,
+                fontWeight: FontWeight.w900,
+              ),
+            ),
           ),
-      ],
+          decoration: BoxDecoration(
+            color: Colors.red,
+          ),
+        ),
+      ),
     );
   }
 }
