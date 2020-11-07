@@ -1,4 +1,4 @@
-import 'package:Aussie/widgets/aussie/sliver_appbar.dart';
+import 'package:Aussie/widgets/religon_sliver_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:Aussie/constants.dart';
@@ -111,7 +111,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
       backgroundColor: Colors.amber,
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(title: title),
+          ReligonSliverAppBar(title: title),
           SliverList(
             delegate: SliverChildListDelegate(
               [

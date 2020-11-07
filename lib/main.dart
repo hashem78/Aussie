@@ -1,3 +1,4 @@
+import 'package:Aussie/screens/dyk.dart';
 import 'package:Aussie/screens/efe/efe.dart';
 import 'package:Aussie/screens/info/fauna.dart';
 import 'package:Aussie/screens/info/flora.dart';
@@ -31,12 +32,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: Typography.material2018().black,
         brightness: Brightness.light,
-        canvasColor: Colors.blue,
       ),
       initialRoute: EFEScreen.navPath,
       routes: {
         NaturalParksScreen.navPath: (BuildContext context) =>
             NaturalParksScreen(),
+        DYKScreen.navPath: (BuildContext context) => DYKScreen(),
         InfoScreen.navPath: (BuildContext context) => InfoScreen(),
         WeatherScreen.navPath: (BuildContext context) => WeatherScreen(),
         TeritoriesScreen.navPath: (BuildContext context) => TeritoriesScreen(),

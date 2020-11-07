@@ -29,13 +29,11 @@ class PlacesScreen extends StatelessWidget {
         slivers: [
           AussieSliverAppBar(title: 'Places'),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildTiles(
-                  "People",
-                  List.filled(5, _tempPlace),
-                ),
-              ],
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return buildTiles(List.filled(5, _tempPlace), index * 100.0);
+              },
+              childCount: 5,
             ),
           ),
         ],
@@ -43,13 +41,14 @@ class PlacesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTiles(String title, List<EFEModel> models) =>
+  Widget buildTiles(List<EFEModel> models, double listScrollOffset) =>
       EFEScreen.buildEFETiles(
-        title,
         models,
         widthFactor: .7.sw,
         swatchWidthFactor: 1.sw,
-        swatchHeightFactor: .03.sh,
-        listHeightFactor: .6.sh,
+        swatchHeightFactor: .04.sh,
+        listHeightFactor: .61.sh,
+        swatchColor: Colors.red,
+        listScrollOffset: listScrollOffset,
       );
 }

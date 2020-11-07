@@ -16,7 +16,11 @@ class PeopleScreen extends StatelessWidget {
     title: "Pewdiepie",
     titleImageUrl: kurl,
     descriptions: {"hi": klorem},
-    galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
+    galleryImageLinks: [
+      GalleryImageModel(url: kurl, title: "lol"),
+      GalleryImageModel(url: kurl, title: "lol"),
+      GalleryImageModel(url: kurl, title: "lol")
+    ],
     socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
   );
   @override
@@ -27,13 +31,11 @@ class PeopleScreen extends StatelessWidget {
         slivers: [
           AussieSliverAppBar(title: 'People'),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildTiles(
-                  "People",
-                  List.filled(5, _tempPerson),
-                ),
-              ],
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return buildTiles(List.filled(5, _tempPerson), index * 100.0);
+              },
+              childCount: 2,
             ),
           ),
         ],
@@ -41,13 +43,14 @@ class PeopleScreen extends StatelessWidget {
     );
   }
 
-  Widget buildTiles(String title, List<EFEModel> models) =>
+  Widget buildTiles(List<EFEModel> models, double listScrollOffset) =>
       EFEScreen.buildEFETiles(
-        title,
         models,
-        widthFactor: .7.sw,
+        widthFactor: .8.sw,
         swatchWidthFactor: 1.sw,
-        swatchHeightFactor: .03.sh,
-        listHeightFactor: .6.sh,
+        swatchHeightFactor: .04.sh,
+        listHeightFactor: .4.sh,
+        swatchColor: Colors.red,
+        listScrollOffset: listScrollOffset,
       );
 }

@@ -12,20 +12,29 @@ class AussieSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: .51.sh,
-      backgroundColor: Colors.transparent,
+      expandedHeight: .30.sh,
+      backgroundColor: Colors.red,
+      title: Text("Aussie"),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
-          child: Center(
-            child: AutoSizeText(
-              title,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 200.sp,
-                fontWeight: FontWeight.w900,
+          child: Stack(
+            children: [
+              Center(
+                child: AutoSizeText(
+                  title,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 200.sp,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
               ),
-            ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Icon(Icons.arrow_drop_down),
+              ),
+            ],
           ),
           decoration: BoxDecoration(
             color: Colors.red,

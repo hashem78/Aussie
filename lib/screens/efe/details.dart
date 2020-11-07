@@ -29,15 +29,17 @@ class Section extends StatelessWidget {
 class EFEDetails<T extends EFEModel> extends StatelessWidget {
   final double titleImageHeight;
   final T model;
+  final String tag;
   EFEDetails({
     @required this.model,
+    @required this.tag,
     double titleImageHeight,
-  })  : assert(model != null),
+  })  : assert(model != null && tag != null),
         titleImageHeight = titleImageHeight ?? 1.sh;
 
   @override
   Widget build(BuildContext context) {
-    var _titleImgae = buildImage(model.titleImageUrl);
+    var _titleImage = Hero(tag: tag, child: buildImage(model.titleImageUrl));
     var _gallery = model.galleryImageLinks.map(
       (e) {
         var _image = buildImage(e.url);
@@ -69,7 +71,7 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
                 StretchMode.zoomBackground,
                 StretchMode.fadeTitle,
               ],
-              background: _titleImgae,
+              background: _titleImage,
             ),
           ),
           SliverList(
@@ -83,8 +85,17 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
                   ],
                 ),
                 buildRatings(),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Text(
+                    "Gallery",
+                    style: TextStyle(
+                      fontSize: 100.sp,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
                 AussieScrollableList(
-                  title: "Gallery",
                   scrollDirection: Axis.horizontal,
                   heightFactor: .42.sh,
                   children: _gallery,

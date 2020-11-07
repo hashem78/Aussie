@@ -29,8 +29,8 @@ class Entertainment extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                buildTiles("Movies", List.filled(5, tmodel)),
-                buildTiles("TV Shows", List.filled(5, tmodel)),
+                buildTiles(0, List.filled(5, tmodel)),
+                buildTiles(100, List.filled(5, tmodel)),
               ],
             ),
           ),
@@ -39,17 +39,18 @@ class Entertainment extends StatelessWidget {
     );
   }
 
-  Widget buildTiles(String title, List<EntertainmentDetailsModel> models) {
+  Widget buildTiles(
+      double initialScrollOffset, List<EntertainmentDetailsModel> models) {
     return EFEScreen.buildEFETiles(
-      title,
       models,
       widthFactor: .55.sw,
       heightFactor: .20.sh,
       swatchWidthFactor: 1.sw,
       swatchHeightFactor: .05.sh,
       titleImageHeight: .8.sh,
-      listHeightFactor: .6.sh,
+      listHeightFactor: .61.sh,
       swatchColor: Colors.red,
+      listScrollOffset: initialScrollOffset,
     );
   }
 }

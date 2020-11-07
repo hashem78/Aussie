@@ -12,7 +12,6 @@ class SizedTile extends StatelessWidget {
   final double heightFactor;
   final double swatchHeightFactor;
   final double swatchWidthFactor;
-  final String tag = UniqueKey().toString();
 
   final Color swatchColor;
   final void Function() onTap;
@@ -66,13 +65,17 @@ class SizedTile extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            image,
-            SizedTileSwatch(
-              maxLines: swatchMaxLines,
-              widthFactor: swatchWidthFactor,
-              heightFactor: swatchHeightFactor,
-              title: title,
-              color: swatchColor,
+            Column(
+              children: [
+                Expanded(child: image),
+                SizedTileSwatch(
+                  maxLines: swatchMaxLines,
+                  widthFactor: swatchWidthFactor,
+                  heightFactor: swatchHeightFactor,
+                  title: title,
+                  color: swatchColor,
+                ),
+              ],
             ),
             if (onTap != null)
               Material(

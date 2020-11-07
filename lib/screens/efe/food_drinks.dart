@@ -1,4 +1,5 @@
 import 'package:Aussie/constants.dart';
+import 'package:Aussie/models/efe/efe.dart';
 import 'package:Aussie/models/efe/food_and_drinks/details.dart';
 import 'package:Aussie/models/gallery.dart';
 import 'package:Aussie/models/ratings.dart';
@@ -26,21 +27,11 @@ class FoodAndDrinks extends StatelessWidget {
         slivers: [
           AussieSliverAppBar(title: 'Food & Drinks'),
           SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildTiles(
-                  "Dishes",
-                  List.filled(5, _tempDish),
-                ),
-                buildTiles(
-                  "Drinks & Beverages",
-                  List.filled(5, _tempDish),
-                ),
-                buildTiles(
-                  "Local Cuisine",
-                  List.filled(5, _tempDish),
-                ),
-              ],
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return buildTiles(List.filled(5, _tempDish), index * 100.0);
+              },
+              childCount: 5,
             ),
           ),
         ],
@@ -48,13 +39,14 @@ class FoodAndDrinks extends StatelessWidget {
     );
   }
 
-  Widget buildTiles(String title, List<FoodAndDrinksDetailsModel> models) =>
+  Widget buildTiles(List<EFEModel> models, double listScrollOffset) =>
       EFEScreen.buildEFETiles(
-        title,
         models,
         widthFactor: .7.sw,
         swatchWidthFactor: 1.sw,
-        swatchHeightFactor: .03.sh,
-        listHeightFactor: .6.sh,
+        swatchHeightFactor: .04.sh,
+        listHeightFactor: .61.sh,
+        swatchColor: Colors.red,
+        listScrollOffset: listScrollOffset,
       );
 }
