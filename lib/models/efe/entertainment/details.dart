@@ -3,8 +3,9 @@ import 'package:Aussie/interfaces/ratings.dart';
 import 'package:Aussie/models/efe/efe.dart';
 import 'package:Aussie/models/gallery.dart';
 import 'package:Aussie/models/ratings.dart';
+import 'package:Aussie/presentation/widgets/rating/rating_section.dart';
 import 'package:Aussie/util/social_media_platform.dart';
-import 'package:Aussie/widgets/rating/rating_section.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
