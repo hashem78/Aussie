@@ -2,25 +2,17 @@ import 'dart:collection';
 
 import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
 import 'package:Aussie/interfaces/paginated_data_model.dart';
+import 'package:Aussie/repositories/paginated/online.dart';
 
 import '../../../models/paginated/teritories/teritory.dart';
 
-import 'package:flutter/material.dart';
 import '../common/paginated_screen_state.dart';
 
 class TeritoriesCubit extends PaginatedScreenCubit {
   TeritoriesCubit() : super(PaginatedScreenInitial());
 
-  Queue<TeritoryModel> totalData = Queue.from(
-    List.generate(
-      20,
-      (_) => TeritoryModel(
-        admin: "1",
-        longitude: 151.205475,
-        latitude: -33.861481,
-        title: UniqueKey().toString(),
-      ),
-    ),
+  PaginatedOnlineRepositoy<TeritoryModel> repositoy = PaginatedOnlineRepositoy(
+    route: "teritories",
   );
 
   void filter(String searchValue) {
@@ -34,27 +26,22 @@ class TeritoriesCubit extends PaginatedScreenCubit {
     emit(PaginatedScreenDataChanged(models: UnmodifiableListView(currentData)));
   }
 
-  int get _avail => totalData.length;
-  Future<void> loadMoreAsync(int amount) async {
-    if (_avail == 0) {
+  Future<void> loadMoreAsync({int page, int amount}) async {
+    var _avail = await repositoy.fetch(page, fetchAmount: amount);
+    if (_avail.length == 0) {
       emit(
         PaginatedScreenEnd(
           text: "rip",
-          models: UnmodifiableListView(currentData),
+          models: UnmodifiableListView([]),
         ),
       );
       return;
     }
-    if (amount > _avail) {
-      amount = _avail;
+    if (amount > _avail.length) {
+      amount = _avail.length;
     }
-    List<TeritoryModel> models = [...currentData];
-    for (int i = 0; i < amount; ++i) models.add(totalData.removeLast());
 
-    currentData = models;
-    await Future.delayed(Duration(seconds: 2));
-
-    emit(PaginatedScreenDataChanged(models: UnmodifiableListView(models)));
+    emit(PaginatedScreenDataChanged(models: UnmodifiableListView(_avail)));
   }
 
   @override

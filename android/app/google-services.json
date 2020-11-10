@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "112601270548",
+    "firebase_url": "https://aussie-51022.firebaseio.com",
+    "project_id": "aussie-51022",
+    "storage_bucket": "aussie-51022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112601270548:android:e4022cf575305ce5555a01",
+        "android_client_info": {
+          "package_name": "com.hashem.aussie.Aussie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112601270548-ile75r5i3jejd40alubhrsq83ukgd7l9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNl0OZb9jKw--2ZRJHJCncWciU3GmLDNY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "112601270548-ile75r5i3jejd40alubhrsq83ukgd7l9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -32,7 +32,8 @@ class TeritoriesScreen extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
           ),
           subtitle: Text(
-              "Long: ${_casted.longitude}, Lat: ${_casted.latitude}, Admin: ${_casted.admin}"),
+            "Long: ${_casted.longitude}, Lat: ${_casted.latitude}, Admin: ${_casted.admin}",
+          ),
         );
       },
     );

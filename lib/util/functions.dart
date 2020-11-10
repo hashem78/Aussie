@@ -11,22 +11,26 @@ Color getRandomColor() {
 }
 
 Widget buildImage(String imageUrl, {BoxFit fit = BoxFit.fill}) {
-  return CachedNetworkImage(
-    imageUrl: imageUrl,
-    imageBuilder: (context, imageProvider) => Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: imageProvider,
-          fit: fit,
+  if (imageUrl.isNotEmpty) {
+    return CachedNetworkImage(
+      imageUrl: imageUrl,
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: imageProvider,
+            fit: fit,
+          ),
         ),
       ),
-    ),
-    placeholder: (context, url) => Container(
-      color: Colors.lightBlueAccent,
-      child: Center(
-        child: CircularProgressIndicator(),
+      placeholder: (context, url) => Container(
+        color: Colors.lightBlueAccent,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
-    ),
-    errorWidget: (context, url, error) => Icon(Icons.error),
-  );
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+  } else {
+    return null;
+  }
 }

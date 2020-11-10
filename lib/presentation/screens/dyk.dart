@@ -84,7 +84,6 @@ class _DYKScreenState extends State<DYKScreen> {
             height: .5.sh,
             child: PageView.builder(
               onPageChanged: (page) {
-                print(page);
                 setState(() {
                   if (page > 0 && page < widget.models.length - 1) {
                     left = true;

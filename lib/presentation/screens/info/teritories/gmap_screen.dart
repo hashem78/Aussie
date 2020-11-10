@@ -18,7 +18,10 @@ class _TeritoryMapScreenState extends State<TeritoryMapScreen> {
   @override
   void initState() {
     _position = CameraPosition(
-      target: LatLng(widget.model.latitude, widget.model.longitude),
+      target: LatLng(
+        double.parse(widget.model.latitude),
+        double.parse(widget.model.longitude),
+      ),
       zoom: 14.4746,
     );
     super.initState();
@@ -47,7 +50,10 @@ class _TeritoryMapScreenState extends State<TeritoryMapScreen> {
         markers: {
           Marker(
             markerId: MarkerId(UniqueKey().toString()),
-            position: LatLng(widget.model.latitude, widget.model.longitude),
+            position: LatLng(
+              double.parse(widget.model.latitude),
+              double.parse(widget.model.longitude),
+            ),
           ),
         },
         onMapCreated: (GoogleMapController controller) {

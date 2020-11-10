@@ -43,7 +43,10 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
       if (searchQuery.isNotEmpty) {
         widget.cubit.filter(searchQuery);
       } else {
-        widget.cubit.loadMoreAsync(_pageSize);
+        widget.cubit.loadMoreAsync(
+          page: pageKey,
+          amount: _pageSize,
+        );
       }
     });
 
@@ -88,8 +91,6 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
             BlocListener<PaginatedScreenCubit, PaginatedScreenState>(
               cubit: widget.cubit,
               listener: (context, state) {
-                print("new state");
-
                 if (state is PaginatedScreenInitialLoaded) {
                   _controller.appendPage(state.models, _pageSize);
                 } else if (state is PaginatedScreenDataChanged) {

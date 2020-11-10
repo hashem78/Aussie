@@ -2,30 +2,22 @@ import 'dart:collection';
 
 import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
 import 'package:Aussie/interfaces/paginated_data_model.dart';
+import 'package:Aussie/repositories/paginated/online.dart';
 
 import '../common/paginated_screen_state.dart';
 import '../../../models/paginated/natural_parks/natural_parks.dart';
-import 'package:flutter/material.dart';
 
 class NaturalParksCubit extends PaginatedScreenCubit {
   NaturalParksCubit() : super(PaginatedScreenInitial());
-
-  Queue<NaturalParkModel> totalData = Queue.from(
-    List.generate(
-      20,
-      (_) => NaturalParkModel(
-        title: UniqueKey().toString(),
-        longitude: "1",
-        latitude: "1",
-        summary: "kkkk",
-        sections: [{}],
-      ),
-    ),
+  PaginatedOnlineRepositoy<NaturalParkModel> repositoy =
+      PaginatedOnlineRepositoy(
+    route: "naturalParks",
   );
 
   void filter(String searchValue) {
     List<NaturalParkModel> models = currentData
-        .where((element) => (element as NaturalParkModel).title == searchValue)
+        .where(
+            (element) => (element as NaturalParkModel).parkName == searchValue)
         .toList();
     emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
   }
@@ -34,27 +26,22 @@ class NaturalParksCubit extends PaginatedScreenCubit {
     emit(PaginatedScreenDataChanged(models: UnmodifiableListView(currentData)));
   }
 
-  int get _avail => totalData.length;
-  Future<void> loadMoreAsync(int amount) async {
-    if (_avail == 0) {
+  Future<void> loadMoreAsync({int page, int amount}) async {
+    var _avail = await repositoy.fetch(page, fetchAmount: amount);
+    if (_avail.length == 0) {
       emit(
         PaginatedScreenEnd(
           text: "rip",
-          models: UnmodifiableListView(currentData),
+          models: UnmodifiableListView([]),
         ),
       );
       return;
     }
-    if (amount > _avail) {
-      amount = _avail;
+    if (amount > _avail.length) {
+      amount = _avail.length;
     }
-    List<NaturalParkModel> models = [...currentData];
-    for (int i = 0; i < amount; ++i) models.add(totalData.removeLast());
 
-    currentData = models;
-    await Future.delayed(Duration(seconds: 2));
-
-    emit(PaginatedScreenDataChanged(models: UnmodifiableListView(models)));
+    emit(PaginatedScreenDataChanged(models: UnmodifiableListView(_avail)));
   }
 
   @override

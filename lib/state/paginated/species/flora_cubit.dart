@@ -38,8 +38,7 @@ class FloraCubit extends PaginatedScreenCubit {
   }
 
   int get _avail => totalData.length;
-  Future<void> loadMoreAsync(int amount) async {
-    print("avail in fauna: $_avail");
+  Future<void> loadMoreAsync({int page, int amount}) async {
     if (_avail == 0) {
       emit(
         PaginatedScreenEnd(

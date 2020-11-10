@@ -38,7 +38,7 @@ class FaunaCubit extends PaginatedScreenCubit {
   }
 
   int get _avail => totalData.length;
-  Future<void> loadMoreAsync(int amount) async {
+  Future<void> loadMoreAsync({int page, int amount}) async {
     print("avail in fauna: $_avail");
     if (_avail == 0) {
       emit(
