@@ -15,6 +15,7 @@ class FaunaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
       cubit: cubit,
+      thumbnailCubitRoute: "natural_park_images",
       itemBuilder: (context, item, index) {
         var _casted = item as SpeciesDetailsModel;
         return PaginatedScreenTile(

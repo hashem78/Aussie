@@ -15,11 +15,17 @@ class NaturalParksCubit extends PaginatedScreenCubit {
   );
 
   void filter(String searchValue) {
-    List<NaturalParkModel> models = currentData
-        .where(
-            (element) => (element as NaturalParkModel).parkName == searchValue)
-        .toList();
-    emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
+    try {
+      var _models = (state as dynamic).models;
+      List<PaginatedDataModel> models = _models
+          .where((element) => (element.parkName as String)
+              .toLowerCase()
+              .contains(searchValue.toLowerCase()))
+          .toList();
+      emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
+    } on NoSuchMethodError {
+      emit(PaginatedScreenFiltered(models: UnmodifiableListView([])));
+    }
   }
 
   void returnToCurrent() {

@@ -10,7 +10,12 @@ Color getRandomColor() {
   return _col.shade700;
 }
 
-Widget buildImage(String imageUrl, {BoxFit fit = BoxFit.fill}) {
+Widget buildImage(
+  String imageUrl, {
+  BoxFit fit = BoxFit.fill,
+  bool showPlaceHolder = true,
+  Duration fadeInDuration = const Duration(milliseconds: 500),
+}) {
   if (imageUrl.isNotEmpty) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
@@ -22,12 +27,15 @@ Widget buildImage(String imageUrl, {BoxFit fit = BoxFit.fill}) {
           ),
         ),
       ),
-      placeholder: (context, url) => Container(
-        color: Colors.lightBlueAccent,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      fadeInDuration: fadeInDuration,
+      placeholder: showPlaceHolder
+          ? (context, url) => Container(
+                color: Colors.lightBlueAccent,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+          : null,
       errorWidget: (context, url, error) => Icon(Icons.error),
     );
   } else {

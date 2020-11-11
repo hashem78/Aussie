@@ -16,6 +16,7 @@ class TeritoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
+      thumbnailCubitRoute: "natural_park_images",
       cubit: cubit,
       itemBuilder: (context, item, index) {
         var _casted = item as TeritoryModel;

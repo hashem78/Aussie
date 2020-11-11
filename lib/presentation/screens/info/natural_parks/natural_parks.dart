@@ -18,18 +18,20 @@ class NaturalParksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
       cubit: cubit,
+      thumbnailCubitRoute: "natural_park_images",
       itemBuilder: (context, item, index) {
         var _casted = item as NaturalParkModel;
         return PaginatedScreenTile(
-            title: Text(
-              _casted.parkName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-            ),
-            subtitle: ExpandText(
-              "Long: ${_casted.longitude}, Lat: ${_casted.latitude}, Summary: ${_casted.summary}",
-              maxLines: 4,
-            ),
-            titleImage: buildImage(_casted.imageUrl));
+          title: Text(
+            _casted.parkName,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+          ),
+          subtitle: ExpandText(
+            "Long: ${_casted.longitude}, Lat: ${_casted.latitude}, Summary: ${_casted.summary}",
+            maxLines: 4,
+          ),
+          titleImage: buildImage(_casted.imageUrl, fit: BoxFit.cover),
+        );
       },
     );
   }

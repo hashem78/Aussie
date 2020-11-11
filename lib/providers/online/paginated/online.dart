@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:Aussie/providers/paginated/data.dart';
+import 'package:Aussie/providers/online/paginated/data.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

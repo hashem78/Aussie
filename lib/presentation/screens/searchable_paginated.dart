@@ -1,11 +1,10 @@
-import 'package:Aussie/constants.dart';
 import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
 import 'package:Aussie/interfaces/paginated_data_model.dart';
 import 'package:Aussie/presentation/widgets/paginated/search_bar.dart';
-
+import 'package:Aussie/state/thumbnail/thumbnail_cubit.dart';
 import 'package:Aussie/util/functions.dart';
-
 import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -14,20 +13,28 @@ import '../../state/paginated/common/paginated_screen_state.dart';
 
 class SearchablePaginatedScreen extends StatefulWidget {
   final PaginatedScreenCubit cubit;
+  final String thumbnailCubitRoute;
+
   final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
 
-  const SearchablePaginatedScreen(
-      {@required this.cubit, @required this.itemBuilder});
+  SearchablePaginatedScreen({
+    @required this.cubit,
+    @required this.thumbnailCubitRoute,
+    @required this.itemBuilder,
+  });
   @override
   _SearchablePaginatedScreenState createState() =>
-      _SearchablePaginatedScreenState();
+      _SearchablePaginatedScreenState(thumbnailCubitRoute);
 }
 
 class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   static int _pageSize = 10;
-
+  ThumbnailCubit thumbnailCubit;
+  final String route;
   PagingController<int, PaginatedDataModel> _controller =
       PagingController<int, PaginatedDataModel>(firstPageKey: 0);
+
+  _SearchablePaginatedScreenState(this.route);
 
   @override
   void dispose() {
@@ -39,6 +46,8 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   String searchQuery = "";
   @override
   void initState() {
+    thumbnailCubit = ThumbnailCubit(route);
+    thumbnailCubit.fetch();
     _controller.addPageRequestListener((pageKey) {
       if (searchQuery.isNotEmpty) {
         widget.cubit.filter(searchQuery);
@@ -71,14 +80,45 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
                   StretchMode.zoomBackground,
                   StretchMode.fadeTitle,
                 ],
-                background: CarouselSlider(
-                  items: [buildImage(kurl)],
-                  options: CarouselOptions(
-                    height: .5.sh,
-                    viewportFraction: 1,
-                    pageSnapping: false,
-                    autoPlay: true,
-                  ),
+                background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
+                  cubit: thumbnailCubit,
+                  builder: (context, state) {
+                    if (state is ThumbnailLoading) {
+                      return CarouselSlider(
+                        items: [
+                          Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.red,
+                            ),
+                          )
+                        ],
+                        options: CarouselOptions(
+                          height: .5.sh,
+                          viewportFraction: 1,
+                          pageSnapping: false,
+                          autoPlay: true,
+                        ),
+                      );
+                    } else if (state is ThumbnailLoaded) {
+                      return CarouselSlider.builder(
+                        itemCount: state.imageUrls.length,
+                        itemBuilder: (context, index) => buildImage(
+                          state.imageUrls[index],
+                          showPlaceHolder: false,
+                          fadeInDuration: Duration.zero,
+                          fit: BoxFit.fill,
+                        ),
+                        options: CarouselOptions(
+                          height: .5.sh,
+                          viewportFraction: 1,
+                          pageSnapping: false,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 10),
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
                 ),
               ),
             ),
