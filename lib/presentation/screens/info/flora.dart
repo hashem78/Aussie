@@ -1,8 +1,8 @@
-import 'package:Aussie/models/paginated/species/species.dart';
-import 'package:Aussie/presentation/screens/info/species/details.dart';
-import 'package:Aussie/presentation/screens/searchable_paginated.dart';
-import 'package:Aussie/presentation/widgets/paginated/tile.dart';
-import 'package:Aussie/state/paginated/species/flora_cubit.dart';
+import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/presentation/screens/info/species/details.dart';
+import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:aussie/presentation/widgets/paginated/tile.dart';
+import 'package:aussie/state/paginated/species/flora_cubit.dart';
 
 import 'package:flutter/material.dart';
 
@@ -14,8 +14,9 @@ class FloraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
+      title: title,
       cubit: cubit,
-      thumbnailCubitRoute: "natural_park_images",
+      thumbnailCubitRoute: "park_images",
       itemBuilder: (context, item, index) {
         var _casted = item as SpeciesDetailsModel;
         return PaginatedScreenTile(

@@ -1,5 +1,5 @@
-import 'package:Aussie/models/efe/efe_item.dart';
-import 'package:Aussie/models/efe/entertainment/details.dart';
+import 'package:aussie/models/efe/efe_item.dart';
+import 'package:aussie/models/efe/entertainment/details.dart';
 
 class EntertainmentItem extends EFEItem {
   final String title;

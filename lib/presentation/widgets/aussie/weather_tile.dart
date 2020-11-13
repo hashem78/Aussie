@@ -1,7 +1,7 @@
-import 'package:Aussie/models/paginated/weather/weather.dart';
-import 'package:Aussie/presentation/screens/info/weather/details.dart';
+import 'package:aussie/models/paginated/weather/weather.dart';
+import 'package:aussie/presentation/screens/info/weather/details.dart';
 
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_icons/weather_icons.dart';

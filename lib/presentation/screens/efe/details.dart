@@ -1,12 +1,12 @@
-import 'package:Aussie/interfaces/geners.dart';
-import 'package:Aussie/interfaces/ratings.dart';
-import 'package:Aussie/models/efe/efe.dart';
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/presentation/widgets/aussie/scrollable_list.dart';
-import 'package:Aussie/presentation/widgets/sized_tile.dart';
-import 'package:Aussie/presentation/widgets/social_icons_row.dart';
+import 'package:aussie/interfaces/geners.dart';
+import 'package:aussie/interfaces/ratings.dart';
+import 'package:aussie/models/efe/efe.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
+import 'package:aussie/presentation/widgets/sized_tile.dart';
+import 'package:aussie/presentation/widgets/social_icons_row.dart';
 
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

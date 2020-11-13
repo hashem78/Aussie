@@ -1,8 +1,8 @@
 import 'dart:collection';
 
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
-import 'package:Aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/interfaces/cubit/paginated_screen.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
 
 import '../../../models/paginated/species/species.dart';
 import 'package:flutter/material.dart';

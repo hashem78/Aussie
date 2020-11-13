@@ -1,8 +1,8 @@
 import 'dart:collection';
 
-import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
-import 'package:Aussie/interfaces/paginated_data_model.dart';
-import 'package:Aussie/repositories/paginated/online.dart';
+import 'package:aussie/interfaces/cubit/paginated_screen.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/repositories/paginated/online.dart';
 
 import '../../../models/paginated/teritories/teritory.dart';
 

@@ -1,6 +1,6 @@
-import 'package:Aussie/models/ratings.dart';
-import 'package:Aussie/presentation/screens/efe/details.dart';
-import 'package:Aussie/presentation/widgets/rating/rating_tile.dart';
+import 'package:aussie/models/ratings.dart';
+import 'package:aussie/presentation/screens/efe/details.dart';
+import 'package:aussie/presentation/widgets/rating/rating_tile.dart';
 
 import 'package:flutter/material.dart';
 

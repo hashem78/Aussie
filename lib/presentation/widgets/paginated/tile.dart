@@ -14,23 +14,25 @@ class PaginatedScreenTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
-      child: Column(
-        children: [
-          titleImage != null
-              ? AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: titleImage,
-                )
-              : Container(),
-          ListTile(
-            tileColor: Colors.green,
-            title: title,
-            subtitle: subtitle,
-            onTap: onTap,
-          ),
-        ],
+    return Card(
+      color: Colors.deepPurple,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          children: [
+            titleImage != null
+                ? AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: titleImage,
+                  )
+                : Container(),
+            title,
+            subtitle,
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
-import 'package:Aussie/models/paginated/weather/card.dart';
-import 'package:Aussie/presentation/widgets/aussie/weather_card_child.dart';
+import 'package:aussie/models/paginated/weather/card.dart';
+import 'package:aussie/presentation/widgets/aussie/weather_card_child.dart';
 
 import 'package:flutter/material.dart';
 

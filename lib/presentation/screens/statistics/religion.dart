@@ -1,13 +1,13 @@
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:Aussie/presentation/widgets/aussie/bar_chart.dart';
-import 'package:Aussie/presentation/widgets/religon_sliver_appbar.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
+import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
+import 'package:aussie/presentation/widgets/religon_sliver_appbar.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/aussie_pie_chart.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/models/aussie_pie_chart.dart';
 
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 
 class ReligionScreen extends StatefulWidget {
   static final title = "Religon in Australlia";

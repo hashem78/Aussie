@@ -1,9 +1,9 @@
-import 'package:Aussie/interfaces/paginated_data_model.dart';
-import 'package:Aussie/models/paginated/natural_parks/natural_parks.dart';
-import 'package:Aussie/models/paginated/species/species.dart';
-import 'package:Aussie/models/paginated/teritories/teritory.dart';
-import 'package:Aussie/providers/online/paginated/online.dart';
-import 'package:Aussie/repositories/paginated/repository.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
+import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/models/paginated/teritories/teritory.dart';
+import 'package:aussie/providers/online/paginated/online.dart';
+import 'package:aussie/repositories/paginated/repository.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -20,7 +20,6 @@ class PaginatedOnlineRepositoy<T extends PaginatedDataModel>
 
     _repResponse =
         await _onlineDataProvider.fetch(page, fetchAmount: fetchAmount);
-
     if (_repResponse.containsKey('error')) {
       throw ("${_repResponse['error']}");
     } else {

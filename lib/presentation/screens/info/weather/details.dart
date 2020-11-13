@@ -1,13 +1,13 @@
-import 'package:Aussie/models/paginated/weather/card.dart';
-import 'package:Aussie/models/paginated/weather/weather.dart';
-import 'package:Aussie/presentation/widgets/aussie/weather_card.dart';
-import 'package:Aussie/presentation/widgets/aussie/weather_tile.dart';
+import 'package:aussie/models/paginated/weather/card.dart';
+import 'package:aussie/models/paginated/weather/weather.dart';
+import 'package:aussie/presentation/widgets/aussie/weather_card.dart';
+import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/util/functions.dart';
 
 class WeatherDetails extends StatelessWidget {
   final WeatherModel model;

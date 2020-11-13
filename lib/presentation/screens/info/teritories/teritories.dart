@@ -1,9 +1,10 @@
-import 'package:Aussie/models/paginated/teritories/teritory.dart';
-import 'package:Aussie/presentation/screens/info/teritories/gmap_screen.dart';
-import 'package:Aussie/presentation/screens/searchable_paginated.dart';
-import 'package:Aussie/presentation/widgets/paginated/tile.dart';
+import 'package:aussie/models/gmap.dart';
+import 'package:aussie/models/paginated/teritories/teritory.dart';
+import 'package:aussie/presentation/screens/gmap_screen.dart';
+import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:aussie/presentation/widgets/paginated/tile.dart';
 
-import 'package:Aussie/state/paginated/teritories/teritories_cubit.dart';
+import 'package:aussie/state/paginated/teritories/teritories_cubit.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +17,21 @@ class TeritoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
-      thumbnailCubitRoute: "natural_park_images",
+      title: title,
+      thumbnailCubitRoute: "park_images",
       cubit: cubit,
       itemBuilder: (context, item, index) {
         var _casted = item as TeritoryModel;
         return PaginatedScreenTile(
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TeritoryMapScreen(
-                model: _casted,
+              builder: (context) => AussieGMapScreen(
+                size: Size(double.infinity, 200),
+                model: AussieGMapModel(
+                  longitude: _casted.longitude,
+                  latitude: _casted.latitude,
+                  title: _casted.title,
+                ),
               ),
             ),
           ),

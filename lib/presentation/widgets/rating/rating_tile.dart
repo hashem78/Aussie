@@ -1,5 +1,5 @@
-import 'package:Aussie/models/ratings.dart';
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/models/ratings.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 

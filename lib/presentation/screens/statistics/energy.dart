@@ -1,10 +1,10 @@
-import 'package:Aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:Aussie/presentation/widgets/aussie/bar_chart.dart';
+import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
+import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/models/aussie_pie_chart.dart';
-import 'package:Aussie/util/pair.dart';
+import 'package:aussie/models/aussie_pie_chart.dart';
+import 'package:aussie/util/pair.dart';
 
 class EnergyScreen extends StatelessWidget {
   static final title = "Energy & Australlia";

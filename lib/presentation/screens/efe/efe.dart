@@ -1,14 +1,14 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/efe/efe.dart';
-import 'package:Aussie/presentation/screens/efe/details.dart';
-import 'package:Aussie/presentation/screens/efe/entertainment.dart';
-import 'package:Aussie/presentation/screens/efe/events.dart';
-import 'package:Aussie/presentation/screens/efe/food_drinks.dart';
-import 'package:Aussie/presentation/screens/efe/people.dart';
-import 'package:Aussie/presentation/screens/efe/places.dart';
-import 'package:Aussie/presentation/widgets/aussie/scrollable_list.dart';
-import 'package:Aussie/presentation/widgets/sized_tile.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/models/efe/efe.dart';
+import 'package:aussie/presentation/screens/efe/details.dart';
+import 'package:aussie/presentation/screens/efe/entertainment.dart';
+import 'package:aussie/presentation/screens/efe/events.dart';
+import 'package:aussie/presentation/screens/efe/food_drinks.dart';
+import 'package:aussie/presentation/screens/efe/people.dart';
+import 'package:aussie/presentation/screens/efe/places.dart';
+import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
+import 'package:aussie/presentation/widgets/sized_tile.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';

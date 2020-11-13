@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:Aussie/presentation/screens/statistics/energy.dart';
-import 'package:Aussie/presentation/screens/statistics/gdp.dart';
-import 'package:Aussie/presentation/screens/statistics/heducation.dart';
-import 'package:Aussie/presentation/screens/statistics/livestock.dart';
-import 'package:Aussie/presentation/screens/statistics/religion.dart';
+import 'package:aussie/presentation/screens/statistics/energy.dart';
+import 'package:aussie/presentation/screens/statistics/gdp.dart';
+import 'package:aussie/presentation/screens/statistics/heducation.dart';
+import 'package:aussie/presentation/screens/statistics/livestock.dart';
+import 'package:aussie/presentation/screens/statistics/religion.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

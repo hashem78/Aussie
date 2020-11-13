@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:Aussie/models/aussie_pie_chart.dart';
+import 'package:aussie/models/aussie_pie_chart.dart';
 
 class Indicator extends StatelessWidget {
   final Color color;

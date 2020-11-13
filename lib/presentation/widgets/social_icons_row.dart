@@ -1,9 +1,9 @@
-import 'package:Aussie/brand_icons_icons.dart';
-import 'package:Aussie/presentation/widgets/animated/social_icon.dart';
+import 'package:aussie/brand_icons_icons.dart';
+import 'package:aussie/presentation/widgets/animated/social_icon.dart';
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/util/pair.dart';
-import 'package:Aussie/util/social_media_platform.dart';
+import 'package:aussie/util/pair.dart';
+import 'package:aussie/util/social_media_platform.dart';
 
 class SocialsIconRow extends StatelessWidget {
   /// A list of a tuple of strings.

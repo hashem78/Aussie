@@ -1,19 +1,20 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/presentation/screens/dyk.dart';
-import 'package:Aussie/presentation/screens/info/fauna.dart';
-import 'package:Aussie/presentation/screens/info/flora.dart';
-import 'package:Aussie/presentation/screens/info/natural_parks/natural_parks.dart';
-import 'package:Aussie/presentation/screens/info/teritories/teritories.dart';
-import 'package:Aussie/presentation/screens/info/weather/weather.dart';
-import 'package:Aussie/presentation/screens/statistics/energy.dart';
-import 'package:Aussie/presentation/screens/statistics/gdp.dart';
-import 'package:Aussie/presentation/screens/statistics/heducation.dart';
-import 'package:Aussie/presentation/screens/statistics/livestock.dart';
-import 'package:Aussie/presentation/screens/statistics/religion.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/presentation/screens/dyk.dart';
+import 'package:aussie/presentation/screens/info/fauna.dart';
+import 'package:aussie/presentation/screens/info/flora.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
+import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
+import 'package:aussie/presentation/screens/info/weather/weather.dart';
+import 'package:aussie/presentation/screens/statistics/energy.dart';
+import 'package:aussie/presentation/screens/statistics/gdp.dart';
+import 'package:aussie/presentation/screens/statistics/heducation.dart';
+import 'package:aussie/presentation/screens/statistics/livestock.dart';
+import 'package:aussie/presentation/screens/statistics/religion.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:math' as math;
 
 @immutable
 class _DrawerItemModel extends Equatable {
@@ -55,18 +56,7 @@ class _DrawerSection extends StatelessWidget {
           color: sectionTitleColor,
         ),
         ...models.map((e) => _DrawerItem(e, color: tilesColor)).toList(),
-        buildDivider(),
       ],
-    );
-  }
-
-  Padding buildDivider() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Divider(
-        color: Colors.grey,
-        thickness: 5,
-      ),
     );
   }
 }
@@ -77,7 +67,7 @@ class AussieAppDrawer extends StatelessWidget {
       sectionIcon: Icons.info,
       sectionTitle: "Info",
       sectionTitleColor: kausBlue,
-      tilesColor: kausRed,
+      tilesColor: Colors.blue,
       models: [
         _DrawerItemModel(
           navPath: FaunaScreen.navPath,
@@ -115,7 +105,7 @@ class AussieAppDrawer extends StatelessWidget {
       sectionIcon: Icons.wallet_travel,
       sectionTitle: "Statistics",
       sectionTitleColor: kausRed,
-      tilesColor: kausBlue,
+      tilesColor: Colors.blue,
       models: [
         _DrawerItemModel(
           navPath: ReligionScreen.navPath,
@@ -192,8 +182,20 @@ class AussieAppDrawer extends StatelessWidget {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => sections[index],
-              childCount: sections.length,
+              (BuildContext context, int index) {
+                final int itemIndex = index ~/ 2;
+                if (index.isEven) {
+                  return sections[itemIndex];
+                }
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 5,
+                  ),
+                );
+              },
+              childCount: math.max(0, sections.length * 2 - 1),
             ),
           ),
         ],

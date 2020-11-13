@@ -1,13 +1,13 @@
-import 'package:Aussie/models/paginated/species/species.dart';
-import 'package:Aussie/presentation/screens/info/species/details.dart';
+import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/presentation/screens/info/species/details.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:Aussie/constants.dart';
+import 'package:aussie/constants.dart';
 
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpeciesScreen extends StatelessWidget {

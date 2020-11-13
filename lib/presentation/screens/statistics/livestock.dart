@@ -1,6 +1,6 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/presentation/widgets/aussie/bar_chart.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
 import 'package:flutter/material.dart';
 
 class LivestockScreen extends StatelessWidget {

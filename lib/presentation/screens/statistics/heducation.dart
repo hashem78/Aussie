@@ -1,8 +1,8 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/aussie_pie_chart.dart';
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/models/aussie_pie_chart.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';

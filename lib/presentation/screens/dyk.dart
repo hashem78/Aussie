@@ -1,10 +1,10 @@
-import 'package:Aussie/models/dyk/dyk.dart';
+import 'package:aussie/models/dyk/dyk.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 
 class DYKScreen extends StatefulWidget {
   static final title = "Did you know?";

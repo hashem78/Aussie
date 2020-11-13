@@ -1,4 +1,4 @@
-import 'package:Aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable

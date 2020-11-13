@@ -1,5 +1,5 @@
-import 'package:Aussie/interfaces/paginated.dart';
-import 'package:Aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../state/paginated/common/paginated_screen_state.dart';
 

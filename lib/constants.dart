@@ -1,4 +1,4 @@
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';

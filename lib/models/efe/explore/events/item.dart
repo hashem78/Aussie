@@ -1,5 +1,5 @@
-import 'package:Aussie/models/efe/efe_item.dart';
-import 'package:Aussie/models/efe/explore/events/details.dart';
+import 'package:aussie/models/efe/efe_item.dart';
+import 'package:aussie/models/efe/explore/events/details.dart';
 
 class EventsItem extends EFEItem {
   final EventDetailsModel detailsModel;

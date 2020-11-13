@@ -1,8 +1,8 @@
-import 'package:Aussie/interfaces/cubit/paginated_screen.dart';
-import 'package:Aussie/interfaces/paginated_data_model.dart';
-import 'package:Aussie/presentation/widgets/paginated/search_bar.dart';
-import 'package:Aussie/state/thumbnail/thumbnail_cubit.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/interfaces/cubit/paginated_screen.dart';
+import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
+import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
@@ -14,6 +14,7 @@ import '../../state/paginated/common/paginated_screen_state.dart';
 class SearchablePaginatedScreen extends StatefulWidget {
   final PaginatedScreenCubit cubit;
   final String thumbnailCubitRoute;
+  final String title;
 
   final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
 
@@ -21,6 +22,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
     @required this.cubit,
     @required this.thumbnailCubitRoute,
     @required this.itemBuilder,
+    @required this.title,
   });
   @override
   _SearchablePaginatedScreenState createState() =>
@@ -75,6 +77,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
               backgroundColor: Colors.cyan.shade700,
               stretch: true,
               expandedHeight: .5.sh,
+              title: Text(widget.title),
               flexibleSpace: FlexibleSpaceBar(
                 stretchModes: [
                   StretchMode.zoomBackground,

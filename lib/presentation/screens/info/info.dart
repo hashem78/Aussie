@@ -1,8 +1,8 @@
-import 'package:Aussie/presentation/screens/info/fauna.dart';
-import 'package:Aussie/presentation/screens/info/flora.dart';
-import 'package:Aussie/presentation/screens/info/natural_parks/natural_parks.dart';
-import 'package:Aussie/presentation/screens/info/teritories/teritories.dart';
-import 'package:Aussie/presentation/screens/info/weather/weather.dart';
+import 'package:aussie/presentation/screens/info/fauna.dart';
+import 'package:aussie/presentation/screens/info/flora.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
+import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
+import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

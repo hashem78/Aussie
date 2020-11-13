@@ -1,4 +1,4 @@
-import 'package:Aussie/models/efe/efe.dart';
+import 'package:aussie/models/efe/efe.dart';
 
 abstract class EFEItem<T extends EFEModel> {
   final String title;

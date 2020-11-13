@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 Color getRandomColor() {
   var _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
@@ -16,7 +17,12 @@ Widget buildImage(
   bool showPlaceHolder = true,
   Duration fadeInDuration = const Duration(milliseconds: 500),
 }) {
-  if (imageUrl.isNotEmpty) {
+  if (imageUrl.contains(".svg")) {
+    return SvgPicture.network(
+      imageUrl,
+      fit: fit,
+    );
+  } else if (imageUrl.isNotEmpty) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       imageBuilder: (context, imageProvider) => Container(

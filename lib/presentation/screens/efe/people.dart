@@ -1,15 +1,15 @@
-import 'package:Aussie/constants.dart';
-import 'package:Aussie/models/efe/efe.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/models/efe/efe.dart';
 
-import 'package:Aussie/models/efe/explore/people/details.dart';
-import 'package:Aussie/models/gallery.dart';
-import 'package:Aussie/presentation/screens/efe/efe.dart';
-import 'package:Aussie/presentation/widgets/aussie/app_drawer.dart';
-import 'package:Aussie/presentation/widgets/aussie/sliver_appbar.dart';
+import 'package:aussie/models/efe/explore/people/details.dart';
+import 'package:aussie/models/gallery.dart';
+import 'package:aussie/presentation/screens/efe/efe.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:Aussie/util/social_media_platform.dart';
+import 'package:aussie/util/social_media_platform.dart';
 
 class PeopleScreen extends StatelessWidget {
   final _tempPerson = PeopleDetailsModel(

@@ -1,4 +1,4 @@
-name: Aussie
+name: aussie
 description: A new Flutter project.
 
 publish_to: 'none'
@@ -16,7 +16,6 @@ dependencies:
   cached_network_image: ^2.3.2+1
   carousel_slider: ^2.3.1
   cupertino_icons: ^1.0.0
-  data_connection_checker: ^0.3.4
   equatable: ^1.2.5
   expand_widget: ^1.1.0
   firebase_core: ^0.5.2

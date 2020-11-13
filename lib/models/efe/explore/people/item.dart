@@ -1,5 +1,5 @@
-import 'package:Aussie/models/efe/efe_item.dart';
-import 'package:Aussie/models/efe/explore/people/details.dart';
+import 'package:aussie/models/efe/efe_item.dart';
+import 'package:aussie/models/efe/explore/people/details.dart';
 
 class PeoplesItem extends EFEItem {
   final PeopleDetailsModel detailsModel;

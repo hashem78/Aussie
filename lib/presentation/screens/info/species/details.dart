@@ -1,6 +1,6 @@
-import 'package:Aussie/models/paginated/species/species.dart';
-import 'package:Aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:Aussie/util/functions.dart';
+import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
