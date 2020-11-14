@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:aussie/interfaces/paginated_data_model.dart';
 import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
 import 'package:aussie/models/paginated/species/species.dart';
@@ -20,20 +22,33 @@ class PaginatedOnlineRepositoy<T extends PaginatedDataModel>
 
     _repResponse =
         await _onlineDataProvider.fetch(page, fetchAmount: fetchAmount);
-    if (_repResponse.containsKey('error')) {
-      throw ("${_repResponse['error']}");
+
+    return UnmodifiableListView(_toData(_repResponse));
+  }
+
+  Future<List<PaginatedDataModel>> filter(String field, String value) async {
+    assert(field != null && value != null);
+    Map<String, dynamic> _repResponse;
+
+    _repResponse = await _onlineDataProvider.filter(field, value);
+    return UnmodifiableListView(_toData(_repResponse));
+  }
+
+  List<PaginatedDataModel> _toData(Map<String, dynamic> response) {
+    if (response.containsKey('error')) {
+      throw ("${response['error']}");
     } else {
       List<PaginatedDataModel> _q = [];
       if (T == NaturalParkModel) {
-        _repResponse.entries.forEach((element) {
+        response.entries.forEach((element) {
           _q.add(NaturalParkModel.fromJson(element.value));
         });
       } else if (T == TeritoryModel) {
-        _repResponse.entries.forEach((element) {
+        response.entries.forEach((element) {
           _q.add(TeritoryModel.fromJson(element.value));
         });
       } else if (T == SpeciesDetailsModel) {
-        _repResponse.entries.forEach((element) {
+        response.entries.forEach((element) {
           _q.add(SpeciesDetailsModel.fromJson(element.value));
         });
       }

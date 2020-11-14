@@ -31,4 +31,34 @@ class PaginatedOnlineDataProvider implements PaginatedDataProvider {
     });
     return UnmodifiableMapView(_internalMap);
   }
+
+  @override
+  Future<Map<String, dynamic>> filter(String field, String value) async {
+    var _internalMap = Map<String, dynamic>();
+
+    //  var _split = filed.s
+    String searchQuery = "";
+    if (field.length > 1) {
+      List<String> _split = value.split(' ');
+      searchQuery = _split
+          .map((e) => '${e[0].toUpperCase()}${e.substring(1)}')
+          .toList()
+          .reduce((value, element) => '$value $element');
+    } else {
+      searchQuery = searchQuery.toUpperCase();
+    }
+    var queries = await FirebaseFirestore.instance
+        .collection(route)
+        .where(
+          field,
+          isGreaterThanOrEqualTo: searchQuery,
+        )
+        .get();
+
+    queries.docs.forEach((element) {
+      var mp = element.data();
+      _internalMap[mp['idx'].toString()] = mp;
+    });
+    return UnmodifiableMapView(_internalMap);
+  }
 }

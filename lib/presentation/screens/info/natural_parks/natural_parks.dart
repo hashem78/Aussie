@@ -1,3 +1,4 @@
+import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,19 +10,20 @@ import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/presentation/screens/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
-import 'package:aussie/state/paginated/natural_parks/natural_parks_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 class NaturalParksScreen extends StatelessWidget {
   static String navPath = "/main/info/naturalParks";
   static String svgName = "parks.svg";
   static String title = "Natural Parks";
-  final NaturalParksCubit cubit = NaturalParksCubit();
+  final AussiePaginatedCubit<NaturalParkModel> cubit =
+      AussiePaginatedCubit("naturalParks");
   @override
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
       cubit: cubit,
       title: title,
+      filterFor: "park_name",
       thumbnailCubitRoute: "park_images",
       itemBuilder: (context, item, index) {
         var _casted = item as NaturalParkModel;

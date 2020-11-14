@@ -1,3 +1,4 @@
+import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,19 +8,20 @@ import 'package:aussie/models/paginated/teritories/teritory.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/presentation/screens/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
-import 'package:aussie/state/paginated/teritories/teritories_cubit.dart';
 
 class TeritoriesScreen extends StatelessWidget {
   static String navPath = "/main/info/teritories";
   static String svgName = "australia.svg";
   static String title = "Teritories";
-  final TeritoriesCubit cubit = TeritoriesCubit();
+  final AussiePaginatedCubit<TeritoryModel> cubit =
+      AussiePaginatedCubit("teritories");
   @override
   Widget build(BuildContext context) {
     return SearchablePaginatedScreen(
       title: title,
       thumbnailCubitRoute: "teritory_images",
       cubit: cubit,
+      filterFor: "title",
       itemBuilder: (context, item, index) {
         var _casted = item as TeritoryModel;
         return PaginatedScreenTile(
