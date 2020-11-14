@@ -102,6 +102,7 @@ class _EFEScreenState extends State<EFEScreen> {
       bottomNavigationBar: Stack(
         children: [
           BottomNavyBar(
+            backgroundColor: Colors.cyan.shade700,
             selectedIndex: currentIndex,
             itemCornerRadius: 0,
             showElevation: true,

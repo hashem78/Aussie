@@ -16,10 +16,17 @@ class TeritoriesCubit extends PaginatedScreenCubit {
   );
 
   void filter(String searchValue) {
-    List<TeritoryModel> models = currentData
-        .where((element) => (element as TeritoryModel).title == searchValue)
-        .toList();
-    emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
+    try {
+      var _models = (state as dynamic).models;
+      List<PaginatedDataModel> models = _models
+          .where((element) => (element.title as String)
+              .toLowerCase()
+              .contains(searchValue.toLowerCase()))
+          .toList();
+      emit(PaginatedScreenFiltered(models: UnmodifiableListView(models)));
+    } on NoSuchMethodError {
+      emit(PaginatedScreenFiltered(models: UnmodifiableListView([])));
+    }
   }
 
   void returnToCurrent() {

@@ -75,7 +75,6 @@ class NaturalParksTile extends StatelessWidget {
               Expanded(child: buildChip("Latitude", model.latitude)),
             ],
           ),
-          SizedBox(height: 10),
           Card(
             elevation: 2,
             color: Colors.cyan,
@@ -115,7 +114,7 @@ class NaturalParksTile extends StatelessWidget {
 
   SizedBox buildChip(String title, String value) {
     return SizedBox(
-      height: 50,
+      height: .08.sh,
       child: Card(
         elevation: 2,
         margin: EdgeInsets.symmetric(horizontal: 5),
@@ -183,7 +182,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: AussieGMapScreen(
+            child: AussieGMap(
               size: Size(double.infinity, .4.sh),
               model: AussieGMapModel(
                 latitude: model.latitude,

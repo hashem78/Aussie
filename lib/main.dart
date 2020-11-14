@@ -19,7 +19,9 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: Typography.material2018().black,
-        brightness: Brightness.light,
+        canvasColor: Colors.cyan.shade700,
       ),
       initialRoute: EFEScreen.navPath,
       routes: {

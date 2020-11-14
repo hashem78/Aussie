@@ -50,7 +50,7 @@ class PeopleScreen extends StatelessWidget {
         swatchWidthFactor: 1.sw,
         swatchHeightFactor: .04.sh,
         listHeightFactor: .4.sh,
-        swatchColor: Colors.red,
+        swatchColor: Colors.lightBlue,
         listScrollOffset: listScrollOffset,
       );
 }

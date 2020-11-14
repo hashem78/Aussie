@@ -13,7 +13,7 @@ class AussieSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: .30.sh,
-      backgroundColor: Colors.red,
+      //backgroundColor: Colors.lightBlue,
       title: Text("Aussie"),
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
@@ -37,7 +37,7 @@ class AussieSliverAppBar extends StatelessWidget {
             ],
           ),
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: Colors.lightBlue,
           ),
         ),
       ),
