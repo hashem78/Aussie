@@ -1,5 +1,5 @@
-import 'package:aussie/models/paginated/weather/card.dart';
-import 'package:aussie/models/paginated/weather/weather.dart';
+import 'package:aussie/models/weather/card.dart';
+import 'package:aussie/models/weather/weather.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_card.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
 
@@ -15,14 +15,12 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             stretch: true,
-            backgroundColor: Colors.green,
-            expandedHeight: .4.sh,
+            expandedHeight: .5.sh,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.title),
               centerTitle: true,
@@ -38,16 +36,9 @@ class WeatherDetails extends StatelessWidget {
               [
                 WeatherCard(
                   day: WeatherCardChildModel(
-                    icon: model.highIconString,
-                    temp: model.highTemp,
-                    state: model.state,
-                    title: "it's ${model.state} here in ${model.title}",
-                  ),
-                  night: WeatherCardChildModel(
-                    icon: model.lowIconString,
-                    temp: model.lowTemp,
-                    state: model.lowState,
-                    title: "Beign ${model.lowState} at night",
+                    model: model,
+                    title:
+                        "It's currently ${model.state[0].toLowerCase() + model.state.substring(1)} in ${model.title}",
                   ),
                 ),
                 AspectRatio(

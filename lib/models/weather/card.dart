@@ -1,19 +1,17 @@
+import 'package:aussie/models/weather/weather.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
 class WeatherCardChildModel extends Equatable {
-  final String icon;
-  final int temp;
-  final String state;
+  final WeatherModel model;
   final String title;
+
   const WeatherCardChildModel({
-    this.icon,
-    this.temp,
-    this.state,
+    @required this.model,
     this.title,
   });
 
   @override
-  List<Object> get props => [icon, temp, state, title];
+  List<Object> get props => [model, title];
 }

@@ -1,14 +1,12 @@
 import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
 import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchablePaginatedScreen extends StatefulWidget {
   final AussiePaginatedCubit cubit;
@@ -74,57 +72,9 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
-            SliverAppBar(
-              backgroundColor: Colors.cyan.shade700,
-              stretch: true,
-              expandedHeight: .5.sh,
-              title: Text(widget.title),
-              flexibleSpace: FlexibleSpaceBar(
-                stretchModes: [
-                  StretchMode.zoomBackground,
-                  StretchMode.fadeTitle,
-                ],
-                background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
-                  cubit: thumbnailCubit,
-                  builder: (context, state) {
-                    if (state is ThumbnailLoading) {
-                      return CarouselSlider(
-                        items: [
-                          Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: Colors.red,
-                            ),
-                          )
-                        ],
-                        options: CarouselOptions(
-                          height: .5.sh,
-                          viewportFraction: 1,
-                          pageSnapping: false,
-                          autoPlay: true,
-                        ),
-                      );
-                    } else if (state is ThumbnailLoaded) {
-                      return CarouselSlider.builder(
-                        itemCount: state.imageUrls.length,
-                        itemBuilder: (context, index) => buildImage(
-                          state.imageUrls[index],
-                          showPlaceHolder: false,
-                          fadeInDuration: Duration.zero,
-                          fit: BoxFit.fill,
-                        ),
-                        options: CarouselOptions(
-                          height: .5.sh,
-                          viewportFraction: 1,
-                          pageSnapping: false,
-                          autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 10),
-                        ),
-                      );
-                    }
-                    return Container();
-                  },
-                ),
-              ),
+            AussieThumbnailedSliverAppBar(
+              cubit: thumbnailCubit,
+              title: widget.title,
             ),
             PaginatedSearchBar(
               onSubmitted: (val) {
