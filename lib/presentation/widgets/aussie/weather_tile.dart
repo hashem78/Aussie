@@ -7,35 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_icons/weather_icons.dart';
 
-class WeatherTile extends StatefulWidget {
+class WeatherTile extends StatelessWidget {
   final WeatherModel model;
   final bool showTitle;
 
   const WeatherTile({@required this.model, this.showTitle = false});
 
   @override
-  _WeatherTileState createState() => _WeatherTileState();
-}
-
-class _WeatherTileState extends State<WeatherTile> {
-  final double _defaultMargin = 2.5;
-  final double _defaultIconSize = 60;
-  double margin;
-  double iconSize;
-  @override
-  void initState() {
-    super.initState();
-    margin = _defaultMargin;
-    iconSize = _defaultIconSize;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var _today = widget.model;
+    var _today = model;
 
-    return AnimatedContainer(
-      margin: EdgeInsets.all(margin),
-      duration: Duration(milliseconds: 200),
+    return ColoredBox(
       color: Colors.blue.shade700,
       child: Stack(
         children: [
@@ -45,7 +27,7 @@ class _WeatherTileState extends State<WeatherTile> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AutoSizeText(
-                  widget.showTitle ? _today.title : _today.day,
+                  showTitle ? model.title : model.day,
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 100.sp,
@@ -54,19 +36,19 @@ class _WeatherTileState extends State<WeatherTile> {
                 ),
                 Expanded(
                   child: BoxedIcon(
-                    WeatherIcons.fromString(widget.model.iconString),
-                    size: 200.sp,
+                    WeatherIcons.fromString(model.iconString),
+                    size: 250.sp,
                     color: Colors.amber,
                   ),
                 ),
                 AutoSizeText(
-                  "${_today.highTemp}°C",
+                  "${model.highTemp}°C",
                   softWrap: true,
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 50.sp,
+                    fontSize: 100.sp,
                     color: Colors.yellow,
                   ),
                 ),
@@ -83,32 +65,6 @@ class _WeatherTileState extends State<WeatherTile> {
                       return WeatherDetails(model: _today);
                     },
                   ),
-                );
-              },
-              onLongPress: () {
-                setState(
-                  () {
-                    margin = 3 * _defaultMargin;
-                    iconSize = _defaultIconSize / 1.2;
-                    Navigator.of(context)
-                        .push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => WeatherDetails(
-                          model: _today,
-                        ),
-                      ),
-                    )
-                        .whenComplete(
-                      () {
-                        setState(
-                          () {
-                            margin = _defaultMargin;
-                            iconSize = _defaultIconSize;
-                          },
-                        );
-                      },
-                    );
-                  },
                 );
               },
             ),

@@ -19,12 +19,13 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
       backgroundColor: Colors.cyan.shade700,
       stretch: true,
       expandedHeight: .5.sh,
-      title: Text(title),
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: [
           StretchMode.zoomBackground,
           StretchMode.fadeTitle,
         ],
+        title: Text(title),
+        centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
           cubit: cubit,
           builder: (context, state) {

@@ -11,10 +11,10 @@ abstract class WeatherState extends Equatable {
 class WeatherInitial extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
-  final List<WeatherModel> models;
-  WeatherLoaded(this.models);
+  final WeatherModel model;
+  WeatherLoaded(this.model);
   @override
-  List<Object> get props => [models];
+  List<Object> get props => [model];
 }
 
 class WeatherError extends WeatherState {}

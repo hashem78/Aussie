@@ -29,67 +29,62 @@ class OnlineWeatherProvider {
     "wi-day-fog": [701, 711, 721, 731, 741, 751, 761, 762, 771, 781],
     "wi-night-clear": [800],
   };
-  Future<List<Map<String, dynamic>>> fetch(List<LatLng> coords) async {
+  Future<Map<String, dynamic>> fetch(LatLng coord) async {
     if (!await isConnectedToTheInternet) return error;
-    print(coords);
-    List<Map<String, dynamic>> ans = [];
-    for (var coord in coords) {
-      String query =
-          "https://api.openweathermap.org/data/2.5/forecast?lat=${coord.latitude}&lon=${coord.longitude}&units=metric&appid=5017190165cca808a48d1eff54927701";
-      var _response = await http.get(query);
 
-      if (_response.statusCode == 200) {
-        var _decoded = await jsonDecode(_response.body);
-        if (_decoded["cod"] == "200") {
-          // every day has 8 lists and there are 5 day responses
-          Map<int, dynamic> _internalMap = {};
-          for (int i = 0; i < 40; i += 8) {
-            var element = _decoded["list"][i];
-            var _minTemp = element["main"]["temp_min"];
-            var _maxTemp = element["main"]["temp_max"];
-            var _humidity = element["main"]["humidity"];
-            var _pressure = element["main"]["pressure"];
-            var _currentWeather = element["weather"][0];
-            var _status = _currentWeather["main"];
-            var _description = _currentWeather["description"];
-            var _icon = _currentWeather["icon"];
-            var _statusId = _currentWeather["id"];
+    String query =
+        "https://api.openweathermap.org/data/2.5/forecast?lat=${coord.latitude}&lon=${coord.longitude}&units=metric&appid=5017190165cca808a48d1eff54927701";
+    var _response = await http.get(query);
 
-            _internalMap[i ~/ 8] = {
-              'day': weekDayToString(
-                DateTime.fromMillisecondsSinceEpoch(element["dt"] * 1000)
-                    .weekday,
-              ),
-              'state': _status,
-              'iconString': _statusId >= 800
-                  ? iconIDToWeatherString(_statusId, _icon)
-                  : iconIDToWeatherString(_statusId),
-              'title': _decoded["city"]["name"],
-              'imageUrl': kurl,
-              'pressure': double.tryParse(_pressure.toString()),
-              'humidity': double.tryParse(_humidity.toString()),
-              'highTemp': double.tryParse(_maxTemp.toString()),
-              'lowTemp': double.tryParse(_minTemp.toString()),
-              'description': _description,
-            };
-          }
-          Map<String, dynamic> _firstDay = _internalMap[0];
-          _firstDay["fourDayModels"] = [
-            _internalMap[1],
-            _internalMap[2],
-            _internalMap[3],
-            _internalMap[4],
-          ];
-          ans.add(_firstDay);
+    if (_response.statusCode == 200) {
+      var _decoded = await jsonDecode(_response.body);
+      if (_decoded["cod"] == "200") {
+        // every day has 8 lists and there are 5 day responses
+        Map<int, dynamic> _internalMap = {};
+        for (int i = 0; i < 40; i += 8) {
+          var element = _decoded["list"][i];
+          var _minTemp = element["main"]["temp_min"];
+          var _maxTemp = element["main"]["temp_max"];
+          var _humidity = element["main"]["humidity"];
+          var _pressure = element["main"]["pressure"];
+          var _currentWeather = element["weather"][0];
+          var _status = _currentWeather["main"];
+          var _description = _currentWeather["description"];
+          var _icon = _currentWeather["icon"];
+          var _statusId = _currentWeather["id"];
+
+          _internalMap[i ~/ 8] = {
+            'day': weekDayToString(
+              DateTime.fromMillisecondsSinceEpoch(element["dt"] * 1000).weekday,
+            ),
+            'state': _status,
+            'iconString': _statusId >= 800
+                ? iconIDToWeatherString(_statusId, _icon)
+                : iconIDToWeatherString(_statusId),
+            'title': _decoded["city"]["name"],
+            'imageUrl': kurl,
+            'pressure': double.tryParse(_pressure.toString()),
+            'humidity': double.tryParse(_humidity.toString()),
+            'highTemp': double.tryParse(_maxTemp.toString()),
+            'lowTemp': double.tryParse(_minTemp.toString()),
+            'description': _description,
+          };
         }
+        Map<String, dynamic> _firstDay = _internalMap[0];
+        _firstDay["fourDayModels"] = [
+          _internalMap[1],
+          _internalMap[2],
+          _internalMap[3],
+          _internalMap[4],
+        ];
+        return UnmodifiableMapView(_firstDay);
       }
+      return error;
     }
-    return UnmodifiableListView(ans);
+    return error;
   }
 
-  List<Map<String, dynamic>> get error => [
-        {"-1": "An error occured"}
-      ];
+  Map<String, dynamic> get error => {"-1": "An error occured"};
   Future<bool> get isConnectedToTheInternet async {
     var _status = await DataConnectionChecker().connectionStatus;
     if (_status == DataConnectionStatus.connected) return true;
