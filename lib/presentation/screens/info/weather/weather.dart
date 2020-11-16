@@ -78,7 +78,7 @@ class _WeatherScreenState extends State<WeatherScreen>
                 Animation<double> animation,
               ) {
                 return AnimatedSize(
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 300),
                   vsync: this,
                   child: Container(
                     height: animation.value * .4.sh,
