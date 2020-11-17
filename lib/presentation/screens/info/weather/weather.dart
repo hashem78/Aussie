@@ -59,6 +59,21 @@ class _WeatherScreenState extends State<WeatherScreen>
             cubit: thumbnailCubit,
             title: "Weather",
           ),
+          BlocBuilder<WeatherCubit, WeatherState>(
+            cubit: cubit,
+            builder: (context, state) {
+              if (state is WeatherLoading) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }
+              return SliverToBoxAdapter(
+                child: Container(),
+              );
+            },
+          ),
           BlocListener<WeatherCubit, WeatherState>(
             cubit: cubit,
             listener: (context, state) {

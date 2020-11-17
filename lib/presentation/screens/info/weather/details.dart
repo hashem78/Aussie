@@ -37,8 +37,7 @@ class WeatherDetails extends StatelessWidget {
                 WeatherCard(
                   day: WeatherCardChildModel(
                     model: model,
-                    title:
-                        "It's currently ${model.state[0].toLowerCase() + model.state.substring(1)} in ${model.title}",
+                    title: "${model.description}",
                   ),
                 ),
                 AspectRatio(

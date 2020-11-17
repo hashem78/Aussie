@@ -58,35 +58,40 @@ class SizedTile extends StatelessWidget {
     return Container(
       width: widthFactor,
       height: heightFactor,
-      child: Card(
-        margin: EdgeInsets.zero,
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Column(
-              children: [
-                Expanded(child: image),
-                SizedTileSwatch(
-                  maxLines: swatchMaxLines,
-                  widthFactor: swatchWidthFactor,
-                  heightFactor: swatchHeightFactor,
-                  title: title,
-                  color: swatchColor,
-                ),
-              ],
-            ),
-            if (onTap != null)
-              Material(
-                type: MaterialType.transparency,
-                child: InkWell(
-                  splashColor: kausRed.withAlpha(120),
-                  onTap: onTap,
-                ),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            blurRadius: .5,
+            spreadRadius: .5,
+            offset: Offset(-2, 0),
+            color: Colors.black.withOpacity(.5),
+          ),
+        ],
+      ),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Column(
+            children: [
+              Expanded(child: image),
+              SizedTileSwatch(
+                maxLines: swatchMaxLines,
+                widthFactor: swatchWidthFactor,
+                heightFactor: swatchHeightFactor,
+                title: title,
+                color: swatchColor,
               ),
-          ],
-        ),
+            ],
+          ),
+          if (onTap != null)
+            Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                splashColor: kausRed.withAlpha(120),
+                onTap: onTap,
+              ),
+            ),
+        ],
       ),
     );
   }
