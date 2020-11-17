@@ -1,20 +1,14 @@
-import 'package:aussie/models/dyk/dyk.dart';
+import 'package:aussie/state/dyk/cubit/dyk_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/util/functions.dart';
-
 class DYKScreen extends StatefulWidget {
-  static final title = "Did you know?";
+  static final title = "Did you know...";
   static final navPath = "/dyk";
   static final svgName = "dyk.svg";
-
-  final List<DYKModel> models;
-
-  DYKScreen({models})
-      : models = models ?? List.generate(10, (index) => DYKModel(text: "hi"));
   @override
   _DYKScreenState createState() => _DYKScreenState();
 }
@@ -22,8 +16,11 @@ class DYKScreen extends StatefulWidget {
 class _DYKScreenState extends State<DYKScreen> {
   bool left;
   bool right;
+  DykCubit cubit = DykCubit();
+
   @override
   void initState() {
+    cubit.fetch();
     left = false;
     right = true;
 
@@ -38,7 +35,6 @@ class _DYKScreenState extends State<DYKScreen> {
           Stack(
             children: [
               Container(
-                color: Colors.red,
                 height: .5.sh,
               ),
               Align(
@@ -47,7 +43,7 @@ class _DYKScreenState extends State<DYKScreen> {
                   child: Material(
                     color: Colors.transparent,
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back, color: Colors.white),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -61,7 +57,6 @@ class _DYKScreenState extends State<DYKScreen> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 150.sp,
-                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
@@ -80,38 +75,58 @@ class _DYKScreenState extends State<DYKScreen> {
                 ),
             ],
           ),
-          SizedBox(
-            height: .5.sh,
-            child: PageView.builder(
-              onPageChanged: (page) {
-                setState(() {
-                  if (page > 0 && page < widget.models.length - 1) {
-                    left = true;
-                    right = true;
-                  } else if (page == 0) {
-                    left = false;
-                    right = true;
-                  } else if (page == widget.models.length - 1) {
-                    left = true;
+          BlocConsumer<DykCubit, DykState>(
+            cubit: cubit,
+            listener: (context, state) {
+              if (state is DykLoaded) {
+                if (state.models.length == 1) {
+                  setState(() {
                     right = false;
-                  }
-                });
-              },
-              itemBuilder: (context, index) {
-                return Container(
-                  color: getRandomColor(),
-                  child: Center(
-                    child: AutoSizeText(
-                      widget.models[index].text,
-                      style: TextStyle(
-                        fontSize: 250.sp,
-                      ),
-                    ),
+                    left = false;
+                  });
+                }
+              }
+            },
+            builder: (context, state) {
+              if (state is DykLoaded) {
+                return SizedBox(
+                  height: .5.sh,
+                  child: PageView.builder(
+                    onPageChanged: (page) {
+                      setState(() {
+                        if (page > 0 && page < state.models.length - 1) {
+                          left = true;
+                          right = true;
+                        } else if (page == 0) {
+                          left = false;
+                          right = true;
+                        } else if (page == state.models.length - 1) {
+                          left = true;
+                          right = false;
+                        }
+                      });
+                    },
+                    itemBuilder: (context, index) {
+                      return Center(
+                        child: AutoSizeText(
+                          state.models[index].text,
+                          style: TextStyle(
+                            fontSize: 150.sp,
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: state.models.length,
                   ),
                 );
-              },
-              itemCount: widget.models.length,
-            ),
+              }
+              return Container(
+                margin: EdgeInsets.all(50),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
           ),
         ],
       ),

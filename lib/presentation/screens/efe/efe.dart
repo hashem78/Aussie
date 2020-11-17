@@ -9,6 +9,7 @@ import 'package:aussie/presentation/screens/efe/places.dart';
 import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
 import 'package:aussie/presentation/widgets/sized_tile.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -99,53 +100,58 @@ class _EFEScreenState extends State<EFEScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
-      bottomNavigationBar: Stack(
-        children: [
-          BottomNavyBar(
-            backgroundColor: Colors.cyan.shade700,
-            selectedIndex: currentIndex,
-            itemCornerRadius: 0,
-            showElevation: true,
-            curve: Curves.easeInOut,
-            onItemSelected: onPageChanged,
-            items: [
-              BottomNavyBarItem(
-                icon: Icon(Icons.people),
-                title: Text('People'),
-                activeColor: Colors.pink,
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.place),
-                title: Text('Places'),
-                activeColor: Colors.red,
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.event),
-                title: Text('Events'),
-                activeColor: kausBlue,
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.local_pizza),
-                title: Text(
-                  'Food|Drinks',
-                  maxLines: 2,
-                ),
-                activeColor: Colors.green,
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.movie),
-                title: Text(
-                  'Entertainment',
-                  style: TextStyle(fontSize: 12),
-                ),
-                activeColor: Colors.grey,
-                textAlign: TextAlign.center,
-              ),
-            ],
+      bottomNavigationBar: BottomNavyBar(
+        backgroundColor: Colors.cyan.shade700,
+        selectedIndex: currentIndex,
+        itemCornerRadius: 0,
+        showElevation: true,
+        curve: Curves.easeInOut,
+        onItemSelected: onPageChanged,
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.people),
+            title: AutoSizeText(
+              'People',
+              maxLines: 1,
+            ),
+            activeColor: Colors.pink,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.place),
+            title: AutoSizeText(
+              'Places',
+              maxLines: 1,
+            ),
+            activeColor: Colors.red,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.event),
+            title: AutoSizeText(
+              'Events',
+              maxLines: 1,
+            ),
+            activeColor: kausBlue,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.local_pizza),
+            title: AutoSizeText(
+              'Food & Drinks',
+              maxLines: 1,
+            ),
+            activeColor: Colors.green,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.movie),
+            title: AutoSizeText(
+              'Entertainment',
+              maxLines: 1,
+            ),
+            activeColor: Colors.grey,
+            textAlign: TextAlign.center,
           ),
         ],
       ),
