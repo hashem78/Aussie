@@ -2,7 +2,7 @@ import 'package:aussie/presentation/screens/dyk.dart';
 import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/screens/info/fauna.dart';
 import 'package:aussie/presentation/screens/info/flora.dart';
-import 'package:aussie/presentation/screens/info/info.dart';
+
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         NaturalParksScreen.navPath: (BuildContext context) =>
             NaturalParksScreen(),
         DYKScreen.navPath: (BuildContext context) => DYKScreen(),
-        InfoScreen.navPath: (BuildContext context) => InfoScreen(),
         WeatherScreen.navPath: (BuildContext context) => WeatherScreen(),
         TeritoriesScreen.navPath: (BuildContext context) => TeritoriesScreen(),
         EFEScreen.navPath: (BuildContext context) => EFEScreen(),

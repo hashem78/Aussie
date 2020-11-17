@@ -21,10 +21,13 @@ class _DrawerItemModel extends Equatable {
   final String navPath;
   final String svgName;
   final String title;
+  final Color iconColor;
+
   _DrawerItemModel({
     @required this.navPath,
     @required this.svgName,
     @required this.title,
+    this.iconColor = Colors.black,
   }) : assert(
           navPath != null && svgName != null && title != null,
         );
@@ -73,31 +76,37 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: FaunaScreen.navPath,
           svgName: FaunaScreen.svgName,
           title: FaunaScreen.title,
+          iconColor: Colors.brown,
         ),
         _DrawerItemModel(
           navPath: FloraScreen.navPath,
           svgName: FloraScreen.svgName,
           title: FloraScreen.title,
+          iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
           navPath: WeatherScreen.navPath,
           svgName: WeatherScreen.svgName,
           title: WeatherScreen.title,
+          iconColor: Colors.white70,
         ),
         _DrawerItemModel(
           navPath: TeritoriesScreen.navPath,
           svgName: TeritoriesScreen.svgName,
           title: TeritoriesScreen.title,
+          iconColor: Colors.brown.shade900,
         ),
         _DrawerItemModel(
           navPath: NaturalParksScreen.navPath,
           svgName: NaturalParksScreen.svgName,
           title: NaturalParksScreen.title,
+          iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
           navPath: DYKScreen.navPath,
           svgName: DYKScreen.svgName,
           title: DYKScreen.title,
+          iconColor: Colors.yellow,
         ),
       ],
     ),
@@ -116,6 +125,7 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: LivestockScreen.navPath,
           svgName: LivestockScreen.svgName,
           title: LivestockScreen.title,
+          iconColor: Colors.white70,
         ),
         _DrawerItemModel(
           navPath: HEducationScreen.navPath,
@@ -126,11 +136,13 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: EnergyScreen.navPath,
           svgName: EnergyScreen.svgName,
           title: EnergyScreen.title,
+          iconColor: Colors.blue.shade900,
         ),
         _DrawerItemModel(
           navPath: GDPScreen.navPath,
           svgName: GDPScreen.svgName,
           title: GDPScreen.title,
+          iconColor: Colors.orange,
         ),
       ],
     ),
@@ -204,33 +216,73 @@ class AussieAppDrawer extends StatelessWidget {
   }
 }
 
-class _DrawerItem extends StatelessWidget {
+class _DrawerItem extends StatefulWidget {
   final _DrawerItemModel model;
   final Color color;
 
-  const _DrawerItem(this.model, {this.color = Colors.lightBlue});
+  const _DrawerItem(
+    this.model, {
+    this.color = Colors.lightBlue,
+  });
+
+  @override
+  __DrawerItemState createState() => __DrawerItemState();
+}
+
+class __DrawerItemState extends State<_DrawerItem>
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+  AnimationController animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 300 + math.Random().nextInt(3) * 100))
+      ..forward();
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-      child: Ink(
-        color: color,
-        child: ListTile(
-          onTap: () => Navigator.of(context).pushNamed(model.navPath),
-          // tileColor: Colors.purple,
-          leading: SvgPicture.asset(
-            "assests/images/${model.svgName}",
-            height: 30,
-          ),
-          title: Text(
-            model.title,
-            style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
+    super.build(context);
+    return AnimatedBuilder(
+      animation: animationController,
+      builder: (context, child) {
+        return FadeTransition(
+          opacity: animationController,
+          child: child,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
+        child: Ink(
+          color: widget.color,
+          child: ListTile(
+            onTap: () => Navigator.of(context).pushNamed(widget.model.navPath),
+            // tileColor: Colors.purple,
+            leading: SvgPicture.asset(
+              "assests/images/${widget.model.svgName}",
+              height: 30,
+              color: widget.model.iconColor,
+            ),
+            title: Text(
+              widget.model.title,
+              style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
+            ),
           ),
         ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _DrawerSectionTitle extends StatelessWidget {

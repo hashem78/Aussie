@@ -54,7 +54,7 @@ class WeatherDetails extends StatelessWidget {
                       );
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),
