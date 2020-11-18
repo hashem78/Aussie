@@ -4,8 +4,8 @@ import 'package:aussie/interfaces/paginated_data_model.dart';
 import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
 import 'package:aussie/models/paginated/species/species.dart';
 import 'package:aussie/models/paginated/teritories/teritory.dart';
-import 'package:aussie/providers/online/paginated/online.dart';
-import 'package:aussie/repositories/paginated/repository.dart';
+import 'package:aussie/providers/online/paginated/searchable/online.dart';
+import 'package:aussie/repositories/paginated/searchable/repository.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable

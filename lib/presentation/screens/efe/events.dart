@@ -9,8 +9,6 @@ import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/models/ratings.dart';
-
 import 'package:aussie/util/social_media_platform.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -18,7 +16,7 @@ class EventsScreen extends StatelessWidget {
     title: "Sydney Fest",
     titleImageUrl: kurl,
     descriptions: {"hi": klorem},
-    ratingModels: [RatingsModel(3, "hashem", klorem)],
+    id: "rbt",
     galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
     socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
   );

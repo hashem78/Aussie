@@ -46,9 +46,9 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
         return SizedTile(
           title: e.title,
           image: _image,
-          widthFactor: .97.sw,
+          widthFactor: 1.sw,
           heightFactor: 25,
-          swatchHeightFactor: .06.sh,
+          swatchHeightFactor: .04.sh,
           swatchWidthFactor: 1.sw,
         );
       },
@@ -58,7 +58,6 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
         _descriptions.add(ExpandingTextTile(title: key, text: value)));
 
     return Scaffold(
-      backgroundColor: Colors.blue,
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
         slivers: [
@@ -86,12 +85,12 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
                 ),
                 buildRatings(),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     "Gallery",
                     style: TextStyle(
                       fontSize: 100.sp,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),

@@ -37,10 +37,8 @@ class _AussieScrollableListState extends State<AussieScrollableList> {
         physics: BouncingScrollPhysics(),
         scrollDirection: widget.scrollDirection,
         itemCount: widget.children.length,
-        itemBuilder: (BuildContext context, int index) => Padding(
-          padding: const EdgeInsets.only(left: 5, top: 5, bottom: 5),
-          child: widget.children[index],
-        ),
+        itemBuilder: (BuildContext context, int index) =>
+            widget.children[index],
       ),
     );
   }

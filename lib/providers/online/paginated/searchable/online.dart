@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:aussie/providers/online/paginated/data.dart';
+import 'package:aussie/providers/online/paginated/searchable/data.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

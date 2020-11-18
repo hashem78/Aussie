@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:aussie/interfaces/paginated_data_model.dart';
-import 'package:aussie/repositories/paginated/online.dart';
+import 'package:aussie/repositories/paginated/searchable/online.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 

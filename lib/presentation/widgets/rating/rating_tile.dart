@@ -10,13 +10,12 @@ class RatingTile extends StatelessWidget {
   const RatingTile({
     @required this.model,
     this.readOnly = false,
-    color,
+    Color color,
   })  : assert(readOnly != null),
         color = color ?? Colors.red;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
+    return ColoredBox(
       color: color,
       child: ListTile(
         title: ExpandingTextTile(
@@ -35,7 +34,7 @@ class RatingTile extends StatelessWidget {
           children: [
             Text("Rating: "),
             SmoothStarRating(
-              rating: model.rating,
+              rating: model.rating.toDouble(),
               isReadOnly: readOnly,
               size: 25,
               filledIconData: Icons.star,

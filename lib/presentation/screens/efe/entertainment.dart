@@ -2,7 +2,6 @@ import 'package:aussie/constants.dart';
 import 'package:aussie/models/efe/entertainment/details.dart';
 import 'package:aussie/models/gallery.dart';
 
-import 'package:aussie/models/ratings.dart';
 import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
@@ -14,12 +13,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Entertainment extends StatelessWidget {
   final tmodel = EntertainmentDetailsModel(
-      title: "Rabbit Proof",
-      titleImageUrl: 'https://tinyurl.com/y3otd7tv',
-      galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
-      socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
-      descriptions: {"hi": klorem},
-      ratingModels: [RatingsModel(3, "hashem", klorem)]);
+    title: "Rabbit Proof",
+    titleImageUrl: 'https://tinyurl.com/y3otd7tv',
+    galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
+    socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
+    descriptions: {"hi": klorem},
+    id: "rbt",
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(

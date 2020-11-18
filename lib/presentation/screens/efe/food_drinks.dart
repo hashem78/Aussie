@@ -2,7 +2,7 @@ import 'package:aussie/constants.dart';
 import 'package:aussie/models/efe/efe.dart';
 import 'package:aussie/models/efe/food_and_drinks/details.dart';
 import 'package:aussie/models/gallery.dart';
-import 'package:aussie/models/ratings.dart';
+
 import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
@@ -15,7 +15,7 @@ class FoodAndDrinks extends StatelessWidget {
       title: "fku",
       titleImageUrl: kurl,
       descriptions: {"hi": klorem},
-      ratingModels: [RatingsModel(3, "hashem", klorem)],
+      id: "rbt",
       galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
       socialMediaPlatforms: {SocialMediaPlatform.facebook: ""});
   @override
