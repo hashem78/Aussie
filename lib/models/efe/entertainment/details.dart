@@ -30,7 +30,10 @@ class EntertainmentDetailsModel extends EFEModel
         );
 
   @override
-  Widget buildRatings() => RatingSection(id: id);
+  Widget buildRatings() => RatingSection(
+        id: id,
+        titleImageUrl: titleImageUrl,
+      );
 
   @override
   Widget buildGeners() =>

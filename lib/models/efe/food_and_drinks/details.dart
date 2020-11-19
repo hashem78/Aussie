@@ -26,5 +26,6 @@ class FoodAndDrinksDetailsModel extends EFEModel implements RatingsInterface {
   @override
   Widget buildRatings() => RatingSection(
         id: id,
+        titleImageUrl: titleImageUrl,
       );
 }

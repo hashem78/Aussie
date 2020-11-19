@@ -20,6 +20,14 @@ class PaginatedOnlineRatingsRepository {
     return UnmodifiableListView(models);
   }
 
+  Future<List<RatingsModel>> getSpecificAmount(int fetchAmount) async {
+    var _fetched =
+        await _onlineRatingsRepositoryProvider.getSpecificAmount(fetchAmount);
+    List<RatingsModel> models = [];
+    _fetched.forEach((element) => models.add(RatingsModel.fromMap(element)));
+    return UnmodifiableListView(models);
+  }
+
   Future<void> addRating(RatingsModel model) async {
     await _onlineRatingsRepositoryProvider.addRating(model.toMap());
   }

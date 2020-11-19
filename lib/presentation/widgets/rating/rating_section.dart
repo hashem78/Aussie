@@ -1,23 +1,40 @@
 import 'package:aussie/models/ratings.dart';
 import 'package:aussie/presentation/widgets/rating/rating_tile.dart';
 import 'package:aussie/state/ratings/cubit/ratings_cubit.dart';
+import 'package:aussie/util/functions.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class RatingSection extends StatelessWidget {
+class RatingSection extends StatefulWidget {
   final bool readOnly;
   final String id;
+  final String titleImageUrl;
+
+  const RatingSection(
+      {Key key,
+      @required this.id,
+      this.readOnly = false,
+      @required this.titleImageUrl})
+      : assert(id != null && titleImageUrl != null);
+
+  @override
+  _RatingSectionState createState() => _RatingSectionState();
+}
+
+class _RatingSectionState extends State<RatingSection> {
   final String title = "Reviews";
-  final RatingsCubit cubit;
-  RatingSection({
-    Key key,
-    @required this.id,
-    this.readOnly = false,
-  })  : assert(id != null),
-        cubit = RatingsCubit(id);
+  RatingsCubit cubit;
+  bool rebuildRatings = true;
+  @override
+  void initState() {
+    super.initState();
+    cubit = RatingsCubit(widget.id);
+    cubit.getSpecificAmount(3);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +56,8 @@ class RatingSection extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) => RatingDetailsScreen(cubit),
+                    builder: (_) =>
+                        RatingDetailsScreen(cubit, widget.titleImageUrl),
                   ),
                 );
               },
@@ -55,17 +73,35 @@ class RatingSection extends StatelessWidget {
             ),
           ],
         ),
-        // Column(
-        //   children: widget.models
-        //       .map(
-        //         (e) => RatingTile(
-        //           model: e,
-        //           readOnly: true,
-        //           color: getRandomColor(),
-        //         ),
-        //       )
-        //       .toList(),
-        // ),
+        BlocBuilder<RatingsCubit, RatingsState>(
+          cubit: cubit,
+          buildWhen: (_, __) {
+            if (rebuildRatings == true) {
+              rebuildRatings = false;
+              return true;
+            }
+            return false;
+          },
+          builder: (context, state) {
+            if (state is RatingsDataChanged) {
+              if (state.models.length != 0) {
+                return Column(
+                  children: state.models
+                      .map(
+                        (e) => RatingTile(
+                          model: e,
+                          readOnly: true,
+                          color: getRandomColor(),
+                        ),
+                      )
+                      .toList(),
+                );
+              }
+              return Text("There are no reviews to show");
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
       ],
     );
   }
@@ -73,7 +109,8 @@ class RatingSection extends StatelessWidget {
 
 class RatingDetailsScreen extends StatefulWidget {
   final RatingsCubit cubit;
-  const RatingDetailsScreen(this.cubit);
+  final String titleImageUrl;
+  const RatingDetailsScreen(this.cubit, this.titleImageUrl);
   @override
   _RatingDetailsScreenState createState() => _RatingDetailsScreenState();
 }
@@ -87,6 +124,7 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
     super.initState();
     _controller.addPageRequestListener(
       (pageKey) {
+        print("pageKey in page request listener: $pageKey");
         widget.cubit.fetch(pageKey, fetchAmount: 10);
       },
     );
@@ -95,9 +133,7 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: _scaffoldState,
         floatingActionButton: FloatingActionButton(
@@ -109,19 +145,21 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
           child: Icon(Icons.add, size: 100.sp),
         ),
         body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
               stretch: true,
-              expandedHeight: .5.sh,
+              expandedHeight: .8.sh,
               flexibleSpace: FlexibleSpaceBar(
                 stretchModes: [
                   StretchMode.fadeTitle,
                   StretchMode.zoomBackground,
                 ],
+                background: buildImage(widget.titleImageUrl),
+                title: Text("Ratings"),
+                centerTitle: true,
               ),
               elevation: 0,
-              title: Text("Ratings"),
-              centerTitle: true,
             ),
             BlocListener<RatingsCubit, RatingsState>(
               cubit: widget.cubit,
@@ -272,12 +310,9 @@ class _WriteReviewSheetState extends State<WriteReviewSheet> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formState.currentState.validate()) {
-                        await widget.cubit
-                            .addRating(
-                              RatingsModel(
-                                  _stars, _nickName.text, _review.text),
-                            )
-                            .whenComplete(() => print("done"));
+                        await widget.cubit.addRating(
+                          RatingsModel(_stars, _nickName.text, _review.text),
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(

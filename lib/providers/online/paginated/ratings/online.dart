@@ -13,8 +13,8 @@ class PaginatedOnlineRatingsProvider {
         .collection("movies/$docId/reviews")
         .where(
           "index",
-          isGreaterThanOrEqualTo: page * 10,
-          isLessThan: page * 10 + fetchAmount,
+          isGreaterThanOrEqualTo: page,
+          isLessThan: page + fetchAmount,
         )
         .get();
     var _reviewDocs = _reviewsCollection.docs;
@@ -25,7 +25,22 @@ class PaginatedOnlineRatingsProvider {
         _internalList.add(_data);
       }
     }
-    print(_internalList);
+    return UnmodifiableListView(_internalList);
+  }
+
+  Future<List<Map<String, dynamic>>> getSpecificAmount(int fetchAmount) async {
+    var _reviewsCollection = await FirebaseFirestore.instance
+        .collection("movies/$docId/reviews")
+        .limit(3)
+        .get();
+    var _reviewDocs = _reviewsCollection.docs;
+    List<Map<String, dynamic>> _internalList = [];
+    for (var doc in _reviewDocs) {
+      if (doc.id != "current_index") {
+        var _data = doc.data();
+        _internalList.add(_data);
+      }
+    }
     return UnmodifiableListView(_internalList);
   }
 

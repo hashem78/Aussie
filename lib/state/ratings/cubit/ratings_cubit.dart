@@ -23,9 +23,14 @@ class RatingsCubit extends Cubit<RatingsState> {
     );
   }
 
+  void getSpecificAmount(int fetchAmount) {
+    _repository
+        .getSpecificAmount(fetchAmount)
+        .then((value) => emit(RatingsDataChanged(value)));
+  }
+
   Future<void> addRating(RatingsModel model) async {
-    _repository.addRating(model).whenComplete(() {
-      print("emitted");
+    await _repository.addRating(model).whenComplete(() {
       emit(RatingAdded());
     });
   }
