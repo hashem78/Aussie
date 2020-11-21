@@ -15,7 +15,7 @@ enum SocialMediaPlatform {
 }
 
 extension sm2e on String {
-  SocialMediaPlatform toFruit() {
+  SocialMediaPlatform toSocialMediaPlatform() {
     return SocialMediaPlatform.values.firstWhere(
       (e) =>
           e.toString().toLowerCase() ==

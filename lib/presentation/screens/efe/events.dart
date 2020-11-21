@@ -1,25 +1,30 @@
-import 'package:aussie/constants.dart';
 import 'package:aussie/models/efe/efe.dart';
+import 'package:aussie/models/efe/explore/events/details.dart';
 
-import 'package:aussie/models/efe/explore/places/details.dart';
-import 'package:aussie/models/gallery.dart';
 import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
+import 'package:aussie/state/efe/cubit/efe_cubit.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/util/social_media_platform.dart';
+class EventsScreen extends StatefulWidget {
+  @override
+  _EventsScreenState createState() => _EventsScreenState();
+}
 
-class EventsScreen extends StatelessWidget {
-  final _tempEvent = PlacesDetailsModel(
-    title: "Sydney Fest",
-    titleImageUrl: kurl,
-    descriptions: {"hi": klorem},
-    id: "rbt",
-    galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
-    socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
-  );
+class _EventsScreenState extends State<EventsScreen> {
+  final EFECubit<EventDetailsModel> cubit =
+      EFECubit<EventDetailsModel>("movies_list");
+  @override
+  void initState() {
+    super.initState();
+    cubit.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,27 +32,36 @@ class EventsScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           AussieSliverAppBar(title: 'Events'),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return buildTiles(List.filled(5, _tempEvent), index * 100.0);
-              },
-              childCount: 5,
-            ),
+          BlocBuilder<EFECubit<EventDetailsModel>, EFEState>(
+            cubit: cubit,
+            builder: (context, state) {
+              if (state is EFEDataChanged)
+                return SliverToBoxAdapter(
+                  child: buildTiles(0, state.models),
+                );
+              return SliverToBoxAdapter(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget buildTiles(List<EFEModel> models, double listScrollOffset) =>
-      EFEScreen.buildEFETiles(
-        models,
-        widthFactor: .7.sw,
-        swatchWidthFactor: 1.sw,
-        swatchHeightFactor: .04.sh,
-        listHeightFactor: .61.sh,
-        swatchColor: Colors.red,
-        listScrollOffset: listScrollOffset,
-      );
+  Widget buildTiles(double initialScrollOffset, List<EFEModel> models) {
+    return EFEScreen.buildEFETiles(
+      models,
+      widthFactor: .55.sw,
+      heightFactor: .20.sh,
+      swatchWidthFactor: 1.sw,
+      swatchHeightFactor: .05.sh,
+      titleImageHeight: .8.sh,
+      listHeightFactor: .61.sh,
+      swatchColor: Colors.red,
+      listScrollOffset: initialScrollOffset,
+    );
+  }
 }

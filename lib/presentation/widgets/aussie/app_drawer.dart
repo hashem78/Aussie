@@ -36,7 +36,7 @@ class _DrawerItemModel extends Equatable {
   List<Object> get props => [navPath, svgName];
 }
 
-class _DrawerSection extends StatelessWidget {
+class _DrawerSection extends StatefulWidget {
   final List<_DrawerItemModel> models;
   final IconData sectionIcon;
   final String sectionTitle;
@@ -49,16 +49,47 @@ class _DrawerSection extends StatelessWidget {
     this.sectionTitleColor = Colors.amber,
     this.tilesColor,
   });
+
+  @override
+  __DrawerSectionState createState() => __DrawerSectionState();
+}
+
+class __DrawerSectionState extends State<_DrawerSection>
+    with TickerProviderStateMixin {
+  AnimationController _animationController;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 400),
+    )..forward();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _DrawerSectionTitle(
-          iconData: sectionIcon,
-          title: sectionTitle,
-          color: sectionTitleColor,
+          iconData: widget.sectionIcon,
+          title: widget.sectionTitle,
+          color: widget.sectionTitleColor,
         ),
-        ...models.map((e) => _DrawerItem(e, color: tilesColor)).toList(),
+        ...widget.models
+            .map(
+              (e) => _DrawerItem(
+                e,
+                color: widget.tilesColor,
+                animation: _animationController,
+              ),
+            )
+            .toList(),
       ],
     );
   }
@@ -216,73 +247,42 @@ class AussieAppDrawer extends StatelessWidget {
   }
 }
 
-class _DrawerItem extends StatefulWidget {
+class _DrawerItem extends StatelessWidget {
   final _DrawerItemModel model;
+  final Animation<double> animation;
   final Color color;
 
   const _DrawerItem(
     this.model, {
     this.color = Colors.lightBlue,
+    @required this.animation,
   });
 
   @override
-  __DrawerItemState createState() => __DrawerItemState();
-}
-
-class __DrawerItemState extends State<_DrawerItem>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  AnimationController animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    animationController = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 300 + math.Random().nextInt(3) * 100))
-      ..forward();
-  }
-
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     return AnimatedBuilder(
-      animation: animationController,
-      builder: (context, child) {
-        return FadeTransition(
-          opacity: animationController,
-          child: child,
-        );
-      },
+      animation: animation,
+      builder: (context, child) => FadeTransition(
+        opacity: animation,
+        child: child,
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2.5),
-        child: Ink(
-          color: widget.color,
-          child: ListTile(
-            onTap: () => Navigator.of(context).pushNamed(widget.model.navPath),
-            // tileColor: Colors.purple,
-            leading: SvgPicture.asset(
-              "assests/images/${widget.model.svgName}",
-              height: 30,
-              color: widget.model.iconColor,
-            ),
-            title: Text(
-              widget.model.title,
-              style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
-            ),
+        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
+        child: ListTile(
+          onTap: () => Navigator.of(context).pushNamed(model.navPath),
+          leading: SvgPicture.asset(
+            "assests/images/${model.svgName}",
+            height: 30,
+            color: model.iconColor,
+          ),
+          title: Text(
+            model.title,
+            style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
           ),
         ),
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class _DrawerSectionTitle extends StatelessWidget {

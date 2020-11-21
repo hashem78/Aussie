@@ -10,22 +10,6 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Section extends StatelessWidget {
-  final List<Widget> children;
-  const Section({
-    @required List<Widget> children,
-  })  : assert(children != null),
-        children = children;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: children,
-    );
-  }
-}
-
 class EFEDetails<T extends EFEModel> extends StatelessWidget {
   final double titleImageHeight;
   final T model;
@@ -76,7 +60,8 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Section(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SocialsIconRow(model.socialMediaPlatforms),
                     ..._descriptions,

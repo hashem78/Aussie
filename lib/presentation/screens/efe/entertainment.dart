@@ -1,25 +1,30 @@
-import 'package:aussie/constants.dart';
+import 'package:aussie/models/efe/efe.dart';
 import 'package:aussie/models/efe/entertainment/details.dart';
-import 'package:aussie/models/gallery.dart';
 
 import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
+import 'package:aussie/state/efe/cubit/efe_cubit.dart';
 
-import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Entertainment extends StatelessWidget {
-  final tmodel = EntertainmentDetailsModel(
-    title: "Rabbit Proof",
-    titleImageUrl: 'https://tinyurl.com/y3otd7tv',
-    galleryImageLinks: [GalleryImageModel(url: kurl, title: "lol")],
-    socialMediaPlatforms: {SocialMediaPlatform.facebook: ""},
-    descriptions: {"hi": klorem},
-    id: "rbt",
-  );
+class Entertainment extends StatefulWidget {
+  @override
+  _EntertainmentState createState() => _EntertainmentState();
+}
+
+class _EntertainmentState extends State<Entertainment> {
+  final EFECubit<EntertainmentDetailsModel> cubit =
+      EFECubit<EntertainmentDetailsModel>("movies_list");
+  @override
+  void initState() {
+    super.initState();
+    cubit.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,21 +32,26 @@ class Entertainment extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           AussieSliverAppBar(title: 'Entertainment'),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildTiles(0, List.filled(5, tmodel)),
-                buildTiles(100, List.filled(5, tmodel)),
-              ],
-            ),
+          BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
+            cubit: cubit,
+            builder: (context, state) {
+              if (state is EFEDataChanged)
+                return SliverToBoxAdapter(
+                  child: buildTiles(0, state.models),
+                );
+              return SliverToBoxAdapter(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget buildTiles(
-      double initialScrollOffset, List<EntertainmentDetailsModel> models) {
+  Widget buildTiles(double initialScrollOffset, List<EFEModel> models) {
     return EFEScreen.buildEFETiles(
       models,
       widthFactor: .55.sw,
