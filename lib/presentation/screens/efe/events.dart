@@ -17,8 +17,10 @@ class EventsScreen extends StatefulWidget {
 }
 
 class _EventsScreenState extends State<EventsScreen> {
-  final EFECubit<EventDetailsModel> cubit =
-      EFECubit<EventDetailsModel>("movies_list");
+  final EFECubit<EventDetailsModel> cubit = EFECubit<EventDetailsModel>(
+    "movies_list",
+    (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
+  );
   @override
   void initState() {
     super.initState();

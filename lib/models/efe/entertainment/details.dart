@@ -61,7 +61,6 @@ class EntertainmentDetailsModel extends EFEModel
       descriptions: Map<String, String>.from(map["descriptions"]),
       galleryImageLinks: _models,
     );
-    print(_model);
     return _model;
   }
 

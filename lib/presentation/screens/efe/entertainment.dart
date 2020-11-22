@@ -18,7 +18,10 @@ class Entertainment extends StatefulWidget {
 
 class _EntertainmentState extends State<Entertainment> {
   final EFECubit<EntertainmentDetailsModel> cubit =
-      EFECubit<EntertainmentDetailsModel>("movies_list");
+      EFECubit<EntertainmentDetailsModel>(
+    "movies_list",
+    (Map<String, dynamic> map) => EntertainmentDetailsModel.fromMap(map),
+  );
   @override
   void initState() {
     super.initState();

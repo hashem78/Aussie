@@ -17,4 +17,30 @@ class PeopleDetailsModel extends EFEModel {
           descriptions: descriptions,
           galleryImageLinks: galleryImageLinks,
         );
+  factory PeopleDetailsModel.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    List<GalleryImageModel> _models = [];
+    List<dynamic>.from(map["galleryImageLinks"]).forEach(
+      (value) {
+        var _mp = Map<String, dynamic>.from(value);
+        _models.add(GalleryImageModel.fromMap(_mp));
+      },
+    );
+    var _platforms = Map<String, String>.from(map['socialMediaPlatforms'])
+        .map<SocialMediaPlatform, String>(
+      (key, value) => MapEntry<SocialMediaPlatform, String>(
+        key.toSocialMediaPlatform(),
+        value,
+      ),
+    );
+    var _model = PeopleDetailsModel(
+      title: map["title"].toString(),
+      titleImageUrl: map["titleImageUrl"].toString(),
+      socialMediaPlatforms: _platforms,
+      descriptions: Map<String, String>.from(map["descriptions"]),
+      galleryImageLinks: _models,
+    );
+
+    return _model;
+  }
 }

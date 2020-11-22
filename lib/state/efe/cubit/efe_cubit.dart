@@ -6,11 +6,19 @@ import 'package:flutter/foundation.dart';
 
 part 'efe_state.dart';
 
+typedef S ItemCreator<S>(Map<String, dynamic> map);
+
 class EFECubit<T extends EFEModel> extends Cubit<EFEState> {
-  EFECubit(String route)
-      : assert(route != null),
-        _repository = OnlineEFERepository<T>(route),
+  EFECubit(
+    String route,
+    this.creator,
+  )   : assert(route != null && creator != null),
+        _repository = OnlineEFERepository<T>(
+          route,
+          creator,
+        ),
         super(EFEInitial());
+  ItemCreator<T> creator;
   OnlineEFERepository<T> _repository;
   void fetch() {
     emit(EFELoading());
