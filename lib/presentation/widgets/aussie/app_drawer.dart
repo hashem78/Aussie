@@ -36,7 +36,7 @@ class _DrawerItemModel extends Equatable {
   List<Object> get props => [navPath, svgName];
 }
 
-class _DrawerSection extends StatefulWidget {
+class _DrawerSection extends StatelessWidget {
   final List<_DrawerItemModel> models;
   final IconData sectionIcon;
   final String sectionTitle;
@@ -51,42 +51,19 @@ class _DrawerSection extends StatefulWidget {
   });
 
   @override
-  __DrawerSectionState createState() => __DrawerSectionState();
-}
-
-class __DrawerSectionState extends State<_DrawerSection>
-    with TickerProviderStateMixin {
-  AnimationController _animationController;
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(milliseconds: 400),
-    )..forward();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _DrawerSectionTitle(
-          iconData: widget.sectionIcon,
-          title: widget.sectionTitle,
-          color: widget.sectionTitleColor,
+          iconData: sectionIcon,
+          title: sectionTitle,
+          color: sectionTitleColor,
         ),
-        ...widget.models
+        ...models
             .map(
               (e) => _DrawerItem(
                 e,
-                color: widget.tilesColor,
-                animation: _animationController,
+                color: tilesColor,
               ),
             )
             .toList(),
@@ -249,36 +226,28 @@ class AussieAppDrawer extends StatelessWidget {
 
 class _DrawerItem extends StatelessWidget {
   final _DrawerItemModel model;
-  final Animation<double> animation;
+
   final Color color;
 
   const _DrawerItem(
     this.model, {
     this.color = Colors.lightBlue,
-    @required this.animation,
   });
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, child) => FadeTransition(
-        opacity: animation,
-        child: child,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
-        child: ListTile(
-          onTap: () => Navigator.of(context).pushNamed(model.navPath),
-          leading: SvgPicture.asset(
-            "assests/images/${model.svgName}",
-            height: 30,
-            color: model.iconColor,
-          ),
-          title: Text(
-            model.title,
-            style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
-          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
+      child: ListTile(
+        onTap: () => Navigator.of(context).pushNamed(model.navPath),
+        leading: SvgPicture.asset(
+          "assests/images/${model.svgName}",
+          height: 30,
+          color: model.iconColor,
+        ),
+        title: Text(
+          model.title,
+          style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
         ),
       ),
     );
