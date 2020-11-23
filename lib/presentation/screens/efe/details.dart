@@ -28,6 +28,7 @@ class EFEDetails<T extends EFEModel> extends StatelessWidget {
       (e) {
         var _image = buildImage(e.url);
         return SizedTile(
+          containerMargin: EdgeInsets.zero,
           title: e.title,
           image: _image,
           widthFactor: 1.sw,

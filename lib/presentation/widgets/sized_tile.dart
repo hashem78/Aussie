@@ -12,6 +12,7 @@ class SizedTile extends StatelessWidget {
   final double heightFactor;
   final double swatchHeightFactor;
   final double swatchWidthFactor;
+  final EdgeInsets containerMargin;
 
   final Color swatchColor;
   final void Function() onTap;
@@ -27,6 +28,7 @@ class SizedTile extends StatelessWidget {
     this.swatchMaxLines = 1,
     this.swatchHeightFactor = 40,
     this.swatchWidthFactor = 100,
+    this.containerMargin = const EdgeInsets.fromLTRB(5, 5, 0, 5),
   })  : assert(
           image != null &&
               title != null &&
@@ -45,10 +47,11 @@ class SizedTile extends StatelessWidget {
     @required this.title,
     @required this.widthFactor,
     @required this.heightFactor,
-    swatchColor,
+    Color swatchColor,
     this.swatchMaxLines = 1,
-    swatchHeightFactor,
-    swatchWidthFactor,
+    double swatchHeightFactor,
+    double swatchWidthFactor,
+    this.containerMargin = const EdgeInsets.fromLTRB(5, 5, 0, 5),
   })  : swatchColor = swatchColor ?? kausBlue.withAlpha(240),
         swatchWidthFactor = swatchWidthFactor ?? 1.sw,
         swatchHeightFactor = swatchHeightFactor ?? .4.sh;
@@ -58,7 +61,7 @@ class SizedTile extends StatelessWidget {
     return Container(
       width: widthFactor,
       height: heightFactor,
-      margin: EdgeInsets.fromLTRB(5, 5, 0, 5),
+      margin: containerMargin,
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
