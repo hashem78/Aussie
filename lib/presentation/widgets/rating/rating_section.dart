@@ -90,7 +90,6 @@ class _RatingSectionState extends State<RatingSection> {
                       .map(
                         (e) => RatingTile(
                           model: e,
-                          readOnly: true,
                           color: getRandomColor(),
                         ),
                       )
@@ -124,7 +123,6 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
     super.initState();
     _controller.addPageRequestListener(
       (pageKey) {
-        print("pageKey in page request listener: $pageKey");
         widget.cubit.fetch(pageKey, fetchAmount: 10);
       },
     );
@@ -186,7 +184,6 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
         itemBuilder: (context, model, index) {
           return RatingTile(
             model: model,
-            readOnly: true,
             color: Colors.transparent,
           );
         },

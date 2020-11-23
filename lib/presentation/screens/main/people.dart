@@ -1,27 +1,20 @@
-import 'package:aussie/models/efe/efe.dart';
-
-import 'package:aussie/models/efe/food_and_drinks/details.dart';
-
-import 'package:aussie/presentation/screens/efe/efe.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
-import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
+import 'package:aussie/models/main_screen/explore/people/details.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FoodAndDrinks extends StatefulWidget {
+class PeopleScreen extends StatefulWidget {
   @override
-  _FoodAndDrinksState createState() => _FoodAndDrinksState();
+  _PeopleScreenState createState() => _PeopleScreenState();
 }
 
-class _FoodAndDrinksState extends State<FoodAndDrinks> {
-  final EFECubit<FoodAndDrinksDetailsModel> cubit =
-      EFECubit<FoodAndDrinksDetailsModel>(
+class _PeopleScreenState extends State<PeopleScreen> {
+  final EFECubit<PeopleDetailsModel> cubit = EFECubit<PeopleDetailsModel>(
     "movies_list",
-    (Map<String, dynamic> map) => FoodAndDrinksDetailsModel.fromMap(map),
+    (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
   );
   @override
   void initState() {
@@ -32,11 +25,9 @@ class _FoodAndDrinksState extends State<FoodAndDrinks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AussieAppDrawer(),
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(title: 'Food & Drinks'),
-          BlocBuilder<EFECubit<FoodAndDrinksDetailsModel>, EFEState>(
+          BlocBuilder<EFECubit<PeopleDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {
               if (state is EFEDataChanged)
@@ -55,8 +46,9 @@ class _FoodAndDrinksState extends State<FoodAndDrinks> {
     );
   }
 
-  Widget buildTiles(double initialScrollOffset, List<EFEModel> models) {
-    return EFEScreen.buildEFETiles(
+  Widget buildTiles(
+      double initialScrollOffset, List<MainScreenDetailsModel> models) {
+    return MainScreen.buildTiles(
       models,
       widthFactor: .55.sw,
       heightFactor: .20.sh,

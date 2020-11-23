@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/presentation/screens/dyk.dart';
-import 'package:aussie/presentation/screens/efe/efe.dart';
 import 'package:aussie/presentation/screens/info/fauna.dart';
 import 'package:aussie/presentation/screens/info/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
@@ -52,11 +52,10 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         // ignore: missing_return
         builder: (context, state) {
-          print(state.model.brightness);
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(brightness: state.model.brightness),
-            initialRoute: EFEScreen.navPath,
+            initialRoute: MainScreen.navPath,
             routes: routes,
           );
         },
@@ -69,7 +68,7 @@ class MyApp extends StatelessWidget {
     DYKScreen.navPath: (BuildContext context) => DYKScreen(),
     WeatherScreen.navPath: (BuildContext context) => WeatherScreen(),
     TeritoriesScreen.navPath: (BuildContext context) => TeritoriesScreen(),
-    EFEScreen.navPath: (BuildContext context) => EFEScreen(),
+    MainScreen.navPath: (BuildContext context) => MainScreen(),
     StatisticsScreen.navPath: (BuildContext context) => StatisticsScreen(),
     FaunaScreen.navPath: (BuildContext context) => FaunaScreen(),
     FloraScreen.navPath: (BuildContext context) => FloraScreen(),

@@ -1,16 +1,15 @@
 import 'package:aussie/interfaces/geners.dart';
 import 'package:aussie/interfaces/ratings.dart';
-import 'package:aussie/models/efe/efe.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
 import 'package:aussie/presentation/widgets/sized_tile.dart';
 import 'package:aussie/presentation/widgets/social_icons_row.dart';
-
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EFEDetails<T extends EFEModel> extends StatelessWidget {
+class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
   final double titleImageHeight;
   final T model;
   final String tag;

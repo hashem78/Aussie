@@ -10,7 +10,7 @@ class AussieSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: .50.sh,
+      expandedHeight: .31.sh,
       title: Text("Aussie"),
     );
   }

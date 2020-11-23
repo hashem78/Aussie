@@ -1,26 +1,21 @@
-import 'package:equatable/equatable.dart';
+import 'package:aussie/interfaces/ratings.dart';
+import 'package:aussie/models/gallery.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/presentation/widgets/rating/rating_section.dart';
+import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:aussie/interfaces/ratings.dart';
-import 'package:aussie/models/efe/efe.dart';
-import 'package:aussie/models/gallery.dart';
-
-import 'package:aussie/presentation/widgets/rating/rating_section.dart';
-import 'package:aussie/util/social_media_platform.dart';
-
-@immutable
-class EventDetailsModel extends EFEModel
-    with EquatableMixin
+class FoodAndDrinksDetailsModel extends MainScreenDetailsModel
     implements RatingsInterface {
   final String id;
-  const EventDetailsModel({
+  const FoodAndDrinksDetailsModel({
     @required String title,
     @required String titleImageUrl,
     Map<SocialMediaPlatform, String> socialMediaPlatforms,
     Map<String, String> descriptions,
     List<GalleryImageModel> galleryImageLinks,
-    @required this.id,
+    this.id,
   }) : super(
           title: title,
           titleImageUrl: titleImageUrl,
@@ -28,13 +23,12 @@ class EventDetailsModel extends EFEModel
           descriptions: descriptions,
           galleryImageLinks: galleryImageLinks,
         );
-
   @override
   Widget buildRatings() => RatingSection(
         id: id,
         titleImageUrl: titleImageUrl,
       );
-  factory EventDetailsModel.fromMap(Map<String, dynamic> map) {
+  factory FoodAndDrinksDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     List<GalleryImageModel> _models = [];
     List<dynamic>.from(map["galleryImageLinks"]).forEach(
@@ -50,7 +44,7 @@ class EventDetailsModel extends EFEModel
         value,
       ),
     );
-    var _model = EventDetailsModel(
+    var _model = FoodAndDrinksDetailsModel(
       title: map["title"].toString(),
       titleImageUrl: map["titleImageUrl"].toString(),
       id: map["id"].toString(),
@@ -61,7 +55,4 @@ class EventDetailsModel extends EFEModel
 
     return _model;
   }
-
-  @override
-  bool get stringify => true;
 }

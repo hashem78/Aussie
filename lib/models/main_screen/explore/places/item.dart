@@ -1,7 +1,7 @@
-import 'package:aussie/models/efe/efe_item.dart';
-import 'package:aussie/models/efe/explore/places/details.dart';
+import 'package:aussie/models/main_screen/explore/places/details.dart';
+import 'package:aussie/models/main_screen/main_screen_item.dart';
 
-class PlacesItem extends EFEItem {
+class PlacesItem extends MainScreenItem {
   final PlacesDetailsModel detailsModel;
   PlacesItem({
     String title,

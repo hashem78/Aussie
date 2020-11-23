@@ -1,4 +1,4 @@
-import 'package:aussie/models/efe/efe.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/repositories/efe/efe.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -8,7 +8,7 @@ part 'efe_state.dart';
 
 typedef S ItemCreator<S>(Map<String, dynamic> map);
 
-class EFECubit<T extends EFEModel> extends Cubit<EFEState> {
+class EFECubit<T extends MainScreenDetailsModel> extends Cubit<EFEState> {
   EFECubit(
     String route,
     this.creator,

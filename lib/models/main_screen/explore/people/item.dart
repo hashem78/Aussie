@@ -1,7 +1,7 @@
-import 'package:aussie/models/efe/efe_item.dart';
-import 'package:aussie/models/efe/explore/people/details.dart';
+import 'package:aussie/models/main_screen/explore/people/details.dart';
+import 'package:aussie/models/main_screen/main_screen_item.dart';
 
-class PeoplesItem extends EFEItem {
+class PeoplesItem extends MainScreenItem {
   final PeopleDetailsModel detailsModel;
   PeoplesItem({
     String title,

@@ -1,7 +1,7 @@
-import 'package:aussie/models/efe/efe_item.dart';
-import 'package:aussie/models/efe/explore/events/details.dart';
+import 'package:aussie/models/main_screen/explore/events/details.dart';
+import 'package:aussie/models/main_screen/main_screen_item.dart';
 
-class EventsItem extends EFEItem {
+class EventsItem extends MainScreenItem {
   final EventDetailsModel detailsModel;
   EventsItem({
     String title,

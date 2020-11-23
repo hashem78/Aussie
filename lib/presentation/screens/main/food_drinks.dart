@@ -1,25 +1,21 @@
-import 'package:aussie/models/efe/efe.dart';
-import 'package:aussie/models/efe/explore/events/details.dart';
-
-import 'package:aussie/presentation/screens/efe/efe.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
-import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
+import 'package:aussie/models/main_screen/food_and_drinks/details.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EventsScreen extends StatefulWidget {
+class FoodScreen extends StatefulWidget {
   @override
-  _EventsScreenState createState() => _EventsScreenState();
+  _FoodScreenState createState() => _FoodScreenState();
 }
 
-class _EventsScreenState extends State<EventsScreen> {
-  final EFECubit<EventDetailsModel> cubit = EFECubit<EventDetailsModel>(
+class _FoodScreenState extends State<FoodScreen> {
+  final EFECubit<FoodAndDrinksDetailsModel> cubit =
+      EFECubit<FoodAndDrinksDetailsModel>(
     "movies_list",
-    (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
+    (Map<String, dynamic> map) => FoodAndDrinksDetailsModel.fromMap(map),
   );
   @override
   void initState() {
@@ -30,11 +26,9 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AussieAppDrawer(),
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(title: 'Events'),
-          BlocBuilder<EFECubit<EventDetailsModel>, EFEState>(
+          BlocBuilder<EFECubit<FoodAndDrinksDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {
               if (state is EFEDataChanged)
@@ -53,8 +47,9 @@ class _EventsScreenState extends State<EventsScreen> {
     );
   }
 
-  Widget buildTiles(double initialScrollOffset, List<EFEModel> models) {
-    return EFEScreen.buildEFETiles(
+  Widget buildTiles(
+      double initialScrollOffset, List<MainScreenDetailsModel> models) {
+    return MainScreen.buildTiles(
       models,
       widthFactor: .55.sw,
       heightFactor: .20.sh,

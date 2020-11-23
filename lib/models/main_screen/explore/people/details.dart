@@ -1,9 +1,9 @@
-import 'package:aussie/models/efe/efe.dart';
 import 'package:aussie/models/gallery.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter/foundation.dart';
 
-class PeopleDetailsModel extends EFEModel {
+class PeopleDetailsModel extends MainScreenDetailsModel {
   const PeopleDetailsModel({
     @required String title,
     @required String titleImageUrl,

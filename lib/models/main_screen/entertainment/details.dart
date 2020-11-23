@@ -1,20 +1,27 @@
+import 'package:aussie/interfaces/geners.dart';
 import 'package:aussie/interfaces/ratings.dart';
-import 'package:aussie/models/efe/efe.dart';
 import 'package:aussie/models/gallery.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/widgets/rating/rating_section.dart';
 import 'package:aussie/util/social_media_platform.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class PlacesDetailsModel extends EFEModel implements RatingsInterface {
+@immutable
+class EntertainmentDetailsModel extends MainScreenDetailsModel
+    implements RatingsInterface, GenersInterface {
+  final List<String> geners;
   final String id;
-  const PlacesDetailsModel({
+
+  const EntertainmentDetailsModel({
     @required String title,
+    this.id,
     @required String titleImageUrl,
-    @required this.id,
     Map<SocialMediaPlatform, String> socialMediaPlatforms,
     Map<String, String> descriptions,
+    this.geners,
     List<GalleryImageModel> galleryImageLinks,
   }) : super(
           title: title,
@@ -23,12 +30,21 @@ class PlacesDetailsModel extends EFEModel implements RatingsInterface {
           descriptions: descriptions,
           galleryImageLinks: galleryImageLinks,
         );
+
   @override
-  Widget buildRatings() => RatingSection(
-        id: id,
-        titleImageUrl: titleImageUrl,
+  Widget buildRatings() => RatingSection(id: id, titleImageUrl: titleImageUrl);
+
+  @override
+  Widget buildGeners() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Text("Geners: ", style: TextStyle(fontSize: 50.sp)),
+            Text(geners.reduce((value, element) => '$value, $element')),
+          ],
+        ),
       );
-  factory PlacesDetailsModel.fromMap(Map<String, dynamic> map) {
+  factory EntertainmentDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     List<GalleryImageModel> _models = [];
     List<dynamic>.from(map["galleryImageLinks"]).forEach(
@@ -44,15 +60,18 @@ class PlacesDetailsModel extends EFEModel implements RatingsInterface {
         value,
       ),
     );
-    var _model = PlacesDetailsModel(
+    var _model = EntertainmentDetailsModel(
       title: map["title"].toString(),
       titleImageUrl: map["titleImageUrl"].toString(),
       id: map["id"].toString(),
       socialMediaPlatforms: _platforms,
+      geners: List<String>.from(map['geners']),
       descriptions: Map<String, String>.from(map["descriptions"]),
       galleryImageLinks: _models,
     );
-
     return _model;
   }
+
+  @override
+  bool get stringify => true;
 }

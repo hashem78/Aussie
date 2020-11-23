@@ -5,14 +5,14 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-abstract class EFEModel extends Equatable {
+abstract class MainScreenDetailsModel extends Equatable {
   final Map<SocialMediaPlatform, String> socialMediaPlatforms;
   final Map<String, String> descriptions;
 
   final List<GalleryImageModel> galleryImageLinks;
   final String title;
   final String titleImageUrl;
-  const EFEModel({
+  const MainScreenDetailsModel({
     this.socialMediaPlatforms,
     this.descriptions,
     this.galleryImageLinks,

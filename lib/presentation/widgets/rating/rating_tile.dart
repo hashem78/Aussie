@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingTile extends StatelessWidget {
-  final bool readOnly;
   final Color color;
   final RatingsModel model;
   const RatingTile({
     @required this.model,
-    this.readOnly = false,
     Color color,
-  })  : assert(readOnly != null),
+  })  : assert(model != null),
         color = color ?? Colors.red;
   @override
   Widget build(BuildContext context) {
@@ -35,7 +33,6 @@ class RatingTile extends StatelessWidget {
             Text("Rating: "),
             SmoothStarRating(
               rating: model.rating.toDouble(),
-              isReadOnly: readOnly,
               size: 25,
               filledIconData: Icons.star,
               halfFilledIconData: Icons.star_half,
@@ -44,9 +41,6 @@ class RatingTile extends StatelessWidget {
               starCount: 5,
               allowHalfRating: true,
               spacing: 2.0,
-              onRated: (value) {
-                print("rating value -> $value");
-              },
             ),
           ],
         ),

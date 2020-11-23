@@ -11,7 +11,7 @@ abstract class EFEState extends Equatable {
 class EFEInitial extends EFEState {}
 
 class EFEDataChanged extends EFEState {
-  final List<EFEModel> models;
+  final List<MainScreenDetailsModel> models;
   EFEDataChanged(this.models);
   @override
   List<Object> get props => [models];

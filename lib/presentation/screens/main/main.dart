@@ -1,25 +1,26 @@
 import 'package:aussie/constants.dart';
-import 'package:aussie/models/efe/efe.dart';
-import 'package:aussie/presentation/screens/efe/details.dart';
-import 'package:aussie/presentation/screens/efe/entertainment.dart';
-import 'package:aussie/presentation/screens/efe/events.dart';
-import 'package:aussie/presentation/screens/efe/food_drinks.dart';
-import 'package:aussie/presentation/screens/efe/people.dart';
-import 'package:aussie/presentation/screens/efe/places.dart';
+import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/presentation/screens/main/details.dart';
+import 'package:aussie/presentation/screens/main/entertainment.dart';
+import 'package:aussie/presentation/screens/main/events.dart';
+import 'package:aussie/presentation/screens/main/food_drinks.dart';
+import 'package:aussie/presentation/screens/main/people.dart';
+import 'package:aussie/presentation/screens/main/places.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
+import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/sized_tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EFEScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   static final title = "Explore";
-  static final navPath = "/main/efe";
-  static Widget buildEFETiles(
-    List<EFEModel> models, {
+  static final navPath = "/main";
+  static Widget buildTiles(
+    List<MainScreenDetailsModel> models, {
     double widthFactor,
     double heightFactor,
     double swatchWidthFactor,
@@ -68,17 +69,17 @@ class EFEScreen extends StatefulWidget {
   }
 
   @override
-  _EFEScreenState createState() => _EFEScreenState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _EFEScreenState extends State<EFEScreen> {
+class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   PageController _controller = PageController();
   var tabs = [
     PeopleScreen(),
     PlacesScreen(),
     EventsScreen(),
-    FoodAndDrinks(),
+    FoodScreen(),
     Entertainment(),
   ];
   void onPageChanged(int page) {
@@ -100,6 +101,7 @@ class _EFEScreenState extends State<EFEScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return Scaffold(
+      drawer: AussieAppDrawer(),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: currentIndex,
         itemCornerRadius: 0,
@@ -138,7 +140,7 @@ class _EFEScreenState extends State<EFEScreen> {
           BottomNavyBarItem(
             icon: Icon(Icons.local_pizza),
             title: AutoSizeText(
-              'Food & Drinks',
+              'Food',
               maxLines: 1,
             ),
             activeColor: Colors.green,
@@ -155,11 +157,16 @@ class _EFEScreenState extends State<EFEScreen> {
           ),
         ],
       ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _controller,
-        onPageChanged: onPageChanged,
-        children: tabs,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, _) => [
+          AussieSliverAppBar(title: "hi"),
+        ],
+        body: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _controller,
+          onPageChanged: onPageChanged,
+          children: tabs,
+        ),
       ),
     );
   }
