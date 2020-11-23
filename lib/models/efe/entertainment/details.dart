@@ -4,6 +4,7 @@ import 'package:aussie/models/efe/efe.dart';
 import 'package:aussie/models/gallery.dart';
 import 'package:aussie/presentation/widgets/rating/rating_section.dart';
 import 'package:aussie/util/social_media_platform.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +35,15 @@ class EntertainmentDetailsModel extends EFEModel
   Widget buildRatings() => RatingSection(id: id, titleImageUrl: titleImageUrl);
 
   @override
-  Widget buildGeners() =>
-      Text(geners.reduce((value, element) => '$value, $element'));
+  Widget buildGeners() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Text("Geners: ", style: TextStyle(fontSize: 50.sp)),
+            Text(geners.reduce((value, element) => '$value, $element')),
+          ],
+        ),
+      );
   factory EntertainmentDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     List<GalleryImageModel> _models = [];
