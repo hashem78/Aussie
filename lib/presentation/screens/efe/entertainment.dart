@@ -40,7 +40,8 @@ class _EntertainmentState extends State<Entertainment> {
             builder: (context, state) {
               if (state is EFEDataChanged)
                 return SliverToBoxAdapter(
-                  child: buildTiles(0, state.models),
+                  child: buildTiles(
+                      0, [...state.models, ...state.models, ...state.models]),
                 );
               return SliverToBoxAdapter(
                 child: Center(

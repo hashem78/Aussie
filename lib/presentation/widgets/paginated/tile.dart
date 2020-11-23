@@ -15,7 +15,7 @@ class PaginatedScreenTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.deepPurple,
+      color: Theme.of(context).accentColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0),
       ),

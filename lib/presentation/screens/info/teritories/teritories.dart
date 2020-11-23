@@ -38,7 +38,7 @@ class TeritoriesScreen extends StatelessWidget {
           ),
           title: Text(
             _casted.title,
-            style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w800),
+            style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
           ),
           subtitle: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -77,7 +77,7 @@ class TeritoriesScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),
-        color: Colors.blue,
+        color: Colors.lime,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -86,16 +86,13 @@ class TeritoriesScreen extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontSize: 65.sp,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(5),
-              child: Text(
-                value,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
+              child: Text(value),
             )
           ],
         ),

@@ -12,7 +12,6 @@ class PaginatedSearchBar extends StatelessWidget {
           Icon(
             Icons.search,
             size: 40,
-            color: Colors.white,
           ),
           Expanded(
             flex: 8,

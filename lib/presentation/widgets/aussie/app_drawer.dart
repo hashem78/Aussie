@@ -5,6 +5,7 @@ import 'package:aussie/presentation/screens/info/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
+import 'package:aussie/presentation/screens/settings/settings.dart';
 import 'package:aussie/presentation/screens/statistics/energy.dart';
 import 'package:aussie/presentation/screens/statistics/gdp.dart';
 import 'package:aussie/presentation/screens/statistics/heducation.dart';
@@ -96,13 +97,13 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: WeatherScreen.navPath,
           svgName: WeatherScreen.svgName,
           title: WeatherScreen.title,
-          iconColor: Colors.white70,
+          iconColor: Colors.lightBlue,
         ),
         _DrawerItemModel(
           navPath: TeritoriesScreen.navPath,
           svgName: TeritoriesScreen.svgName,
           title: TeritoriesScreen.title,
-          iconColor: Colors.brown.shade900,
+          iconColor: Colors.green,
         ),
         _DrawerItemModel(
           navPath: NaturalParksScreen.navPath,
@@ -133,7 +134,7 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: LivestockScreen.navPath,
           svgName: LivestockScreen.svgName,
           title: LivestockScreen.title,
-          iconColor: Colors.white70,
+          iconColor: Colors.pink,
         ),
         _DrawerItemModel(
           navPath: HEducationScreen.navPath,
@@ -151,6 +152,20 @@ class AussieAppDrawer extends StatelessWidget {
           svgName: GDPScreen.svgName,
           title: GDPScreen.title,
           iconColor: Colors.orange,
+        ),
+      ],
+    ),
+    _DrawerSection(
+      sectionIcon: Icons.miscellaneous_services,
+      sectionTitle: "Misc",
+      sectionTitleColor: kausBlue,
+      tilesColor: Colors.blue,
+      models: [
+        _DrawerItemModel(
+          title: SettingsScreen.title,
+          svgName: SettingsScreen.svgName,
+          navPath: SettingsScreen.navPath,
+          iconColor: Colors.grey,
         ),
       ],
     ),
@@ -183,6 +198,8 @@ class AussieAppDrawer extends StatelessWidget {
                     child: SvgPicture.asset(
                       'assests/images/au.svg',
                       fit: BoxFit.fitWidth,
+                      height: 10.sp,
+                      width: 10.sp,
                     ),
                   ),
                 ),
@@ -211,7 +228,7 @@ class AussieAppDrawer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Divider(
                     color: Colors.grey,
-                    thickness: 5,
+                    thickness: 2,
                   ),
                 );
               },
@@ -238,17 +255,27 @@ class _DrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
-      child: ListTile(
-        onTap: () => Navigator.of(context).pushNamed(model.navPath),
-        leading: SvgPicture.asset(
-          "assests/images/${model.svgName}",
-          height: 30,
-          color: model.iconColor,
-        ),
-        title: Text(
-          model.title,
-          style: TextStyle(fontSize: 80.sp, fontWeight: FontWeight.w700),
-        ),
+      child: Stack(
+        children: [
+          InkWell(
+            onTap: () => Navigator.of(context).pushNamed(model.navPath),
+            splashColor: Colors.red,
+            child: Ink(
+              child: ListTile(
+                //tileColor: Theme.of(context).secondaryHeaderColor,
+                leading: SvgPicture.asset(
+                  "assests/images/${model.svgName}",
+                  height: 75.sp,
+                  color: model.iconColor,
+                ),
+                title: Text(
+                  model.title,
+                  style: TextStyle(fontSize: 60.sp),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -273,7 +300,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           Expanded(
             child: Icon(
               iconData,
-              size: 30,
+              size: 80.sp,
               color: color,
             ),
           ),
@@ -282,9 +309,9 @@ class _DrawerSectionTitle extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 100.sp,
+                fontSize: 80.sp,
                 color: color,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

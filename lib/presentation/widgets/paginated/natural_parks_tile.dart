@@ -24,6 +24,7 @@ class NaturalParksTile extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 7.5),
         child: AutoSizeText(
           model.parkName,
+          maxLines: 1,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w800),
         ),
@@ -82,7 +83,7 @@ class NaturalParksTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),
-        color: Colors.blue,
+        color: Colors.lime,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

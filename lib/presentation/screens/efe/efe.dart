@@ -101,10 +101,10 @@ class _EFEScreenState extends State<EFEScreen> {
     ScreenUtil.init(context);
     return Scaffold(
       bottomNavigationBar: BottomNavyBar(
-        backgroundColor: Colors.cyan.shade700,
         selectedIndex: currentIndex,
         itemCornerRadius: 0,
         showElevation: true,
+        containerHeight: .08.sh,
         curve: Curves.easeInOut,
         onItemSelected: onPageChanged,
         items: [

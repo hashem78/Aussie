@@ -58,6 +58,7 @@ class SizedTile extends StatelessWidget {
     return Container(
       width: widthFactor,
       height: heightFactor,
+      margin: EdgeInsets.fromLTRB(5, 5, 0, 5),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [

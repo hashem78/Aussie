@@ -68,7 +68,6 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Colors.cyan.shade700,
         body: CustomScrollView(
           physics: BouncingScrollPhysics(),
           slivers: [
