@@ -8,12 +8,14 @@ import 'package:aussie/presentation/screens/main/people.dart';
 import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
-import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
+
 import 'package:aussie/presentation/widgets/sized_tile.dart';
+import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainScreen extends StatefulWidget {
@@ -80,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
     PlacesScreen(),
     EventsScreen(),
     FoodScreen(),
-    Entertainment(),
+    EntertainmentScreen(),
   ];
   void onPageChanged(int page) {
     setState(
@@ -102,6 +104,7 @@ class _MainScreenState extends State<MainScreen> {
     ScreenUtil.init(context);
     return Scaffold(
       drawer: AussieAppDrawer(),
+      extendBody: true,
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: currentIndex,
         itemCornerRadius: 0,
@@ -112,24 +115,11 @@ class _MainScreenState extends State<MainScreen> {
         items: _bottomNavyBarItems,
       ),
       body: SafeArea(
-        child: NestedScrollView(
-          floatHeaderSlivers: true,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            print(innerBoxIsScrolled);
-            return [
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: AussieSliverAppBar(),
-              ),
-            ];
-          },
-          body: PageView(
-            physics: NeverScrollableScrollPhysics(),
-            controller: _controller,
-            onPageChanged: onPageChanged,
-            children: tabs,
-          ),
+        child: PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _controller,
+          onPageChanged: onPageChanged,
+          children: tabs,
         ),
       ),
     );

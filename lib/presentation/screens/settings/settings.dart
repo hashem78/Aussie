@@ -1,4 +1,5 @@
 import 'package:aussie/constants.dart';
+import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,22 @@ class SettingsScreen extends StatelessWidget {
                       );
                     },
                     leading: Text("About Aussie"),
+                    trailing: Icon(Icons.info),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    onTap: () {
+                      BlocProvider.of<ThemeCubit>(context).changeTheme(
+                        peopleScreenColor: MainScreenColorData(
+                          swatchColor: Colors.green,
+                          backgroundColor: Colors.green.shade500,
+                        ),
+                      );
+                    },
+                    leading: Text("Upate theme"),
                     trailing: Icon(Icons.info),
                   ),
                 ),

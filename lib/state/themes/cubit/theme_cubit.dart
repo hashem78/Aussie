@@ -12,9 +12,19 @@ class ThemeCubit extends Cubit<ThemeState> {
       : super(ThemeChanged(ThemeModel.fromMap(themeMap)));
   void changeTheme({
     Brightness brightness,
+    MainScreenColorData peopleScreenColor,
+    MainScreenColorData foodScreenColor,
+    MainScreenColorData eventsScreenColor,
+    MainScreenColorData placesScreenColor,
+    MainScreenColorData entertainmentScreenColor,
   }) {
     var _modifiedModel = currentModel.copyWith(
       brightness: brightness,
+      peopleScreenColor: peopleScreenColor,
+      foodScreenColor: foodScreenColor,
+      eventsScreenColor: placesScreenColor,
+      placesScreenColor: placesScreenColor,
+      entertainmentScreenColor: entertainmentScreenColor,
     );
     SharedPreferences.getInstance().then(
       (perfs) {

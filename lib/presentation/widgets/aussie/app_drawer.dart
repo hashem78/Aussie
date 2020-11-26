@@ -181,7 +181,6 @@ class AussieAppDrawer extends StatelessWidget {
             elevation: 0,
             stretch: true,
             pinned: true,
-            forceElevated: true,
             automaticallyImplyLeading: false,
             expandedHeight: .25.sh,
             flexibleSpace: Stack(

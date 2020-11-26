@@ -1,12 +1,17 @@
 import 'package:aussie/models/main_screen/explore/events/details.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventsScreen extends StatefulWidget {
+  static final String themeAttribute = "eventScreenColor";
+
   @override
   _EventsScreenState createState() => _EventsScreenState();
 }
@@ -24,12 +29,13 @@ class _EventsScreenState extends State<EventsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _currentTheme = getCurrentThemeModel(context);
     return Scaffold(
+      drawer: AussieAppDrawer(),
+      backgroundColor: _currentTheme.eventsScreenColor.backgroundColor,
       body: CustomScrollView(
         slivers: [
-          SliverOverlapInjector(
-            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-          ),
+          AussieSliverAppBar(_currentTheme.eventsScreenColor.swatchColor),
           BlocBuilder<EFECubit<EventDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

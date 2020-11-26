@@ -1,20 +1,24 @@
 import 'package:aussie/models/main_screen/entertainment/details.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Entertainment extends StatefulWidget {
+class EntertainmentScreen extends StatefulWidget {
+  static final String themeAttribute = "entertainmentScreenColor";
   @override
-  _EntertainmentState createState() => _EntertainmentState();
+  _EntertainmentScreenState createState() => _EntertainmentScreenState();
 }
 
-class _EntertainmentState extends State<Entertainment> {
+class _EntertainmentScreenState extends State<EntertainmentScreen> {
   final EFECubit<EntertainmentDetailsModel> cubit =
       EFECubit<EntertainmentDetailsModel>(
     "movies_list",
@@ -28,12 +32,14 @@ class _EntertainmentState extends State<Entertainment> {
 
   @override
   Widget build(BuildContext context) {
+    var _currentTheme = getCurrentThemeModel(context);
     return Scaffold(
+      drawer: AussieAppDrawer(),
+      backgroundColor: _currentTheme.entertainmentScreenColor.backgroundColor,
       body: CustomScrollView(
         slivers: [
-          SliverOverlapInjector(
-            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-          ),
+          AussieSliverAppBar(
+              _currentTheme.entertainmentScreenColor.swatchColor),
           BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {
@@ -50,15 +56,15 @@ class _EntertainmentState extends State<Entertainment> {
                         shrinkWrap: true,
                         children: [
                           ListTile(
-                            tileColor: Colors.red,
+                            tileColor: Colors.brown,
                             leading: Icon(Icons.ac_unit),
                           ),
                           ListTile(
-                            tileColor: Colors.red,
+                            tileColor: Colors.brown,
                             leading: Icon(Icons.ac_unit),
                           ),
                           ListTile(
-                            tileColor: Colors.red,
+                            tileColor: Colors.brown,
                             leading: Icon(Icons.ac_unit),
                           ),
                         ],
