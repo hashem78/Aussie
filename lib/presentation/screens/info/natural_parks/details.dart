@@ -19,7 +19,6 @@ class NaturalParksDetailsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             stretch: true,

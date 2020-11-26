@@ -34,7 +34,6 @@ class _AussieScrollableListState extends State<AussieScrollableList> {
       child: ListView.builder(
         controller: _scrollController,
         addAutomaticKeepAlives: true,
-        physics: BouncingScrollPhysics(),
         scrollDirection: widget.scrollDirection,
         itemCount: widget.children.length,
         itemBuilder: (BuildContext context, int index) =>

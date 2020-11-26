@@ -27,6 +27,9 @@ class _PlacesScreenState extends State<PlacesScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          ),
           BlocBuilder<EFECubit<PlacesDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

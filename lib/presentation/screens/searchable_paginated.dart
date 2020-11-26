@@ -69,7 +69,6 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
           slivers: [
             AussieThumbnailedSliverAppBar(
               cubit: thumbnailCubit,

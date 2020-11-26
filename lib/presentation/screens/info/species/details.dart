@@ -20,7 +20,6 @@ class SpeciesDetails extends StatelessWidget {
       backgroundColor: Colors.lightBlue,
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             elevation: 0,

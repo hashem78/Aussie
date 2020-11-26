@@ -109,65 +109,77 @@ class _MainScreenState extends State<MainScreen> {
         containerHeight: .08.sh,
         curve: Curves.easeInOut,
         onItemSelected: onPageChanged,
-        items: [
-          BottomNavyBarItem(
-            icon: Icon(Icons.people),
-            title: AutoSizeText(
-              'People',
-              maxLines: 1,
-            ),
-            activeColor: Colors.pink,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.place),
-            title: AutoSizeText(
-              'Places',
-              maxLines: 1,
-            ),
-            activeColor: Colors.red,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.event),
-            title: AutoSizeText(
-              'Events',
-              maxLines: 1,
-            ),
-            activeColor: kausBlue,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.local_pizza),
-            title: AutoSizeText(
-              'Food',
-              maxLines: 1,
-            ),
-            activeColor: Colors.green,
-            textAlign: TextAlign.center,
-          ),
-          BottomNavyBarItem(
-            icon: Icon(Icons.movie),
-            title: AutoSizeText(
-              'Entertainment',
-              maxLines: 1,
-            ),
-            activeColor: Colors.grey,
-            textAlign: TextAlign.center,
-          ),
-        ],
+        items: _bottomNavyBarItems,
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (context, _) => [
-          AussieSliverAppBar(title: "hi"),
-        ],
-        body: PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _controller,
-          onPageChanged: onPageChanged,
-          children: tabs,
+      body: SafeArea(
+        child: NestedScrollView(
+          floatHeaderSlivers: true,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            print(innerBoxIsScrolled);
+            return [
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: AussieSliverAppBar(),
+              ),
+            ];
+          },
+          body: PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _controller,
+            onPageChanged: onPageChanged,
+            children: tabs,
+          ),
         ),
       ),
     );
   }
+
+  static final List<BottomNavyBarItem> _bottomNavyBarItems = [
+    BottomNavyBarItem(
+      icon: Icon(Icons.people),
+      title: AutoSizeText(
+        'People',
+        maxLines: 1,
+      ),
+      activeColor: Colors.pink,
+      textAlign: TextAlign.center,
+    ),
+    BottomNavyBarItem(
+      icon: Icon(Icons.place),
+      title: AutoSizeText(
+        'Places',
+        maxLines: 1,
+      ),
+      activeColor: Colors.red,
+      textAlign: TextAlign.center,
+    ),
+    BottomNavyBarItem(
+      icon: Icon(Icons.event),
+      title: AutoSizeText(
+        'Events',
+        maxLines: 1,
+      ),
+      activeColor: kausBlue,
+      textAlign: TextAlign.center,
+    ),
+    BottomNavyBarItem(
+      icon: Icon(Icons.local_pizza),
+      title: AutoSizeText(
+        'Food',
+        maxLines: 1,
+      ),
+      activeColor: Colors.green,
+      textAlign: TextAlign.center,
+    ),
+    BottomNavyBarItem(
+      icon: Icon(Icons.movie),
+      title: AutoSizeText(
+        'Entertainment',
+        maxLines: 1,
+      ),
+      activeColor: Colors.grey,
+      textAlign: TextAlign.center,
+    ),
+  ];
 }

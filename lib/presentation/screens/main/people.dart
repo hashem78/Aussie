@@ -26,7 +26,11 @@ class _PeopleScreenState extends State<PeopleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: NeverScrollableScrollPhysics(),
         slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          ),
           BlocBuilder<EFECubit<PeopleDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

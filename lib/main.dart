@@ -54,7 +54,9 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(brightness: state.model.brightness),
+            theme: ThemeData(
+              brightness: state.model.brightness,
+            ),
             initialRoute: MainScreen.navPath,
             routes: routes,
           );

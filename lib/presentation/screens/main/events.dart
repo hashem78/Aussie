@@ -27,6 +27,9 @@ class _EventsScreenState extends State<EventsScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          ),
           BlocBuilder<EFECubit<EventDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

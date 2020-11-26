@@ -31,14 +31,42 @@ class _EntertainmentState extends State<Entertainment> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          ),
           BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {
-              if (state is EFEDataChanged)
+              if (state is EFEDataChanged) {
                 return SliverToBoxAdapter(
-                  child: buildTiles(
-                      0, [...state.models, ...state.models, ...state.models]),
+                  child: Column(
+                    children: [
+                      buildTiles(
+                        0,
+                        [...state.models, ...state.models, ...state.models],
+                      ),
+                      ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        children: [
+                          ListTile(
+                            tileColor: Colors.red,
+                            leading: Icon(Icons.ac_unit),
+                          ),
+                          ListTile(
+                            tileColor: Colors.red,
+                            leading: Icon(Icons.ac_unit),
+                          ),
+                          ListTile(
+                            tileColor: Colors.red,
+                            leading: Icon(Icons.ac_unit),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
+              }
               return SliverToBoxAdapter(
                 child: Center(
                   child: CircularProgressIndicator(),

@@ -1,3 +1,4 @@
+import 'package:aussie/constants.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +50,15 @@ class SettingsScreen extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
                   child: ListTile(
                     contentPadding: EdgeInsets.all(5),
-
-                    //leading: Icon(Icons.info),
-                    leading: Text(
-                      "About Aussie",
-                      style: TextStyle(fontSize: 70.sp),
-                    ),
+                    onTap: () {
+                      showAboutDialog(
+                        context: context,
+                        applicationVersion: "1.0",
+                        applicationName: "Aussie",
+                        applicationLegalese: klorem,
+                      );
+                    },
+                    leading: Text("About Aussie"),
                     trailing: Icon(Icons.info),
                   ),
                 ),
@@ -87,10 +91,7 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
         contentPadding: EdgeInsets.all(5.0),
-        leading: Text(
-          "Darkmode",
-          style: TextStyle(fontSize: 70.sp),
-        ),
+        leading: Text("Darkmode"),
         trailing: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return Switch(

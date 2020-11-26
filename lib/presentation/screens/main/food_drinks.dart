@@ -28,6 +28,9 @@ class _FoodScreenState extends State<FoodScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          SliverOverlapInjector(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+          ),
           BlocBuilder<EFECubit<FoodAndDrinksDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

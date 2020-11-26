@@ -24,7 +24,6 @@ class SpeciesScreen extends StatelessWidget {
       backgroundColor: Colors.blue,
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             stretch: true,

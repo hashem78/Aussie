@@ -43,7 +43,6 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
 
     return Scaffold(
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             stretch: true,
