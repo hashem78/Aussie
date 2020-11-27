@@ -2,6 +2,7 @@ import 'package:aussie/interfaces/ratings.dart';
 import 'package:aussie/models/gallery.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/widgets/rating/rating_section.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -24,9 +25,11 @@ class PlacesDetailsModel extends MainScreenDetailsModel
           galleryImageLinks: galleryImageLinks,
         );
   @override
-  Widget buildRatings() => RatingSection(
+  Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         titleImageUrl: titleImageUrl,
+        ratingsBackgroundColor:
+            getCurrentThemeModel(context).placesScreenColor.backgroundColor,
       );
   factory PlacesDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

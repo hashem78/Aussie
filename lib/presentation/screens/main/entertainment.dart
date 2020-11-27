@@ -14,6 +14,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EntertainmentScreen extends StatefulWidget {
   static final String themeAttribute = "entertainmentScreenColor";
+  static final String title = "Entertainment";
+  static final String svgName = "entertainment.svg";
+  static final String navPath = "/entertainment";
   @override
   _EntertainmentScreenState createState() => _EntertainmentScreenState();
 }
@@ -39,7 +42,9 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
       body: CustomScrollView(
         slivers: [
           AussieSliverAppBar(
-              _currentTheme.entertainmentScreenColor.swatchColor),
+            _currentTheme.entertainmentScreenColor.swatchColor,
+            EntertainmentScreen.title,
+          ),
           BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

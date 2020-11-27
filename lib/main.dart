@@ -1,6 +1,11 @@
 import 'dart:convert';
 
+import 'package:aussie/presentation/screens/main/entertainment.dart';
+import 'package:aussie/presentation/screens/main/events.dart';
+import 'package:aussie/presentation/screens/main/food_drinks.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
+import 'package:aussie/presentation/screens/main/people.dart';
+import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -81,5 +86,11 @@ class MyApp extends StatelessWidget {
     GDPScreen.navPath: (BuildContext context) => GDPScreen(),
     HEducationScreen.navPath: (BuildContext context) => HEducationScreen(),
     SettingsScreen.navPath: (BuildContext context) => SettingsScreen(),
+    PeopleScreen.navPath: (BuildContext context) => PeopleScreen(),
+    PlacesScreen.navPath: (BuildContext context) => PlacesScreen(),
+    FoodScreen.navPath: (BuildContext context) => FoodScreen(),
+    EntertainmentScreen.navPath: (BuildContext context) =>
+        EntertainmentScreen(),
+    EventsScreen.navPath: (BuildContext context) => EventsScreen(),
   };
 }

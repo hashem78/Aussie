@@ -13,9 +13,11 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
   final double titleImageHeight;
   final T model;
   final String tag;
+  final Color backgroundColor;
   EFEDetails({
     @required this.model,
     @required this.tag,
+    this.backgroundColor,
     double titleImageHeight,
   })  : assert(model != null && tag != null),
         titleImageHeight = titleImageHeight ?? 1.sh;
@@ -42,6 +44,7 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
         _descriptions.add(ExpandingTextTile(title: key, text: value)));
 
     return Scaffold(
+      backgroundColor: backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -67,7 +70,7 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
                     buildGeners(),
                   ],
                 ),
-                buildRatings(),
+                buildRatings(context),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -92,10 +95,10 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
     );
   }
 
-  Widget buildRatings() {
+  Widget buildRatings(BuildContext context) {
     try {
       var casted = model as RatingsInterface;
-      return casted.buildRatings();
+      return casted.buildRatings(context);
     } catch (e) {
       return Container();
     }

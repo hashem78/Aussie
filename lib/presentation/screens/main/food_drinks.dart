@@ -11,6 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FoodScreen extends StatefulWidget {
   static final String themeAttribute = "foodScreenColor";
+  static final String title = "Food";
+  static final String svgName = "food.svg";
+  static final String navPath = "/food";
 
   @override
   _FoodScreenState createState() => _FoodScreenState();
@@ -36,7 +39,10 @@ class _FoodScreenState extends State<FoodScreen> {
       backgroundColor: _currentTheme.foodScreenColor.backgroundColor,
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(_currentTheme.foodScreenColor.swatchColor),
+          AussieSliverAppBar(
+            _currentTheme.foodScreenColor.swatchColor,
+            FoodScreen.title,
+          ),
           BlocBuilder<EFECubit<FoodAndDrinksDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

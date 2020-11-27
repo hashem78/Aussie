@@ -17,4 +17,11 @@ class OnlineEFERepository<T extends MainScreenDetailsModel> {
     _fetched.forEach((element) => _internalList.add(creator(element)));
     return UnmodifiableListView(_internalList);
   }
+
+  Future<List<MainScreenDetailsModel>> loadMore(int page) async {
+    var _fetched = await _efeOnlineDataProvider.loadMore(page);
+    List<MainScreenDetailsModel> _internalList = [];
+    _fetched.forEach((element) => _internalList.add(creator(element)));
+    return UnmodifiableListView(_internalList);
+  }
 }

@@ -5,15 +5,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AussieSliverAppBar extends StatelessWidget {
   final Color backgroundColor;
+  final String title;
 
-  const AussieSliverAppBar(this.backgroundColor);
+  const AussieSliverAppBar(
+    this.backgroundColor,
+    this.title,
+  );
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
-      expandedHeight: kToolbarHeight,
-      elevation: 0,
+      expandedHeight: .28.sh,
+      elevation: 5,
+      stretch: true,
       flexibleSpace: Stack(
         children: [
           FlexibleSpaceBar(
@@ -38,7 +43,7 @@ class AussieSliverAppBar extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Text(
-              "Aussie",
+              title,
               style: TextStyle(
                 fontSize: 75.sp,
                 fontWeight: FontWeight.w700,

@@ -11,6 +11,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventsScreen extends StatefulWidget {
   static final String themeAttribute = "eventScreenColor";
+  static final String title = "Events";
+  static final String svgName = "events.svg";
+  static final String navPath = "/events";
 
   @override
   _EventsScreenState createState() => _EventsScreenState();
@@ -35,7 +38,10 @@ class _EventsScreenState extends State<EventsScreen> {
       backgroundColor: _currentTheme.eventsScreenColor.backgroundColor,
       body: CustomScrollView(
         slivers: [
-          AussieSliverAppBar(_currentTheme.eventsScreenColor.swatchColor),
+          AussieSliverAppBar(
+            _currentTheme.eventsScreenColor.swatchColor,
+            EventsScreen.title,
+          ),
           BlocBuilder<EFECubit<EventDetailsModel>, EFEState>(
             cubit: cubit,
             builder: (context, state) {

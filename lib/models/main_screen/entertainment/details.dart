@@ -3,6 +3,7 @@ import 'package:aussie/interfaces/ratings.dart';
 import 'package:aussie/models/gallery.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/widgets/rating/rating_section.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +33,13 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
         );
 
   @override
-  Widget buildRatings() => RatingSection(id: id, titleImageUrl: titleImageUrl);
+  Widget buildRatings(BuildContext context) => RatingSection(
+        id: id,
+        titleImageUrl: titleImageUrl,
+        ratingsBackgroundColor: getCurrentThemeModel(context)
+            .entertainmentScreenColor
+            .backgroundColor,
+      );
 
   @override
   Widget buildGeners() => Padding(

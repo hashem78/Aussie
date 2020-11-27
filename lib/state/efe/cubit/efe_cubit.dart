@@ -26,4 +26,11 @@ class EFECubit<T extends MainScreenDetailsModel> extends Cubit<EFEState> {
       emit(EFEDataChanged(value));
     });
   }
+
+  void loadMore(int page) {
+    emit(EFELoading());
+    _repository.loadMore(page).then((value) {
+      emit(EFEDataChanged([...value]));
+    });
+  }
 }

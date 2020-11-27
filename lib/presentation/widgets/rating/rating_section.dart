@@ -13,13 +13,15 @@ class RatingSection extends StatefulWidget {
   final bool readOnly;
   final String id;
   final String titleImageUrl;
+  final Color ratingsBackgroundColor;
 
-  const RatingSection(
-      {Key key,
-      @required this.id,
-      this.readOnly = false,
-      @required this.titleImageUrl})
-      : assert(id != null && titleImageUrl != null);
+  const RatingSection({
+    Key key,
+    @required this.id,
+    this.readOnly = false,
+    @required this.titleImageUrl,
+    @required this.ratingsBackgroundColor,
+  }) : assert(id != null && titleImageUrl != null);
 
   @override
   _RatingSectionState createState() => _RatingSectionState();
@@ -56,8 +58,11 @@ class _RatingSectionState extends State<RatingSection> {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (_) =>
-                        RatingDetailsScreen(cubit, widget.titleImageUrl),
+                    builder: (_) => RatingDetailsScreen(
+                      cubit,
+                      widget.titleImageUrl,
+                      widget.ratingsBackgroundColor,
+                    ),
                   ),
                 );
               },
@@ -109,7 +114,9 @@ class _RatingSectionState extends State<RatingSection> {
 class RatingDetailsScreen extends StatefulWidget {
   final RatingsCubit cubit;
   final String titleImageUrl;
-  const RatingDetailsScreen(this.cubit, this.titleImageUrl);
+  final Color backgroundColor;
+  const RatingDetailsScreen(
+      this.cubit, this.titleImageUrl, this.backgroundColor);
   @override
   _RatingDetailsScreenState createState() => _RatingDetailsScreenState();
 }
@@ -133,6 +140,7 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: widget.backgroundColor,
         key: _scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -228,7 +236,7 @@ class _WriteReviewSheetState extends State<WriteReviewSheet> {
       listener: (context, state) {
         if (state is RatingAdded) {
           Navigator.of(context).pop();
-          ScaffoldMessenger.of(context).showSnackBar(
+          Scaffold.of(context).showSnackBar(
             SnackBar(
               content: Text("Your review has been added!"),
             ),

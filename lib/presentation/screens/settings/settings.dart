@@ -60,7 +60,10 @@ class SettingsScreen extends StatelessWidget {
                       );
                     },
                     leading: Text("About Aussie"),
-                    trailing: Icon(Icons.info),
+                    trailing: Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Icon(Icons.info),
+                    ),
                   ),
                 ),
                 Padding(
@@ -69,14 +72,16 @@ class SettingsScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.all(5),
                     onTap: () {
                       BlocProvider.of<ThemeCubit>(context).changeTheme(
-                        peopleScreenColor: MainScreenColorData(
-                          swatchColor: Colors.green,
-                          backgroundColor: Colors.green.shade500,
-                        ),
-                      );
+                          peopleScreenColor: MainScreenColorData(
+                            swatchColor: Colors.blue.shade900,
+                            backgroundColor: Colors.blue.shade800,
+                          ),
+                          placesScreenColor: MainScreenColorData(
+                            swatchColor: Colors.brown.shade900,
+                            backgroundColor: Colors.brown.shade800,
+                          ));
                     },
-                    leading: Text("Upate theme"),
-                    trailing: Icon(Icons.info),
+                    leading: Text("Update theme"),
                   ),
                 ),
               ],

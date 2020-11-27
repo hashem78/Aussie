@@ -1,3 +1,4 @@
+import 'package:aussie/util/functions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,11 @@ class EventDetailsModel extends MainScreenDetailsModel
         );
 
   @override
-  Widget buildRatings() => RatingSection(
+  Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         titleImageUrl: titleImageUrl,
+        ratingsBackgroundColor:
+            getCurrentThemeModel(context).eventsScreenColor.backgroundColor,
       );
   factory EventDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

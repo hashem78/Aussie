@@ -62,6 +62,8 @@ class SizedTile extends StatelessWidget {
       width: widthFactor,
       height: heightFactor,
       margin: containerMargin,
+      decoration: BoxDecoration(
+          boxShadow: [BoxShadow(offset: Offset(0, 0), blurRadius: 2)]),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -81,7 +83,6 @@ class SizedTile extends StatelessWidget {
             Material(
               type: MaterialType.transparency,
               child: InkWell(
-                splashColor: kausRed.withAlpha(120),
                 onTap: onTap,
               ),
             ),
@@ -127,7 +128,7 @@ class SizedTileSwatch extends StatelessWidget {
             title,
             maxLines: maxLines,
             textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 60.ssp),
+            style: TextStyle(fontSize: 70.ssp),
           ),
         ),
       ),

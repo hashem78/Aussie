@@ -29,15 +29,12 @@ class SocialsIconRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final _listOfIcons = <Widget>[];
     icons.forEach((key, value) => _listOfIcons.add(_buildIcon(key, value)));
-    return ColoredBox(
-      color: Colors.green,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: Wrap(
-          spacing: 15,
-          alignment: WrapAlignment.center,
-          children: _listOfIcons,
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Wrap(
+        spacing: 15,
+        alignment: WrapAlignment.center,
+        children: _listOfIcons,
       ),
     );
   }

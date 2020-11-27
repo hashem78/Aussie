@@ -5,6 +5,11 @@ import 'package:aussie/presentation/screens/info/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
+import 'package:aussie/presentation/screens/main/entertainment.dart';
+import 'package:aussie/presentation/screens/main/events.dart';
+import 'package:aussie/presentation/screens/main/food_drinks.dart';
+import 'package:aussie/presentation/screens/main/people.dart';
+import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
 import 'package:aussie/presentation/screens/statistics/energy.dart';
 import 'package:aussie/presentation/screens/statistics/gdp.dart';
@@ -74,13 +79,69 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  final List<_DrawerSection> sections = [
-    _DrawerSection(
-      sectionIcon: Icons.info,
-      sectionTitle: "Info",
-      sectionTitleColor: kausBlue,
-      tilesColor: Colors.blue,
-      models: [
+  static get statisticsModels => [
+        _DrawerItemModel(
+          navPath: ReligionScreen.navPath,
+          svgName: ReligionScreen.svgName,
+          title: ReligionScreen.title,
+        ),
+        _DrawerItemModel(
+          navPath: LivestockScreen.navPath,
+          svgName: LivestockScreen.svgName,
+          title: LivestockScreen.title,
+          iconColor: Colors.pink,
+        ),
+        _DrawerItemModel(
+          navPath: HEducationScreen.navPath,
+          svgName: HEducationScreen.svgName,
+          title: HEducationScreen.title,
+        ),
+        _DrawerItemModel(
+          navPath: EnergyScreen.navPath,
+          svgName: EnergyScreen.svgName,
+          title: EnergyScreen.title,
+          iconColor: Colors.blue.shade900,
+        ),
+        _DrawerItemModel(
+          navPath: GDPScreen.navPath,
+          svgName: GDPScreen.svgName,
+          title: GDPScreen.title,
+          iconColor: Colors.orange,
+        ),
+      ];
+  static get inAus => [
+        _DrawerItemModel(
+          navPath: PeopleScreen.navPath,
+          svgName: PeopleScreen.svgName,
+          title: PeopleScreen.title,
+          iconColor: Colors.blue,
+        ),
+        _DrawerItemModel(
+          navPath: PlacesScreen.navPath,
+          svgName: PlacesScreen.svgName,
+          title: PlacesScreen.title,
+          iconColor: Colors.brown,
+        ),
+        _DrawerItemModel(
+          navPath: EventsScreen.navPath,
+          svgName: EventsScreen.svgName,
+          title: EventsScreen.title,
+          iconColor: Colors.lightGreen,
+        ),
+        _DrawerItemModel(
+          navPath: FoodScreen.navPath,
+          svgName: FoodScreen.svgName,
+          title: FoodScreen.title,
+          iconColor: Colors.lime,
+        ),
+        _DrawerItemModel(
+          navPath: EntertainmentScreen.navPath,
+          svgName: EntertainmentScreen.svgName,
+          title: EntertainmentScreen.title,
+          iconColor: Colors.lightBlue,
+        ),
+      ];
+  static get infoModels => [
         _DrawerItemModel(
           navPath: FaunaScreen.navPath,
           svgName: FaunaScreen.svgName,
@@ -117,43 +178,27 @@ class AussieAppDrawer extends StatelessWidget {
           title: DYKScreen.title,
           iconColor: Colors.yellow,
         ),
-      ],
+      ];
+  final List<_DrawerSection> sections = [
+    _DrawerSection(
+      sectionIcon: Icons.map,
+      sectionTitle: "In Australia",
+      sectionTitleColor: Colors.green,
+      models: inAus,
+    ),
+    _DrawerSection(
+      sectionIcon: Icons.info,
+      sectionTitle: "Info",
+      sectionTitleColor: kausBlue,
+      tilesColor: Colors.blue,
+      models: infoModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.wallet_travel,
       sectionTitle: "Statistics",
       sectionTitleColor: kausRed,
       tilesColor: Colors.blue,
-      models: [
-        _DrawerItemModel(
-          navPath: ReligionScreen.navPath,
-          svgName: ReligionScreen.svgName,
-          title: ReligionScreen.title,
-        ),
-        _DrawerItemModel(
-          navPath: LivestockScreen.navPath,
-          svgName: LivestockScreen.svgName,
-          title: LivestockScreen.title,
-          iconColor: Colors.pink,
-        ),
-        _DrawerItemModel(
-          navPath: HEducationScreen.navPath,
-          svgName: HEducationScreen.svgName,
-          title: HEducationScreen.title,
-        ),
-        _DrawerItemModel(
-          navPath: EnergyScreen.navPath,
-          svgName: EnergyScreen.svgName,
-          title: EnergyScreen.title,
-          iconColor: Colors.blue.shade900,
-        ),
-        _DrawerItemModel(
-          navPath: GDPScreen.navPath,
-          svgName: GDPScreen.svgName,
-          title: GDPScreen.title,
-          iconColor: Colors.orange,
-        ),
-      ],
+      models: statisticsModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.miscellaneous_services,

@@ -32,6 +32,7 @@ class RatingTile extends StatelessWidget {
           children: [
             Text("Rating: "),
             SmoothStarRating(
+              isReadOnly: true,
               rating: model.rating.toDouble(),
               size: 25,
               filledIconData: Icons.star,

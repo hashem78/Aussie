@@ -5,12 +5,14 @@ class PaginatedScreenTile extends StatelessWidget {
   final Widget subtitle;
   final Widget titleImage;
   final void Function() onTap;
+  final double aspectRatio;
   const PaginatedScreenTile({
     @required this.title,
     this.subtitle,
     this.onTap,
     this.titleImage,
-  });
+    this.aspectRatio = 16 / 9,
+  }) : assert(title != null && aspectRatio != null);
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +27,12 @@ class PaginatedScreenTile extends StatelessWidget {
           children: [
             titleImage != null
                 ? AspectRatio(
-                    aspectRatio: 16 / 9,
+                    aspectRatio: aspectRatio,
                     child: titleImage,
                   )
                 : Container(),
             title,
-            subtitle,
+            subtitle ?? Container(),
           ],
         ),
       ),
