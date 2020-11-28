@@ -37,9 +37,45 @@ class ThemeCubit extends Cubit<ThemeState> {
   void toggleBrightness() {
     final Brightness _currentBrightness = currentModel.brightness;
     if (_currentBrightness == Brightness.light) {
-      changeTheme(brightness: Brightness.dark);
+      changeTheme(
+        brightness: Brightness.dark,
+        peopleScreenColor: MainScreenColorData(
+          swatchColor: Colors.blue.shade900,
+          backgroundColor: Colors.blue.shade800,
+        ),
+        placesScreenColor: MainScreenColorData(
+          swatchColor: Colors.brown.shade900,
+          backgroundColor: Colors.brown.shade800,
+        ),
+        eventsScreenColor: MainScreenColorData(
+          swatchColor: Colors.green.shade900,
+          backgroundColor: Colors.green.shade800,
+        ),
+        foodScreenColor: MainScreenColorData(
+          swatchColor: Colors.lime.shade700,
+          backgroundColor: Colors.lime.shade600,
+        ),
+      );
     } else {
-      changeTheme(brightness: Brightness.light);
+      changeTheme(
+        brightness: Brightness.light,
+        peopleScreenColor: MainScreenColorData(
+          swatchColor: Colors.blue.shade600,
+          backgroundColor: Colors.blue.shade500,
+        ),
+        placesScreenColor: MainScreenColorData(
+          swatchColor: Colors.brown.shade600,
+          backgroundColor: Colors.brown.shade500,
+        ),
+        eventsScreenColor: MainScreenColorData(
+          swatchColor: Colors.green.shade600,
+          backgroundColor: Colors.green.shade500,
+        ),
+        foodScreenColor: MainScreenColorData(
+          swatchColor: Colors.lime.shade500,
+          backgroundColor: Colors.lime.shade400,
+        ),
+      );
     }
   }
 

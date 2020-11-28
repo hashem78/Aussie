@@ -57,7 +57,6 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         buildWhen: (previous, current) => true,
         builder: (context, state) {
-          print("state change");
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(

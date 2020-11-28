@@ -101,7 +101,6 @@ class ThemeModel extends Equatable {
             );
 
   factory ThemeModel.fromMap(Map<String, dynamic> map) {
-    //print(MainScreenColorData.fromMap(map[PeopleScreen.themeAttribute]));
     return ThemeModel(
       brightness:
           map['brightness'] == "light" ? Brightness.light : Brightness.dark,
@@ -147,7 +146,6 @@ class ThemeModel extends Equatable {
     MainScreenColorData placesScreenColor,
     MainScreenColorData entertainmentScreenColor,
   }) {
-    print(peopleScreenColor);
     return ThemeModel(
       brightness: brightness ?? this.brightness,
       peopleScreenColor: peopleScreenColor ?? this.peopleScreenColor,

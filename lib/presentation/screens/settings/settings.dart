@@ -1,5 +1,4 @@
 import 'package:aussie/constants.dart';
-import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -66,24 +65,6 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(5),
-                    onTap: () {
-                      BlocProvider.of<ThemeCubit>(context).changeTheme(
-                          peopleScreenColor: MainScreenColorData(
-                            swatchColor: Colors.blue.shade900,
-                            backgroundColor: Colors.blue.shade800,
-                          ),
-                          placesScreenColor: MainScreenColorData(
-                            swatchColor: Colors.brown.shade900,
-                            backgroundColor: Colors.brown.shade800,
-                          ));
-                    },
-                    leading: Text("Update theme"),
-                  ),
-                ),
               ],
             ),
           ),
@@ -120,6 +101,7 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
               value: _isDark,
               onChanged: (val) {
                 _isDark = val;
+                print(_isDark);
                 BlocProvider.of<ThemeCubit>(context).toggleBrightness();
               },
             );
