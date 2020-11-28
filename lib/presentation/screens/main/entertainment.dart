@@ -1,5 +1,7 @@
 import 'package:aussie/models/main_screen/entertainment/details.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
@@ -13,10 +15,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EntertainmentScreen extends StatefulWidget {
-  static final String themeAttribute = "entertainmentScreenColor";
-  static final String title = "Entertainment";
-  static final String svgName = "entertainment.svg";
-  static final String navPath = "/entertainment";
+  static final data = AussieScreenData(
+    themeAttribute: "entertainmentScreenColor",
+    title: "Entertainment",
+    svgName: "entertainment.svg",
+    navPath: "/entertainment",
+    dark: AussieColorData(
+      swatchColor: Colors.lightBlue.shade700,
+      backgroundColor: Colors.lightBlue.shade600,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.lime.shade400,
+      backgroundColor: Colors.lime.shade300,
+    ),
+  );
   @override
   _EntertainmentScreenState createState() => _EntertainmentScreenState();
 }
@@ -43,7 +55,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
         slivers: [
           AussieSliverAppBar(
             _currentTheme.entertainmentScreenColor.swatchColor,
-            EntertainmentScreen.title,
+            EntertainmentScreen.data.title,
           ),
           BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
             cubit: cubit,

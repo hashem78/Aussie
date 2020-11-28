@@ -17,13 +17,11 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       backgroundColor: Colors.cyan.shade700,
-      stretch: true,
+      pinned: true,
       expandedHeight: .5.sh,
+      forceElevated: true,
+      elevation: 5,
       flexibleSpace: FlexibleSpaceBar(
-        stretchModes: [
-          StretchMode.zoomBackground,
-          StretchMode.fadeTitle,
-        ],
         title: Text(title),
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(

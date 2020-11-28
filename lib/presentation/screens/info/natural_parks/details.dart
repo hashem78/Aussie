@@ -9,27 +9,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class NaturalParksDetailsScreen extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
+  final Color backgroundColor;
   const NaturalParksDetailsScreen({
     @required this.model,
     @required this.heroTag,
+    @required this.backgroundColor,
   }) : assert(model != null && heroTag != null);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            stretch: true,
             elevation: 0,
             expandedHeight: .4.sh,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.parkName),
-              stretchModes: [
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
               background: model.imageUrl != ""
                   ? Hero(
                       tag: heroTag,

@@ -1,3 +1,5 @@
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
@@ -11,9 +13,20 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeatherScreen extends StatefulWidget {
-  static String navPath = "/main/info/weather";
-  static String svgName = "weather.svg";
-  static String title = "Weather";
+  static final data = AussieScreenData(
+    navPath: "/main/info/weather",
+    svgName: "weather.svg",
+    title: "Weather",
+    themeAttribute: "weatherScreenColor",
+    dark: AussieColorData(
+      swatchColor: Colors.lime.shade700,
+      backgroundColor: Colors.lime.shade600,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.lime.shade400,
+      backgroundColor: Colors.lime.shade300,
+    ),
+  );
 
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
@@ -53,7 +66,6 @@ class _WeatherScreenState extends State<WeatherScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           AussieThumbnailedSliverAppBar(
             cubit: thumbnailCubit,

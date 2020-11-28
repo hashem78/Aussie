@@ -1,4 +1,7 @@
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,15 +13,29 @@ import 'package:aussie/presentation/screens/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
 
 class TeritoriesScreen extends StatelessWidget {
-  static String navPath = "/main/info/teritories";
-  static String svgName = "australia.svg";
-  static String title = "Teritories";
+  static final data = AussieScreenData(
+    navPath: "/main/info/teritories",
+    svgName: "australia.svg",
+    title: "Teritories",
+    themeAttribute: "teritoriesScreenColor",
+    dark: AussieColorData(
+      swatchColor: Colors.lime.shade700,
+      backgroundColor: Colors.lime.shade600,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.lime.shade400,
+      backgroundColor: Colors.lime.shade300,
+    ),
+  );
+
   final AussiePaginatedCubit<TeritoryModel> cubit =
       AussiePaginatedCubit("teritories");
   @override
   Widget build(BuildContext context) {
+    var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
     return SearchablePaginatedScreen(
-      title: title,
+      backgroundColor: _currentTheme.backgroundColor,
+      title: TeritoriesScreen.data.title,
       thumbnailCubitRoute: "teritory_images",
       cubit: cubit,
       filterFor: "title",
@@ -47,7 +64,8 @@ class TeritoriesScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: buildChip("Population", _casted.population),
+                      child: buildChip(_currentTheme.swatchColor, "Population",
+                          _casted.population),
                     ),
                   ],
                 ),
@@ -56,8 +74,12 @@ class TeritoriesScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(child: buildChip("Longitude", _casted.longitude)),
-                    Expanded(child: buildChip("Latitude", _casted.latitude)),
+                    Expanded(
+                        child: buildChip(_currentTheme.swatchColor, "Longitude",
+                            _casted.longitude)),
+                    Expanded(
+                        child: buildChip(_currentTheme.swatchColor, "Latitude",
+                            _casted.latitude)),
                   ],
                 ),
               ],
@@ -68,7 +90,7 @@ class TeritoriesScreen extends StatelessWidget {
     );
   }
 
-  Widget buildChip(String title, String value) {
+  Widget buildChip(Color chipColor, String title, String value) {
     return SizedBox(
       height: .08.sh,
       child: Card(
@@ -77,7 +99,7 @@ class TeritoriesScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),
-        color: Colors.lime,
+        color: chipColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

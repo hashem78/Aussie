@@ -1,3 +1,5 @@
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/state/dyk/cubit/dyk_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -6,9 +8,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DYKScreen extends StatefulWidget {
-  static final title = "Did you know...";
-  static final navPath = "/dyk";
-  static final svgName = "dyk.svg";
+  static final data = AussieScreenData(
+    title: "Did you know...",
+    navPath: "/dyk",
+    svgName: "dyk.svg",
+    themeAttribute: "dykScreenColor",
+    dark: AussieColorData(
+      swatchColor: Colors.lime.shade700,
+      backgroundColor: Colors.lime.shade600,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.lime.shade400,
+      backgroundColor: Colors.lime.shade300,
+    ),
+  );
   @override
   _DYKScreenState createState() => _DYKScreenState();
 }
@@ -53,7 +66,7 @@ class _DYKScreenState extends State<DYKScreen> {
                 translation: Offset(0, 2.3),
                 child: Center(
                   child: Text(
-                    DYKScreen.title,
+                    DYKScreen.data.title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 150.sp,

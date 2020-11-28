@@ -7,8 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
+  final Color detailsBackgroundColor;
   const SpeciesDetails({
     @required this.model,
+    @required this.detailsBackgroundColor,
   }) : assert(
           model != null,
           "A Species descriptions' model cannot be null",
@@ -17,7 +19,7 @@ class SpeciesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: detailsBackgroundColor,
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
         slivers: [

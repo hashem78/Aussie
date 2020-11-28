@@ -16,18 +16,15 @@ class WeatherDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            stretch: true,
             expandedHeight: .5.sh,
+            elevation: 5,
+            forceElevated: true,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.title),
               centerTitle: true,
-              stretchModes: [
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
               background: buildImage(kurl),
             ),
           ),

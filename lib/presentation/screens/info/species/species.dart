@@ -13,15 +13,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SpeciesScreen extends StatelessWidget {
   final List<SpeciesDetailsModel> models;
   final String title;
+  final Color backgroundColor;
 
   const SpeciesScreen({
     @required this.models,
     @required this.title,
+    @required this.backgroundColor,
   });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: backgroundColor,
       extendBodyBehindAppBar: true,
       body: CustomScrollView(
         slivers: [
@@ -58,6 +60,7 @@ class SpeciesScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (BuildContext context) => SpeciesDetails(
+                        detailsBackgroundColor: backgroundColor,
                         model: SpeciesDetailsModel(
                           titleImageUrl: models[index].titleImageUrl,
                           conservationStatus: "Endangered",

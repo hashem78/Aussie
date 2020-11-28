@@ -1,4 +1,6 @@
 import 'package:aussie/models/main_screen/explore/events/details.dart';
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,20 @@ import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:aussie/util/functions.dart';
 
 class EventsScreen extends StatelessWidget {
-  static final String themeAttribute = "eventScreenColor";
-  static final String title = "Events";
-  static final String svgName = "events.svg";
-  static final String navPath = "/events";
+  static final data = AussieScreenData(
+    themeAttribute: "eventScreenColor",
+    title: "Events",
+    svgName: "events.svg",
+    navPath: "/events",
+    dark: AussieColorData(
+      swatchColor: Colors.lime.shade700,
+      backgroundColor: Colors.lime.shade600,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.lime.shade400,
+      backgroundColor: Colors.lime.shade300,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +39,7 @@ class EventsScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.eventsScreenColor.swatchColor,
-              EventsScreen.title,
+              EventsScreen.data.title,
             ),
             buildTitle("Featured"),
             AussieFeaturedListView<EventDetailsModel>(

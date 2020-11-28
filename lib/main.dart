@@ -15,8 +15,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/presentation/screens/dyk.dart';
-import 'package:aussie/presentation/screens/info/fauna.dart';
-import 'package:aussie/presentation/screens/info/flora.dart';
+import 'package:aussie/presentation/screens/info/species/fauna.dart';
+import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
@@ -71,25 +71,26 @@ class MyApp extends StatelessWidget {
   }
 
   static final Map<String, Widget Function(BuildContext)> routes = {
-    NaturalParksScreen.navPath: (BuildContext context) => NaturalParksScreen(),
-    DYKScreen.navPath: (BuildContext context) => DYKScreen(),
-    WeatherScreen.navPath: (BuildContext context) => WeatherScreen(),
-    TeritoriesScreen.navPath: (BuildContext context) => TeritoriesScreen(),
+    NaturalParksScreen.data.navPath: (BuildContext context) =>
+        NaturalParksScreen(),
+    DYKScreen.data.navPath: (BuildContext context) => DYKScreen(),
+    WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
+    TeritoriesScreen.data.navPath: (BuildContext context) => TeritoriesScreen(),
     MainScreen.navPath: (BuildContext context) => MainScreen(),
     StatisticsScreen.navPath: (BuildContext context) => StatisticsScreen(),
-    FaunaScreen.navPath: (BuildContext context) => FaunaScreen(),
-    FloraScreen.navPath: (BuildContext context) => FloraScreen(),
+    FaunaScreen.data.navPath: (BuildContext context) => FaunaScreen(),
+    FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),
     ReligionScreen.navPath: (BuildContext context) => ReligionScreen(),
     EnergyScreen.navPath: (BuildContext context) => EnergyScreen(),
     LivestockScreen.navPath: (BuildContext context) => LivestockScreen(),
     GDPScreen.navPath: (BuildContext context) => GDPScreen(),
     HEducationScreen.navPath: (BuildContext context) => HEducationScreen(),
     SettingsScreen.navPath: (BuildContext context) => SettingsScreen(),
-    PeopleScreen.navPath: (BuildContext context) => PeopleScreen(),
-    PlacesScreen.navPath: (BuildContext context) => PlacesScreen(),
-    FoodScreen.navPath: (BuildContext context) => FoodScreen(),
-    EntertainmentScreen.navPath: (BuildContext context) =>
+    PeopleScreen.data.navPath: (BuildContext context) => PeopleScreen(),
+    PlacesScreen.data.navPath: (BuildContext context) => PlacesScreen(),
+    FoodScreen.data.navPath: (BuildContext context) => FoodScreen(),
+    EntertainmentScreen.data.navPath: (BuildContext context) =>
         EntertainmentScreen(),
-    EventsScreen.navPath: (BuildContext context) => EventsScreen(),
+    EventsScreen.data.navPath: (BuildContext context) => EventsScreen(),
   };
 }

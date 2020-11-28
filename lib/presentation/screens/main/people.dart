@@ -1,3 +1,5 @@
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +13,20 @@ import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:aussie/util/functions.dart';
 
 class PeopleScreen extends StatelessWidget {
-  static final String themeAttribute = "peopleScreenColor";
-  static final String title = "People";
-  static final String svgName = "people.svg";
-  static final String navPath = "/people";
+  static final data = AussieScreenData(
+    themeAttribute: "peopleScreenColor",
+    title: "People",
+    svgName: "people.svg",
+    navPath: "/people",
+    dark: AussieColorData(
+      swatchColor: Colors.blue.shade900,
+      backgroundColor: Colors.blue.shade800,
+    ),
+    light: AussieColorData(
+      swatchColor: Colors.blue.shade500,
+      backgroundColor: Colors.blue.shade400,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +40,7 @@ class PeopleScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.peopleScreenColor.swatchColor,
-              PeopleScreen.title,
+              PeopleScreen.data.title,
             ),
             buildTitle("Featured"),
             AussieFeaturedListView<PeopleDetailsModel>(

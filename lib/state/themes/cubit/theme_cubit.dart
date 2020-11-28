@@ -1,4 +1,16 @@
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
+import 'package:aussie/presentation/screens/dyk.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
+import 'package:aussie/presentation/screens/info/species/fauna.dart';
+import 'package:aussie/presentation/screens/info/species/flora.dart';
+import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
+import 'package:aussie/presentation/screens/info/weather/weather.dart';
+import 'package:aussie/presentation/screens/main/entertainment.dart';
+import 'package:aussie/presentation/screens/main/events.dart';
+import 'package:aussie/presentation/screens/main/food_drinks.dart';
+import 'package:aussie/presentation/screens/main/people.dart';
+import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -12,11 +24,17 @@ class ThemeCubit extends Cubit<ThemeState> {
       : super(ThemeChanged(ThemeModel.fromMap(themeMap)));
   void changeTheme({
     Brightness brightness,
-    MainScreenColorData peopleScreenColor,
-    MainScreenColorData foodScreenColor,
-    MainScreenColorData eventsScreenColor,
-    MainScreenColorData placesScreenColor,
-    MainScreenColorData entertainmentScreenColor,
+    AussieColorData peopleScreenColor,
+    AussieColorData foodScreenColor,
+    AussieColorData eventsScreenColor,
+    AussieColorData placesScreenColor,
+    AussieColorData entertainmentScreenColor,
+    AussieColorData faunaScreenColor,
+    AussieColorData floraScreenColor,
+    AussieColorData teritoriesScreenColor,
+    AussieColorData weatherScreenColor,
+    AussieColorData naturalParksScreenColor,
+    AussieColorData dykScreenColor,
   }) {
     var _modifiedModel = currentModel.copyWith(
       brightness: brightness,
@@ -25,6 +43,12 @@ class ThemeCubit extends Cubit<ThemeState> {
       eventsScreenColor: placesScreenColor,
       placesScreenColor: placesScreenColor,
       entertainmentScreenColor: entertainmentScreenColor,
+      faunaScreenColor: faunaScreenColor,
+      floraScreenColor: floraScreenColor,
+      teritoriesScreenColor: teritoriesScreenColor,
+      weatherScreenColor: weatherScreenColor,
+      naturalParksScreenColor: naturalParksScreenColor,
+      dykScreenColor: dykScreenColor,
     );
     SharedPreferences.getInstance().then(
       (perfs) {
@@ -39,42 +63,32 @@ class ThemeCubit extends Cubit<ThemeState> {
     if (_currentBrightness == Brightness.light) {
       changeTheme(
         brightness: Brightness.dark,
-        peopleScreenColor: MainScreenColorData(
-          swatchColor: Colors.blue.shade900,
-          backgroundColor: Colors.blue.shade800,
-        ),
-        placesScreenColor: MainScreenColorData(
-          swatchColor: Colors.brown.shade900,
-          backgroundColor: Colors.brown.shade800,
-        ),
-        eventsScreenColor: MainScreenColorData(
-          swatchColor: Colors.green.shade900,
-          backgroundColor: Colors.green.shade800,
-        ),
-        foodScreenColor: MainScreenColorData(
-          swatchColor: Colors.lime.shade700,
-          backgroundColor: Colors.lime.shade600,
-        ),
+        peopleScreenColor: PeopleScreen.data.dark,
+        placesScreenColor: PlacesScreen.data.dark,
+        eventsScreenColor: EventsScreen.data.dark,
+        foodScreenColor: FoodScreen.data.dark,
+        entertainmentScreenColor: EntertainmentScreen.data.dark,
+        faunaScreenColor: FaunaScreen.data.dark,
+        floraScreenColor: FloraScreen.data.dark,
+        teritoriesScreenColor: TeritoriesScreen.data.dark,
+        weatherScreenColor: WeatherScreen.data.dark,
+        naturalParksScreenColor: NaturalParksScreen.data.dark,
+        dykScreenColor: DYKScreen.data.dark,
       );
     } else {
       changeTheme(
         brightness: Brightness.light,
-        peopleScreenColor: MainScreenColorData(
-          swatchColor: Colors.blue.shade600,
-          backgroundColor: Colors.blue.shade500,
-        ),
-        placesScreenColor: MainScreenColorData(
-          swatchColor: Colors.brown.shade600,
-          backgroundColor: Colors.brown.shade500,
-        ),
-        eventsScreenColor: MainScreenColorData(
-          swatchColor: Colors.green.shade600,
-          backgroundColor: Colors.green.shade500,
-        ),
-        foodScreenColor: MainScreenColorData(
-          swatchColor: Colors.lime.shade500,
-          backgroundColor: Colors.lime.shade400,
-        ),
+        peopleScreenColor: PeopleScreen.data.light,
+        placesScreenColor: PlacesScreen.data.light,
+        eventsScreenColor: EventsScreen.data.light,
+        foodScreenColor: FoodScreen.data.light,
+        entertainmentScreenColor: EntertainmentScreen.data.dark,
+        faunaScreenColor: FaunaScreen.data.dark,
+        floraScreenColor: FloraScreen.data.dark,
+        teritoriesScreenColor: TeritoriesScreen.data.dark,
+        weatherScreenColor: WeatherScreen.data.dark,
+        naturalParksScreenColor: NaturalParksScreen.data.dark,
+        dykScreenColor: DYKScreen.data.dark,
       );
     }
   }

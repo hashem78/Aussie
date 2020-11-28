@@ -13,6 +13,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
   final String thumbnailCubitRoute;
   final String title;
   final String filterFor;
+  final Color backgroundColor;
 
   final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
 
@@ -22,6 +23,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
     @required this.itemBuilder,
     @required this.title,
     @required this.filterFor,
+    @required this.backgroundColor,
   });
   @override
   _SearchablePaginatedScreenState createState() =>
@@ -68,6 +70,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        backgroundColor: widget.backgroundColor,
         body: CustomScrollView(
           slivers: [
             AussieThumbnailedSliverAppBar(

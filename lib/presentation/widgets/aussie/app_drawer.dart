@@ -1,7 +1,7 @@
 import 'package:aussie/constants.dart';
 import 'package:aussie/presentation/screens/dyk.dart';
-import 'package:aussie/presentation/screens/info/fauna.dart';
-import 'package:aussie/presentation/screens/info/flora.dart';
+import 'package:aussie/presentation/screens/info/species/fauna.dart';
+import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
@@ -111,71 +111,71 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   static get inAus => [
         _DrawerItemModel(
-          navPath: PeopleScreen.navPath,
-          svgName: PeopleScreen.svgName,
-          title: PeopleScreen.title,
+          navPath: PeopleScreen.data.navPath,
+          svgName: PeopleScreen.data.svgName,
+          title: PeopleScreen.data.title,
           iconColor: Colors.blue,
         ),
         _DrawerItemModel(
-          navPath: PlacesScreen.navPath,
-          svgName: PlacesScreen.svgName,
-          title: PlacesScreen.title,
+          navPath: PlacesScreen.data.navPath,
+          svgName: PlacesScreen.data.svgName,
+          title: PlacesScreen.data.title,
           iconColor: Colors.brown,
         ),
         _DrawerItemModel(
-          navPath: EventsScreen.navPath,
-          svgName: EventsScreen.svgName,
-          title: EventsScreen.title,
+          navPath: EventsScreen.data.navPath,
+          svgName: EventsScreen.data.svgName,
+          title: EventsScreen.data.title,
           iconColor: Colors.lightGreen,
         ),
         _DrawerItemModel(
-          navPath: FoodScreen.navPath,
-          svgName: FoodScreen.svgName,
-          title: FoodScreen.title,
+          navPath: FoodScreen.data.navPath,
+          svgName: FoodScreen.data.svgName,
+          title: FoodScreen.data.title,
           iconColor: Colors.lime,
         ),
         _DrawerItemModel(
-          navPath: EntertainmentScreen.navPath,
-          svgName: EntertainmentScreen.svgName,
-          title: EntertainmentScreen.title,
+          navPath: EntertainmentScreen.data.navPath,
+          svgName: EntertainmentScreen.data.svgName,
+          title: EntertainmentScreen.data.title,
           iconColor: Colors.lightBlue,
         ),
       ];
   static get infoModels => [
         _DrawerItemModel(
-          navPath: FaunaScreen.navPath,
-          svgName: FaunaScreen.svgName,
-          title: FaunaScreen.title,
+          navPath: FaunaScreen.data.navPath,
+          svgName: FaunaScreen.data.svgName,
+          title: FaunaScreen.data.title,
           iconColor: Colors.brown,
         ),
         _DrawerItemModel(
-          navPath: FloraScreen.navPath,
-          svgName: FloraScreen.svgName,
-          title: FloraScreen.title,
+          navPath: FloraScreen.data.navPath,
+          svgName: FloraScreen.data.svgName,
+          title: FloraScreen.data.title,
           iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
-          navPath: WeatherScreen.navPath,
-          svgName: WeatherScreen.svgName,
-          title: WeatherScreen.title,
+          navPath: WeatherScreen.data.navPath,
+          svgName: WeatherScreen.data.svgName,
+          title: WeatherScreen.data.title,
           iconColor: Colors.lightBlue,
         ),
         _DrawerItemModel(
-          navPath: TeritoriesScreen.navPath,
-          svgName: TeritoriesScreen.svgName,
-          title: TeritoriesScreen.title,
+          navPath: TeritoriesScreen.data.navPath,
+          svgName: TeritoriesScreen.data.svgName,
+          title: TeritoriesScreen.data.title,
           iconColor: Colors.green,
         ),
         _DrawerItemModel(
-          navPath: NaturalParksScreen.navPath,
-          svgName: NaturalParksScreen.svgName,
-          title: NaturalParksScreen.title,
+          navPath: NaturalParksScreen.data.navPath,
+          svgName: NaturalParksScreen.data.svgName,
+          title: NaturalParksScreen.data.title,
           iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
-          navPath: DYKScreen.navPath,
-          svgName: DYKScreen.svgName,
-          title: DYKScreen.title,
+          navPath: DYKScreen.data.navPath,
+          svgName: DYKScreen.data.svgName,
+          title: DYKScreen.data.title,
           iconColor: Colors.yellow,
         ),
       ];
@@ -220,30 +220,22 @@ class AussieAppDrawer extends StatelessWidget {
     ScreenUtil.init(context);
     return Drawer(
       child: CustomScrollView(
-        physics: BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
-            elevation: 0,
-            stretch: true,
+            elevation: 5,
+            forceElevated: true,
             pinned: true,
             automaticallyImplyLeading: false,
             expandedHeight: .25.sh,
             flexibleSpace: Stack(
               children: [
-                FlexibleSpaceBar(
-                  stretchModes: [
-                    StretchMode.zoomBackground,
-                    StretchMode.fadeTitle,
-                  ],
-                ),
                 Positioned.fill(
+                  top: 0,
                   child: Container(
                     color: kausBlue,
                     child: SvgPicture.asset(
                       'assests/images/au.svg',
                       fit: BoxFit.fitWidth,
-                      height: 10.sp,
-                      width: 10.sp,
                     ),
                   ),
                 ),

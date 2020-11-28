@@ -18,23 +18,25 @@ class AussieSliverAppBar extends StatelessWidget {
       pinned: true,
       expandedHeight: .28.sh,
       elevation: 5,
-      stretch: true,
+      forceElevated: true,
       flexibleSpace: Stack(
         children: [
           FlexibleSpaceBar(
-            stretchModes: [
-              StretchMode.zoomBackground,
-              StretchMode.fadeTitle,
-            ],
+            titlePadding: EdgeInsets.only(bottom: 100),
           ),
           Stack(
+            alignment: Alignment.topCenter,
             children: [
               Positioned.fill(
-                child: Container(
-                  color: backgroundColor,
-                  child: SvgPicture.asset(
-                    'assests/images/au.svg',
-                    fit: BoxFit.fitWidth,
+                top: 0,
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    color: backgroundColor,
+                    child: SvgPicture.asset(
+                      'assests/images/au.svg',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

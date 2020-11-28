@@ -1,4 +1,6 @@
 import 'package:aussie/models/main_screen/explore/places/details.dart';
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,20 @@ import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 import 'package:aussie/util/functions.dart';
 
 class PlacesScreen extends StatelessWidget {
-  static final String themeAttribute = "placesScreenColor";
-  static final String title = "Places";
-  static final String svgName = "places.svg";
-  static final String navPath = "/palces";
+  static final data = const AussieScreenData(
+    themeAttribute: "placesScreenColor",
+    title: "Places",
+    svgName: "places.svg",
+    navPath: "/palces",
+    dark: const AussieColorData(
+      swatchColor: const Color(0xff3e2723),
+      backgroundColor: const Color(0xff4e342E),
+    ),
+    light: const AussieColorData(
+      swatchColor: const Color(0xff795548),
+      backgroundColor: const Color(0xff8d6e63),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +39,7 @@ class PlacesScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.placesScreenColor.swatchColor,
-              PlacesScreen.title,
+              PlacesScreen.data.title,
             ),
             buildTitle("Featured"),
             AussieFeaturedListView<PlacesDetailsModel>(

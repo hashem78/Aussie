@@ -1,128 +1,110 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/presentation/screens/dyk.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
+import 'package:aussie/presentation/screens/info/species/fauna.dart';
+import 'package:aussie/presentation/screens/info/species/flora.dart';
+import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
+import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/main/entertainment.dart';
 import 'package:aussie/presentation/screens/main/events.dart';
 import 'package:aussie/presentation/screens/main/food_drinks.dart';
 import 'package:aussie/presentation/screens/main/people.dart';
 import 'package:aussie/presentation/screens/main/places.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
-@immutable
-class MainScreenColorData extends Equatable {
-  final Color swatchColor;
-  final Color backgroundColor;
-  const MainScreenColorData({
-    @required this.swatchColor,
-    @required this.backgroundColor,
-  }) : assert(swatchColor != null && backgroundColor != null);
-  @override
-  List<Object> get props => [swatchColor, backgroundColor];
-
-  Map<String, dynamic> toMap() {
-    return {
-      'swatchColor': swatchColor.value,
-      'backgroundColor': backgroundColor.value,
-    };
-  }
-
-  factory MainScreenColorData.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return MainScreenColorData(
-      swatchColor: Color(map['swatchColor']),
-      backgroundColor: Color(map['backgroundColor']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory MainScreenColorData.fromJson(String source) =>
-      MainScreenColorData.fromMap(json.decode(source));
-
-  MainScreenColorData copyWith({
-    Color swatchColor,
-    Color backgroundColor,
-  }) {
-    return MainScreenColorData(
-      swatchColor: swatchColor ?? this.swatchColor,
-      backgroundColor: backgroundColor ?? this.backgroundColor,
-    );
-  }
-
-  @override
-  bool get stringify => true;
-}
 
 @immutable
 class ThemeModel extends Equatable {
   final Brightness brightness;
-  final MainScreenColorData peopleScreenColor;
-  final MainScreenColorData foodScreenColor;
-  final MainScreenColorData eventsScreenColor;
-  final MainScreenColorData placesScreenColor;
-  final MainScreenColorData entertainmentScreenColor;
+  final AussieColorData peopleScreenColor;
+  final AussieColorData foodScreenColor;
+  final AussieColorData eventsScreenColor;
+  final AussieColorData placesScreenColor;
+  final AussieColorData entertainmentScreenColor;
+  final AussieColorData faunaScreenColor;
+  final AussieColorData floraScreenColor;
+  final AussieColorData teritoriesScreenColor;
+  final AussieColorData weatherScreenColor;
+  final AussieColorData naturalParksScreenColor;
+  final AussieColorData dykScreenColor;
   static final Map<String, dynamic> defaultThemeMap = {
     "brightness": "light",
   };
   ThemeModel({
     Brightness brightness,
-    MainScreenColorData peopleScreenColor,
-    MainScreenColorData foodScreenColor,
-    MainScreenColorData eventsScreenColor,
-    MainScreenColorData placesScreenColor,
-    MainScreenColorData entertainmentScreenColor,
+    AussieColorData peopleScreenColor,
+    AussieColorData foodScreenColor,
+    AussieColorData eventsScreenColor,
+    AussieColorData placesScreenColor,
+    AussieColorData entertainmentScreenColor,
+    AussieColorData faunaScreenColor,
+    AussieColorData floraScreenColor,
+    AussieColorData teritoriesScreenColor,
+    AussieColorData weatherScreenColor,
+    AussieColorData naturalParksScreenColor,
+    AussieColorData dykScreenColor,
   })  : brightness = brightness ?? Brightness.light,
-        peopleScreenColor = peopleScreenColor ??
-            MainScreenColorData(
-              swatchColor: Colors.amber,
-              backgroundColor: Colors.amber.shade400,
-            ),
-        foodScreenColor = foodScreenColor ??
-            MainScreenColorData(
-              swatchColor: Colors.amber,
-              backgroundColor: Colors.amber.shade400,
-            ),
-        eventsScreenColor = eventsScreenColor ??
-            MainScreenColorData(
-              swatchColor: Colors.amber,
-              backgroundColor: Colors.amber.shade400,
-            ),
-        placesScreenColor = placesScreenColor ??
-            MainScreenColorData(
-              swatchColor: Colors.amber,
-              backgroundColor: Colors.amber.shade400,
-            ),
-        entertainmentScreenColor = entertainmentScreenColor ??
-            MainScreenColorData(
-              swatchColor: Colors.amber,
-              backgroundColor: Colors.amber.shade400,
-            );
+        peopleScreenColor = peopleScreenColor ?? PeopleScreen.data.light,
+        foodScreenColor = foodScreenColor ?? FoodScreen.data.light,
+        eventsScreenColor = eventsScreenColor ?? EventsScreen.data.light,
+        placesScreenColor = placesScreenColor ?? PlacesScreen.data.light,
+        entertainmentScreenColor =
+            entertainmentScreenColor ?? EntertainmentScreen.data.light,
+        faunaScreenColor = faunaScreenColor ?? FaunaScreen.data.light,
+        floraScreenColor = floraScreenColor ?? FloraScreen.data.light,
+        teritoriesScreenColor =
+            teritoriesScreenColor ?? TeritoriesScreen.data.light,
+        weatherScreenColor = weatherScreenColor ?? WeatherScreen.data.light,
+        naturalParksScreenColor =
+            naturalParksScreenColor ?? NaturalParksScreen.data.light,
+        dykScreenColor = dykScreenColor ?? DYKScreen.data.light;
 
   factory ThemeModel.fromMap(Map<String, dynamic> map) {
     return ThemeModel(
       brightness:
           map['brightness'] == "light" ? Brightness.light : Brightness.dark,
       peopleScreenColor:
-          MainScreenColorData.fromMap(map[PeopleScreen.themeAttribute]),
+          AussieColorData.fromMap(map[PeopleScreen.data.themeAttribute]),
       foodScreenColor:
-          MainScreenColorData.fromMap(map[FoodScreen.themeAttribute]),
+          AussieColorData.fromMap(map[FoodScreen.data.themeAttribute]),
       eventsScreenColor:
-          MainScreenColorData.fromMap(map[EventsScreen.themeAttribute]),
+          AussieColorData.fromMap(map[EventsScreen.data.themeAttribute]),
       placesScreenColor:
-          MainScreenColorData.fromMap(map[PlacesScreen.themeAttribute]),
+          AussieColorData.fromMap(map[PlacesScreen.data.themeAttribute]),
       entertainmentScreenColor:
-          MainScreenColorData.fromMap(map[EntertainmentScreen.themeAttribute]),
+          AussieColorData.fromMap(map[EntertainmentScreen.data.themeAttribute]),
+      faunaScreenColor:
+          AussieColorData.fromMap(map[FaunaScreen.data.themeAttribute]),
+      floraScreenColor:
+          AussieColorData.fromMap(map[FloraScreen.data.themeAttribute]),
+      teritoriesScreenColor:
+          AussieColorData.fromMap(map[TeritoriesScreen.data.themeAttribute]),
+      weatherScreenColor:
+          AussieColorData.fromMap(map[WeatherScreen.data.themeAttribute]),
+      naturalParksScreenColor:
+          AussieColorData.fromMap(map[NaturalParksScreen.data.themeAttribute]),
+      dykScreenColor:
+          AussieColorData.fromMap(map[DYKScreen.data.themeAttribute]),
     );
   }
   Map<String, dynamic> get toMap => {
         "brightness": brightness == Brightness.light ? "light" : "dark",
-        PeopleScreen.themeAttribute: peopleScreenColor.toMap(),
-        FoodScreen.themeAttribute: foodScreenColor.toMap(),
-        EventsScreen.themeAttribute: eventsScreenColor.toMap(),
-        PlacesScreen.themeAttribute: placesScreenColor.toMap(),
-        EntertainmentScreen.themeAttribute: entertainmentScreenColor.toMap(),
+        PeopleScreen.data.themeAttribute: peopleScreenColor.toMap(),
+        FoodScreen.data.themeAttribute: foodScreenColor.toMap(),
+        EventsScreen.data.themeAttribute: eventsScreenColor.toMap(),
+        PlacesScreen.data.themeAttribute: placesScreenColor.toMap(),
+        EntertainmentScreen.data.themeAttribute:
+            entertainmentScreenColor.toMap(),
+        FaunaScreen.data.themeAttribute: faunaScreenColor.toMap(),
+        FloraScreen.data.themeAttribute: floraScreenColor.toMap(),
+        TeritoriesScreen.data.themeAttribute: teritoriesScreenColor.toMap(),
+        WeatherScreen.data.themeAttribute: weatherScreenColor.toMap(),
+        NaturalParksScreen.data.themeAttribute: naturalParksScreenColor.toMap(),
+        DYKScreen.data.themeAttribute: dykScreenColor.toMap(),
       };
   String toJson() => jsonEncode(toMap);
 
@@ -135,16 +117,28 @@ class ThemeModel extends Equatable {
       eventsScreenColor,
       placesScreenColor,
       entertainmentScreenColor,
+      faunaScreenColor,
+      floraScreenColor,
+      teritoriesScreenColor,
+      weatherScreenColor,
+      naturalParksScreenColor,
+      dykScreenColor,
     ];
   }
 
   ThemeModel copyWith({
     Brightness brightness,
-    MainScreenColorData peopleScreenColor,
-    MainScreenColorData foodScreenColor,
-    MainScreenColorData eventsScreenColor,
-    MainScreenColorData placesScreenColor,
-    MainScreenColorData entertainmentScreenColor,
+    AussieColorData peopleScreenColor,
+    AussieColorData foodScreenColor,
+    AussieColorData eventsScreenColor,
+    AussieColorData placesScreenColor,
+    AussieColorData entertainmentScreenColor,
+    AussieColorData faunaScreenColor,
+    AussieColorData floraScreenColor,
+    AussieColorData teritoriesScreenColor,
+    AussieColorData weatherScreenColor,
+    AussieColorData naturalParksScreenColor,
+    AussieColorData dykScreenColor,
   }) {
     return ThemeModel(
       brightness: brightness ?? this.brightness,
@@ -154,6 +148,14 @@ class ThemeModel extends Equatable {
       placesScreenColor: placesScreenColor ?? this.placesScreenColor,
       entertainmentScreenColor:
           entertainmentScreenColor ?? this.entertainmentScreenColor,
+      faunaScreenColor: faunaScreenColor ?? this.faunaScreenColor,
+      floraScreenColor: floraScreenColor ?? this.floraScreenColor,
+      teritoriesScreenColor:
+          teritoriesScreenColor ?? this.teritoriesScreenColor,
+      weatherScreenColor: weatherScreenColor ?? this.weatherScreenColor,
+      naturalParksScreenColor:
+          naturalParksScreenColor ?? this.naturalParksScreenColor,
+      dykScreenColor: dykScreenColor ?? this.dykScreenColor,
     );
   }
 
