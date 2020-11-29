@@ -3,10 +3,10 @@ import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
 import 'package:aussie/util/functions.dart';
@@ -31,8 +31,8 @@ class PlacesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context);
     var _backgroundColor = _currentTheme.placesScreenColor.backgroundColor;
-    return Scaffold(
-      drawer: AussieAppDrawer(),
+    return AussieScaffold(
+      drawer: getAppDrawer(context),
       backgroundColor: _backgroundColor,
       body: SafeArea(
         child: CustomScrollView(

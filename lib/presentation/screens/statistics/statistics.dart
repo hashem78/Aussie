@@ -5,6 +5,7 @@ import 'package:aussie/presentation/screens/statistics/gdp.dart';
 import 'package:aussie/presentation/screens/statistics/heducation.dart';
 import 'package:aussie/presentation/screens/statistics/livestock.dart';
 import 'package:aussie/presentation/screens/statistics/religion.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,7 +14,7 @@ class StatisticsScreen extends StatelessWidget {
   static final navPath = "/main/statistics";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AussieScaffold(
       appBar: AppBar(title: Text("Statistics"), elevation: 0),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

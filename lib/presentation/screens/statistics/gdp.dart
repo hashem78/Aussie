@@ -1,4 +1,5 @@
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class GDPScreen extends StatelessWidget {
@@ -7,9 +8,9 @@ class GDPScreen extends StatelessWidget {
   static final svgName = "gdp.svg";
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AussieScaffold(
       backgroundColor: Colors.amber,
-      drawer: AussieAppDrawer(),
+      drawer: getAppDrawer(context),
       body: ListView(
         addAutomaticKeepAlives: true,
         children: [],

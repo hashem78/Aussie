@@ -8,6 +8,7 @@ import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/main/entertainment.dart';
 import 'package:aussie/presentation/screens/main/events.dart';
 import 'package:aussie/presentation/screens/main/food_drinks.dart';
+import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/presentation/screens/main/people.dart';
 import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
@@ -181,7 +182,7 @@ class AussieAppDrawer extends StatelessWidget {
           navPath: DYKScreen.data.navPath,
           svgName: DYKScreen.data.svgName,
           title: DYKScreen.data.title,
-          iconColor: Colors.yellow,
+          iconColor: Colors.blue,
         ),
       ];
   final List<_DrawerSection> sections = [
@@ -302,8 +303,8 @@ class _DrawerItem extends StatelessWidget {
           InkWell(
             onTap: () {
               if (!model.assumeOrder) {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil(model.navPath, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    model.navPath, ModalRoute.withName(MainScreen.navPath));
               } else {
                 Navigator.of(context).pushNamed(model.navPath);
               }

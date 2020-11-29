@@ -1,7 +1,7 @@
 import 'package:aussie/constants.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/presentation/screens/main/details.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/scrollable_list.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
@@ -66,8 +66,8 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
-    return Scaffold(
-      drawer: AussieAppDrawer(),
+    return AussieScaffold(
+      drawer: getAppDrawer(context),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [AussieSliverAppBar(kausBlue, "Aussie")],

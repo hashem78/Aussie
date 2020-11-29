@@ -1,6 +1,7 @@
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
   final Color backgroundColor;
+
   const NaturalParksDetailsScreen({
     @required this.model,
     @required this.heroTag,
@@ -18,7 +20,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AussieScaffold(
       backgroundColor: backgroundColor,
       body: CustomScrollView(
         slivers: [

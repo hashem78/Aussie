@@ -3,7 +3,7 @@ import 'package:aussie/models/main_screen/main_screen_details.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
@@ -48,8 +48,8 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context);
-    return Scaffold(
-      drawer: AussieAppDrawer(),
+    return AussieScaffold(
+      drawer: getAppDrawer(context),
       backgroundColor: _currentTheme.entertainmentScreenColor.backgroundColor,
       body: CustomScrollView(
         slivers: [

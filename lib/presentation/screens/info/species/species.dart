@@ -1,5 +1,6 @@
 import 'package:aussie/models/paginated/species/species.dart';
 import 'package:aussie/presentation/screens/info/species/details.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -22,9 +23,8 @@ class SpeciesScreen extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AussieScaffold(
       backgroundColor: backgroundColor,
-      extendBodyBehindAppBar: true,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

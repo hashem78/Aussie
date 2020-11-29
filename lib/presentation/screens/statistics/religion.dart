@@ -1,6 +1,6 @@
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
 import 'package:aussie/presentation/widgets/religon_sliver_appbar.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +41,8 @@ class _ReligionScreenState extends State<ReligionScreen> {
   double appBarHeight = kToolbarHeight;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: AussieAppDrawer(),
+    return AussieScaffold(
+      drawer: getAppDrawer(context),
       backgroundColor: Colors.blue,
       appBar: AppBar(elevation: 0),
       body: _buildReligonPieChart(),
@@ -109,7 +109,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
   }
 
   Widget _buildPage(String title) {
-    return Scaffold(
+    return AussieScaffold(
       backgroundColor: Colors.amber,
       body: CustomScrollView(
         slivers: [

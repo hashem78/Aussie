@@ -1,7 +1,7 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
 import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
@@ -67,8 +67,8 @@ class _WeatherScreenState extends State<WeatherScreen>
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
-    return Scaffold(
-      drawer: AussieAppDrawer(),
+    return AussieScaffold(
+      drawer: getAppDrawer(context),
       backgroundColor: _currentTheme.backgroundColor,
       body: CustomScrollView(
         slivers: [

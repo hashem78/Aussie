@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:aussie/models/themes/themes.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 Color getRandomColor() {
   var _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
@@ -54,3 +56,5 @@ Widget buildImage(
 
 ThemeModel getCurrentThemeModel(BuildContext context) =>
     BlocProvider.of<ThemeCubit>(context, listen: true).currentModel;
+AussieAppDrawer getAppDrawer(BuildContext context) =>
+    Provider.of<AussieAppDrawer>(context, listen: false);

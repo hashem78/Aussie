@@ -7,10 +7,13 @@ import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/presentation/screens/main/people.dart';
 import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/models/themes/themes.dart';
@@ -55,15 +58,17 @@ class MyApp extends StatelessWidget {
     return BlocProvider<ThemeCubit>.value(
       value: _themeCubit,
       child: BlocBuilder<ThemeCubit, ThemeState>(
-        buildWhen: (previous, current) => true,
         builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              brightness: state.model.brightness,
+          return Provider<AussieAppDrawer>(
+            create: (context) => AussieAppDrawer(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: AussieScaffold(body: MainScreen()),
+              theme: ThemeData(
+                brightness: state.model.brightness,
+              ),
+              routes: routes,
             ),
-            initialRoute: MainScreen.navPath,
-            routes: routes,
           );
         },
       ),

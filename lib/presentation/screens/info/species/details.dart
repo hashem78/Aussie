@@ -1,5 +1,6 @@
 import 'package:aussie/models/paginated/species/species.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
@@ -18,9 +19,8 @@ class SpeciesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return AussieScaffold(
       backgroundColor: detailsBackgroundColor,
-      extendBodyBehindAppBar: true,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
