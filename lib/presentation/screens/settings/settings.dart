@@ -101,7 +101,6 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
               value: _isDark,
               onChanged: (val) {
                 _isDark = val;
-                print(_isDark);
                 BlocProvider.of<ThemeCubit>(context).toggleBrightness();
               },
             );

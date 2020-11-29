@@ -16,7 +16,6 @@ class AussieSliverAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       pinned: true,
-      expandedHeight: .28.sh,
       elevation: 5,
       forceElevated: true,
       flexibleSpace: Stack(

@@ -1,3 +1,4 @@
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class GDPScreen extends StatelessWidget {
@@ -8,6 +9,7 @@ class GDPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber,
+      drawer: AussieAppDrawer(),
       body: ListView(
         addAutomaticKeepAlives: true,
         children: [],

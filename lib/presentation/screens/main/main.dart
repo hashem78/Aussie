@@ -12,8 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainScreen extends StatelessWidget {
-  static final title = "Explore";
+  static final title = "Home";
   static final navPath = "/main";
+  static final String svgName = "home.svg";
   static Widget buildTiles(
     List<MainScreenDetailsModel> models, {
     double widthFactor,

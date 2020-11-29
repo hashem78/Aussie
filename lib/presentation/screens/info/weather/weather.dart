@@ -1,10 +1,12 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
 import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 
@@ -19,12 +21,12 @@ class WeatherScreen extends StatefulWidget {
     title: "Weather",
     themeAttribute: "weatherScreenColor",
     dark: AussieColorData(
-      swatchColor: Colors.lime.shade700,
-      backgroundColor: Colors.lime.shade600,
+      swatchColor: Colors.lightBlue.shade700,
+      backgroundColor: Colors.lightBlue.shade600,
     ),
     light: AussieColorData(
-      swatchColor: Colors.lime.shade400,
-      backgroundColor: Colors.lime.shade300,
+      swatchColor: Colors.lightBlue.shade400,
+      backgroundColor: Colors.lightBlue.shade300,
     ),
   );
 
@@ -64,7 +66,10 @@ class _WeatherScreenState extends State<WeatherScreen>
 
   @override
   Widget build(BuildContext context) {
+    var _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
     return Scaffold(
+      drawer: AussieAppDrawer(),
+      backgroundColor: _currentTheme.backgroundColor,
       body: CustomScrollView(
         slivers: [
           AussieThumbnailedSliverAppBar(

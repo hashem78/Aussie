@@ -25,8 +25,8 @@ class EntertainmentScreen extends StatefulWidget {
       backgroundColor: Colors.lightBlue.shade600,
     ),
     light: AussieColorData(
-      swatchColor: Colors.lime.shade400,
-      backgroundColor: Colors.lime.shade300,
+      swatchColor: Colors.lightBlue.shade400,
+      backgroundColor: Colors.lightBlue.shade300,
     ),
   );
   @override

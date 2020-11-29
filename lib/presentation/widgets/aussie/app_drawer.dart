@@ -28,14 +28,19 @@ class _DrawerItemModel extends Equatable {
   final String svgName;
   final String title;
   final Color iconColor;
+  final bool assumeOrder;
 
   _DrawerItemModel({
     @required this.navPath,
     @required this.svgName,
     @required this.title,
+    this.assumeOrder = false,
     this.iconColor = Colors.black,
   }) : assert(
-          navPath != null && svgName != null && title != null,
+          navPath != null &&
+              svgName != null &&
+              title != null &&
+              assumeOrder != null,
         );
 
   @override
@@ -211,6 +216,7 @@ class AussieAppDrawer extends StatelessWidget {
           svgName: SettingsScreen.svgName,
           navPath: SettingsScreen.navPath,
           iconColor: Colors.grey,
+          assumeOrder: true,
         ),
       ],
     ),
@@ -226,7 +232,7 @@ class AussieAppDrawer extends StatelessWidget {
             forceElevated: true,
             pinned: true,
             automaticallyImplyLeading: false,
-            expandedHeight: .25.sh,
+            expandedHeight: .23.sh,
             flexibleSpace: Stack(
               children: [
                 Positioned.fill(
@@ -235,7 +241,7 @@ class AussieAppDrawer extends StatelessWidget {
                     color: kausBlue,
                     child: SvgPicture.asset(
                       'assests/images/au.svg',
-                      fit: BoxFit.fitWidth,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -294,7 +300,14 @@ class _DrawerItem extends StatelessWidget {
       child: Stack(
         children: [
           InkWell(
-            onTap: () => Navigator.of(context).pushNamed(model.navPath),
+            onTap: () {
+              if (!model.assumeOrder) {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(model.navPath, (route) => false);
+              } else {
+                Navigator.of(context).pushNamed(model.navPath);
+              }
+            },
             splashColor: Colors.red,
             child: Ink(
               child: ListTile(

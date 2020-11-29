@@ -1,5 +1,6 @@
 import 'package:aussie/constants.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class LivestockScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AussieAppDrawer(),
       backgroundColor: Colors.amber,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool _) => [

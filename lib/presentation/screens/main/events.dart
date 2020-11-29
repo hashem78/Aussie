@@ -18,12 +18,12 @@ class EventsScreen extends StatelessWidget {
     svgName: "events.svg",
     navPath: "/events",
     dark: AussieColorData(
-      swatchColor: Colors.lime.shade700,
-      backgroundColor: Colors.lime.shade600,
+      swatchColor: Colors.lightGreen.shade700,
+      backgroundColor: Colors.lightGreen.shade600,
     ),
     light: AussieColorData(
-      swatchColor: Colors.lime.shade400,
-      backgroundColor: Colors.lime.shade300,
+      swatchColor: Colors.lightGreen.shade400,
+      backgroundColor: Colors.lightGreen.shade300,
     ),
   );
 

@@ -1,6 +1,7 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/state/dyk/cubit/dyk_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 import 'package:flutter/material.dart';
@@ -14,12 +15,12 @@ class DYKScreen extends StatefulWidget {
     svgName: "dyk.svg",
     themeAttribute: "dykScreenColor",
     dark: AussieColorData(
-      swatchColor: Colors.lime.shade700,
-      backgroundColor: Colors.lime.shade600,
+      swatchColor: Colors.yellow.shade700,
+      backgroundColor: Colors.yellow.shade600,
     ),
     light: AussieColorData(
-      swatchColor: Colors.lime.shade400,
-      backgroundColor: Colors.lime.shade300,
+      swatchColor: Colors.yellow.shade400,
+      backgroundColor: Colors.yellow.shade300,
     ),
   );
   @override
@@ -42,6 +43,7 @@ class _DYKScreenState extends State<DYKScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _currentTheme = getCurrentThemeModel(context).dykScreenColor;
     return Scaffold(
       body: Column(
         children: [
@@ -49,6 +51,7 @@ class _DYKScreenState extends State<DYKScreen> {
             children: [
               Container(
                 height: .5.sh,
+                color: _currentTheme.swatchColor,
               ),
               Align(
                 alignment: Alignment.topLeft,
@@ -56,7 +59,7 @@ class _DYKScreenState extends State<DYKScreen> {
                   child: Material(
                     color: Colors.transparent,
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.white),
+                      icon: Icon(Icons.arrow_back),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
@@ -102,8 +105,9 @@ class _DYKScreenState extends State<DYKScreen> {
             },
             builder: (context, state) {
               if (state is DykLoaded) {
-                return SizedBox(
+                return Container(
                   height: .5.sh,
+                  color: _currentTheme.backgroundColor,
                   child: PageView.builder(
                     onPageChanged: (page) {
                       setState(() {
@@ -133,10 +137,12 @@ class _DYKScreenState extends State<DYKScreen> {
                   ),
                 );
               }
-              return Container(
-                margin: EdgeInsets.all(50),
-                child: Center(
-                  child: CircularProgressIndicator(),
+              return Expanded(
+                child: Container(
+                  color: _currentTheme.backgroundColor,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               );
             },

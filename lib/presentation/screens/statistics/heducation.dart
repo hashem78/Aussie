@@ -2,6 +2,7 @@ import 'package:aussie/constants.dart';
 import 'package:aussie/models/aussie_pie_chart.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -15,6 +16,7 @@ class HEducationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber,
+      drawer: AussieAppDrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool _) => [
           SliverAppBar(

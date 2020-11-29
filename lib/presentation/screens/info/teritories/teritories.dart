@@ -19,12 +19,12 @@ class TeritoriesScreen extends StatelessWidget {
     title: "Teritories",
     themeAttribute: "teritoriesScreenColor",
     dark: AussieColorData(
-      swatchColor: Colors.lime.shade700,
-      backgroundColor: Colors.lime.shade600,
+      swatchColor: Colors.brown.shade800,
+      backgroundColor: Colors.brown.shade700,
     ),
     light: AussieColorData(
-      swatchColor: Colors.lime.shade400,
-      backgroundColor: Colors.lime.shade300,
+      swatchColor: Colors.brown.shade500,
+      backgroundColor: Colors.brown.shade400,
     ),
   );
 
@@ -33,6 +33,7 @@ class TeritoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
+
     return SearchablePaginatedScreen(
       backgroundColor: _currentTheme.backgroundColor,
       title: TeritoriesScreen.data.title,

@@ -82,13 +82,13 @@ class ThemeCubit extends Cubit<ThemeState> {
         placesScreenColor: PlacesScreen.data.light,
         eventsScreenColor: EventsScreen.data.light,
         foodScreenColor: FoodScreen.data.light,
-        entertainmentScreenColor: EntertainmentScreen.data.dark,
-        faunaScreenColor: FaunaScreen.data.dark,
-        floraScreenColor: FloraScreen.data.dark,
-        teritoriesScreenColor: TeritoriesScreen.data.dark,
-        weatherScreenColor: WeatherScreen.data.dark,
-        naturalParksScreenColor: NaturalParksScreen.data.dark,
-        dykScreenColor: DYKScreen.data.dark,
+        entertainmentScreenColor: EntertainmentScreen.data.light,
+        faunaScreenColor: FaunaScreen.data.light,
+        floraScreenColor: FloraScreen.data.light,
+        teritoriesScreenColor: TeritoriesScreen.data.light,
+        weatherScreenColor: WeatherScreen.data.light,
+        naturalParksScreenColor: NaturalParksScreen.data.light,
+        dykScreenColor: DYKScreen.data.light,
       );
     }
   }
