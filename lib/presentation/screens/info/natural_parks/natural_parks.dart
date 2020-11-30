@@ -12,7 +12,7 @@ import 'package:aussie/presentation/screens/searchable_paginated.dart';
 
 class NaturalParksScreen extends StatelessWidget {
   static AussieScreenData data = const AussieScreenData(
-    title: "Natural Parks",
+    tTitle: "naturalParksTitle",
     themeAttribute: "naturalParksScreenColor",
     navPath: "/main/info/naturalParks",
     svgName: "parks.svg",
@@ -33,7 +33,7 @@ class NaturalParksScreen extends StatelessWidget {
     return SearchablePaginatedScreen(
       backgroundColor: _currentTheme.backgroundColor,
       cubit: cubit,
-      title: data.title,
+      title: getTranslation(context, data.tTitle),
       filterFor: "park_name",
       thumbnailCubitRoute: "park_images",
       itemBuilder: (context, item, index) {

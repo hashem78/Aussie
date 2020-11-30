@@ -14,7 +14,7 @@ import 'package:aussie/util/functions.dart';
 class FoodScreen extends StatelessWidget {
   static final data = AussieScreenData(
     themeAttribute: "foodScreenColor",
-    title: "Food",
+    tTitle: "foodTitle",
     svgName: "food.svg",
     navPath: "/food",
     dark: AussieColorData(
@@ -39,16 +39,16 @@ class FoodScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.foodScreenColor.swatchColor,
-              FoodScreen.data.title,
+              getTranslation(context, FoodScreen.data.tTitle),
             ),
-            buildTitle("Featured"),
+            buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<FoodAndDrinksDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) =>
                   FoodAndDrinksDetailsModel.fromMap(map),
               _backgroundColor,
             ),
-            buildTitle("More"),
+            buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<FoodAndDrinksDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) =>

@@ -12,7 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DYKScreen extends StatefulWidget {
   static final data = AussieScreenData(
-    title: "Did you know...",
+    tTitle: "dykTitle",
     navPath: "/dyk",
     svgName: "dyk.svg",
     themeAttribute: "dykScreenColor",
@@ -54,7 +54,7 @@ class _DYKScreenState extends State<DYKScreen> {
         slivers: [
           AussieSliverAppBar(
             _currentTheme.backgroundColor,
-            DYKScreen.data.title,
+            getTranslation(context, DYKScreen.data.tTitle),
           ),
           SliverToBoxAdapter(
             child: SizedBox(

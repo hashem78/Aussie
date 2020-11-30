@@ -18,7 +18,7 @@ class WeatherScreen extends StatefulWidget {
   static final data = AussieScreenData(
     navPath: "/main/info/weather",
     svgName: "weather.svg",
-    title: "Weather",
+    tTitle: "weatherTitle",
     themeAttribute: "weatherScreenColor",
     dark: AussieColorData(
       swatchColor: Colors.lightBlue.shade700,
@@ -74,7 +74,7 @@ class _WeatherScreenState extends State<WeatherScreen>
         slivers: [
           AussieThumbnailedSliverAppBar(
             cubit: thumbnailCubit,
-            title: "Weather",
+            title: getTranslation(context, "weatherTitle"),
           ),
           BlocBuilder<WeatherCubit, WeatherState>(
             cubit: cubit,

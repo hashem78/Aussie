@@ -10,7 +10,7 @@ import 'package:aussie/models/aussie_pie_chart.dart';
 import 'package:aussie/util/pair.dart';
 
 class EnergyScreen extends StatelessWidget {
-  static final title = "Energy & Australlia";
+  static final title = "energyTitle";
   static final navPath = "/statistics/energy";
   static final svgName = "energy.svg";
   @override
@@ -22,7 +22,7 @@ class EnergyScreen extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool _) => [
           SliverAppBar(
             backgroundColor: Colors.amber,
-            title: Text("Energy"),
+            title: Text(getTranslation(context, "energyTitle")),
             centerTitle: true,
           ),
         ],

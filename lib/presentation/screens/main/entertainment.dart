@@ -17,7 +17,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EntertainmentScreen extends StatefulWidget {
   static final data = AussieScreenData(
     themeAttribute: "entertainmentScreenColor",
-    title: "Entertainment",
+    tTitle: "entertainmentTitle",
     svgName: "entertainment.svg",
     navPath: "/entertainment",
     dark: AussieColorData(
@@ -55,7 +55,7 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
         slivers: [
           AussieSliverAppBar(
             _currentTheme.entertainmentScreenColor.swatchColor,
-            EntertainmentScreen.data.title,
+            getTranslation(context, EntertainmentScreen.data.tTitle),
           ),
           BlocBuilder<EFECubit<EntertainmentDetailsModel>, EFEState>(
             cubit: cubit,

@@ -1,6 +1,7 @@
 import 'package:aussie/constants.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SettingsScreen extends StatelessWidget {
   static String navPath = "/settings";
   static String svgName = "settings.svg";
-  static String title = "Settings";
+  static String title = "settingsTitle";
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +26,7 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Center(
                       child: AutoSizeText(
-                        title,
+                        getTranslation(context, title),
                         maxLines: 1,
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -59,7 +60,7 @@ class SettingsScreen extends StatelessWidget {
                         applicationLegalese: klorem,
                       );
                     },
-                    leading: Text("About Aussie"),
+                    leading: Text(getTranslation(context, "aboutAussieText")),
                     trailing: Padding(
                       padding: const EdgeInsets.only(right: 20.0),
                       child: Icon(Icons.info),
@@ -96,7 +97,7 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
         contentPadding: EdgeInsets.all(5.0),
-        leading: Text("Darkmode"),
+        leading: Text(getTranslation(context, "darkmodeText")),
         trailing: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return Switch(
@@ -120,7 +121,7 @@ class LanguageTile extends StatelessWidget {
       builder: (context, state) {
         var _currentLanguage = state.currentLocale.languageCode;
         return ListTile(
-          title: Text("Language"),
+          title: Text(getTranslation(context, "languageTitle")),
           subtitle: Text(
               "${state.currentLocale.languageCode == "ar" ? "العربية" : "English"}"),
           onTap: () {
@@ -131,8 +132,10 @@ class LanguageTile extends StatelessWidget {
                   )
                   .whenComplete(
                     () => Scaffold.of(context).showSnackBar(
-                      const SnackBar(
-                        content: const Text("Changed language to English"),
+                      SnackBar(
+                        content: Text(
+                          getTranslation(context, "languageChangedText"),
+                        ),
                       ),
                     ),
                   );
@@ -143,8 +146,10 @@ class LanguageTile extends StatelessWidget {
                   )
                   .whenComplete(
                     () => Scaffold.of(context).showSnackBar(
-                      const SnackBar(
-                        content: const Text("تم التحويل الى اللغة العربية"),
+                      SnackBar(
+                        content: Text(
+                          getTranslation(context, "languageChangedText"),
+                        ),
                       ),
                     ),
                   );

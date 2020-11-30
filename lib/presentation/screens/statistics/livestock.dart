@@ -7,7 +7,7 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class LivestockScreen extends StatelessWidget {
-  static final title = "Livestock in Australlia";
+  static final title = "liveStockTitle";
   static final navPath = "/statistics/livestocks";
   static final svgName = "livestock.svg";
   @override
@@ -19,7 +19,7 @@ class LivestockScreen extends StatelessWidget {
         headerSliverBuilder: (BuildContext context, bool _) => [
           SliverAppBar(
             backgroundColor: Colors.amber,
-            title: Text("Livestock"),
+            title: Text(getTranslation(context, "liveStockTitle")),
             centerTitle: true,
           ),
         ],
@@ -27,7 +27,7 @@ class LivestockScreen extends StatelessWidget {
           addAutomaticKeepAlives: true,
           children: [
             ExpandingTextTile(
-              title: "The livestock and meat industry",
+              title: getTranslation(context, "liveStockTitle"),
               text: klorem,
             ),
             ExpandingTextTile(

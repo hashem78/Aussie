@@ -13,7 +13,7 @@ class FloraScreen extends StatelessWidget {
   static final data = AussieScreenData(
     navPath: "/main/info/flora",
     svgName: "flora.svg",
-    title: "Flora",
+    tTitle: "floraTitle",
     themeAttribute: "floraScreenColor",
     dark: AussieColorData(
       swatchColor: Colors.green.shade700,
@@ -30,7 +30,7 @@ class FloraScreen extends StatelessWidget {
     var _currentTheme = getCurrentThemeModel(context).floraScreenColor;
     return SearchablePaginatedScreen(
       backgroundColor: _currentTheme.backgroundColor,
-      title: FloraScreen.data.title,
+      title: getTranslation(context, FloraScreen.data.tTitle),
       cubit: cubit,
       thumbnailCubitRoute: "park_images",
       filterFor: "",

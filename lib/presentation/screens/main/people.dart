@@ -15,7 +15,7 @@ import 'package:aussie/util/functions.dart';
 class PeopleScreen extends StatelessWidget {
   static final data = AussieScreenData(
     themeAttribute: "peopleScreenColor",
-    title: "People",
+    tTitle: "peopleTitle",
     svgName: "people.svg",
     navPath: "/people",
     dark: AussieColorData(
@@ -40,15 +40,15 @@ class PeopleScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.peopleScreenColor.swatchColor,
-              PeopleScreen.data.title,
+              getTranslation(context, PeopleScreen.data.tTitle),
             ),
-            buildTitle("Featured"),
+            buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<PeopleDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
               _backgroundColor,
             ),
-            buildTitle("More"),
+            buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<PeopleDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),

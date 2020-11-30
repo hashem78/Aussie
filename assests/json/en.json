@@ -1,1 +1,35 @@
-{}
+{
+    "inAusSectionTitle":"In Australia",
+    "infoSectionTitle":"Info",
+    "statsSectionTitle":"Statistics",
+    "miscSectionTitle":"Misc",
+
+    "religonTitle":"Religon",
+    "liveStockTitle":"Live Stock",
+    "heTitle":"Higher Education",
+    "energyTitle":"Energy",
+    "gdpTitle":"GDP & Economy",
+    "peopleTitle":"People",
+    "placesTitle":"Places",
+    "eventsTitle":"Events",
+    "foodTitle":"Food",
+    "entertainmentTitle":"Entertainment",
+    "faunaTitle":"Fauna",
+    "floraTitle":"Flora",
+    "weatherTitle":"Weather",
+    "teritoriesTitle":"Teritories",
+    "naturalParksTitle":"Natural Parks",
+    "dykTitle":"Do you know...?",
+    "settingsTitle":"Settings",
+
+    "featuredTitle":"Featured",
+    "moreTitle":"More",
+    "searchTitle":"Search",
+    "languageTitle":"Language",
+    
+    "languageChangedText":"تم التحويل الى اللغة العربية",
+
+    "aboutAussieText":"About Aussie",
+    "darkmodeText":"Darkmode"
+
+}

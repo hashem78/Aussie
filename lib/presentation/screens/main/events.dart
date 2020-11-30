@@ -14,7 +14,7 @@ import 'package:aussie/util/functions.dart';
 class EventsScreen extends StatelessWidget {
   static final data = AussieScreenData(
     themeAttribute: "eventScreenColor",
-    title: "Events",
+    tTitle: "eventsTitle",
     svgName: "events.svg",
     navPath: "/events",
     dark: AussieColorData(
@@ -39,15 +39,15 @@ class EventsScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.eventsScreenColor.swatchColor,
-              EventsScreen.data.title,
+              getTranslation(context, EventsScreen.data.tTitle),
             ),
-            buildTitle("Featured"),
+            buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
               _backgroundColor,
             ),
-            buildTitle("More"),
+            buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),

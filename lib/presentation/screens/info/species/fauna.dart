@@ -13,7 +13,7 @@ class FaunaScreen extends StatelessWidget {
   static final data = AussieScreenData(
     navPath: "/main/info/fauna",
     svgName: "fauna.svg",
-    title: "Fauna",
+    tTitle: "faunaTitle",
     themeAttribute: "faunaScreenColor",
     dark: AussieColorData(
       swatchColor: Colors.brown.shade700,
@@ -30,7 +30,7 @@ class FaunaScreen extends StatelessWidget {
     var _currentTheme = getCurrentThemeModel(context).faunaScreenColor;
 
     return SearchablePaginatedScreen(
-      title: FaunaScreen.data.title,
+      title: getTranslation(context, FaunaScreen.data.tTitle),
       backgroundColor: _currentTheme.backgroundColor,
       cubit: cubit,
       filterFor: "",

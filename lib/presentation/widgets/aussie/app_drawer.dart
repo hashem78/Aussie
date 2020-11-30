@@ -17,6 +17,7 @@ import 'package:aussie/presentation/screens/statistics/gdp.dart';
 import 'package:aussie/presentation/screens/statistics/heducation.dart';
 import 'package:aussie/presentation/screens/statistics/livestock.dart';
 import 'package:aussie/presentation/screens/statistics/religion.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,20 +28,20 @@ import 'dart:math' as math;
 class _DrawerItemModel extends Equatable {
   final String navPath;
   final String svgName;
-  final String title;
+  final String tTitle;
   final Color iconColor;
   final bool assumeOrder;
 
   const _DrawerItemModel({
     @required this.navPath,
     @required this.svgName,
-    @required this.title,
+    @required this.tTitle,
     this.assumeOrder = false,
     this.iconColor = Colors.black,
   }) : assert(
           navPath != null &&
               svgName != null &&
-              title != null &&
+              tTitle != null &&
               assumeOrder != null,
         );
 
@@ -51,13 +52,13 @@ class _DrawerItemModel extends Equatable {
 class _DrawerSection extends StatelessWidget {
   final List<_DrawerItemModel> models;
   final IconData sectionIcon;
-  final String sectionTitle;
+  final String tSectionTitle;
   final Color sectionTitleColor;
   final Color tilesColor;
   const _DrawerSection({
     this.models,
     this.sectionIcon,
-    this.sectionTitle,
+    this.tSectionTitle,
     this.sectionTitleColor = Colors.amber,
     this.tilesColor,
   });
@@ -68,7 +69,7 @@ class _DrawerSection extends StatelessWidget {
       children: [
         _DrawerSectionTitle(
           iconData: sectionIcon,
-          title: sectionTitle,
+          title: getTranslation(context, tSectionTitle),
           color: sectionTitleColor,
         ),
         ...models
@@ -89,29 +90,29 @@ class AussieAppDrawer extends StatelessWidget {
         _DrawerItemModel(
           navPath: ReligionScreen.navPath,
           svgName: ReligionScreen.svgName,
-          title: ReligionScreen.title,
+          tTitle: ReligionScreen.title,
         ),
         _DrawerItemModel(
           navPath: LivestockScreen.navPath,
           svgName: LivestockScreen.svgName,
-          title: LivestockScreen.title,
+          tTitle: LivestockScreen.title,
           iconColor: Colors.pink,
         ),
         _DrawerItemModel(
           navPath: HEducationScreen.navPath,
           svgName: HEducationScreen.svgName,
-          title: HEducationScreen.title,
+          tTitle: HEducationScreen.title,
         ),
         _DrawerItemModel(
           navPath: EnergyScreen.navPath,
           svgName: EnergyScreen.svgName,
-          title: EnergyScreen.title,
+          tTitle: EnergyScreen.title,
           iconColor: Colors.blue.shade900,
         ),
         _DrawerItemModel(
           navPath: GDPScreen.navPath,
           svgName: GDPScreen.svgName,
-          title: GDPScreen.title,
+          tTitle: GDPScreen.title,
           iconColor: Colors.orange,
         ),
       ];
@@ -119,31 +120,31 @@ class AussieAppDrawer extends StatelessWidget {
         _DrawerItemModel(
           navPath: PeopleScreen.data.navPath,
           svgName: PeopleScreen.data.svgName,
-          title: PeopleScreen.data.title,
+          tTitle: PeopleScreen.data.tTitle,
           iconColor: Colors.blue,
         ),
         _DrawerItemModel(
           navPath: PlacesScreen.data.navPath,
           svgName: PlacesScreen.data.svgName,
-          title: PlacesScreen.data.title,
+          tTitle: PlacesScreen.data.tTitle,
           iconColor: Colors.brown,
         ),
         _DrawerItemModel(
           navPath: EventsScreen.data.navPath,
           svgName: EventsScreen.data.svgName,
-          title: EventsScreen.data.title,
+          tTitle: EventsScreen.data.tTitle,
           iconColor: Colors.lightGreen,
         ),
         _DrawerItemModel(
           navPath: FoodScreen.data.navPath,
           svgName: FoodScreen.data.svgName,
-          title: FoodScreen.data.title,
+          tTitle: FoodScreen.data.tTitle,
           iconColor: Colors.lime,
         ),
         _DrawerItemModel(
           navPath: EntertainmentScreen.data.navPath,
           svgName: EntertainmentScreen.data.svgName,
-          title: EntertainmentScreen.data.title,
+          tTitle: EntertainmentScreen.data.tTitle,
           iconColor: Colors.lightBlue,
         ),
       ];
@@ -151,69 +152,69 @@ class AussieAppDrawer extends StatelessWidget {
         _DrawerItemModel(
           navPath: FaunaScreen.data.navPath,
           svgName: FaunaScreen.data.svgName,
-          title: FaunaScreen.data.title,
+          tTitle: FaunaScreen.data.tTitle,
           iconColor: Colors.brown,
         ),
         _DrawerItemModel(
           navPath: FloraScreen.data.navPath,
           svgName: FloraScreen.data.svgName,
-          title: FloraScreen.data.title,
+          tTitle: FloraScreen.data.tTitle,
           iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
           navPath: WeatherScreen.data.navPath,
           svgName: WeatherScreen.data.svgName,
-          title: WeatherScreen.data.title,
+          tTitle: WeatherScreen.data.tTitle,
           iconColor: Colors.lightBlue,
         ),
         _DrawerItemModel(
           navPath: TeritoriesScreen.data.navPath,
           svgName: TeritoriesScreen.data.svgName,
-          title: TeritoriesScreen.data.title,
+          tTitle: TeritoriesScreen.data.tTitle,
           iconColor: Colors.green,
         ),
         _DrawerItemModel(
           navPath: NaturalParksScreen.data.navPath,
           svgName: NaturalParksScreen.data.svgName,
-          title: NaturalParksScreen.data.title,
+          tTitle: NaturalParksScreen.data.tTitle,
           iconColor: Colors.green.shade900,
         ),
         _DrawerItemModel(
           navPath: DYKScreen.data.navPath,
           svgName: DYKScreen.data.svgName,
-          title: DYKScreen.data.title,
+          tTitle: DYKScreen.data.tTitle,
           iconColor: Colors.blue,
         ),
       ];
   final List<_DrawerSection> sections = [
     _DrawerSection(
       sectionIcon: Icons.map,
-      sectionTitle: "In Australia",
+      tSectionTitle: "inAusSectionTitle",
       sectionTitleColor: Colors.green,
       models: inAus,
     ),
     _DrawerSection(
       sectionIcon: Icons.info,
-      sectionTitle: "Info",
+      tSectionTitle: "infoSectionTitle",
       sectionTitleColor: kausBlue,
       tilesColor: Colors.blue,
       models: infoModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.wallet_travel,
-      sectionTitle: "Statistics",
+      tSectionTitle: "statsSectionTitle",
       sectionTitleColor: kausRed,
       tilesColor: Colors.blue,
       models: statisticsModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.miscellaneous_services,
-      sectionTitle: "Misc",
+      tSectionTitle: "miscSectionTitle",
       sectionTitleColor: kausBlue,
       tilesColor: Colors.blue,
       models: [
         _DrawerItemModel(
-          title: SettingsScreen.title,
+          tTitle: SettingsScreen.title,
           svgName: SettingsScreen.svgName,
           navPath: SettingsScreen.navPath,
           iconColor: Colors.grey,
@@ -319,7 +320,7 @@ class _DrawerItem extends StatelessWidget {
                   color: model.iconColor,
                 ),
                 title: Text(
-                  model.title,
+                  getTranslation(context, model.tTitle),
                   style: TextStyle(fontSize: 50.sp),
                 ),
               ),

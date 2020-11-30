@@ -1,3 +1,4 @@
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,7 +21,7 @@ class PaginatedSearchBar extends StatelessWidget {
               style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: "Search",
+                hintText: getTranslation(context, "searchTitle"),
                 hintStyle: TextStyle(
                   fontSize: 40.sp,
                   fontWeight: FontWeight.w600,

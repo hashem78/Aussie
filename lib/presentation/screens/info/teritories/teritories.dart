@@ -16,7 +16,7 @@ class TeritoriesScreen extends StatelessWidget {
   static final data = AussieScreenData(
     navPath: "/main/info/teritories",
     svgName: "australia.svg",
-    title: "Teritories",
+    tTitle: "teritoriesTitle",
     themeAttribute: "teritoriesScreenColor",
     dark: AussieColorData(
       swatchColor: Colors.brown.shade800,
@@ -36,7 +36,7 @@ class TeritoriesScreen extends StatelessWidget {
 
     return SearchablePaginatedScreen(
       backgroundColor: _currentTheme.backgroundColor,
-      title: TeritoriesScreen.data.title,
+      title: getTranslation(context, TeritoriesScreen.data.tTitle),
       thumbnailCubitRoute: "teritory_images",
       cubit: cubit,
       filterFor: "title",

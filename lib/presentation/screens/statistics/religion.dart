@@ -2,7 +2,6 @@ import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
-import 'package:aussie/presentation/widgets/religon_sliver_appbar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aussie/constants.dart';
@@ -11,7 +10,7 @@ import 'package:aussie/models/aussie_pie_chart.dart';
 import 'package:aussie/util/functions.dart';
 
 class ReligionScreen extends StatefulWidget {
-  static final title = "Religon in Australlia";
+  static final title = "religonTitle";
   static final navPath = "/statistics/religon";
   static final svgName = "pray.svg";
   @override
@@ -54,7 +53,7 @@ class _ReligionScreenState extends State<ReligionScreen> {
       child: Wrap(
         children: [
           Text(
-            "The religons of Australia",
+            getTranslation(context, "religonTitle"),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
@@ -109,11 +108,14 @@ class _ReligionScreenState extends State<ReligionScreen> {
   }
 
   Widget _buildPage(String title) {
-    return AussieScaffold(
+    return Scaffold(
       backgroundColor: Colors.amber,
       body: CustomScrollView(
         slivers: [
-          ReligonSliverAppBar(title: title),
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            title: Text(title),
+          ),
           SliverList(
             delegate: SliverChildListDelegate(
               [

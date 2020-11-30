@@ -3,21 +3,21 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class AussieScreenData {
-  final String title;
+  final String tTitle;
   final String themeAttribute;
   final String navPath;
   final String svgName;
   final AussieColorData dark;
   final AussieColorData light;
   const AussieScreenData(
-      {@required this.title,
+      {@required this.tTitle,
       @required this.themeAttribute,
       @required this.navPath,
       @required this.svgName,
       @required this.dark,
       @required this.light})
       : assert(
-          title != null &&
+          tTitle != null &&
               themeAttribute != null &&
               navPath != null &&
               svgName != null &&

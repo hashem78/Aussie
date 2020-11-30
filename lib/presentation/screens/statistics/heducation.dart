@@ -9,7 +9,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class HEducationScreen extends StatelessWidget {
-  static final title = "Higher Education";
+  static final title = "heTitle";
   static final navPath = "/statistics/heducation";
   static final svgName = "heducation.svg";
   @override
@@ -22,7 +22,7 @@ class HEducationScreen extends StatelessWidget {
           SliverAppBar(
             backgroundColor: Colors.amber,
             elevation: 0,
-            title: Text(HEducationScreen.title),
+            title: Text(getTranslation(context, HEducationScreen.title)),
           ),
         ],
         body: ListView(

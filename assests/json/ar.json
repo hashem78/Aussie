@@ -1,1 +1,34 @@
-{}
+{
+    "inAusSectionTitle":"في استراليا",
+    "infoSectionTitle":"معلومات",
+    "statsSectionTitle":"احصاءات",
+    "miscSectionTitle":"اخرى",
+
+    "religonTitle":"ديانات",
+    "liveStockTitle":"ماشية",
+    "heTitle":"التعليم العالي",
+    "energyTitle":"طاقة",
+    "gdpTitle":"الاقتصاد و الدخل",
+    "peopleTitle":"مشاهير",
+    "placesTitle":"اماكن",
+    "eventsTitle":"احداث",
+    "foodTitle":"طعام",
+    "entertainmentTitle":"تسلية",
+    "faunaTitle":"الغطاء الحياواني",
+    "floraTitle":"الغطاء النباتي",
+    "weatherTitle":"الطقس",
+    "teritoriesTitle":"مدن",
+    "naturalParksTitle":"حدائق طبيعية",
+    "dykTitle":"هل تعلم...؟",
+    "settingsTitle":"الاعدادات",
+
+    "featuredTitle":"بارز",
+    "moreTitle":"المزيد",
+    "searchTitle":"بحث",
+    "languageTitle":"اللغة",
+
+    "languageChangedText":"Language changed to English",
+    "aboutAussieText":"عن Aussie",
+    "darkmodeText":"الوضع الداكن"
+
+}

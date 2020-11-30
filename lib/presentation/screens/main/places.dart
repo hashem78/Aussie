@@ -14,7 +14,7 @@ import 'package:aussie/util/functions.dart';
 class PlacesScreen extends StatelessWidget {
   static final data = const AussieScreenData(
     themeAttribute: "placesScreenColor",
-    title: "Places",
+    tTitle: "placesTitle",
     svgName: "places.svg",
     navPath: "/palces",
     dark: const AussieColorData(
@@ -39,15 +39,15 @@ class PlacesScreen extends StatelessWidget {
           slivers: [
             AussieSliverAppBar(
               _currentTheme.placesScreenColor.swatchColor,
-              PlacesScreen.data.title,
+              getTranslation(context, PlacesScreen.data.tTitle),
             ),
-            buildTitle("Featured"),
+            buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<PlacesDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
               _backgroundColor,
             ),
-            buildTitle("More"),
+            buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<PlacesDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
