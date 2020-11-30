@@ -1,6 +1,6 @@
 import 'package:aussie/models/weather/card.dart';
 import 'package:aussie/models/weather/weather.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+
 import 'package:aussie/presentation/widgets/aussie/weather_card.dart';
 import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
 
@@ -15,7 +15,7 @@ class WeatherDetails extends StatelessWidget {
   const WeatherDetails({@required this.model});
   @override
   Widget build(BuildContext context) {
-    return AussieScaffold(
+    return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
