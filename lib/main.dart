@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aussie/localizations.dart';
 import 'package:aussie/presentation/screens/main/entertainment.dart';
 import 'package:aussie/presentation/screens/main/events.dart';
 import 'package:aussie/presentation/screens/main/food_drinks.dart';
@@ -9,10 +10,12 @@ import 'package:aussie/presentation/screens/main/places.dart';
 import 'package:aussie/presentation/screens/settings/settings.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,32 +46,65 @@ void main() async {
     themeMap = ThemeModel.defaultThemeMap;
     _perfs.setString("theme", jsonEncode(themeMap));
   }
-  runApp(MyApp(themeMap));
+  Locale locale;
+  if (_perfs.containsKey("lang")) {
+    locale = Locale(_perfs.getString("lang"), '');
+  } else {
+    _perfs.setString("lang", "en");
+    locale = Locale('en', '');
+  }
+  runApp(MyApp(themeMap, locale));
 }
 
 class MyApp extends StatelessWidget {
   final Map<String, dynamic> themeMap;
   final ThemeCubit _themeCubit;
-  MyApp(this.themeMap)
-      : assert(themeMap != null),
-        _themeCubit = ThemeCubit(themeMap);
+  final LanguageCubit _languageCubit;
+  final Locale locale;
+  MyApp(this.themeMap, this.locale)
+      : assert(themeMap != null && locale != null),
+        _themeCubit = ThemeCubit(themeMap),
+        _languageCubit = LanguageCubit(locale);
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
-    return BlocProvider<ThemeCubit>.value(
-      value: _themeCubit,
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          return Provider<AussieAppDrawer>(
-            create: (context) => AussieAppDrawer(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              home: AussieScaffold(body: MainScreen()),
-              theme: ThemeData(
-                brightness: state.model.brightness,
-              ),
-              routes: routes,
-            ),
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>.value(value: _themeCubit),
+        BlocProvider<LanguageCubit>.value(value: _languageCubit),
+      ],
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, languageState) {
+          return BlocBuilder<ThemeCubit, ThemeState>(
+            builder: (context, state) {
+              return Provider<AussieAppDrawer>(
+                create: (context) => AussieAppDrawer(),
+                child: MaterialApp(
+                  locale: languageState.currentLocale,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    AussieLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    const Locale('en', ''),
+                    const Locale('ar', ''),
+                  ],
+                  localeResolutionCallback: (locale, supportedLocales) {
+                    if (supportedLocales.contains(locale)) return locale;
+                    return supportedLocales.first;
+                  },
+                  home: AussieScaffold(body: MainScreen()),
+                  theme: ThemeData(
+                    brightness: state.model.brightness,
+                  ),
+                  routes: routes,
+                ),
+              );
+            },
           );
         },
       ),

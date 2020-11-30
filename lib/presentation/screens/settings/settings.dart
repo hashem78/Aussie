@@ -1,4 +1,5 @@
 import 'package:aussie/constants.dart';
+import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +66,7 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                LanguageTile(),
               ],
             ),
           ),
@@ -107,6 +109,49 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
           },
         ),
       ),
+    );
+  }
+}
+
+class LanguageTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LanguageCubit, LanguageState>(
+      builder: (context, state) {
+        var _currentLanguage = state.currentLocale.languageCode;
+        return ListTile(
+          title: Text("Language"),
+          subtitle: Text(
+              "${state.currentLocale.languageCode == "ar" ? "العربية" : "English"}"),
+          onTap: () {
+            if (_currentLanguage == "ar") {
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLocale(
+                    Locale("en", ""),
+                  )
+                  .whenComplete(
+                    () => Scaffold.of(context).showSnackBar(
+                      const SnackBar(
+                        content: const Text("Changed language to English"),
+                      ),
+                    ),
+                  );
+            } else {
+              BlocProvider.of<LanguageCubit>(context)
+                  .changeLocale(
+                    Locale("ar", ""),
+                  )
+                  .whenComplete(
+                    () => Scaffold.of(context).showSnackBar(
+                      const SnackBar(
+                        content: const Text("تم التحويل الى اللغة العربية"),
+                      ),
+                    ),
+                  );
+            }
+          },
+        );
+      },
     );
   }
 }

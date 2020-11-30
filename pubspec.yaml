@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   auto_size_text: ^2.1.0
   cached_network_image: ^2.3.2+1
   carousel_slider: ^2.3.1
@@ -46,6 +48,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assests/images/
+    - assests/json/
   fonts:
     - family: BrandIcons
       fonts:

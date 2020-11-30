@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:aussie/localizations.dart';
 
 Color getRandomColor() {
   var _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
@@ -58,3 +59,5 @@ ThemeModel getCurrentThemeModel(BuildContext context) =>
     BlocProvider.of<ThemeCubit>(context, listen: true).currentModel;
 AussieAppDrawer getAppDrawer(BuildContext context) =>
     Provider.of<AussieAppDrawer>(context, listen: false);
+String getTranslation(BuildContext context, String key) =>
+    AussieLocalizations.of(context).translate(key);
