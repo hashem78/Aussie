@@ -22,3 +22,16 @@ Sed posuere viverra maximus. Morbi efficitur ultrices sem in consequat. Pellente
 Vestibulum elementum sodales ullamcorper. Quisque ullamcorper, velit vel volutpat tincidunt, turpis ex laoreet ligula, et vulputate augue justo sit amet mauris. Aenean ac ipsum aliquet ipsum ullamcorper gravida quis ac libero. Vivamus vulputate sagittis nulla, non ornare urna laoreet sit amet. In venenatis arcu at erat elementum tincidunt. In nec magna consectetur, consequat augue ornare, blandit ipsum. Vestibulum aliquam, libero quis tristique malesuada, est felis congue ipsum, nec gravida mauris tortor tincidunt metus. Etiam condimentum, ipsum eget aliquam luctus, tortor libero euismod lacus, at tempus erat nibh eu turpis. Mauris pharetra elit vel nunc egestas, consectetur pharetra tellus ultrices. Duis semper, sem non luctus imperdiet, tellus nulla efficitur orci, sit amet sollicitudin ante massa varius tortor. Suspendisse ac sapien ipsum.
 
 Cras interdum odio tortor, rutrum tempus sapien pharetra et. Donec efficitur justo dapibus velit porttitor, sit amet feugiat justo vehicula. In dictum fermentum erat vel ultricies. Duis laoreet euismod quam nec efficitur. Nam venenatis sed orci at interdum. Nam nisi diam, vestibulum sed enim ac, blandit porttitor dui. Fusce metus felis, dapibus eget lacus sed, laoreet accumsan elit. Phasellus nec ante semper, facilisis ipsum id, congue dui.''';
+
+@immutable
+class AussieColors {
+  static const brownDarkShade700 = const Color(0xff5d4037);
+  static const brownDarkShade600 = const Color(0xff6d4c41);
+  static const brownLightShade400 = const Color(0xff8d6e63);
+  static const brownLightShade300 = const Color(0xffa1886f);
+
+  static const greenDarkShade700 = const Color(0xff388e3c);
+  static const greenDarkShade600 = const Color(0xff43a047);
+  static const greenLightShade400 = const Color(0xff66bb6a);
+  static const greenLightShade300 = const Color(0xff66bb6a);
+}

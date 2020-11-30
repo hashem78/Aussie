@@ -67,7 +67,6 @@ class EventsScreen extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 100.sp,
-            fontWeight: FontWeight.w600,
           ),
         ),
       ),

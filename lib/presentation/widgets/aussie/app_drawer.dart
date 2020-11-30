@@ -31,7 +31,7 @@ class _DrawerItemModel extends Equatable {
   final Color iconColor;
   final bool assumeOrder;
 
-  _DrawerItemModel({
+  const _DrawerItemModel({
     @required this.navPath,
     @required this.svgName,
     @required this.title,
@@ -251,8 +251,8 @@ class AussieAppDrawer extends StatelessWidget {
                   child: Text(
                     "Aussie",
                     style: TextStyle(
-                      fontSize: 100.sp,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 75.sp,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
@@ -315,12 +315,12 @@ class _DrawerItem extends StatelessWidget {
                 //tileColor: Theme.of(context).secondaryHeaderColor,
                 leading: SvgPicture.asset(
                   "assests/images/${model.svgName}",
-                  height: 75.sp,
+                  height: 60.sp,
                   color: model.iconColor,
                 ),
                 title: Text(
                   model.title,
-                  style: TextStyle(fontSize: 60.sp),
+                  style: TextStyle(fontSize: 50.sp),
                 ),
               ),
             ),
@@ -350,7 +350,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           Expanded(
             child: Icon(
               iconData,
-              size: 80.sp,
+              size: 70.sp,
               color: color,
             ),
           ),
@@ -359,9 +359,8 @@ class _DrawerSectionTitle extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 80.sp,
+                fontSize: 70.sp,
                 color: color,
-                fontWeight: FontWeight.w600,
               ),
             ),
           ),
