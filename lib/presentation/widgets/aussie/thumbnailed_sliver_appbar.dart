@@ -50,7 +50,7 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
                   state.imageUrls[index],
                   showPlaceHolder: false,
                   fadeInDuration: Duration.zero,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
                 options: CarouselOptions(
                   height: .5.sh,
