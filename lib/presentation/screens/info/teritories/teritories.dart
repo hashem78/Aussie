@@ -35,6 +35,7 @@ class TeritoriesScreen extends StatelessWidget {
     var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
 
     return SearchablePaginatedScreen(
+      appBarColor: _currentTheme.swatchColor,
       backgroundColor: _currentTheme.backgroundColor,
       title: getTranslation(context, TeritoriesScreen.data.tTitle),
       thumbnailCubitRoute: "teritory_images",

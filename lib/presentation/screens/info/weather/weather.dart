@@ -75,6 +75,7 @@ class _WeatherScreenState extends State<WeatherScreen>
           AussieThumbnailedSliverAppBar(
             cubit: thumbnailCubit,
             title: getTranslation(context, "weatherTitle"),
+            backgroundColor: _currentTheme.swatchColor,
           ),
           BlocBuilder<WeatherCubit, WeatherState>(
             cubit: cubit,

@@ -1,7 +1,7 @@
 import 'package:aussie/models/paginated/species/species.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
   final Color detailsBackgroundColor;
+
   const SpeciesDetails({
     @required this.model,
     @required this.detailsBackgroundColor,
@@ -19,22 +20,36 @@ class SpeciesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AussieScaffold(
+    return Scaffold(
       backgroundColor: detailsBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             elevation: 0,
-            stretch: true,
             expandedHeight: .5.sh,
-            stretchTriggerOffset: 300,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.commonName),
-              stretchModes: [
-                StretchMode.zoomBackground,
-                StretchMode.fadeTitle,
-              ],
-              background: buildImage(model.titleImageUrl),
+              background: model.titleImageUrl != null &&
+                      model.thumbnailImageUrls == null
+                  ? buildImage(model.titleImageUrl)
+                  : CarouselSlider.builder(
+                      itemCount: model.thumbnailImageUrls.length,
+                      itemBuilder: (context, index) => buildImage(
+                        model.thumbnailImageUrls[index],
+                        showPlaceHolder: false,
+                        fadeInDuration: Duration.zero,
+                        fit: BoxFit.cover,
+                      ),
+                      options: CarouselOptions(
+                        height: .5.sh,
+                        viewportFraction: 1,
+                        pageSnapping: false,
+                        autoPlay: true,
+                        enableInfiniteScroll:
+                            model.thumbnailImageUrls.length == 1 ? false : true,
+                        autoPlayInterval: Duration(seconds: 10),
+                      ),
+                    ),
             ),
           ),
           SliverList(
@@ -63,19 +78,20 @@ class SpeciesDetails extends StatelessWidget {
         ],
         //headingRowHeight: 0,
         rows: [
-          DataRow(
-            cells: [
-              DataCell(
-                Text(
-                  "Common name",
-                  style: TextStyle(
-                    color: Colors.black,
+          if (model.commonName != null && model.commonName != "")
+            DataRow(
+              cells: [
+                DataCell(
+                  Text(
+                    "Common name",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              DataCell(Text(model.commonName)),
-            ],
-          ),
+                DataCell(Text(model.commonName)),
+              ],
+            ),
           DataRow(
             cells: [
               DataCell(
@@ -89,19 +105,20 @@ class SpeciesDetails extends StatelessWidget {
               DataCell(Text(model.scientificName)),
             ],
           ),
-          DataRow(
-            cells: [
-              DataCell(
-                Text(
-                  "Type",
-                  style: TextStyle(
-                    color: Colors.black,
+          if (model.type != null)
+            DataRow(
+              cells: [
+                DataCell(
+                  Text(
+                    "Type",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
                   ),
                 ),
-              ),
-              DataCell(Text(model.type)),
-            ],
-          ),
+                DataCell(Text(model.type)),
+              ],
+            ),
           if (model.conservationStatus != null)
             DataRow(
               cells: [

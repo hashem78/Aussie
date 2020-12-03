@@ -16,6 +16,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
   final String title;
   final String filterFor;
   final Color backgroundColor;
+  final Color appBarColor;
 
   final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
 
@@ -26,6 +27,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
     @required this.title,
     @required this.filterFor,
     @required this.backgroundColor,
+    @required this.appBarColor,
   });
   @override
   _SearchablePaginatedScreenState createState() =>
@@ -79,6 +81,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
             AussieThumbnailedSliverAppBar(
               cubit: thumbnailCubit,
               title: widget.title,
+              backgroundColor: widget.appBarColor,
             ),
             PaginatedSearchBar(
               onSubmitted: (val) {

@@ -24,20 +24,23 @@ class FaunaScreen extends StatelessWidget {
       backgroundColor: Colors.brown.shade300,
     ),
   );
-  final AussiePaginatedCubit cubit = AussiePaginatedCubit("");
+  final AussiePaginatedCubit cubit =
+      AussiePaginatedCubit<SpeciesDetailsModel>("fauna");
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).faunaScreenColor;
 
     return SearchablePaginatedScreen(
+      appBarColor: _currentTheme.swatchColor,
       title: getTranslation(context, FaunaScreen.data.tTitle),
       backgroundColor: _currentTheme.backgroundColor,
       cubit: cubit,
-      filterFor: "",
-      thumbnailCubitRoute: "park_images",
+      filterFor: "commonName",
+      thumbnailCubitRoute: "fauna_images",
       itemBuilder: (context, item, index) {
         var _casted = item as SpeciesDetailsModel;
         return PaginatedScreenTile(
+          titleImage: buildImage(_casted.titleImageUrl ?? null),
           title: Text(
             _casted.commonName,
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

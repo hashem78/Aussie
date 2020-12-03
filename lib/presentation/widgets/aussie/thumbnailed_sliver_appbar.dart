@@ -9,14 +9,16 @@ import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
 class AussieThumbnailedSliverAppBar extends StatelessWidget {
   final ThumbnailCubit cubit;
   final String title;
+  final Color backgroundColor;
   const AussieThumbnailedSliverAppBar({
     @required this.cubit,
     @required this.title,
+    @required this.backgroundColor,
   });
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.cyan.shade700,
+      backgroundColor: backgroundColor,
       pinned: true,
       expandedHeight: .5.sh,
       forceElevated: true,

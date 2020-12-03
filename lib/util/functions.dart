@@ -23,6 +23,7 @@ Widget buildImage(
   bool showPlaceHolder = true,
   Duration fadeInDuration = const Duration(milliseconds: 500),
 }) {
+  if (imageUrl == null) return null;
   if (imageUrl.contains(".svg")) {
     return SvgPicture.network(
       imageUrl,

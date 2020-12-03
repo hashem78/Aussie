@@ -11,19 +11,18 @@ class SpeciesDetailsModel extends Equatable implements PaginatedDataModel {
   final String conservationStatus;
   final String description;
   final String titleImageUrl;
+  final List<String> thumbnailImageUrls;
   const SpeciesDetailsModel({
-    @required this.commonName,
+    @required String commonName,
     @required this.scientificName,
-    @required this.type,
+    this.type,
     this.conservationStatus,
     @required this.description,
-    @required this.titleImageUrl,
-  }) : assert(
-          commonName != null &&
-              scientificName != null &&
-              type != null &&
-              titleImageUrl != null,
-          description != null,
+    this.titleImageUrl,
+    this.thumbnailImageUrls,
+  })  : commonName = commonName == "" ? scientificName : commonName,
+        assert(
+          commonName != null && scientificName != null && description != null,
         );
 
   @override
@@ -35,6 +34,7 @@ class SpeciesDetailsModel extends Equatable implements PaginatedDataModel {
       conservationStatus,
       description,
       titleImageUrl,
+      thumbnailImageUrls,
     ];
   }
 
@@ -53,11 +53,16 @@ class SpeciesDetailsModel extends Equatable implements PaginatedDataModel {
       conservationStatus: conservationStatus ?? this.conservationStatus,
       description: description ?? this.description,
       titleImageUrl: titleImageUrl ?? this.titleImageUrl,
+      thumbnailImageUrls: thumbnailImageUrls ?? this.thumbnailImageUrls,
     );
   }
 
   factory SpeciesDetailsModel.fromJson(Map<String, dynamic> map) {
     if (map == null) return null;
+    List<String> images;
+    if (map.containsKey("imageUrls")) {
+      images = List.from(map["imageUrls"]);
+    }
     return SpeciesDetailsModel(
       commonName: map['commonName'],
       scientificName: map['scientificName'],
@@ -65,19 +70,10 @@ class SpeciesDetailsModel extends Equatable implements PaginatedDataModel {
       conservationStatus: map['conservationStatus'],
       description: map['description'],
       titleImageUrl: map['titleImageUrl'],
+      thumbnailImageUrls: images,
     );
   }
 
   @override
   bool get stringify => true;
-
-  @override
-  Map<String, dynamic> get toJson => {
-        'commonName': commonName,
-        'scientificName': scientificName,
-        'type': type,
-        'conservationStatus': conservationStatus,
-        'description': description,
-        'titleImageUrl': titleImageUrl,
-      };
 }

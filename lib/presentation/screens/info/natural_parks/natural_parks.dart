@@ -31,6 +31,7 @@ class NaturalParksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).naturalParksScreenColor;
     return SearchablePaginatedScreen(
+      appBarColor: _currentTheme.swatchColor,
       backgroundColor: _currentTheme.backgroundColor,
       cubit: cubit,
       title: getTranslation(context, data.tTitle),
