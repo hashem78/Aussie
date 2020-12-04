@@ -1,4 +1,5 @@
 import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/screens/main/details.dart';
 import 'package:aussie/presentation/widgets/sized_tile.dart';
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
@@ -12,11 +13,11 @@ class AussiePagedListView<T extends MainScreenDetailsModel>
     extends StatefulWidget {
   final String route;
   final MainScreenDetailsModel Function(Map<String, dynamic> map) creator;
-  final Color detailsBackgroundColor;
+  final AussieColorData colorData;
   const AussiePagedListView(
     this.route,
     this.creator,
-    this.detailsBackgroundColor,
+    this.colorData,
   );
   @override
   _AussiePagedListViewState<T> createState() => _AussiePagedListViewState<T>();
@@ -61,13 +62,12 @@ class _AussiePagedListViewState<T extends MainScreenDetailsModel>
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<MainScreenDetailsModel>(
           itemBuilder: (context, model, index) {
-            var _key = UniqueKey().toString();
-
             return SizedTile.withDetails(
               widthFactor: 1.sw,
               containerMargin: EdgeInsets.all(5),
               heightFactor: .7.sh,
               swatchHeightFactor: .03.sh,
+              swatchColor: widget.colorData.swatchColor,
               swatchWidthFactor: 1.sw,
               onTap: () {
                 Navigator.push(
@@ -76,15 +76,13 @@ class _AussiePagedListViewState<T extends MainScreenDetailsModel>
                     builder: (context) {
                       return EFEDetails<MainScreenDetailsModel>(
                         model: model,
-                        tag: _key,
-                        titleImageHeight: .8.sh,
-                        backgroundColor: widget.detailsBackgroundColor,
+                        backgroundColor: widget.colorData.backgroundColor,
                       );
                     },
                   ),
                 );
               },
-              image: Hero(tag: _key, child: buildImage(model.titleImageUrl)),
+              image: buildImage(model.imageLinks.first),
               title: model.title,
             );
           },

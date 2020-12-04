@@ -15,14 +15,10 @@ class AussieSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      primary: true,
       pinned: true,
-      elevation: 5,
-      forceElevated: true,
       flexibleSpace: Stack(
         children: [
-          FlexibleSpaceBar(
-            titlePadding: EdgeInsets.only(bottom: 100),
-          ),
           Stack(
             alignment: Alignment.topCenter,
             children: [

@@ -2,6 +2,7 @@ import 'package:aussie/models/ratings.dart';
 import 'package:aussie/presentation/widgets/rating/rating_tile.dart';
 import 'package:aussie/state/ratings/cubit/ratings_cubit.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,16 +13,16 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class RatingSection extends StatefulWidget {
   final bool readOnly;
   final String id;
-  final String titleImageUrl;
+  final List<String> imageLinks;
   final Color ratingsBackgroundColor;
 
   const RatingSection({
     Key key,
     @required this.id,
     this.readOnly = false,
-    @required this.titleImageUrl,
+    @required this.imageLinks,
     @required this.ratingsBackgroundColor,
-  }) : assert(id != null && titleImageUrl != null);
+  }) : assert(id != null && imageLinks != null);
 
   @override
   _RatingSectionState createState() => _RatingSectionState();
@@ -60,7 +61,7 @@ class _RatingSectionState extends State<RatingSection> {
                   MaterialPageRoute(
                     builder: (_) => RatingDetailsScreen(
                       cubit,
-                      widget.titleImageUrl,
+                      widget.imageLinks,
                       widget.ratingsBackgroundColor,
                     ),
                   ),
@@ -113,10 +114,9 @@ class _RatingSectionState extends State<RatingSection> {
 
 class RatingDetailsScreen extends StatefulWidget {
   final RatingsCubit cubit;
-  final String titleImageUrl;
+  final List<String> imageLinks;
   final Color backgroundColor;
-  const RatingDetailsScreen(
-      this.cubit, this.titleImageUrl, this.backgroundColor);
+  const RatingDetailsScreen(this.cubit, this.imageLinks, this.backgroundColor);
   @override
   _RatingDetailsScreenState createState() => _RatingDetailsScreenState();
 }
@@ -151,17 +151,22 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
           child: Icon(Icons.add, size: 100.sp),
         ),
         body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
           slivers: [
             SliverAppBar(
-              stretch: true,
               expandedHeight: .8.sh,
+              pinned: true,
+              primary: true,
               flexibleSpace: FlexibleSpaceBar(
-                stretchModes: [
-                  StretchMode.fadeTitle,
-                  StretchMode.zoomBackground,
-                ],
-                background: buildImage(widget.titleImageUrl),
+                background: CarouselSlider.builder(
+                  itemCount: widget.imageLinks.length,
+                  itemBuilder: (context, index) =>
+                      buildImage(widget.imageLinks[index]),
+                  options: CarouselOptions(
+                    viewportFraction: 1,
+                    height: .8.sh,
+                    enableInfiniteScroll: false,
+                  ),
+                ),
                 title: Text("Ratings"),
                 centerTitle: true,
               ),

@@ -62,8 +62,6 @@ class SizedTile extends StatelessWidget {
       width: widthFactor,
       height: heightFactor,
       margin: containerMargin,
-      decoration: BoxDecoration(
-          boxShadow: [BoxShadow(offset: Offset(0, 0), blurRadius: 2)]),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [

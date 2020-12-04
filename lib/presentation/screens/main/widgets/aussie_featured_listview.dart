@@ -1,4 +1,5 @@
 import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/screens/main/main.dart';
 import 'package:aussie/state/efe/cubit/efe_cubit.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,8 @@ class AussieFeaturedListView<T extends MainScreenDetailsModel>
     extends StatefulWidget {
   final String route;
   final MainScreenDetailsModel Function(Map<String, dynamic> map) creator;
-  final Color detailsBackgroundColor;
-  const AussieFeaturedListView(
-      this.route, this.creator, this.detailsBackgroundColor);
+  final AussieColorData colorData;
+  const AussieFeaturedListView(this.route, this.creator, this.colorData);
   @override
   _AussieFeaturedListViewState<T> createState() =>
       _AussieFeaturedListViewState<T>();
@@ -37,10 +37,7 @@ class _AussieFeaturedListViewState<T extends MainScreenDetailsModel>
       builder: (context, state) {
         if (state is EFEDataChanged) {
           return SliverToBoxAdapter(
-            child: buildTiles(
-              200,
-              [...state.models, ...state.models, ...state.models],
-            ),
+            child: buildTiles(state.models),
           );
         }
         return SliverToBoxAdapter(
@@ -52,19 +49,17 @@ class _AussieFeaturedListViewState<T extends MainScreenDetailsModel>
     );
   }
 
-  Widget buildTiles(
-      double initialScrollOffset, List<MainScreenDetailsModel> models) {
+  Widget buildTiles(List<MainScreenDetailsModel> models) {
     return MainScreen.buildTiles(
       models,
       widthFactor: .75.sw,
       heightFactor: .20.sh,
       swatchWidthFactor: 1.sw,
       swatchHeightFactor: .03.sh,
-      titleImageHeight: .8.sh,
-      listHeightFactor: .45.sh,
-      swatchColor: Colors.red,
-      listScrollOffset: initialScrollOffset,
-      detailsBackgroundColor: widget.detailsBackgroundColor,
+      titleImageHeight: 1.sh,
+      listHeightFactor: .6.sh,
+      swatchColor: widget.colorData.swatchColor,
+      detailsBackgroundColor: widget.colorData.backgroundColor,
     );
   }
 }

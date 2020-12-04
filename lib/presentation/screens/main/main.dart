@@ -33,10 +33,8 @@ class MainScreen extends StatelessWidget {
         return AussieScrollableList(
           heightFactor: listHeightFactor,
           scrollDirection: Axis.horizontal,
-          initalScrollOffset: listScrollOffset,
           children: models.map(
             (model) {
-              var _key = UniqueKey().toString();
               return SizedTile.withDetails(
                 widthFactor: widthFactor,
                 heightFactor: heightFactor,
@@ -44,13 +42,11 @@ class MainScreen extends StatelessWidget {
                 swatchHeightFactor: swatchHeightFactor,
                 title: model.title,
                 swatchColor: swatchColor,
-                image: buildImage(model.titleImageUrl, fit: BoxFit.fill),
+                image: buildImage(model.imageLinks.first, fit: BoxFit.fill),
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (BuildContext context) => EFEDetails(
                       model: model,
-                      tag: _key,
-                      titleImageHeight: titleImageHeight,
                       backgroundColor: detailsBackgroundColor,
                     ),
                   ),

@@ -29,8 +29,8 @@ class FoodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context);
-    var _backgroundColor = _currentTheme.foodScreenColor.backgroundColor;
+    var _currentTheme = getCurrentThemeModel(context).foodScreenColor;
+    var _backgroundColor = _currentTheme.backgroundColor;
     return AussieScaffold(
       drawer: getAppDrawer(context),
       backgroundColor: _backgroundColor,
@@ -38,7 +38,7 @@ class FoodScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             AussieSliverAppBar(
-              _currentTheme.foodScreenColor.swatchColor,
+              _currentTheme.swatchColor,
               getTranslation(context, FoodScreen.data.tTitle),
             ),
             buildTitle(getTranslation(context, "featuredTitle")),
@@ -46,14 +46,14 @@ class FoodScreen extends StatelessWidget {
               "movies_list",
               (Map<String, dynamic> map) =>
                   FoodAndDrinksDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<FoodAndDrinksDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) =>
                   FoodAndDrinksDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
           ],
         ),

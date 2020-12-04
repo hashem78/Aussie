@@ -29,8 +29,8 @@ class PlacesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context);
-    var _backgroundColor = _currentTheme.placesScreenColor.backgroundColor;
+    var _currentTheme = getCurrentThemeModel(context).placesScreenColor;
+    var _backgroundColor = _currentTheme.backgroundColor;
     return AussieScaffold(
       drawer: getAppDrawer(context),
       backgroundColor: _backgroundColor,
@@ -38,20 +38,20 @@ class PlacesScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             AussieSliverAppBar(
-              _currentTheme.placesScreenColor.swatchColor,
+              _currentTheme.swatchColor,
               getTranslation(context, PlacesScreen.data.tTitle),
             ),
             buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<PlacesDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<PlacesDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
           ],
         ),

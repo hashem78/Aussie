@@ -29,8 +29,8 @@ class EventsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context);
-    var _backgroundColor = _currentTheme.eventsScreenColor.backgroundColor;
+    var _currentTheme = getCurrentThemeModel(context).eventsScreenColor;
+    var _backgroundColor = _currentTheme.backgroundColor;
     return AussieScaffold(
       drawer: getAppDrawer(context),
       backgroundColor: _backgroundColor,
@@ -38,20 +38,20 @@ class EventsScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             AussieSliverAppBar(
-              _currentTheme.eventsScreenColor.swatchColor,
+              _currentTheme.swatchColor,
               getTranslation(context, EventsScreen.data.tTitle),
             ),
             buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
-              _backgroundColor,
+              _currentTheme,
             ),
           ],
         ),
