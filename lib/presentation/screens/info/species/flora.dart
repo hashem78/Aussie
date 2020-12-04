@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class FloraScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "flora_images",
     navPath: "/main/info/flora",
     svgName: "flora.svg",
     tTitle: "floraTitle",
@@ -44,6 +45,7 @@ class FloraScreen extends StatelessWidget {
             _casted.thumbnailImageUrls.isNotEmpty
                 ? _casted.thumbnailImageUrls[0]
                 : null,
+            fit: BoxFit.cover,
           ),
           title: Text(
             _casted.commonName,

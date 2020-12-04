@@ -12,6 +12,7 @@ enum SocialMediaPlatform {
   netflix,
   hulu,
   youtubeTV,
+  spotify,
 }
 
 extension sm2e on String {

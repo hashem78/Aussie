@@ -14,6 +14,7 @@ import 'package:aussie/presentation/widgets/paginated/tile.dart';
 
 class TeritoriesScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "teritory_images",
     navPath: "/main/info/teritories",
     svgName: "australia.svg",
     tTitle: "teritoriesTitle",
@@ -38,7 +39,7 @@ class TeritoriesScreen extends StatelessWidget {
       appBarColor: _currentTheme.swatchColor,
       backgroundColor: _currentTheme.backgroundColor,
       title: getTranslation(context, TeritoriesScreen.data.tTitle),
-      thumbnailCubitRoute: "teritory_images",
+      thumbnailCubitRoute: TeritoriesScreen.data.thumbnailRoute,
       cubit: cubit,
       filterFor: "title",
       itemBuilder: (context, item, index) {

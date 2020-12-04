@@ -31,8 +31,7 @@ class EventDetailsModel extends MainScreenDetailsModel
   Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         imageLinks: imageLinks,
-        ratingsBackgroundColor:
-            getCurrentThemeModel(context).eventsScreenColor.backgroundColor,
+        colorData: getCurrentThemeModel(context).eventsScreenColor,
       );
   factory EventDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

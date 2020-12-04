@@ -34,9 +34,7 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
   Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         imageLinks: imageLinks,
-        ratingsBackgroundColor: getCurrentThemeModel(context)
-            .entertainmentScreenColor
-            .backgroundColor,
+        colorData: getCurrentThemeModel(context).entertainmentScreenColor,
       );
 
   @override

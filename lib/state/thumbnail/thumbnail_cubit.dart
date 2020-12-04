@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 part 'thumbnail_state.dart';
 
 class ThumbnailCubit extends Cubit<ThumbnailState> {
-  ThumbnailCubit(route)
+  ThumbnailCubit(String route)
       : route = route,
         _proivder = ThumbnailOnlineRepository(route: route),
         super(ThumbnailInitial());

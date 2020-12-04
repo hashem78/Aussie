@@ -27,8 +27,7 @@ class FoodAndDrinksDetailsModel extends MainScreenDetailsModel
   Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         imageLinks: imageLinks,
-        ratingsBackgroundColor:
-            getCurrentThemeModel(context).foodScreenColor.backgroundColor,
+        colorData: getCurrentThemeModel(context).foodScreenColor,
       );
   factory FoodAndDrinksDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

@@ -65,8 +65,8 @@ class _AussiePagedListViewState<T extends MainScreenDetailsModel>
             return SizedTile.withDetails(
               widthFactor: 1.sw,
               containerMargin: EdgeInsets.all(5),
-              heightFactor: .7.sh,
-              swatchHeightFactor: .03.sh,
+              heightFactor: .75.sh,
+              swatchHeightFactor: .05.sh,
               swatchColor: widget.colorData.swatchColor,
               swatchWidthFactor: 1.sw,
               onTap: () {
@@ -82,7 +82,7 @@ class _AussiePagedListViewState<T extends MainScreenDetailsModel>
                   ),
                 );
               },
-              image: buildImage(model.imageLinks.first),
+              image: buildImage(model.imageLinks.first, fit: BoxFit.cover),
               title: model.title,
             );
           },

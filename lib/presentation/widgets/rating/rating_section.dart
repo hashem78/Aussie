@@ -1,4 +1,5 @@
 import 'package:aussie/models/ratings.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/rating/rating_tile.dart';
 import 'package:aussie/state/ratings/cubit/ratings_cubit.dart';
 import 'package:aussie/util/functions.dart';
@@ -14,15 +15,15 @@ class RatingSection extends StatefulWidget {
   final bool readOnly;
   final String id;
   final List<String> imageLinks;
-  final Color ratingsBackgroundColor;
+  final AussieColorData colorData;
 
-  const RatingSection({
-    Key key,
-    @required this.id,
-    this.readOnly = false,
-    @required this.imageLinks,
-    @required this.ratingsBackgroundColor,
-  }) : assert(id != null && imageLinks != null);
+  const RatingSection(
+      {Key key,
+      @required this.id,
+      this.readOnly = false,
+      @required this.imageLinks,
+      @required this.colorData})
+      : assert(id != null && imageLinks != null);
 
   @override
   _RatingSectionState createState() => _RatingSectionState();
@@ -62,7 +63,7 @@ class _RatingSectionState extends State<RatingSection> {
                     builder: (_) => RatingDetailsScreen(
                       cubit,
                       widget.imageLinks,
-                      widget.ratingsBackgroundColor,
+                      widget.colorData,
                     ),
                   ),
                 );
@@ -115,8 +116,8 @@ class _RatingSectionState extends State<RatingSection> {
 class RatingDetailsScreen extends StatefulWidget {
   final RatingsCubit cubit;
   final List<String> imageLinks;
-  final Color backgroundColor;
-  const RatingDetailsScreen(this.cubit, this.imageLinks, this.backgroundColor);
+  final AussieColorData colorData;
+  const RatingDetailsScreen(this.cubit, this.imageLinks, this.colorData);
   @override
   _RatingDetailsScreenState createState() => _RatingDetailsScreenState();
 }
@@ -140,7 +141,7 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: widget.backgroundColor,
+        backgroundColor: widget.colorData.backgroundColor,
         key: _scaffoldState,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -154,6 +155,7 @@ class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
           slivers: [
             SliverAppBar(
               expandedHeight: .8.sh,
+              backgroundColor: widget.colorData.swatchColor,
               pinned: true,
               primary: true,
               flexibleSpace: FlexibleSpaceBar(

@@ -54,7 +54,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   @override
   void initState() {
     thumbnailCubit = ThumbnailCubit(route);
-    thumbnailCubit.fetch();
+
     _controller.addPageRequestListener((pageKey) {
       if (searchQuery.isNotEmpty && searchQuery != null) {
         widget.cubit.filter(widget.filterFor, searchQuery);

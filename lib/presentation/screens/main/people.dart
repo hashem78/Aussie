@@ -3,17 +3,18 @@ import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
+import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/models/main_screen/explore/people/details.dart';
 
-import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
-
 import 'package:aussie/util/functions.dart';
 
 class PeopleScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "people_images",
     themeAttribute: "peopleScreenColor",
     tTitle: "peopleTitle",
     svgName: "people.svg",
@@ -38,9 +39,10 @@ class PeopleScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            AussieSliverAppBar(
-              _currentTheme.swatchColor,
-              getTranslation(context, PeopleScreen.data.tTitle),
+            AussieThumbnailedSliverAppBar(
+              cubit: ThumbnailCubit(PeopleScreen.data.thumbnailRoute),
+              title: getTranslation(context, PeopleScreen.data.tTitle),
+              backgroundColor: _currentTheme.swatchColor,
             ),
             AussieFeaturedListView<PeopleDetailsModel>(
               "people_list",

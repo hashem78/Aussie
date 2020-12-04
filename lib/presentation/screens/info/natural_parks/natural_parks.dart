@@ -12,6 +12,7 @@ import 'package:aussie/presentation/screens/searchable_paginated.dart';
 
 class NaturalParksScreen extends StatelessWidget {
   static AussieScreenData data = const AussieScreenData(
+    thumbnailRoute: "park_images",
     tTitle: "naturalParksTitle",
     themeAttribute: "naturalParksScreenColor",
     navPath: "/main/info/naturalParks",
@@ -36,7 +37,7 @@ class NaturalParksScreen extends StatelessWidget {
       cubit: cubit,
       title: getTranslation(context, data.tTitle),
       filterFor: "park_name",
-      thumbnailCubitRoute: "park_images",
+      thumbnailCubitRoute: NaturalParksScreen.data.thumbnailRoute,
       itemBuilder: (context, item, index) {
         var _casted = item as NaturalParkModel;
         var _key = UniqueKey();

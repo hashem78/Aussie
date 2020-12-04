@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EntertainmentScreen extends StatefulWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "teritory_images",
     themeAttribute: "entertainmentScreenColor",
     tTitle: "entertainmentTitle",
     svgName: "entertainment.svg",

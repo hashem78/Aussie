@@ -27,8 +27,7 @@ class PlacesDetailsModel extends MainScreenDetailsModel
   Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
         imageLinks: imageLinks,
-        ratingsBackgroundColor:
-            getCurrentThemeModel(context).placesScreenColor.backgroundColor,
+        colorData: getCurrentThemeModel(context).placesScreenColor,
       );
   factory PlacesDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

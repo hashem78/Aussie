@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DYKScreen extends StatefulWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "flora_images",
     tTitle: "dykTitle",
     navPath: "/dyk",
     svgName: "dyk.svg",

@@ -6,7 +6,10 @@ class EFEOnlineDataProvider {
   final String route;
   EFEOnlineDataProvider(this.route);
   Future<List<Map<String, dynamic>>> fetch() async {
-    var _docs = await FirebaseFirestore.instance.collection(route).get();
+    var _docs = await FirebaseFirestore.instance
+        .collection(route)
+        .where("featured", isEqualTo: true)
+        .get();
     List<Map<String, dynamic>> _internalList = [];
     for (var _doc in _docs.docs) {
       var _data = _doc.data();

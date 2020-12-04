@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 class FaunaScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "fauna_images",
     navPath: "/main/info/fauna",
     svgName: "fauna.svg",
     tTitle: "faunaTitle",
@@ -36,7 +37,7 @@ class FaunaScreen extends StatelessWidget {
       backgroundColor: _currentTheme.backgroundColor,
       cubit: cubit,
       filterFor: "commonName",
-      thumbnailCubitRoute: "fauna_images",
+      thumbnailCubitRoute: FaunaScreen.data.thumbnailRoute,
       itemBuilder: (context, item, index) {
         var _casted = item as SpeciesDetailsModel;
         return PaginatedScreenTile(

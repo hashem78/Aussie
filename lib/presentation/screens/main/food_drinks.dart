@@ -13,6 +13,7 @@ import 'package:aussie/util/functions.dart';
 
 class FoodScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "teritory_images",
     themeAttribute: "foodScreenColor",
     tTitle: "foodTitle",
     svgName: "food.svg",

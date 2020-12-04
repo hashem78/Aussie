@@ -13,6 +13,7 @@ import 'package:aussie/util/functions.dart';
 
 class EventsScreen extends StatelessWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "teritory_images",
     themeAttribute: "eventScreenColor",
     tTitle: "eventsTitle",
     svgName: "events.svg",

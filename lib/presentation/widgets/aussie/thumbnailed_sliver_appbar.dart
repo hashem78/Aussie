@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
 
-class AussieThumbnailedSliverAppBar extends StatelessWidget {
+class AussieThumbnailedSliverAppBar extends StatefulWidget {
   final ThumbnailCubit cubit;
   final String title;
   final Color backgroundColor;
@@ -15,19 +15,32 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
     @required this.title,
     @required this.backgroundColor,
   });
+
+  @override
+  _AussieThumbnailedSliverAppBarState createState() =>
+      _AussieThumbnailedSliverAppBarState();
+}
+
+class _AussieThumbnailedSliverAppBarState
+    extends State<AussieThumbnailedSliverAppBar> {
+  @override
+  void initState() {
+    widget.cubit.fetch();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: backgroundColor,
+      backgroundColor: widget.backgroundColor,
       pinned: true,
+      primary: true,
       expandedHeight: .5.sh,
-      forceElevated: true,
-      elevation: 5,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(title),
+        title: Text(widget.title),
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
-          cubit: cubit,
+          cubit: widget.cubit,
           builder: (context, state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
@@ -41,8 +54,7 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
                 options: CarouselOptions(
                   height: .5.sh,
                   viewportFraction: 1,
-                  pageSnapping: false,
-                  autoPlay: true,
+                  enableInfiniteScroll: false,
                 ),
               );
             } else if (state is ThumbnailLoaded) {
@@ -57,7 +69,6 @@ class AussieThumbnailedSliverAppBar extends StatelessWidget {
                 options: CarouselOptions(
                   height: .5.sh,
                   viewportFraction: 1,
-                  pageSnapping: false,
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 10),
                 ),

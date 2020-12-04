@@ -22,7 +22,8 @@ class SocialsIconRow extends StatelessWidget {
     SocialMediaPlatform.primeVideo: Pair(BrandIcons.prime, Colors.blue),
     SocialMediaPlatform.netflix: Pair(BrandIcons.netflix, Colors.red),
     SocialMediaPlatform.hulu: Pair(BrandIcons.hulu, Colors.green),
-    SocialMediaPlatform.youtubeTV: Pair(BrandIcons.youtubetv, Colors.red)
+    SocialMediaPlatform.youtubeTV: Pair(BrandIcons.youtubetv, Colors.red),
+    SocialMediaPlatform.spotify: Pair(BrandIcons.spotify, Colors.green),
   };
   SocialsIconRow(this.icons);
   @override

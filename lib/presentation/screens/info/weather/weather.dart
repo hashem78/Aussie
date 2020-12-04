@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WeatherScreen extends StatefulWidget {
   static final data = AussieScreenData(
+    thumbnailRoute: "teritory_images",
     navPath: "/main/info/weather",
     svgName: "weather.svg",
     tTitle: "weatherTitle",
@@ -37,7 +38,8 @@ class WeatherScreen extends StatefulWidget {
 class _WeatherScreenState extends State<WeatherScreen>
     with TickerProviderStateMixin {
   final WeatherCubit cubit = WeatherCubit();
-  final ThumbnailCubit thumbnailCubit = ThumbnailCubit("teritory_images");
+  final ThumbnailCubit thumbnailCubit =
+      ThumbnailCubit(WeatherScreen.data.thumbnailRoute);
   GlobalKey<SliverAnimatedListState> _listKey = GlobalKey();
   List<WeatherModel> models = [];
   List<LatLng> _coords = [
@@ -55,13 +57,8 @@ class _WeatherScreenState extends State<WeatherScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        cubit.fetch(_coords[0]);
-      },
-    );
 
-    thumbnailCubit.fetch();
+    cubit.fetch(_coords[0]);
   }
 
   @override

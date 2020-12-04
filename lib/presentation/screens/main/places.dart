@@ -13,6 +13,7 @@ import 'package:aussie/util/functions.dart';
 
 class PlacesScreen extends StatelessWidget {
   static final data = const AussieScreenData(
+    thumbnailRoute: "flora_images",
     themeAttribute: "placesScreenColor",
     tTitle: "placesTitle",
     svgName: "places.svg",
