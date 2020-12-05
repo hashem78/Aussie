@@ -6,9 +6,10 @@ import 'package:aussie/providers/online/paginated/ratings/online.dart';
 class PaginatedOnlineRatingsRepository {
   final PaginatedOnlineRatingsProvider _onlineRatingsRepositoryProvider;
   PaginatedOnlineRatingsRepository(
+    String ratingsRoute,
     String ratingsId,
   ) : _onlineRatingsRepositoryProvider =
-            PaginatedOnlineRatingsProvider(ratingsId);
+            PaginatedOnlineRatingsProvider(ratingsRoute, ratingsId);
 
   Future<List<RatingsModel>> fetch(int page, {int fetchAmount}) async {
     var _fetched = await _onlineRatingsRepositoryProvider.fetch(

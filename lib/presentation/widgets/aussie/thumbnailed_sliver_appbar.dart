@@ -10,11 +10,13 @@ class AussieThumbnailedSliverAppBar extends StatefulWidget {
   final ThumbnailCubit cubit;
   final String title;
   final Color backgroundColor;
-  const AussieThumbnailedSliverAppBar({
+  final double height;
+  AussieThumbnailedSliverAppBar({
     @required this.cubit,
     @required this.title,
     @required this.backgroundColor,
-  });
+    double height,
+  }) : height = height ?? .5.sh;
 
   @override
   _AussieThumbnailedSliverAppBarState createState() =>
@@ -35,7 +37,7 @@ class _AussieThumbnailedSliverAppBarState
       backgroundColor: widget.backgroundColor,
       pinned: true,
       primary: true,
-      expandedHeight: .5.sh,
+      expandedHeight: widget.height,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(widget.title),
         centerTitle: true,
@@ -52,7 +54,7 @@ class _AussieThumbnailedSliverAppBarState
                   )
                 ],
                 options: CarouselOptions(
-                  height: .5.sh,
+                  height: widget.height,
                   viewportFraction: 1,
                   enableInfiniteScroll: false,
                 ),
@@ -67,7 +69,7 @@ class _AussieThumbnailedSliverAppBarState
                   fit: BoxFit.cover,
                 ),
                 options: CarouselOptions(
-                  height: .5.sh,
+                  height: widget.height,
                   viewportFraction: 1,
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 10),

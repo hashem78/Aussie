@@ -28,6 +28,7 @@ class FoodAndDrinksDetailsModel extends MainScreenDetailsModel
         id: id,
         imageLinks: imageLinks,
         colorData: getCurrentThemeModel(context).foodScreenColor,
+        ratingsRoute: ratingsRoute,
       );
   factory FoodAndDrinksDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -50,4 +51,7 @@ class FoodAndDrinksDetailsModel extends MainScreenDetailsModel
 
     return _model;
   }
+
+  @override
+  String get ratingsRoute => "food_reviews";
 }

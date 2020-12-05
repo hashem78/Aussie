@@ -4,16 +4,16 @@ import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listview.dart';
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
+import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
 import 'package:aussie/util/functions.dart';
 
 class PlacesScreen extends StatelessWidget {
   static final data = const AussieScreenData(
-    thumbnailRoute: "flora_images",
+    thumbnailRoute: "places_images",
     themeAttribute: "placesScreenColor",
     tTitle: "placesTitle",
     svgName: "places.svg",
@@ -38,19 +38,20 @@ class PlacesScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            AussieSliverAppBar(
-              _currentTheme.swatchColor,
-              getTranslation(context, PlacesScreen.data.tTitle),
+            AussieThumbnailedSliverAppBar(
+              cubit: ThumbnailCubit(PlacesScreen.data.thumbnailRoute),
+              title: getTranslation(context, PlacesScreen.data.tTitle),
+              backgroundColor: _currentTheme.swatchColor,
+              height: .7.sh,
             ),
-            buildTitle(getTranslation(context, "featuredTitle")),
             AussieFeaturedListView<PlacesDetailsModel>(
-              "movies_list",
+              "places_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
               _currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<PlacesDetailsModel>(
-              "movies_list",
+              "places_list",
               (Map<String, dynamic> map) => PlacesDetailsModel.fromMap(map),
               _currentTheme,
             ),

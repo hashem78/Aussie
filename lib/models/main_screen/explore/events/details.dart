@@ -32,6 +32,7 @@ class EventDetailsModel extends MainScreenDetailsModel
         id: id,
         imageLinks: imageLinks,
         colorData: getCurrentThemeModel(context).eventsScreenColor,
+        ratingsRoute: ratingsRoute,
       );
   factory EventDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -56,4 +57,7 @@ class EventDetailsModel extends MainScreenDetailsModel
 
   @override
   bool get stringify => true;
+
+  @override
+  String get ratingsRoute => "events_reviews";
 }

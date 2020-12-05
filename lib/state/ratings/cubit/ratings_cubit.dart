@@ -7,8 +7,8 @@ import 'package:flutter/foundation.dart';
 part 'ratings_state.dart';
 
 class RatingsCubit extends Cubit<RatingsState> {
-  RatingsCubit(String id)
-      : _repository = PaginatedOnlineRatingsRepository(id),
+  RatingsCubit(String ratingsRoute, String id)
+      : _repository = PaginatedOnlineRatingsRepository(ratingsRoute, id),
         super(RatingsInitial());
   PaginatedOnlineRatingsRepository _repository;
   void fetch(int page, {int fetchAmount}) async {

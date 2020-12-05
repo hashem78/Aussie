@@ -43,6 +43,7 @@ class PeopleScreen extends StatelessWidget {
               cubit: ThumbnailCubit(PeopleScreen.data.thumbnailRoute),
               title: getTranslation(context, PeopleScreen.data.tTitle),
               backgroundColor: _currentTheme.swatchColor,
+              height: .7.sh,
             ),
             AussieFeaturedListView<PeopleDetailsModel>(
               "people_list",

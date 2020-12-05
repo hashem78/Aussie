@@ -14,16 +14,18 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 class RatingSection extends StatefulWidget {
   final bool readOnly;
   final String id;
+  final String ratingsRoute;
   final List<String> imageLinks;
   final AussieColorData colorData;
 
-  const RatingSection(
-      {Key key,
-      @required this.id,
-      this.readOnly = false,
-      @required this.imageLinks,
-      @required this.colorData})
-      : assert(id != null && imageLinks != null);
+  const RatingSection({
+    Key key,
+    @required this.id,
+    this.readOnly = false,
+    @required this.imageLinks,
+    @required this.colorData,
+    @required this.ratingsRoute,
+  }) : assert(id != null && imageLinks != null && ratingsRoute != null);
 
   @override
   _RatingSectionState createState() => _RatingSectionState();
@@ -31,12 +33,13 @@ class RatingSection extends StatefulWidget {
 
 class _RatingSectionState extends State<RatingSection> {
   final String title = "Reviews";
+
   RatingsCubit cubit;
   bool rebuildRatings = true;
   @override
   void initState() {
     super.initState();
-    cubit = RatingsCubit(widget.id);
+    cubit = RatingsCubit(widget.ratingsRoute, widget.id);
     cubit.getSpecificAmount(3);
   }
 

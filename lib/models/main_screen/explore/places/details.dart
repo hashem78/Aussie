@@ -12,7 +12,6 @@ class PlacesDetailsModel extends MainScreenDetailsModel
   final String id;
   const PlacesDetailsModel({
     @required String title,
-    @required String titleImageUrl,
     @required this.id,
     Map<SocialMediaPlatform, String> socialMediaPlatforms,
     Map<String, String> descriptions,
@@ -28,6 +27,7 @@ class PlacesDetailsModel extends MainScreenDetailsModel
         id: id,
         imageLinks: imageLinks,
         colorData: getCurrentThemeModel(context).placesScreenColor,
+        ratingsRoute: ratingsRoute,
       );
   factory PlacesDetailsModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -41,7 +41,6 @@ class PlacesDetailsModel extends MainScreenDetailsModel
     );
     var _model = PlacesDetailsModel(
       title: map["title"].toString(),
-      titleImageUrl: map["titleImageUrl"].toString(),
       id: map["id"].toString(),
       socialMediaPlatforms: _platforms,
       descriptions: Map<String, String>.from(map["descriptions"]),
@@ -50,4 +49,7 @@ class PlacesDetailsModel extends MainScreenDetailsModel
 
     return _model;
   }
+
+  @override
+  String get ratingsRoute => "places_reviews";
 }

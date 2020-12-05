@@ -1,4 +1,3 @@
-import 'package:aussie/constants.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:aussie/util/functions.dart';
@@ -57,7 +56,8 @@ class SettingsScreen extends StatelessWidget {
                         context: context,
                         applicationVersion: "1.0",
                         applicationName: "Aussie",
-                        applicationLegalese: klorem,
+                        applicationLegalese:
+                            getTranslation(context, "legalese"),
                       );
                     },
                     leading: Text(getTranslation(context, "aboutAussieText")),

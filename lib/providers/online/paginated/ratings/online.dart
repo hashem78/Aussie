@@ -4,13 +4,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PaginatedOnlineRatingsProvider {
   final String docId;
-  PaginatedOnlineRatingsProvider(this.docId) : assert(docId != null);
+  final String route;
+  PaginatedOnlineRatingsProvider(this.route, this.docId)
+      : assert(
+          docId != null,
+          route != null,
+        );
   Future<List<Map<String, dynamic>>> fetch(
     int page, {
     int fetchAmount,
   }) async {
     var _reviewsCollection = await FirebaseFirestore.instance
-        .collection("movies/$docId/reviews")
+        .collection("$route/$docId/reviews")
         .where(
           "index",
           isGreaterThanOrEqualTo: page,
@@ -30,7 +35,7 @@ class PaginatedOnlineRatingsProvider {
 
   Future<List<Map<String, dynamic>>> getSpecificAmount(int fetchAmount) async {
     var _reviewsCollection = await FirebaseFirestore.instance
-        .collection("movies/$docId/reviews")
+        .collection("$route/$docId/reviews")
         .limit(3)
         .get();
     var _reviewDocs = _reviewsCollection.docs;
@@ -48,7 +53,7 @@ class PaginatedOnlineRatingsProvider {
     FirebaseFirestore.instance.runTransaction(
       (transaction) async {
         var _reviewsCollection =
-            FirebaseFirestore.instance.collection("movies/$docId/reviews");
+            FirebaseFirestore.instance.collection("$route/$docId/reviews");
 
         var _currentIndex = await transaction.get(
           _reviewsCollection.doc("current_index"),

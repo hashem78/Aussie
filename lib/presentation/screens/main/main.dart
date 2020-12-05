@@ -66,7 +66,9 @@ class MainScreen extends StatelessWidget {
       drawer: getAppDrawer(context),
       body: SafeArea(
         child: CustomScrollView(
-          slivers: [AussieSliverAppBar(kausBlue, "Aussie")],
+          slivers: [
+            AussieSliverAppBar(kausBlue, "Aussie"),
+          ],
         ),
       ),
     );

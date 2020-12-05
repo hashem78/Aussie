@@ -33,6 +33,7 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
   @override
   Widget buildRatings(BuildContext context) => RatingSection(
         id: id,
+        ratingsRoute: ratingsRoute,
         imageLinks: imageLinks,
         colorData: getCurrentThemeModel(context).entertainmentScreenColor,
       );
@@ -70,4 +71,7 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
 
   @override
   bool get stringify => true;
+
+  @override
+  String get ratingsRoute => "entertainment_reviews";
 }
