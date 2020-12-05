@@ -1,6 +1,5 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
-import 'package:aussie/presentation/screens/dyk.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
@@ -73,7 +72,6 @@ class ThemeCubit extends Cubit<ThemeState> {
         teritoriesScreenColor: TeritoriesScreen.data.dark,
         weatherScreenColor: WeatherScreen.data.dark,
         naturalParksScreenColor: NaturalParksScreen.data.dark,
-        dykScreenColor: DYKScreen.data.dark,
       );
     } else {
       changeTheme(
@@ -88,7 +86,6 @@ class ThemeCubit extends Cubit<ThemeState> {
         teritoriesScreenColor: TeritoriesScreen.data.light,
         weatherScreenColor: WeatherScreen.data.light,
         naturalParksScreenColor: NaturalParksScreen.data.light,
-        dykScreenColor: DYKScreen.data.light,
       );
     }
   }

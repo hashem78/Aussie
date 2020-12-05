@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aussie/models/themes/color_data.dart';
-import 'package:aussie/presentation/screens/dyk.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
@@ -30,7 +29,6 @@ class ThemeModel extends Equatable {
   final AussieColorData teritoriesScreenColor;
   final AussieColorData weatherScreenColor;
   final AussieColorData naturalParksScreenColor;
-  final AussieColorData dykScreenColor;
   static final Map<String, dynamic> defaultThemeMap = {
     "brightness": "light",
   };
@@ -46,7 +44,6 @@ class ThemeModel extends Equatable {
     AussieColorData teritoriesScreenColor,
     AussieColorData weatherScreenColor,
     AussieColorData naturalParksScreenColor,
-    AussieColorData dykScreenColor,
   })  : brightness = brightness ?? Brightness.light,
         peopleScreenColor = peopleScreenColor ?? PeopleScreen.data.light,
         foodScreenColor = foodScreenColor ?? FoodScreen.data.light,
@@ -60,8 +57,7 @@ class ThemeModel extends Equatable {
             teritoriesScreenColor ?? TeritoriesScreen.data.light,
         weatherScreenColor = weatherScreenColor ?? WeatherScreen.data.light,
         naturalParksScreenColor =
-            naturalParksScreenColor ?? NaturalParksScreen.data.light,
-        dykScreenColor = dykScreenColor ?? DYKScreen.data.light;
+            naturalParksScreenColor ?? NaturalParksScreen.data.light;
 
   factory ThemeModel.fromMap(Map<String, dynamic> map) {
     return ThemeModel(
@@ -87,8 +83,6 @@ class ThemeModel extends Equatable {
           AussieColorData.fromMap(map[WeatherScreen.data.themeAttribute]),
       naturalParksScreenColor:
           AussieColorData.fromMap(map[NaturalParksScreen.data.themeAttribute]),
-      dykScreenColor:
-          AussieColorData.fromMap(map[DYKScreen.data.themeAttribute]),
     );
   }
   Map<String, dynamic> get toMap => {
@@ -104,7 +98,6 @@ class ThemeModel extends Equatable {
         TeritoriesScreen.data.themeAttribute: teritoriesScreenColor.toMap(),
         WeatherScreen.data.themeAttribute: weatherScreenColor.toMap(),
         NaturalParksScreen.data.themeAttribute: naturalParksScreenColor.toMap(),
-        DYKScreen.data.themeAttribute: dykScreenColor.toMap(),
       };
   String toJson() => jsonEncode(toMap);
 
@@ -122,7 +115,6 @@ class ThemeModel extends Equatable {
       teritoriesScreenColor,
       weatherScreenColor,
       naturalParksScreenColor,
-      dykScreenColor,
     ];
   }
 
@@ -155,7 +147,6 @@ class ThemeModel extends Equatable {
       weatherScreenColor: weatherScreenColor ?? this.weatherScreenColor,
       naturalParksScreenColor:
           naturalParksScreenColor ?? this.naturalParksScreenColor,
-      dykScreenColor: dykScreenColor ?? this.dykScreenColor,
     );
   }
 

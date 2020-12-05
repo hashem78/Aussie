@@ -1,5 +1,4 @@
 import 'package:aussie/constants.dart';
-import 'package:aussie/presentation/screens/dyk.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
@@ -178,12 +177,6 @@ class AussieAppDrawer extends StatelessWidget {
           svgName: NaturalParksScreen.data.svgName,
           tTitle: NaturalParksScreen.data.tTitle,
           iconColor: Colors.green.shade900,
-        ),
-        _DrawerItemModel(
-          navPath: DYKScreen.data.navPath,
-          svgName: DYKScreen.data.svgName,
-          tTitle: DYKScreen.data.tTitle,
-          iconColor: Colors.blue,
         ),
       ];
   final List<_DrawerSection> sections = [
