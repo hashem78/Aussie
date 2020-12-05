@@ -31,7 +31,6 @@ import 'package:aussie/presentation/screens/statistics/gdp.dart';
 import 'package:aussie/presentation/screens/statistics/heducation.dart';
 import 'package:aussie/presentation/screens/statistics/livestock.dart';
 import 'package:aussie/presentation/screens/statistics/religion.dart';
-import 'package:aussie/presentation/screens/statistics/statistics.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 void main() async {
@@ -118,10 +117,9 @@ class MyApp extends StatelessWidget {
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
     TeritoriesScreen.data.navPath: (BuildContext context) => TeritoriesScreen(),
     MainScreen.navPath: (BuildContext context) => MainScreen(),
-    StatisticsScreen.navPath: (BuildContext context) => StatisticsScreen(),
     FaunaScreen.data.navPath: (BuildContext context) => FaunaScreen(),
     FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),
-    ReligionScreen.navPath: (BuildContext context) => ReligionScreen(),
+    ReligionScreen.data.navPath: (BuildContext context) => ReligionScreen(),
     EnergyScreen.navPath: (BuildContext context) => EnergyScreen(),
     LivestockScreen.navPath: (BuildContext context) => LivestockScreen(),
     GDPScreen.navPath: (BuildContext context) => GDPScreen(),

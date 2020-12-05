@@ -18,7 +18,10 @@ class LivestockScreen extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool _) => [
           SliverAppBar(
-            backgroundColor: Colors.amber,
+            backgroundColor: Colors.amber.shade900,
+            pinned: true,
+            primary: true,
+            elevation: 0,
             title: Text(getTranslation(context, "liveStockTitle")),
             centerTitle: true,
           ),
@@ -28,10 +31,10 @@ class LivestockScreen extends StatelessWidget {
           children: [
             ExpandingTextTile(
               title: getTranslation(context, "liveStockTitle"),
-              text: klorem,
+              text: livestockDescription,
             ),
             ExpandingTextTile(
-              text: klorem,
+              text: c3no,
               title: "CN30",
             ),
             AussieBarChart(

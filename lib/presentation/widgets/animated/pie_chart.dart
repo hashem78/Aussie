@@ -17,7 +17,7 @@ class Indicator extends StatelessWidget {
   const Indicator({
     this.color,
     this.text,
-    this.size = 16,
+    this.size = 40,
     this.textColor = const Color(0xff505050),
     EdgeInsets indicatorMargin,
   }) : indicatorMargin = indicatorMargin ?? const EdgeInsets.only(left: 20);
@@ -55,7 +55,6 @@ class Indicator extends StatelessWidget {
 class AussiePieChart extends StatefulWidget {
   final List<AussiePieChartModel> chartData;
 
-  final void Function(int page) onBarTapped;
   final double aspectRatio;
   final String title;
   final double sectionRadius;
@@ -65,7 +64,6 @@ class AussiePieChart extends StatefulWidget {
   final bool showIndicators;
   const AussiePieChart({
     @required this.chartData,
-    this.onBarTapped,
     this.aspectRatio = 1.05,
     this.sectionRadius = 180,
     this.title,
@@ -162,22 +160,6 @@ class _AussiePieChartState extends State<AussiePieChart>
   PieChart buildPieChart() {
     return PieChart(
       PieChartData(
-        pieTouchData: PieTouchData(
-          touchCallback: (PieTouchResponse response) {
-            setState(
-              () {
-                if (response.touchInput is FlPanEnd ||
-                    response.touchInput is FlLongPressEnd) {
-                  if (touchedIndex != null && widget.onBarTapped != null)
-                    widget.onBarTapped(touchedIndex);
-                  touchedIndex = -1;
-                } else {
-                  touchedIndex = response.touchedSectionIndex;
-                }
-              },
-            );
-          },
-        ),
         borderData: FlBorderData(show: false),
         sectionsSpace: 0,
         centerSpaceRadius: 0,

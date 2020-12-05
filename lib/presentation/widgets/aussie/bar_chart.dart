@@ -67,7 +67,7 @@ class _AussieBarChartState extends State<AussieBarChart>
           ),
         ),
         SizedBox(
-          height: 10.h,
+          height: 40.h,
         ),
         Padding(
           padding: EdgeInsets.symmetric(

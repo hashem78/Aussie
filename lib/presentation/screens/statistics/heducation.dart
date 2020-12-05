@@ -20,7 +20,9 @@ class HEducationScreen extends StatelessWidget {
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool _) => [
           SliverAppBar(
-            backgroundColor: Colors.amber,
+            primary: true,
+            pinned: true,
+            backgroundColor: Colors.amber.shade900,
             elevation: 0,
             title: Text(getTranslation(context, HEducationScreen.title)),
           ),
@@ -28,6 +30,11 @@ class HEducationScreen extends StatelessWidget {
         body: ListView(
           physics: NeverScrollableScrollPhysics(),
           children: [
+            ExpandingTextTile(
+              text: heducation,
+              title: "Higher Edcuation",
+              color: Colors.amber.shade900,
+            ),
             AutoSizeText(
               "1,609,798 students in total",
               textAlign: TextAlign.center,
@@ -58,7 +65,6 @@ class HEducationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ExpandingTextTile(text: klorem, title: "Sad"),
             AspectRatio(
               aspectRatio: .66,
               child: AussiePieChart(
@@ -121,7 +127,6 @@ class HEducationScreen extends StatelessWidget {
                 ],
               ),
             ),
-            ExpandingTextTile(text: klorem, title: "Sad"),
           ],
         ),
       ),

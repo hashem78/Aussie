@@ -88,9 +88,9 @@ class _DrawerSection extends StatelessWidget {
 class AussieAppDrawer extends StatelessWidget {
   static get statisticsModels => [
         _DrawerItemModel(
-          navPath: ReligionScreen.navPath,
-          svgName: ReligionScreen.svgName,
-          tTitle: ReligionScreen.title,
+          navPath: ReligionScreen.data.navPath,
+          svgName: ReligionScreen.data.svgName,
+          tTitle: ReligionScreen.data.tTitle,
         ),
         _DrawerItemModel(
           navPath: LivestockScreen.navPath,
@@ -301,7 +301,8 @@ class _DrawerItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
       child: Stack(
         children: [
-          InkWell(
+          ListTile(
+            //tileColor: Theme.of(context).secondaryHeaderColor,
             onTap: () {
               if (!model.assumeOrder) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -310,20 +311,14 @@ class _DrawerItem extends StatelessWidget {
                 Navigator.of(context).pushNamed(model.navPath);
               }
             },
-            splashColor: Colors.red,
-            child: Ink(
-              child: ListTile(
-                //tileColor: Theme.of(context).secondaryHeaderColor,
-                leading: SvgPicture.asset(
-                  "assests/images/${model.svgName}",
-                  height: 60.sp,
-                  color: model.iconColor,
-                ),
-                title: Text(
-                  getTranslation(context, model.tTitle),
-                  style: TextStyle(fontSize: 50.sp),
-                ),
-              ),
+            leading: SvgPicture.asset(
+              "assests/images/${model.svgName}",
+              height: 60.sp,
+              color: model.iconColor,
+            ),
+            title: Text(
+              getTranslation(context, model.tTitle),
+              style: TextStyle(fontSize: 50.sp),
             ),
           ),
         ],
