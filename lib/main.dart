@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/models/themes/themes.dart';
-import 'package:aussie/presentation/screens/dyk.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
@@ -113,7 +112,6 @@ class MyApp extends StatelessWidget {
   static final Map<String, Widget Function(BuildContext)> routes = {
     NaturalParksScreen.data.navPath: (BuildContext context) =>
         NaturalParksScreen(),
-    DYKScreen.data.navPath: (BuildContext context) => DYKScreen(),
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
     TeritoriesScreen.data.navPath: (BuildContext context) => TeritoriesScreen(),
     MainScreen.navPath: (BuildContext context) => MainScreen(),

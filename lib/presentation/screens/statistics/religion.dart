@@ -53,7 +53,7 @@ class ReligionScreen extends StatelessWidget {
             chartData: [
               AussiePieChartModel(
                 sectionTitle: "islam",
-                value: 60.42,
+                value: 55.42,
                 color: Colors.green,
                 hasBadge: true,
               ),
@@ -88,7 +88,7 @@ class ReligionScreen extends StatelessWidget {
               ),
               AussiePieChartModel(
                 sectionTitle: "aboriginal",
-                value: 50,
+                value: 10,
                 color: Colors.amber,
               ),
             ],
