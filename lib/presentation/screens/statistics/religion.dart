@@ -2,7 +2,7 @@ import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/sliver_appbar.dart';
 
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:aussie/models/ratings.dart';
-import 'package:aussie/repositories/paginated/ratings/online.dart';
+import 'package:aussie/repositories/ratings.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

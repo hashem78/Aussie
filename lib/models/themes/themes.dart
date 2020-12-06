@@ -1,5 +1,10 @@
 import 'dart:convert';
 
+import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
+import 'package:aussie/presentation/screens/in_aus/events.dart';
+import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
+import 'package:aussie/presentation/screens/in_aus/people.dart';
+import 'package:aussie/presentation/screens/in_aus/places.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +15,6 @@ import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
-import 'package:aussie/presentation/screens/main/entertainment.dart';
-import 'package:aussie/presentation/screens/main/events.dart';
-import 'package:aussie/presentation/screens/main/food_drinks.dart';
-import 'package:aussie/presentation/screens/main/people.dart';
-import 'package:aussie/presentation/screens/main/places.dart';
 
 @immutable
 class ThemeModel extends Equatable {

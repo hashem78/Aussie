@@ -1,14 +1,15 @@
 import 'dart:convert';
 
 import 'package:aussie/localizations.dart';
-import 'package:aussie/presentation/screens/main/entertainment.dart';
-import 'package:aussie/presentation/screens/main/events.dart';
-import 'package:aussie/presentation/screens/main/food_drinks.dart';
-import 'package:aussie/presentation/screens/main/main.dart';
-import 'package:aussie/presentation/screens/main/people.dart';
-import 'package:aussie/presentation/screens/main/places.dart';
-import 'package:aussie/presentation/screens/settings/settings.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
+import 'package:aussie/presentation/screens/in_aus/events.dart';
+import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
+import 'package:aussie/presentation/screens/in_aus/main.dart';
+import 'package:aussie/presentation/screens/in_aus/people.dart';
+import 'package:aussie/presentation/screens/in_aus/places.dart';
+import 'package:aussie/presentation/screens/misc/settings.dart';
+
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';

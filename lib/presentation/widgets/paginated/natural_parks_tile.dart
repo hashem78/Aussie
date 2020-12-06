@@ -1,4 +1,4 @@
-import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
+import 'package:aussie/models/info/natural_parks.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -40,7 +40,7 @@ class NaturalParksTile extends StatelessWidget {
           Card(
             elevation: 2,
             color: Colors.cyan,
-            margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(0),
             ),
@@ -79,7 +79,7 @@ class NaturalParksTile extends StatelessWidget {
       height: .08.sh,
       child: Card(
         elevation: 2,
-        margin: EdgeInsets.symmetric(horizontal: 5),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),

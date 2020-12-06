@@ -1,8 +1,8 @@
-import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/models/info/species.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/species/details.dart';
-import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
 import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
@@ -55,7 +55,10 @@ class FloraScreen extends StatelessWidget {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SpeciesDetails(model: item),
+                builder: (context) => Provider.value(
+                  value: _currentTheme,
+                  child: SpeciesDetails(model: item),
+                ),
               ),
             ),
           );

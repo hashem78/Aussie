@@ -1,16 +1,17 @@
 import 'package:aussie/constants.dart';
+import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
+import 'package:aussie/presentation/screens/in_aus/events.dart';
+import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
+import 'package:aussie/presentation/screens/in_aus/main.dart';
+import 'package:aussie/presentation/screens/in_aus/people.dart';
+import 'package:aussie/presentation/screens/in_aus/places.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
-import 'package:aussie/presentation/screens/main/entertainment.dart';
-import 'package:aussie/presentation/screens/main/events.dart';
-import 'package:aussie/presentation/screens/main/food_drinks.dart';
-import 'package:aussie/presentation/screens/main/main.dart';
-import 'package:aussie/presentation/screens/main/people.dart';
-import 'package:aussie/presentation/screens/main/places.dart';
-import 'package:aussie/presentation/screens/settings/settings.dart';
+import 'package:aussie/presentation/screens/misc/settings.dart';
+
 import 'package:aussie/presentation/screens/statistics/energy.dart';
 import 'package:aussie/presentation/screens/statistics/gdp.dart';
 import 'package:aussie/presentation/screens/statistics/heducation.dart';
@@ -207,7 +208,7 @@ class AussieAppDrawer extends StatelessWidget {
       tilesColor: Colors.blue,
       models: [
         _DrawerItemModel(
-          tTitle: SettingsScreen.title,
+          tTitle: SettingsScreen.tTitle,
           svgName: SettingsScreen.svgName,
           navPath: SettingsScreen.navPath,
           iconColor: Colors.grey,
@@ -295,7 +296,6 @@ class _DrawerItem extends StatelessWidget {
       child: Stack(
         children: [
           ListTile(
-            //tileColor: Theme.of(context).secondaryHeaderColor,
             onTap: () {
               if (!model.assumeOrder) {
                 Navigator.of(context).pushNamedAndRemoveUntil(

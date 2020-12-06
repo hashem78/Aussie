@@ -1,3 +1,4 @@
+import 'package:aussie/models/info/teritory.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
@@ -7,9 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/models/gmap.dart';
-import 'package:aussie/models/paginated/teritories/teritory.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
-import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
 import 'package:provider/provider.dart';
 

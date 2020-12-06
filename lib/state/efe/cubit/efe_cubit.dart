@@ -1,5 +1,5 @@
-import 'package:aussie/models/main_screen/main_screen_details.dart';
-import 'package:aussie/repositories/efe/efe.dart';
+import 'package:aussie/models/in_aus/main_screen_details.dart';
+import 'package:aussie/repositories/efe.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

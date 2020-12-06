@@ -55,7 +55,6 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
     return SlideTransition(
       position: _animation,
       child: ColoredBox(
-        //margin: EdgeInsets.all(5),
         color: widget.color,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

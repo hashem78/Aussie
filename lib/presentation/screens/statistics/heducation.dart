@@ -2,7 +2,7 @@ import 'package:aussie/constants.dart';
 import 'package:aussie/models/aussie_pie_chart.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';

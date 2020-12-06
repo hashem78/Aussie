@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 

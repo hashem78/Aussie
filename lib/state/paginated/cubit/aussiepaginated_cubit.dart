@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:aussie/interfaces/paginated_data_model.dart';
-import 'package:aussie/repositories/paginated/searchable/online.dart';
+import 'package:aussie/repositories/searchable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,9 +10,9 @@ part 'aussiepaginated_state.dart';
 class AussiePaginatedCubit<T extends PaginatedDataModel>
     extends Cubit<AussiePaginatedState> {
   AussiePaginatedCubit(String repositoryRoute)
-      : repositoy = PaginatedOnlineRepositoy(route: repositoryRoute),
+      : repositoy = PaginatedRepositoy(route: repositoryRoute),
         super(AussiePaginatedInitial());
-  final PaginatedOnlineRepositoy<T> repositoy;
+  final PaginatedRepositoy<T> repositoy;
   void filter(String filterFor, String searchValue) async {
     try {
       var models = await repositoy.filter(filterFor, searchValue);

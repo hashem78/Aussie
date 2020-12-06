@@ -1,3 +1,4 @@
+import 'package:aussie/models/info/natural_parks.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';
@@ -7,8 +8,7 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
-import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:provider/provider.dart';
 
 class NaturalParksScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:aussie/repositories/thumbnail/thumbnail.dart';
+import 'package:aussie/repositories/thumbnail.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -8,10 +8,10 @@ part 'thumbnail_state.dart';
 class ThumbnailCubit extends Cubit<ThumbnailState> {
   ThumbnailCubit(String route)
       : route = route,
-        _proivder = ThumbnailOnlineRepository(route: route),
+        _proivder = ThumbnailRepository(route: route),
         super(ThumbnailInitial());
   final String route;
-  final ThumbnailOnlineRepository _proivder;
+  final ThumbnailRepository _proivder;
 
   Future<void> fetch() async {
     emit(ThumbnailLoading());

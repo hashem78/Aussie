@@ -1,5 +1,5 @@
 import 'package:aussie/presentation/widgets/animated/pie_chart.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/bar_chart.dart';
 
 import 'package:aussie/util/functions.dart';
@@ -64,7 +64,7 @@ class EnergyScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: AussieBarChart(
                 title: "Energy generation/Renewables (GWh)",
                 chartData: [
