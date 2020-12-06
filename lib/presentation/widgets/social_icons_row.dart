@@ -1,5 +1,4 @@
 import 'package:aussie/brand_icons_icons.dart';
-import 'package:aussie/presentation/widgets/animated/social_icon.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aussie/util/pair.dart';
@@ -9,7 +8,7 @@ class SocialsIconRow extends StatelessWidget {
   /// A list of a tuple of strings.
   /// The tuples represent the desired social media icon and the link to the profile of it's owner
   final Map<SocialMediaPlatform, String> icons;
-  static final Map<SocialMediaPlatform, Pair<IconData, Color>> _internalMap = {
+  static final Map<SocialMediaPlatform, Pair<IconData, Color>> internalMap = {
     SocialMediaPlatform.facebook: Pair(BrandIcons.facebook, Colors.white),
     SocialMediaPlatform.twitter: Pair(BrandIcons.twitter, Colors.blue),
     SocialMediaPlatform.twitch: Pair(BrandIcons.twitch, Colors.blue),
@@ -29,7 +28,7 @@ class SocialsIconRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _listOfIcons = <Widget>[];
-    icons.forEach((key, value) => _listOfIcons.add(_buildIcon(key, value)));
+    //icons.forEach((key, value) => _listOfIcons.add(_buildIcon(key, value)));
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Wrap(
@@ -40,10 +39,10 @@ class SocialsIconRow extends StatelessWidget {
     );
   }
 
-  AnimatedSocialIcon _buildIcon(SocialMediaPlatform platform, String url) =>
-      AnimatedSocialIcon(
-        _internalMap[platform].first,
-        _internalMap[platform].second,
-        url,
-      );
+  // AnimatedSocialIcon _buildIcon(SocialMediaPlatform platform, String url) =>
+  //     AnimatedSocialIcon(
+  //       _internalMap[platform].first,
+  //       _internalMap[platform].second,
+  //       url,
+  //     );
 }

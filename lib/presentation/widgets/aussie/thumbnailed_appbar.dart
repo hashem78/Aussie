@@ -6,23 +6,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 
-class AussieThumbnailedSliverAppBar extends StatefulWidget {
+class AussieThumbnailedAppBar extends StatefulWidget {
   final ThumbnailCubit cubit;
   final String title;
   final double height;
-  AussieThumbnailedSliverAppBar({
+  AussieThumbnailedAppBar({
     @required this.cubit,
     @required this.title,
     double height,
   }) : height = height ?? .5.sh;
 
   @override
-  _AussieThumbnailedSliverAppBarState createState() =>
-      _AussieThumbnailedSliverAppBarState();
+  _AussieThumbnailedAppBarState createState() =>
+      _AussieThumbnailedAppBarState();
 }
 
-class _AussieThumbnailedSliverAppBarState
-    extends State<AussieThumbnailedSliverAppBar> {
+class _AussieThumbnailedAppBarState extends State<AussieThumbnailedAppBar> {
   @override
   void initState() {
     widget.cubit.fetch();

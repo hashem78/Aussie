@@ -2,8 +2,8 @@ import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
-import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
-import 'package:aussie/presentation/widgets/aussie/weather_tile.dart';
+import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
+import 'package:aussie/presentation/screens/info/weather/weather_tile.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
 import 'package:aussie/util/functions.dart';
@@ -72,7 +72,7 @@ class _WeatherScreenState extends State<WeatherScreen>
         backgroundColor: _currentTheme.backgroundColor,
         body: CustomScrollView(
           slivers: [
-            AussieThumbnailedSliverAppBar(
+            AussieThumbnailedAppBar(
               cubit: thumbnailCubit,
               title: getTranslation(context, "weatherTitle"),
             ),

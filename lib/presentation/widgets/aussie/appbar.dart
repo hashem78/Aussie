@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AussieSliverAppBar extends StatelessWidget {
+class AussieAppBar extends StatelessWidget {
   final Color backgroundColor;
   final String title;
   final double height;
   final BoxFit fit;
 
-  const AussieSliverAppBar(
+  const AussieAppBar(
     this.backgroundColor,
     this.title, {
     this.height,

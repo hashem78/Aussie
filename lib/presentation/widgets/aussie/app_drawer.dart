@@ -108,20 +108,7 @@ class AussieAppDrawer extends StatelessWidget {
           iconColor: Colors.green.shade900,
         ),
       ];
-  final List<_DrawerSection> sections = [
-    _DrawerSection(
-      sectionIcon: Icons.info,
-      tSectionTitle: "infoSectionTitle",
-      sectionTitleColor: kausBlue,
-      tilesColor: Colors.blue,
-      models: infoModels,
-    ),
-    _DrawerSection(
-      sectionIcon: Icons.miscellaneous_services,
-      tSectionTitle: "miscSectionTitle",
-      sectionTitleColor: kausBlue,
-      tilesColor: Colors.blue,
-      models: [
+  static get miscModels => [
         _DrawerItemModel(
           tTitle: SettingsScreen.tTitle,
           svgName: SettingsScreen.svgName,
@@ -129,9 +116,23 @@ class AussieAppDrawer extends StatelessWidget {
           iconColor: Colors.grey,
           assumeOrder: true,
         ),
-      ],
-    ),
-  ];
+      ];
+  static get sections => [
+        _DrawerSection(
+          sectionIcon: Icons.info,
+          tSectionTitle: "infoSectionTitle",
+          sectionTitleColor: kausBlue,
+          tilesColor: Colors.blue,
+          models: infoModels,
+        ),
+        _DrawerSection(
+          sectionIcon: Icons.miscellaneous_services,
+          tSectionTitle: "miscSectionTitle",
+          sectionTitleColor: kausBlue,
+          tilesColor: Colors.blue,
+          models: miscModels,
+        ),
+      ];
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -144,6 +145,7 @@ class AussieAppDrawer extends StatelessWidget {
             pinned: true,
             automaticallyImplyLeading: false,
             expandedHeight: .23.sh,
+            collapsedHeight: .23.sh,
             flexibleSpace: Stack(
               children: [
                 Positioned.fill(

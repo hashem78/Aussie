@@ -1,6 +1,6 @@
 import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
-import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
+import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
@@ -74,7 +74,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
         backgroundColor: getColorData(context).backgroundColor,
         body: CustomScrollView(
           slivers: [
-            AussieThumbnailedSliverAppBar(
+            AussieThumbnailedAppBar(
               cubit: thumbnailCubit,
               title: widget.title,
             ),

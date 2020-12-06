@@ -87,7 +87,13 @@ class MyApp extends StatelessWidget {
                     if (supportedLocales.contains(locale)) return locale;
                     return supportedLocales.first;
                   },
-                  home: AussieScaffold(body: Container()),
+                  home: AussieScaffold(
+                    drawer: AussieAppDrawer(),
+                    appBar: AppBar(),
+                    body: Container(
+                      color: Colors.red,
+                    ),
+                  ),
                   theme: ThemeData(
                     brightness: state.model.brightness,
                   ),
