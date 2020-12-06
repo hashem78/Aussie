@@ -7,8 +7,7 @@ import 'package:aussie/util/social_media_platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class PlacesDetailsModel extends MainScreenDetailsModel
-    implements RatingsInterface {
+class PlacesDetailsModel extends MainScreenDetailsModel implements IRatings {
   final String id;
   const PlacesDetailsModel({
     @required String title,

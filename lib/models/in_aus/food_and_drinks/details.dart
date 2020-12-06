@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FoodAndDrinksDetailsModel extends MainScreenDetailsModel
-    implements RatingsInterface {
+    implements IRatings {
   final String id;
   const FoodAndDrinksDetailsModel({
     @required String title,

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-abstract class RatingsInterface {
+abstract class IRatings {
   Widget buildRatings(BuildContext context);
   String get ratingsRoute;
 }

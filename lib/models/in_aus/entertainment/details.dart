@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 class EntertainmentDetailsModel extends MainScreenDetailsModel
-    implements RatingsInterface, IGenres {
+    implements IRatings, IGenres {
   final List<String> genres;
   final String id;
 

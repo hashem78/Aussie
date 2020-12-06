@@ -79,7 +79,7 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
 
   Widget buildRatings(BuildContext context) {
     try {
-      var casted = model as RatingsInterface;
+      var casted = model as IRatings;
       return casted.buildRatings(context);
     } catch (e) {
       return Container();

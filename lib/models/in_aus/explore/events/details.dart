@@ -12,7 +12,7 @@ import '../../main_screen_details.dart';
 @immutable
 class EventDetailsModel extends MainScreenDetailsModel
     with EquatableMixin
-    implements RatingsInterface {
+    implements IRatings {
   final String id;
   const EventDetailsModel({
     @required String title,
