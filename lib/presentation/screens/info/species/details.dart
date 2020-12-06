@@ -1,18 +1,18 @@
 import 'package:aussie/models/paginated/species/species.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
-  final Color detailsBackgroundColor;
 
   const SpeciesDetails({
     @required this.model,
-    @required this.detailsBackgroundColor,
   }) : assert(
           model != null,
           "A Species descriptions' model cannot be null",
@@ -21,7 +21,7 @@ class SpeciesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: detailsBackgroundColor,
+      backgroundColor: Provider.of<AussieColorData>(context).backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(

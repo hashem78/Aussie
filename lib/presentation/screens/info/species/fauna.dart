@@ -8,6 +8,7 @@ import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FaunaScreen extends StatelessWidget {
   static final data = AussieScreenData(
@@ -31,32 +32,32 @@ class FaunaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).faunaScreenColor;
 
-    return SearchablePaginatedScreen(
-      appBarColor: _currentTheme.swatchColor,
-      title: getTranslation(context, FaunaScreen.data.tTitle),
-      backgroundColor: _currentTheme.backgroundColor,
-      cubit: cubit,
-      filterFor: "commonName",
-      thumbnailCubitRoute: FaunaScreen.data.thumbnailRoute,
-      itemBuilder: (context, item, index) {
-        var _casted = item as SpeciesDetailsModel;
-        return PaginatedScreenTile(
-          titleImage: buildImage(_casted.titleImageUrl ?? null),
-          title: Text(
-            _casted.commonName,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SpeciesDetails(
-                model: item,
-                detailsBackgroundColor: _currentTheme.backgroundColor,
+    return Provider.value(
+      value: _currentTheme,
+      child: SearchablePaginatedScreen(
+        title: getTranslation(context, FaunaScreen.data.tTitle),
+        cubit: cubit,
+        filterFor: "commonName",
+        thumbnailCubitRoute: FaunaScreen.data.thumbnailRoute,
+        itemBuilder: (context, item, index) {
+          var _casted = item as SpeciesDetailsModel;
+          return PaginatedScreenTile(
+            titleImage: buildImage(_casted.titleImageUrl ?? null),
+            title: Text(
+              _casted.commonName,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SpeciesDetails(
+                  model: item,
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

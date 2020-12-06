@@ -46,13 +46,12 @@ class EventsScreen extends StatelessWidget {
             AussieFeaturedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
-              _currentTheme,
+              //_currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<EventDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) => EventDetailsModel.fromMap(map),
-              _currentTheme,
             ),
           ],
         ),

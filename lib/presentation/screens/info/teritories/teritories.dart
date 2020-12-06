@@ -11,6 +11,7 @@ import 'package:aussie/models/paginated/teritories/teritory.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/presentation/screens/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
+import 'package:provider/provider.dart';
 
 class TeritoriesScreen extends StatelessWidget {
   static final data = AussieScreenData(
@@ -35,61 +36,62 @@ class TeritoriesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
 
-    return SearchablePaginatedScreen(
-      appBarColor: _currentTheme.swatchColor,
-      backgroundColor: _currentTheme.backgroundColor,
-      title: getTranslation(context, TeritoriesScreen.data.tTitle),
-      thumbnailCubitRoute: TeritoriesScreen.data.thumbnailRoute,
-      cubit: cubit,
-      filterFor: "title",
-      itemBuilder: (context, item, index) {
-        var _casted = item as TeritoryModel;
-        return PaginatedScreenTile(
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AussieGMapScreen(
-                model: AussieGMapModel(
-                  latitude: _casted.latitude,
-                  longitude: _casted.longitude,
-                  title: _casted.title,
+    return Provider.value(
+      value: _currentTheme,
+      child: SearchablePaginatedScreen(
+        title: getTranslation(context, TeritoriesScreen.data.tTitle),
+        thumbnailCubitRoute: TeritoriesScreen.data.thumbnailRoute,
+        cubit: cubit,
+        filterFor: "title",
+        itemBuilder: (context, item, index) {
+          var _casted = item as TeritoryModel;
+          return PaginatedScreenTile(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AussieGMapScreen(
+                  model: AussieGMapModel(
+                    latitude: _casted.latitude,
+                    longitude: _casted.longitude,
+                    title: _casted.title,
+                  ),
                 ),
               ),
             ),
-          ),
-          title: Text(
-            _casted.title,
-            style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: buildChip(_currentTheme.swatchColor, "Population",
-                          _casted.population),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        child: buildChip(_currentTheme.swatchColor, "Longitude",
-                            _casted.longitude)),
-                    Expanded(
-                        child: buildChip(_currentTheme.swatchColor, "Latitude",
-                            _casted.latitude)),
-                  ],
-                ),
-              ],
+            title: Text(
+              _casted.title,
+              style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
             ),
-          ),
-        );
-      },
+            subtitle: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: buildChip(_currentTheme.swatchColor,
+                            "Population", _casted.population),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: buildChip(_currentTheme.swatchColor,
+                              "Longitude", _casted.longitude)),
+                      Expanded(
+                          child: buildChip(_currentTheme.swatchColor,
+                              "Latitude", _casted.latitude)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 

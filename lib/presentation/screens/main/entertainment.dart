@@ -69,24 +69,6 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
                         0,
                         [...state.models, ...state.models, ...state.models],
                       ),
-                      ListView(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        children: [
-                          ListTile(
-                            tileColor: Colors.brown,
-                            leading: Icon(Icons.ac_unit),
-                          ),
-                          ListTile(
-                            tileColor: Colors.brown,
-                            leading: Icon(Icons.ac_unit),
-                          ),
-                          ListTile(
-                            tileColor: Colors.brown,
-                            leading: Icon(Icons.ac_unit),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 );
@@ -105,15 +87,14 @@ class _EntertainmentScreenState extends State<EntertainmentScreen> {
 
   Widget buildTiles(
       double initialScrollOffset, List<MainScreenDetailsModel> models) {
-    return MainScreen.buildTiles(
-      models,
+    return AussieTileList(
+      models: models,
       widthFactor: .55.sw,
       heightFactor: .20.sh,
       swatchWidthFactor: 1.sw,
       swatchHeightFactor: .05.sh,
       titleImageHeight: .8.sh,
       listHeightFactor: .61.sh,
-      swatchColor: Colors.red,
       listScrollOffset: initialScrollOffset,
     );
   }

@@ -4,13 +4,14 @@ import 'package:aussie/presentation/screens/main/widgets/aussie_featured_listvie
 import 'package:aussie/presentation/screens/main/widgets/aussie_paged_listview.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
-import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
+import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/models/main_screen/explore/people/details.dart';
 
 import 'package:aussie/util/functions.dart';
+import 'package:provider/provider.dart';
 
 class PeopleScreen extends StatelessWidget {
   static final data = AussieScreenData(
@@ -33,30 +34,31 @@ class PeopleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).peopleScreenColor;
     var _backgroundColor = _currentTheme.backgroundColor;
-    return AussieScaffold(
-      drawer: getAppDrawer(context),
-      backgroundColor: _backgroundColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            AussieThumbnailedSliverAppBar(
-              cubit: ThumbnailCubit(PeopleScreen.data.thumbnailRoute),
-              title: getTranslation(context, PeopleScreen.data.tTitle),
-              backgroundColor: _currentTheme.swatchColor,
-              height: .7.sh,
-            ),
-            AussieFeaturedListView<PeopleDetailsModel>(
-              "people_list",
-              (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
-              _currentTheme,
-            ),
-            buildTitle(getTranslation(context, "moreTitle")),
-            AussiePagedListView<PeopleDetailsModel>(
-              "people_list",
-              (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
-              _currentTheme,
-            ),
-          ],
+    return Provider<AussieColorData>.value(
+      value: _currentTheme,
+      child: AussieScaffold(
+        drawer: getAppDrawer(context),
+        backgroundColor: _backgroundColor,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              AussieThumbnailedSliverAppBar(
+                cubit: ThumbnailCubit(PeopleScreen.data.thumbnailRoute),
+                title: getTranslation(context, PeopleScreen.data.tTitle),
+                height: .7.sh,
+              ),
+              AussieFeaturedListView<PeopleDetailsModel>(
+                "people_list",
+                (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
+                // _currentTheme,
+              ),
+              buildTitle(getTranslation(context, "moreTitle")),
+              AussiePagedListView<PeopleDetailsModel>(
+                "people_list",
+                (Map<String, dynamic> map) => PeopleDetailsModel.fromMap(map),
+              ),
+            ],
+          ),
         ),
       ),
     );

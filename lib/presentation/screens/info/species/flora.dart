@@ -8,6 +8,7 @@ import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FloraScreen extends StatelessWidget {
   static final data = AussieScreenData(
@@ -30,38 +31,36 @@ class FloraScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).floraScreenColor;
-    return SearchablePaginatedScreen(
-      appBarColor: _currentTheme.swatchColor,
-      backgroundColor: _currentTheme.backgroundColor,
-      title: getTranslation(context, FloraScreen.data.tTitle),
-      cubit: cubit,
-      thumbnailCubitRoute: "flora_images",
-      filterFor: "commonName",
-      itemBuilder: (context, item, index) {
-        var _casted = item as SpeciesDetailsModel;
-        return PaginatedScreenTile(
-          color: _currentTheme.swatchColor,
-          titleImage: buildImage(
-            _casted.thumbnailImageUrls.isNotEmpty
-                ? _casted.thumbnailImageUrls[0]
-                : null,
-            fit: BoxFit.cover,
-          ),
-          title: Text(
-            _casted.commonName,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SpeciesDetails(
-                model: item,
-                detailsBackgroundColor: _currentTheme.backgroundColor,
+    return Provider.value(
+      value: _currentTheme,
+      child: SearchablePaginatedScreen(
+        title: getTranslation(context, FloraScreen.data.tTitle),
+        cubit: cubit,
+        thumbnailCubitRoute: "flora_images",
+        filterFor: "commonName",
+        itemBuilder: (context, item, index) {
+          var _casted = item as SpeciesDetailsModel;
+          return PaginatedScreenTile(
+            color: _currentTheme.swatchColor,
+            titleImage: buildImage(
+              _casted.thumbnailImageUrls.isNotEmpty
+                  ? _casted.thumbnailImageUrls[0]
+                  : null,
+              fit: BoxFit.cover,
+            ),
+            title: Text(
+              _casted.commonName,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            ),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SpeciesDetails(model: item),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

@@ -47,14 +47,13 @@ class FoodScreen extends StatelessWidget {
               "movies_list",
               (Map<String, dynamic> map) =>
                   FoodAndDrinksDetailsModel.fromMap(map),
-              _currentTheme,
+              //_currentTheme,
             ),
             buildTitle(getTranslation(context, "moreTitle")),
             AussiePagedListView<FoodAndDrinksDetailsModel>(
               "movies_list",
               (Map<String, dynamic> map) =>
                   FoodAndDrinksDetailsModel.fromMap(map),
-              _currentTheme,
             ),
           ],
         ),

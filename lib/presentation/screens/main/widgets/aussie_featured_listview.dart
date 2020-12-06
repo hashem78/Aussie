@@ -5,13 +5,14 @@ import 'package:aussie/state/efe/cubit/efe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class AussieFeaturedListView<T extends MainScreenDetailsModel>
     extends StatefulWidget {
   final String route;
   final MainScreenDetailsModel Function(Map<String, dynamic> map) creator;
-  final AussieColorData colorData;
-  const AussieFeaturedListView(this.route, this.creator, this.colorData);
+
+  const AussieFeaturedListView(this.route, this.creator);
   @override
   _AussieFeaturedListViewState<T> createState() =>
       _AussieFeaturedListViewState<T>();
@@ -50,16 +51,15 @@ class _AussieFeaturedListViewState<T extends MainScreenDetailsModel>
   }
 
   Widget buildTiles(List<MainScreenDetailsModel> models) {
-    return MainScreen.buildTiles(
-      models,
+    return AussieTileList(
+      models: models,
       widthFactor: .75.sw,
       heightFactor: .20.sh,
       swatchWidthFactor: 1.sw,
       swatchHeightFactor: .03.sh,
       titleImageHeight: 1.sh,
       listHeightFactor: .6.sh,
-      swatchColor: widget.colorData.swatchColor,
-      detailsBackgroundColor: widget.colorData.backgroundColor,
+      detailsColorData: Provider.of<AussieColorData>(context),
     );
   }
 }

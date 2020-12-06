@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/searchable_paginated.dart';
+import 'package:provider/provider.dart';
 
 class NaturalParksScreen extends StatelessWidget {
   static AussieScreenData data = const AussieScreenData(
@@ -31,32 +32,35 @@ class NaturalParksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).naturalParksScreenColor;
-    return SearchablePaginatedScreen(
-      appBarColor: _currentTheme.swatchColor,
-      backgroundColor: _currentTheme.backgroundColor,
-      cubit: cubit,
-      title: getTranslation(context, data.tTitle),
-      filterFor: "park_name",
-      thumbnailCubitRoute: NaturalParksScreen.data.thumbnailRoute,
-      itemBuilder: (context, item, index) {
-        var _casted = item as NaturalParkModel;
-        var _key = UniqueKey();
-        return NaturalParksTile(
-          heroTag: _key.toString(),
-          model: _casted,
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (BuildContext context) {
-                return NaturalParksDetailsScreen(
-                  backgroundColor: _currentTheme.backgroundColor,
-                  heroTag: _key.toString(),
-                  model: _casted,
-                );
-              },
+    return Provider<AussieColorData>.value(
+      value: _currentTheme,
+      child: SearchablePaginatedScreen(
+        cubit: cubit,
+        title: getTranslation(context, data.tTitle),
+        filterFor: "park_name",
+        thumbnailCubitRoute: NaturalParksScreen.data.thumbnailRoute,
+        itemBuilder: (_, item, index) {
+          var _casted = item as NaturalParkModel;
+          var _key = UniqueKey();
+          return NaturalParksTile(
+            heroTag: _key.toString(),
+            model: _casted,
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                  return Provider.value(
+                    value: _currentTheme,
+                    child: NaturalParksDetailsScreen(
+                      heroTag: _key.toString(),
+                      model: _casted,
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

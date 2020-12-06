@@ -1,6 +1,7 @@
 import 'package:aussie/interfaces/geners.dart';
 import 'package:aussie/interfaces/ratings.dart';
 import 'package:aussie/models/main_screen/main_screen_details.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 
 import 'package:aussie/presentation/widgets/social_icons_row.dart';
@@ -13,12 +14,10 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
   //final double titleImageHeight;
   final T model;
 
-  final Color backgroundColor;
-  final Color swatchColor;
+  final AussieColorData colorData;
   EFEDetails({
     @required this.model,
-    this.backgroundColor,
-    this.swatchColor,
+    this.colorData,
   }) : assert(model != null);
 
   @override
@@ -29,16 +28,17 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
           ExpandingTextTile(
             title: key,
             text: value,
-            color: swatchColor,
+            color: colorData.swatchColor,
           ),
         ));
 
     return Scaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: colorData.backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: .8.sh,
+            backgroundColor: colorData.swatchColor,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.title),
               background: CarouselSlider.builder(

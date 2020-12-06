@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
@@ -62,3 +63,5 @@ AussieAppDrawer getAppDrawer(BuildContext context) =>
     Provider.of<AussieAppDrawer>(context, listen: false);
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
+AussieColorData getColorData(BuildContext context) =>
+    Provider.of<AussieColorData>(context, listen: false);

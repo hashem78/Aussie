@@ -1,20 +1,20 @@
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
+import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
+import 'package:provider/provider.dart';
 
 class AussieThumbnailedSliverAppBar extends StatefulWidget {
   final ThumbnailCubit cubit;
   final String title;
-  final Color backgroundColor;
   final double height;
   AussieThumbnailedSliverAppBar({
     @required this.cubit,
     @required this.title,
-    @required this.backgroundColor,
     double height,
   }) : height = height ?? .5.sh;
 
@@ -34,7 +34,7 @@ class _AussieThumbnailedSliverAppBarState
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: widget.backgroundColor,
+      backgroundColor: Provider.of<AussieColorData>(context).swatchColor,
       pinned: true,
       primary: true,
       expandedHeight: widget.height,

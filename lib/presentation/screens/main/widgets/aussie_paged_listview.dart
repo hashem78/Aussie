@@ -8,16 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class AussiePagedListView<T extends MainScreenDetailsModel>
     extends StatefulWidget {
   final String route;
   final MainScreenDetailsModel Function(Map<String, dynamic> map) creator;
-  final AussieColorData colorData;
+
   const AussiePagedListView(
     this.route,
     this.creator,
-    this.colorData,
   );
   @override
   _AussiePagedListViewState<T> createState() => _AussiePagedListViewState<T>();
@@ -67,16 +67,16 @@ class _AussiePagedListViewState<T extends MainScreenDetailsModel>
               containerMargin: EdgeInsets.all(5),
               heightFactor: .75.sh,
               swatchHeightFactor: .05.sh,
-              swatchColor: widget.colorData.swatchColor,
+              swatchColor: Provider.of<AussieColorData>(context).swatchColor,
               swatchWidthFactor: 1.sw,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) {
+                    builder: (_) {
                       return EFEDetails<MainScreenDetailsModel>(
                         model: model,
-                        backgroundColor: widget.colorData.backgroundColor,
+                        colorData: Provider.of<AussieColorData>(context),
                       );
                     },
                   ),

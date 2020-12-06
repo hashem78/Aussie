@@ -127,7 +127,7 @@ class RatingDetailsScreen extends StatefulWidget {
 
 class _RatingDetailsScreenState extends State<RatingDetailsScreen> {
   PagingController<int, RatingsModel> _controller =
-      PagingController<int, RatingsModel>(firstPageKey: 0);
+      PagingController<int, RatingsModel>(firstPageKey: 1);
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   @override
   void initState() {

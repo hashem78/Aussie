@@ -1,31 +1,33 @@
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/paginated/natural_parks/natural_parks.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
-import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class NaturalParksDetailsScreen extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
-  final Color backgroundColor;
 
   const NaturalParksDetailsScreen({
     @required this.model,
     @required this.heroTag,
-    @required this.backgroundColor,
   }) : assert(model != null && heroTag != null);
 
   @override
   Widget build(BuildContext context) {
-    return AussieScaffold(
-      backgroundColor: backgroundColor,
+    return Scaffold(
+      backgroundColor: Provider.of<AussieColorData>(context).backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            backgroundColor: Provider.of<AussieColorData>(context).swatchColor,
             elevation: 0,
+            primary: true,
+            pinned: true,
             expandedHeight: .4.sh,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.parkName),

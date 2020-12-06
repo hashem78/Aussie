@@ -11,16 +11,13 @@ class RatingsCubit extends Cubit<RatingsState> {
       : _repository = PaginatedOnlineRatingsRepository(ratingsRoute, id),
         super(RatingsInitial());
   PaginatedOnlineRatingsRepository _repository;
-  void fetch(int page, {int fetchAmount}) async {
-    _repository.fetch(page, fetchAmount: fetchAmount).then(
-      (value) {
-        if (value.isEmpty) {
-          emit(RatingsEmpty());
-        } else {
-          emit(RatingsDataChanged(value));
-        }
-      },
-    );
+  Future<void> fetch(int page, {int fetchAmount}) async {
+    var _val = await _repository.fetch(page, fetchAmount: fetchAmount);
+    if (_val.isEmpty) {
+      emit(RatingsEmpty());
+    } else {
+      emit(RatingsDataChanged(_val));
+    }
   }
 
   void getSpecificAmount(int fetchAmount) {

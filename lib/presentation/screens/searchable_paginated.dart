@@ -1,22 +1,22 @@
 import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/aussie/a_scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
 import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
-import 'package:aussie/state/thumbnail/thumbnail_cubit.dart';
+import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
 
 class SearchablePaginatedScreen extends StatefulWidget {
   final AussiePaginatedCubit cubit;
   final String thumbnailCubitRoute;
   final String title;
   final String filterFor;
-  final Color backgroundColor;
-  final Color appBarColor;
 
   final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
 
@@ -26,8 +26,6 @@ class SearchablePaginatedScreen extends StatefulWidget {
     @required this.itemBuilder,
     @required this.title,
     @required this.filterFor,
-    @required this.backgroundColor,
-    @required this.appBarColor,
   });
   @override
   _SearchablePaginatedScreenState createState() =>
@@ -75,13 +73,12 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: AussieScaffold(
         drawer: getAppDrawer(context),
-        backgroundColor: widget.backgroundColor,
+        backgroundColor: Provider.of<AussieColorData>(context).backgroundColor,
         body: CustomScrollView(
           slivers: [
             AussieThumbnailedSliverAppBar(
               cubit: thumbnailCubit,
               title: widget.title,
-              backgroundColor: widget.appBarColor,
             ),
             PaginatedSearchBar(
               onSubmitted: (val) {
