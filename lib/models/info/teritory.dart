@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data.dart';
 
 @immutable
-class TeritoryModel extends Equatable implements PaginatedDataModel {
+class TeritoryModel extends Equatable implements IPaginatedData {
   final String title;
   final String latitude;
   final String longitude;

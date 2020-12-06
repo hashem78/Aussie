@@ -1,24 +1,23 @@
 import 'dart:collection';
 
-import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/repositories/searchable.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'aussiepaginated_state.dart';
+part 'paginated_state.dart';
 
-class AussiePaginatedCubit<T extends PaginatedDataModel>
-    extends Cubit<AussiePaginatedState> {
-  AussiePaginatedCubit(String repositoryRoute)
+class PaginatedCubit<T extends IPaginatedData> extends Cubit<PaginatedState> {
+  PaginatedCubit(String repositoryRoute)
       : repositoy = PaginatedRepositoy(route: repositoryRoute),
-        super(AussiePaginatedInitial());
+        super(PaginatedInitial());
   final PaginatedRepositoy<T> repositoy;
   void filter(String filterFor, String searchValue) async {
     try {
       var models = await repositoy.filter(filterFor, searchValue);
-      emit(AussiePaginatedFiltered(models: UnmodifiableListView(models)));
+      emit(PaginatedFiltered(UnmodifiableListView(models)));
     } on NoSuchMethodError {
-      emit(AussiePaginatedFiltered(models: UnmodifiableListView([])));
+      emit(PaginatedFiltered(UnmodifiableListView([])));
     }
   }
 
@@ -26,10 +25,7 @@ class AussiePaginatedCubit<T extends PaginatedDataModel>
     var _avail = await repositoy.fetch(page, fetchAmount: amount);
     if (_avail.length == 0) {
       emit(
-        AussiePaginatedEnd(
-          text: "rip",
-          models: UnmodifiableListView([]),
-        ),
+        PaginatedEnd(UnmodifiableListView([])),
       );
       return;
     }
@@ -37,6 +33,6 @@ class AussiePaginatedCubit<T extends PaginatedDataModel>
       amount = _avail.length;
     }
 
-    emit(AussiePaginatedDataChanged(models: UnmodifiableListView(_avail)));
+    emit(PaginatedDataChanged(UnmodifiableListView(_avail)));
   }
 }

@@ -1,4 +1,4 @@
 import 'package:flutter/foundation.dart';
 
 @immutable
-abstract class PaginatedDataModel {}
+abstract class IPaginatedData {}

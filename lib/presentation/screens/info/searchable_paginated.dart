@@ -1,8 +1,8 @@
-import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_sliver_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
-import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
+import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
@@ -11,12 +11,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class SearchablePaginatedScreen extends StatefulWidget {
-  final AussiePaginatedCubit cubit;
+  final PaginatedCubit cubit;
   final String thumbnailCubitRoute;
   final String title;
   final String filterFor;
 
-  final Widget Function(BuildContext, PaginatedDataModel, int) itemBuilder;
+  final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
   SearchablePaginatedScreen({
     @required this.cubit,
@@ -34,8 +34,8 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   static int _pageSize = 10;
   ThumbnailCubit thumbnailCubit;
   final String route;
-  PagingController<int, PaginatedDataModel> _controller =
-      PagingController<int, PaginatedDataModel>(firstPageKey: 0);
+  PagingController<int, IPaginatedData> _controller =
+      PagingController<int, IPaginatedData>(firstPageKey: 0);
 
   _SearchablePaginatedScreenState(this.route);
 
@@ -84,17 +84,17 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
                 _controller.refresh();
               },
             ),
-            BlocListener<AussiePaginatedCubit, AussiePaginatedState>(
+            BlocListener<PaginatedCubit, PaginatedState>(
               cubit: widget.cubit,
               listener: (context, state) {
-                if (state is AussiePaginatedInitialLoaded) {
+                if (state is PaginatedInitialLoaded) {
                   _controller.appendPage(state.models, _pageSize);
-                } else if (state is AussiePaginatedDataChanged) {
+                } else if (state is PaginatedDataChanged) {
                   final nextKey = _controller.nextPageKey + state.models.length;
                   _controller.appendPage(state.models, nextKey);
-                } else if (state is AussiePaginatedEnd) {
+                } else if (state is PaginatedEnd) {
                   _controller.appendLastPage(state.models);
-                } else if (state is AussiePaginatedFiltered) {
+                } else if (state is PaginatedFiltered) {
                   _controller.appendLastPage(state.models);
                 }
               },
@@ -107,9 +107,9 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   }
 
   Widget buildSliverList() {
-    return PagedSliverList<int, PaginatedDataModel>(
+    return PagedSliverList<int, IPaginatedData>(
       pagingController: _controller,
-      builderDelegate: PagedChildBuilderDelegate<PaginatedDataModel>(
+      builderDelegate: PagedChildBuilderDelegate<IPaginatedData>(
         itemBuilder: widget.itemBuilder,
         noItemsFoundIndicatorBuilder: (_) => Container(
           height: 100,

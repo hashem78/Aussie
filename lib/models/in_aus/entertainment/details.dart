@@ -1,4 +1,4 @@
-import 'package:aussie/interfaces/geners.dart';
+import 'package:aussie/interfaces/genres.dart';
 import 'package:aussie/interfaces/ratings.dart';
 import 'package:aussie/models/in_aus/main_screen_details.dart';
 
@@ -12,8 +12,8 @@ import 'package:flutter/material.dart';
 
 @immutable
 class EntertainmentDetailsModel extends MainScreenDetailsModel
-    implements RatingsInterface, GenersInterface {
-  final List<String> geners;
+    implements RatingsInterface, IGenres {
+  final List<String> genres;
   final String id;
 
   const EntertainmentDetailsModel({
@@ -21,7 +21,7 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
     this.id,
     Map<SocialMediaPlatform, String> socialMediaPlatforms,
     Map<String, String> descriptions,
-    this.geners,
+    this.genres,
     List<String> imageLinks,
   }) : super(
           title: title,
@@ -39,12 +39,12 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
       );
 
   @override
-  Widget buildGeners() => Padding(
+  Widget buildGenres() => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
-            Text("Geners: ", style: TextStyle(fontSize: 50.sp)),
-            Text(geners.reduce((value, element) => '$value, $element')),
+            Text("Genres: ", style: TextStyle(fontSize: 50.sp)),
+            Text(genres.reduce((value, element) => '$value, $element')),
           ],
         ),
       );
@@ -62,7 +62,7 @@ class EntertainmentDetailsModel extends MainScreenDetailsModel
       title: map["title"].toString(),
       id: map["id"].toString(),
       socialMediaPlatforms: _platforms,
-      geners: List<String>.from(map['geners']),
+      genres: List<String>.from(map['geners']),
       descriptions: Map<String, String>.from(map["descriptions"]),
       imageLinks: List<String>.from(map['imageLinks']),
     );

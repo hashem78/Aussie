@@ -1,4 +1,4 @@
-import 'package:aussie/interfaces/geners.dart';
+import 'package:aussie/interfaces/genres.dart';
 import 'package:aussie/interfaces/ratings.dart';
 import 'package:aussie/models/in_aus/main_screen_details.dart';
 import 'package:aussie/models/themes/color_data.dart';
@@ -64,7 +64,7 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
                   children: [
                     SocialsIconRow(model.socialMediaPlatforms),
                     ..._descriptions,
-                    buildGeners(),
+                    buildGenres(),
                   ],
                 ),
                 buildRatings(context),
@@ -86,10 +86,10 @@ class EFEDetails<T extends MainScreenDetailsModel> extends StatelessWidget {
     }
   }
 
-  Widget buildGeners() {
+  Widget buildGenres() {
     try {
-      var casted = model as GenersInterface;
-      return casted.buildGeners();
+      var casted = model as IGenres;
+      return casted.buildGenres();
     } catch (e) {
       return Container();
     }

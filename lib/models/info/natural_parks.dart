@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data.dart';
 
 @immutable
-class NaturalParkModel extends Equatable implements PaginatedDataModel {
+class NaturalParkModel extends Equatable implements IPaginatedData {
   final String parkName;
   final String summary;
   final String imageUrl;

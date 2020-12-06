@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
-import 'package:aussie/interfaces/paginated_data_model.dart';
+import 'package:aussie/interfaces/paginated_data.dart';
 
 @immutable
-class SpeciesDetailsModel extends Equatable implements PaginatedDataModel {
+class SpeciesDetailsModel extends Equatable implements IPaginatedData {
   final String commonName;
   final String scientificName;
   final String type;

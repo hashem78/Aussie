@@ -1,7 +1,7 @@
 import 'package:aussie/models/info/teritory.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
-import 'package:aussie/state/paginated/cubit/aussiepaginated_cubit.dart';
+import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +30,7 @@ class TeritoriesScreen extends StatelessWidget {
     ),
   );
 
-  final AussiePaginatedCubit<TeritoryModel> cubit =
-      AussiePaginatedCubit("teritories");
+  final PaginatedCubit<TeritoryModel> cubit = PaginatedCubit("teritories");
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
