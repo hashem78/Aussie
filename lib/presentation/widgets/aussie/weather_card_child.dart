@@ -71,7 +71,7 @@ class WeatherCardChild extends StatelessWidget {
                   child: Column(
                     children: [
                       SvgPicture.asset(
-                        'assests/images/humidity.svg',
+                        'assets/images/humidity.svg',
                         height: 30,
                       ),
                       Text(
@@ -85,7 +85,7 @@ class WeatherCardChild extends StatelessWidget {
                   child: Column(
                     children: [
                       SvgPicture.asset(
-                        'assests/images/barometer.svg',
+                        'assets/images/barometer.svg',
                         height: 30,
                       ),
                       Text(

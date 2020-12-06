@@ -251,7 +251,7 @@ class BadgeWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SvgPicture.asset(
-            'assests/images/$assetName.svg',
+            'assets/images/$assetName.svg',
             color: color,
             fit: BoxFit.contain,
           ),

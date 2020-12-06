@@ -35,7 +35,7 @@ class AussieSliverAppBar extends StatelessWidget {
                   child: Container(
                     color: backgroundColor,
                     child: SvgPicture.asset(
-                      'assests/images/au.svg',
+                      'assets/images/au.svg',
                       fit: fit,
                     ),
                   ),

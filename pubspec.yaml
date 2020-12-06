@@ -47,8 +47,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assests/images/
-    - assests/json/
+    - assets/images/
+    - assets/json/
   fonts:
     - family: BrandIcons
       fonts:

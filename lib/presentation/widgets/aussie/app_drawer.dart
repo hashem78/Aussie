@@ -236,7 +236,7 @@ class AussieAppDrawer extends StatelessWidget {
                   child: Container(
                     color: kausBlue,
                     child: SvgPicture.asset(
-                      'assests/images/au.svg',
+                      'assets/images/au.svg',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -305,7 +305,7 @@ class _DrawerItem extends StatelessWidget {
               }
             },
             leading: SvgPicture.asset(
-              "assests/images/${model.svgName}",
+              "assets/images/${model.svgName}",
               height: 60.sp,
               color: model.iconColor,
             ),

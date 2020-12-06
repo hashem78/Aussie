@@ -18,7 +18,7 @@ class AussieLocalizations {
 
   Future<void> load(Locale locale) async {
     var _assetData =
-        await rootBundle.loadString("assests/json/${locale.languageCode}.json");
+        await rootBundle.loadString("assets/json/${locale.languageCode}.json");
     Map<String, dynamic> _map = jsonDecode(_assetData);
     _localizedStrings = Map<String, String>.from(_map);
   }
