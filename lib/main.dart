@@ -1,12 +1,7 @@
 import 'dart:convert';
 
 import 'package:aussie/localizations.dart';
-import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
-import 'package:aussie/presentation/screens/in_aus/events.dart';
-import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
-import 'package:aussie/presentation/screens/in_aus/main.dart';
-import 'package:aussie/presentation/screens/in_aus/people.dart';
-import 'package:aussie/presentation/screens/in_aus/places.dart';
+
 import 'package:aussie/presentation/screens/misc/settings.dart';
 
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
@@ -26,11 +21,7 @@ import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
-import 'package:aussie/presentation/screens/statistics/energy.dart';
-import 'package:aussie/presentation/screens/statistics/gdp.dart';
-import 'package:aussie/presentation/screens/statistics/heducation.dart';
-import 'package:aussie/presentation/screens/statistics/livestock.dart';
-import 'package:aussie/presentation/screens/statistics/religion.dart';
+
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 void main() async {
@@ -96,7 +87,7 @@ class MyApp extends StatelessWidget {
                     if (supportedLocales.contains(locale)) return locale;
                     return supportedLocales.first;
                   },
-                  home: AussieScaffold(body: MainScreen()),
+                  home: AussieScaffold(body: Container()),
                   theme: ThemeData(
                     brightness: state.model.brightness,
                   ),
@@ -115,20 +106,8 @@ class MyApp extends StatelessWidget {
         NaturalParksScreen(),
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
     TeritoriesScreen.data.navPath: (BuildContext context) => TeritoriesScreen(),
-    MainScreen.navPath: (BuildContext context) => MainScreen(),
     FaunaScreen.data.navPath: (BuildContext context) => FaunaScreen(),
     FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),
-    ReligionScreen.data.navPath: (BuildContext context) => ReligionScreen(),
-    EnergyScreen.navPath: (BuildContext context) => EnergyScreen(),
-    LivestockScreen.navPath: (BuildContext context) => LivestockScreen(),
-    GDPScreen.navPath: (BuildContext context) => GDPScreen(),
-    HEducationScreen.navPath: (BuildContext context) => HEducationScreen(),
     SettingsScreen.navPath: (BuildContext context) => SettingsScreen(),
-    PeopleScreen.data.navPath: (BuildContext context) => PeopleScreen(),
-    PlacesScreen.data.navPath: (BuildContext context) => PlacesScreen(),
-    FoodScreen.data.navPath: (BuildContext context) => FoodScreen(),
-    EntertainmentScreen.data.navPath: (BuildContext context) =>
-        EntertainmentScreen(),
-    EventsScreen.data.navPath: (BuildContext context) => EventsScreen(),
   };
 }

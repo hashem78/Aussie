@@ -1,10 +1,5 @@
 import 'package:aussie/constants.dart';
-import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
-import 'package:aussie/presentation/screens/in_aus/events.dart';
-import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
-import 'package:aussie/presentation/screens/in_aus/main.dart';
-import 'package:aussie/presentation/screens/in_aus/people.dart';
-import 'package:aussie/presentation/screens/in_aus/places.dart';
+
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
@@ -12,11 +7,6 @@ import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 
-import 'package:aussie/presentation/screens/statistics/energy.dart';
-import 'package:aussie/presentation/screens/statistics/gdp.dart';
-import 'package:aussie/presentation/screens/statistics/heducation.dart';
-import 'package:aussie/presentation/screens/statistics/livestock.dart';
-import 'package:aussie/presentation/screens/statistics/religion.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -86,68 +76,6 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  static get statisticsModels => [
-        _DrawerItemModel(
-          navPath: ReligionScreen.data.navPath,
-          svgName: ReligionScreen.data.svgName,
-          tTitle: ReligionScreen.data.tTitle,
-        ),
-        _DrawerItemModel(
-          navPath: LivestockScreen.navPath,
-          svgName: LivestockScreen.svgName,
-          tTitle: LivestockScreen.title,
-          iconColor: Colors.pink,
-        ),
-        _DrawerItemModel(
-          navPath: HEducationScreen.navPath,
-          svgName: HEducationScreen.svgName,
-          tTitle: HEducationScreen.title,
-        ),
-        _DrawerItemModel(
-          navPath: EnergyScreen.navPath,
-          svgName: EnergyScreen.svgName,
-          tTitle: EnergyScreen.title,
-          iconColor: Colors.blue.shade900,
-        ),
-        _DrawerItemModel(
-          navPath: GDPScreen.navPath,
-          svgName: GDPScreen.svgName,
-          tTitle: GDPScreen.title,
-          iconColor: Colors.orange,
-        ),
-      ];
-  static get inAus => [
-        _DrawerItemModel(
-          navPath: PeopleScreen.data.navPath,
-          svgName: PeopleScreen.data.svgName,
-          tTitle: PeopleScreen.data.tTitle,
-          iconColor: Colors.blue,
-        ),
-        _DrawerItemModel(
-          navPath: PlacesScreen.data.navPath,
-          svgName: PlacesScreen.data.svgName,
-          tTitle: PlacesScreen.data.tTitle,
-          iconColor: Colors.brown,
-        ),
-        _DrawerItemModel(
-          navPath: EventsScreen.data.navPath,
-          svgName: EventsScreen.data.svgName,
-          tTitle: EventsScreen.data.tTitle,
-          iconColor: Colors.lightGreen,
-        ),
-        _DrawerItemModel(
-          navPath: FoodScreen.data.navPath,
-          svgName: FoodScreen.data.svgName,
-          tTitle: FoodScreen.data.tTitle,
-          iconColor: Colors.lime,
-        ),
-        _DrawerItemModel(
-          navPath: EntertainmentScreen.data.navPath,
-          svgName: EntertainmentScreen.data.svgName,
-          tTitle: EntertainmentScreen.data.tTitle,
-          iconColor: Colors.lightBlue,
-        ),
-      ];
   static get infoModels => [
         _DrawerItemModel(
           navPath: FaunaScreen.data.navPath,
@@ -182,24 +110,11 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   final List<_DrawerSection> sections = [
     _DrawerSection(
-      sectionIcon: Icons.map,
-      tSectionTitle: "inAusSectionTitle",
-      sectionTitleColor: Colors.green,
-      models: inAus,
-    ),
-    _DrawerSection(
       sectionIcon: Icons.info,
       tSectionTitle: "infoSectionTitle",
       sectionTitleColor: kausBlue,
       tilesColor: Colors.blue,
       models: infoModels,
-    ),
-    _DrawerSection(
-      sectionIcon: Icons.wallet_travel,
-      tSectionTitle: "statsSectionTitle",
-      sectionTitleColor: kausRed,
-      tilesColor: Colors.blue,
-      models: statisticsModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.miscellaneous_services,
@@ -299,7 +214,7 @@ class _DrawerItem extends StatelessWidget {
             onTap: () {
               if (!model.assumeOrder) {
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    model.navPath, ModalRoute.withName(MainScreen.navPath));
+                    model.navPath, ModalRoute.withName(""));
               } else {
                 Navigator.of(context).pushNamed(model.navPath);
               }

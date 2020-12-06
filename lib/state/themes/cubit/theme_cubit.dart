@@ -1,10 +1,6 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
-import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
-import 'package:aussie/presentation/screens/in_aus/events.dart';
-import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
-import 'package:aussie/presentation/screens/in_aus/people.dart';
-import 'package:aussie/presentation/screens/in_aus/places.dart';
+
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
@@ -38,11 +34,6 @@ class ThemeCubit extends Cubit<ThemeState> {
   }) {
     var _modifiedModel = currentModel.copyWith(
       brightness: brightness,
-      peopleScreenColor: peopleScreenColor,
-      foodScreenColor: foodScreenColor,
-      eventsScreenColor: placesScreenColor,
-      placesScreenColor: placesScreenColor,
-      entertainmentScreenColor: entertainmentScreenColor,
       faunaScreenColor: faunaScreenColor,
       floraScreenColor: floraScreenColor,
       teritoriesScreenColor: teritoriesScreenColor,
@@ -63,11 +54,6 @@ class ThemeCubit extends Cubit<ThemeState> {
     if (_currentBrightness == Brightness.light) {
       changeTheme(
         brightness: Brightness.dark,
-        peopleScreenColor: PeopleScreen.data.dark,
-        placesScreenColor: PlacesScreen.data.dark,
-        eventsScreenColor: EventsScreen.data.dark,
-        foodScreenColor: FoodScreen.data.dark,
-        entertainmentScreenColor: EntertainmentScreen.data.dark,
         faunaScreenColor: FaunaScreen.data.dark,
         floraScreenColor: FloraScreen.data.dark,
         teritoriesScreenColor: TeritoriesScreen.data.dark,
@@ -77,11 +63,6 @@ class ThemeCubit extends Cubit<ThemeState> {
     } else {
       changeTheme(
         brightness: Brightness.light,
-        peopleScreenColor: PeopleScreen.data.light,
-        placesScreenColor: PlacesScreen.data.light,
-        eventsScreenColor: EventsScreen.data.light,
-        foodScreenColor: FoodScreen.data.light,
-        entertainmentScreenColor: EntertainmentScreen.data.light,
         faunaScreenColor: FaunaScreen.data.light,
         floraScreenColor: FloraScreen.data.light,
         teritoriesScreenColor: TeritoriesScreen.data.light,

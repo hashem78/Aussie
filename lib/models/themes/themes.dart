@@ -1,10 +1,5 @@
 import 'dart:convert';
 
-import 'package:aussie/presentation/screens/in_aus/entertainment.dart';
-import 'package:aussie/presentation/screens/in_aus/events.dart';
-import 'package:aussie/presentation/screens/in_aus/food_drinks.dart';
-import 'package:aussie/presentation/screens/in_aus/people.dart';
-import 'package:aussie/presentation/screens/in_aus/places.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +14,7 @@ import 'package:aussie/presentation/screens/info/weather/weather.dart';
 @immutable
 class ThemeModel extends Equatable {
   final Brightness brightness;
-  final AussieColorData peopleScreenColor;
-  final AussieColorData foodScreenColor;
-  final AussieColorData eventsScreenColor;
-  final AussieColorData placesScreenColor;
-  final AussieColorData entertainmentScreenColor;
+
   final AussieColorData faunaScreenColor;
   final AussieColorData floraScreenColor;
   final AussieColorData teritoriesScreenColor;
@@ -45,12 +36,6 @@ class ThemeModel extends Equatable {
     AussieColorData weatherScreenColor,
     AussieColorData naturalParksScreenColor,
   })  : brightness = brightness ?? Brightness.light,
-        peopleScreenColor = peopleScreenColor ?? PeopleScreen.data.light,
-        foodScreenColor = foodScreenColor ?? FoodScreen.data.light,
-        eventsScreenColor = eventsScreenColor ?? EventsScreen.data.light,
-        placesScreenColor = placesScreenColor ?? PlacesScreen.data.light,
-        entertainmentScreenColor =
-            entertainmentScreenColor ?? EntertainmentScreen.data.light,
         faunaScreenColor = faunaScreenColor ?? FaunaScreen.data.light,
         floraScreenColor = floraScreenColor ?? FloraScreen.data.light,
         teritoriesScreenColor =
@@ -63,16 +48,6 @@ class ThemeModel extends Equatable {
     return ThemeModel(
       brightness:
           map['brightness'] == "light" ? Brightness.light : Brightness.dark,
-      peopleScreenColor:
-          AussieColorData.fromMap(map[PeopleScreen.data.themeAttribute]),
-      foodScreenColor:
-          AussieColorData.fromMap(map[FoodScreen.data.themeAttribute]),
-      eventsScreenColor:
-          AussieColorData.fromMap(map[EventsScreen.data.themeAttribute]),
-      placesScreenColor:
-          AussieColorData.fromMap(map[PlacesScreen.data.themeAttribute]),
-      entertainmentScreenColor:
-          AussieColorData.fromMap(map[EntertainmentScreen.data.themeAttribute]),
       faunaScreenColor:
           AussieColorData.fromMap(map[FaunaScreen.data.themeAttribute]),
       floraScreenColor:
@@ -87,12 +62,6 @@ class ThemeModel extends Equatable {
   }
   Map<String, dynamic> get toMap => {
         "brightness": brightness == Brightness.light ? "light" : "dark",
-        PeopleScreen.data.themeAttribute: peopleScreenColor.toMap(),
-        FoodScreen.data.themeAttribute: foodScreenColor.toMap(),
-        EventsScreen.data.themeAttribute: eventsScreenColor.toMap(),
-        PlacesScreen.data.themeAttribute: placesScreenColor.toMap(),
-        EntertainmentScreen.data.themeAttribute:
-            entertainmentScreenColor.toMap(),
         FaunaScreen.data.themeAttribute: faunaScreenColor.toMap(),
         FloraScreen.data.themeAttribute: floraScreenColor.toMap(),
         TeritoriesScreen.data.themeAttribute: teritoriesScreenColor.toMap(),
@@ -105,11 +74,6 @@ class ThemeModel extends Equatable {
   List<Object> get props {
     return [
       brightness,
-      peopleScreenColor,
-      foodScreenColor,
-      eventsScreenColor,
-      placesScreenColor,
-      entertainmentScreenColor,
       faunaScreenColor,
       floraScreenColor,
       teritoriesScreenColor,
@@ -120,11 +84,6 @@ class ThemeModel extends Equatable {
 
   ThemeModel copyWith({
     Brightness brightness,
-    AussieColorData peopleScreenColor,
-    AussieColorData foodScreenColor,
-    AussieColorData eventsScreenColor,
-    AussieColorData placesScreenColor,
-    AussieColorData entertainmentScreenColor,
     AussieColorData faunaScreenColor,
     AussieColorData floraScreenColor,
     AussieColorData teritoriesScreenColor,
@@ -134,12 +93,6 @@ class ThemeModel extends Equatable {
   }) {
     return ThemeModel(
       brightness: brightness ?? this.brightness,
-      peopleScreenColor: peopleScreenColor ?? this.peopleScreenColor,
-      foodScreenColor: foodScreenColor ?? this.foodScreenColor,
-      eventsScreenColor: eventsScreenColor ?? this.eventsScreenColor,
-      placesScreenColor: placesScreenColor ?? this.placesScreenColor,
-      entertainmentScreenColor:
-          entertainmentScreenColor ?? this.entertainmentScreenColor,
       faunaScreenColor: faunaScreenColor ?? this.faunaScreenColor,
       floraScreenColor: floraScreenColor ?? this.floraScreenColor,
       teritoriesScreenColor:
