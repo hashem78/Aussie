@@ -6,6 +6,7 @@ import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dar
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
+import 'package:aussie/presentation/widgets/aussie/appbar.dart';
 
 import 'package:aussie/util/functions.dart';
 import 'package:equatable/equatable.dart';
@@ -139,39 +140,7 @@ class AussieAppDrawer extends StatelessWidget {
     return Drawer(
       child: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            elevation: 5,
-            forceElevated: true,
-            pinned: true,
-            automaticallyImplyLeading: false,
-            expandedHeight: .23.sh,
-            collapsedHeight: .23.sh,
-            flexibleSpace: Stack(
-              children: [
-                Positioned.fill(
-                  top: 0,
-                  child: Container(
-                    color: kausBlue,
-                    child: SvgPicture.asset(
-                      'assets/images/au.svg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    "Aussie",
-                    style: TextStyle(
-                      fontSize: 75.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          AussieAppBar(kausBlue, "Aussie"),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {

@@ -1,3 +1,4 @@
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class PaginatedScreenTile extends StatelessWidget {
@@ -13,18 +14,16 @@ class PaginatedScreenTile extends StatelessWidget {
     this.onTap,
     this.titleImage,
     this.color,
-    this.aspectRatio = 16 / 9,
+    this.aspectRatio = 11 / 9,
   }) : assert(title != null && aspectRatio != null);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: color,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
-      ),
-      child: InkWell(
-        onTap: onTap,
+    return InkWell(
+      onTap: onTap,
+      child: Card(
+        color: getColorData(context).swatchColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: Column(
           children: [
             titleImage != null

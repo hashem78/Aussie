@@ -41,7 +41,10 @@ class FaunaScreen extends StatelessWidget {
         itemBuilder: (context, item, index) {
           var _casted = item as SpeciesDetailsModel;
           return PaginatedScreenTile(
-            titleImage: buildImage(_casted.titleImageUrl ?? null),
+            titleImage: buildImage(
+              _casted.titleImageUrl ?? null,
+              fit: BoxFit.cover,
+            ),
             title: Text(
               _casted.commonName,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),

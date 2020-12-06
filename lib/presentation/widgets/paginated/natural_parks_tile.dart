@@ -24,9 +24,8 @@ class NaturalParksTile extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: 7.5),
         child: AutoSizeText(
           model.parkName,
-          maxLines: 1,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w800),
         ),
       ),
       subtitle: Column(

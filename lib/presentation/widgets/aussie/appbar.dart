@@ -8,12 +8,14 @@ class AussieAppBar extends StatelessWidget {
   final String title;
   final double height;
   final BoxFit fit;
+  final bool automaticallyImplyLeading;
 
   const AussieAppBar(
     this.backgroundColor,
     this.title, {
     this.height,
     this.fit = BoxFit.cover,
+    this.automaticallyImplyLeading = false,
   });
 
   @override
@@ -21,8 +23,9 @@ class AussieAppBar extends StatelessWidget {
     return SliverAppBar(
       primary: true,
       pinned: true,
-      expandedHeight: height,
-      collapsedHeight: height,
+      automaticallyImplyLeading: automaticallyImplyLeading,
+      expandedHeight: .23.sh,
+      collapsedHeight: .23.sh,
       flexibleSpace: Stack(
         children: [
           Stack(
