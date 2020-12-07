@@ -23,6 +23,7 @@ Widget buildImage(
   BoxFit fit = BoxFit.fill,
   bool showPlaceHolder = true,
   Duration fadeInDuration = const Duration(milliseconds: 500),
+  ColorFilter colorFilter,
 }) {
   if (imageUrl == null) return null;
   if (imageUrl.contains(".svg")) {
@@ -36,6 +37,7 @@ Widget buildImage(
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           image: DecorationImage(
+            colorFilter: colorFilter,
             image: imageProvider,
             fit: fit,
           ),
