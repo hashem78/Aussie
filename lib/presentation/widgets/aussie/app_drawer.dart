@@ -44,13 +44,12 @@ class _DrawerSection extends StatelessWidget {
   final List<_DrawerItemModel> models;
   final IconData sectionIcon;
   final String tSectionTitle;
-  final Color sectionTitleColor;
+
   final Color tilesColor;
   const _DrawerSection({
     this.models,
     this.sectionIcon,
     this.tSectionTitle,
-    this.sectionTitleColor = Colors.amber,
     this.tilesColor,
   });
 
@@ -61,7 +60,6 @@ class _DrawerSection extends StatelessWidget {
         _DrawerSectionTitle(
           iconData: sectionIcon,
           title: getTranslation(context, tSectionTitle),
-          color: sectionTitleColor,
         ),
         ...models
             .map(
@@ -122,14 +120,12 @@ class AussieAppDrawer extends StatelessWidget {
         _DrawerSection(
           sectionIcon: Icons.info,
           tSectionTitle: "infoSectionTitle",
-          sectionTitleColor: kausBlue,
           tilesColor: Colors.blue,
           models: infoModels,
         ),
         _DrawerSection(
           sectionIcon: Icons.miscellaneous_services,
           tSectionTitle: "miscSectionTitle",
-          sectionTitleColor: kausBlue,
           tilesColor: Colors.blue,
           models: miscModels,
         ),
@@ -208,12 +204,11 @@ class _DrawerItem extends StatelessWidget {
 
 class _DrawerSectionTitle extends StatelessWidget {
   final IconData iconData;
-  final Color color;
+
   final String title;
   const _DrawerSectionTitle({
     @required this.iconData,
     @required this.title,
-    this.color,
   }) : assert(iconData != null && title != null);
 
   @override
@@ -223,20 +218,13 @@ class _DrawerSectionTitle extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Icon(
-              iconData,
-              size: 70.sp,
-              color: color,
-            ),
+            child: Icon(iconData, size: 70.sp),
           ),
           Expanded(
             flex: 5,
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 70.sp,
-                color: color,
-              ),
+              style: TextStyle(fontSize: 70.sp),
             ),
           ),
         ],

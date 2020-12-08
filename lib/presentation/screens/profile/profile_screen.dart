@@ -22,7 +22,12 @@ class ProfileScreen extends StatelessWidget {
             flexibleSpace: Stack(
               overflow: Overflow.visible,
               children: [
-                ProfileBanner(),
+                BannerImage(
+                  colorFilter: ColorFilter.mode(
+                    Colors.white.withAlpha(70),
+                    BlendMode.lighten,
+                  ),
+                ),
                 Positioned(
                   right: 0,
                   bottom: -.1.sh,

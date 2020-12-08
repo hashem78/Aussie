@@ -28,16 +28,16 @@ class ProfileCardStack extends StatelessWidget {
         Positioned(
           top: -.05.sh,
           left: .04.sw,
-          child: ProfileImage(),
+          child: ProfileScreenImage(),
         ),
         Positioned(
           top: .02.sh,
           left: .35.sw,
-          child: ProfileDetails(),
+          child: ProfileScreenCardDetails(),
         ),
         Positioned(
           bottom: .02.sh,
-          child: ProfileStats(),
+          child: ProfileScreenCardStats(),
         ),
       ],
     );

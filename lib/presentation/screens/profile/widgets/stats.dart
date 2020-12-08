@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileStats extends StatelessWidget {
-  const ProfileStats({
+class ProfileScreenCardStats extends StatelessWidget {
+  const ProfileScreenCardStats({
     Key key,
   }) : super(key: key);
 

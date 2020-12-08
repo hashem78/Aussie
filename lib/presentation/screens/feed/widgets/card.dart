@@ -31,7 +31,7 @@ class FeedCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FeedCardOwner(),
+              CardOwner(),
               FeedCardImage(),
               FeedCardComment(),
               FeedCardTextField(),

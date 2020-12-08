@@ -1,8 +1,8 @@
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
-class ProfileImage extends StatelessWidget {
-  const ProfileImage({
+class ProfileScreenImage extends StatelessWidget {
+  const ProfileScreenImage({
     Key key,
   }) : super(key: key);
 

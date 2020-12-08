@@ -2,8 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
-class ProfileDetails extends StatelessWidget {
-  const ProfileDetails({
+class ProfileScreenCardDetails extends StatelessWidget {
+  const ProfileScreenCardDetails({
     Key key,
   }) : super(key: key);
 

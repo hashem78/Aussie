@@ -3,10 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class FeedCardOwner extends StatelessWidget {
-  const FeedCardOwner({
+class CardOwner extends StatelessWidget {
+  final double size;
+
+  CardOwner({
     Key key,
-  }) : super(key: key);
+    double size,
+  })  : size = size ?? .1.sw,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +27,9 @@ class FeedCardOwner extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: .1.sw,
-            height: .1.sw,
+            width: size,
+            height: size,
+            margin: const EdgeInsets.all(5),
             child: Ink.image(
               image: CachedNetworkImageProvider(
                 "https://picsum.photos/200",
@@ -32,7 +37,10 @@ class FeedCardOwner extends StatelessWidget {
             ),
           ),
           SizedBox(width: .05.sw),
-          Text("Ali al mestrihi"),
+          Text(
+            "Ali al mestrihi",
+            style: Theme.of(context).textTheme.bodyText2,
+          ),
         ],
       ),
     );
