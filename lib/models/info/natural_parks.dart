@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:aussie/interfaces/paginated_data.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+@JsonSerializable()
 @immutable
 class NaturalParkModel extends Equatable implements IPaginatedData {
   final String parkName;
