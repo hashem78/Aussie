@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:aussie/localizations.dart';
+import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 
 import 'package:aussie/presentation/screens/misc/settings.dart';
 
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,7 +89,7 @@ class MyApp extends StatelessWidget {
                     if (supportedLocales.contains(locale)) return locale;
                     return supportedLocales.first;
                   },
-                  home: HomeScreen(),
+                  home: SingupScreen(),
                   theme: ThemeData(
                     brightness: state.model.brightness,
                   ),
@@ -110,4 +112,40 @@ class MyApp extends StatelessWidget {
     FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),
     SettingsScreen.navPath: (BuildContext context) => SettingsScreen(),
   };
+}
+
+GlobalKey<ScaffoldState> sstate = GlobalKey();
+
+class SingupScreen extends StatelessWidget {
+  final UserManagementCubit cubit = UserManagementCubit();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: sstate,
+      body: BlocListener<UserManagementCubit, UserManagementState>(
+        cubit: cubit,
+        listener: (context, state) {
+          if (state is UserManagementSignup) {
+            sstate.currentState.showSnackBar(SnackBar(content: Text("signup")));
+          } else {
+            if (state is UserManagementSignupError)
+              sstate.currentState.showSnackBar(
+                SnackBar(
+                  content: Text("${state.notification.message}"),
+                ),
+              );
+          }
+        },
+        child: Center(
+          child: RaisedButton(
+            child: Text("Signup"),
+            onPressed: () {
+              cubit.signup(
+                  SignupModel("hashem.olayano@gmail.com", "Mythi@2020"));
+            },
+          ),
+        ),
+      ),
+    );
+  }
 }

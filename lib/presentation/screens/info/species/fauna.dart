@@ -1,4 +1,4 @@
-import 'package:aussie/models/info/species.dart';
+import 'package:aussie/models/info/species/species.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/species/details.dart';

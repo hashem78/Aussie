@@ -1,4 +1,4 @@
-import 'package:aussie/models/info/natural_parks.dart';
+import 'package:aussie/models/info/natural_parks/natural_parks.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';

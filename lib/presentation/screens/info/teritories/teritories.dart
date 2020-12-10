@@ -1,4 +1,4 @@
-import 'package:aussie/models/info/teritory.dart';
+import 'package:aussie/models/info/teritory/teritory.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
