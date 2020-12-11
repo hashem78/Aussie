@@ -1,14 +1,13 @@
-import 'package:aussie/constants.dart';
-
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
-import 'package:aussie/presentation/widgets/aussie/appbar.dart';
+import 'package:aussie/presentation/screens/profile/profile_screen.dart';
 
 import 'package:aussie/util/functions.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,19 +20,14 @@ class _DrawerItemModel extends Equatable {
   final String svgName;
   final String tTitle;
   final Color iconColor;
-  final bool assumeOrder;
 
   const _DrawerItemModel({
     @required this.navPath,
     @required this.svgName,
     @required this.tTitle,
-    this.assumeOrder = false,
     this.iconColor = Colors.black,
   }) : assert(
-          navPath != null &&
-              svgName != null &&
-              tTitle != null &&
-              assumeOrder != null,
+          navPath != null && svgName != null && tTitle != null,
         );
 
   @override
@@ -113,7 +107,6 @@ class AussieAppDrawer extends StatelessWidget {
           svgName: SettingsScreen.svgName,
           navPath: SettingsScreen.navPath,
           iconColor: Colors.grey,
-          assumeOrder: true,
         ),
       ];
   static get sections => [
@@ -132,11 +125,12 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Drawer(
       child: CustomScrollView(
         slivers: [
-          AussieAppBar(kausBlue, "Aussie"),
+          SliverToBoxAdapter(
+            child: _DrawerHeader(),
+          ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
@@ -161,6 +155,51 @@ class AussieAppDrawer extends StatelessWidget {
   }
 }
 
+class _DrawerHeader extends StatelessWidget {
+  const _DrawerHeader({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: .2.sh,
+      child: Material(
+        color: Theme.of(context).backgroundColor,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ProfileScreen(),
+              ),
+            );
+          },
+          child: Row(
+            children: [
+              Expanded(
+                child: SizedBox.fromSize(
+                  size: Size(.15.sh, .15.sh),
+                  child: Ink.image(
+                    image: CachedNetworkImageProvider(
+                      "https://picsum.photos/300",
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  "Mythi",
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _DrawerItem extends StatelessWidget {
   final _DrawerItemModel model;
 
@@ -179,12 +218,7 @@ class _DrawerItem extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              if (!model.assumeOrder) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    model.navPath, ModalRoute.withName(""));
-              } else {
-                Navigator.of(context).pushNamed(model.navPath);
-              }
+              Navigator.of(context).pushNamed(model.navPath);
             },
             leading: SvgPicture.asset(
               "assets/images/${model.svgName}",

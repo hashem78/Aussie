@@ -29,11 +29,11 @@ class NaturalParksDetailsScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: .4.sh,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(model.parkName),
-              background: model.imageUrl != ""
+              title: Text(model.park_name),
+              background: model.image_link != ""
                   ? Hero(
                       tag: heroTag,
-                      child: buildImage(model.imageUrl),
+                      child: buildImage(model.image_link),
                     )
                   : Container(),
             ),
@@ -44,7 +44,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
               model: AussieGMapModel(
                 latitude: model.latitude,
                 longitude: model.longitude,
-                title: model.parkName,
+                title: model.park_name,
               ),
             ),
           ),

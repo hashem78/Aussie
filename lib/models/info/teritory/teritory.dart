@@ -13,22 +13,22 @@ part 'teritory.g.dart';
 )
 @immutable
 class TeritoryModel extends Equatable implements IPaginatedData {
-  final String title;
-  final String latitude;
-  final String longitude;
+  final String city;
+  final String lat;
+  final String lng;
   final String population;
 
   final String admin;
   const TeritoryModel({
-    this.title,
-    this.latitude,
-    this.longitude,
+    this.city,
+    this.lat,
+    this.lng,
     this.admin,
     this.population,
   });
 
   @override
-  List<Object> get props => [title, latitude, longitude, admin];
+  List<Object> get props => [city, lat, lng, admin];
   factory TeritoryModel.fromJson(Map<String, dynamic> json) =>
       _$TeritoryModelFromJson(json);
 

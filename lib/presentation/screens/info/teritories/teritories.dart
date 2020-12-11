@@ -49,15 +49,15 @@ class TeritoriesScreen extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => AussieGMapScreen(
                   model: AussieGMapModel(
-                    latitude: _casted.latitude,
-                    longitude: _casted.longitude,
-                    title: _casted.title,
+                    latitude: _casted.lat,
+                    longitude: _casted.lng,
+                    title: _casted.city,
                   ),
                 ),
               ),
             ),
             title: Text(
-              _casted.title,
+              _casted.city,
               style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
             ),
             subtitle: Padding(
@@ -79,10 +79,10 @@ class TeritoriesScreen extends StatelessWidget {
                     children: [
                       Expanded(
                           child: buildChip(_currentTheme.swatchColor,
-                              "Longitude", _casted.longitude)),
+                              "Longitude", _casted.lng)),
                       Expanded(
                           child: buildChip(_currentTheme.swatchColor,
-                              "Latitude", _casted.latitude)),
+                              "Latitude", _casted.lat)),
                     ],
                   ),
                 ],

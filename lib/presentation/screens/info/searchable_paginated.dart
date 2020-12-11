@@ -1,5 +1,4 @@
 import 'package:aussie/interfaces/paginated_data.dart';
-import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
@@ -69,8 +68,7 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: AussieScaffold(
-        drawer: getAppDrawer(context),
+      child: Scaffold(
         backgroundColor: getColorData(context).backgroundColor,
         body: CustomScrollView(
           slivers: [

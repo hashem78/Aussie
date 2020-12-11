@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
                     if (supportedLocales.contains(locale)) return locale;
                     return supportedLocales.first;
                   },
-                  home: SingupScreen(),
+                  initialRoute: "/home",
                   theme: ThemeData(
                     brightness: state.model.brightness,
                   ),
@@ -104,6 +104,7 @@ class MyApp extends StatelessWidget {
   }
 
   static final routes = {
+    "/home": (BuildContext context) => HomeScreen(),
     NaturalParksScreen.data.navPath: (BuildContext context) =>
         NaturalParksScreen(),
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),

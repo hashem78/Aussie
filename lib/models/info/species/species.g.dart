@@ -17,7 +17,7 @@ SpeciesDetailsModel _$SpeciesDetailsModelFromJson(Map<String, dynamic> json) {
           $checkedConvert(json, 'conservationStatus', (v) => v as String),
       description: $checkedConvert(json, 'description', (v) => v as String),
       titleImageUrl: $checkedConvert(json, 'titleImageUrl', (v) => v as String),
-      thumbnailImageUrls: $checkedConvert(json, 'thumbnailImageUrls',
+      imageUrls: $checkedConvert(json, 'imageUrls',
           (v) => (v as List)?.map((e) => e as String)?.toList()),
     );
     return val;

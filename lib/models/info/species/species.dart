@@ -19,7 +19,7 @@ class SpeciesDetailsModel extends Equatable implements IPaginatedData {
   final String conservationStatus;
   final String description;
   final String titleImageUrl;
-  final List<String> thumbnailImageUrls;
+  final List<String> imageUrls;
   const SpeciesDetailsModel({
     @required String commonName,
     @required this.scientificName,
@@ -27,7 +27,7 @@ class SpeciesDetailsModel extends Equatable implements IPaginatedData {
     this.conservationStatus,
     @required this.description,
     this.titleImageUrl,
-    this.thumbnailImageUrls,
+    this.imageUrls,
   })  : commonName = commonName == "" ? scientificName : commonName,
         assert(
           commonName != null && scientificName != null && description != null,
@@ -42,7 +42,7 @@ class SpeciesDetailsModel extends Equatable implements IPaginatedData {
       conservationStatus,
       description,
       titleImageUrl,
-      thumbnailImageUrls,
+      imageUrls,
     ];
   }
 

@@ -1,5 +1,6 @@
 import 'package:aussie/presentation/screens/feed/tabs/events/tab.dart';
 import 'package:aussie/presentation/screens/feed/tabs/home/tab.dart';
+import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return SafeArea(
-      child: Scaffold(
+      child: AussieScaffold(
         drawer: getAppDrawer(context),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [

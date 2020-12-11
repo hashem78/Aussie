@@ -23,7 +23,7 @@ class NaturalParksTile extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(bottom: 7.5),
         child: AutoSizeText(
-          model.parkName,
+          model.park_name,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w800),
         ),
@@ -54,18 +54,18 @@ class NaturalParksTile extends StatelessWidget {
           ),
         ],
       ),
-      titleImage: model.imageUrl != "" && heroTag != null
+      titleImage: model.image_link != "" && heroTag != null
           ? Hero(
               tag: heroTag,
               child: buildImage(
-                model.imageUrl,
+                model.image_link,
                 fit: BoxFit.cover,
                 fadeInDuration: Duration.zero,
                 showPlaceHolder: true,
               ),
             )
           : buildImage(
-              model.imageUrl,
+              model.image_link,
               fit: BoxFit.cover,
               fadeInDuration: Duration.zero,
               showPlaceHolder: true,

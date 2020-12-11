@@ -28,13 +28,12 @@ class SpeciesDetails extends StatelessWidget {
             expandedHeight: .5.sh,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(model.commonName),
-              background: model.titleImageUrl != null &&
-                      model.thumbnailImageUrls == null
+              background: model.titleImageUrl != null && model.imageUrls == null
                   ? buildImage(model.titleImageUrl)
                   : CarouselSlider.builder(
-                      itemCount: model.thumbnailImageUrls.length,
+                      itemCount: model.imageUrls.length,
                       itemBuilder: (context, index) => buildImage(
-                        model.thumbnailImageUrls[index],
+                        model.imageUrls[index],
                         showPlaceHolder: false,
                         fadeInDuration: Duration.zero,
                         fit: BoxFit.cover,
@@ -45,7 +44,7 @@ class SpeciesDetails extends StatelessWidget {
                         pageSnapping: false,
                         autoPlay: true,
                         enableInfiniteScroll:
-                            model.thumbnailImageUrls.length == 1 ? false : true,
+                            model.imageUrls.length == 1 ? false : true,
                         autoPlayInterval: Duration(seconds: 10),
                       ),
                     ),

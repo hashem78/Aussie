@@ -13,17 +13,21 @@ part 'natural_parks.g.dart';
 )
 @immutable
 class NaturalParkModel extends Equatable implements IPaginatedData {
-  final String parkName;
+  // ignore: non_constant_identifier_names
+  final String park_name;
   final String summary;
-  final String imageUrl;
+  // ignore: non_constant_identifier_names
+  final String image_link;
   final String longitude;
   final String latitude;
-  final List<Map<String, dynamic>> sections;
+  final List<Map<String, String>> sections;
 
   const NaturalParkModel({
-    this.parkName,
+    // ignore: non_constant_identifier_names
+    this.park_name,
     this.summary,
-    this.imageUrl,
+    // ignore: non_constant_identifier_names
+    this.image_link,
     this.longitude,
     this.latitude,
     this.sections,
@@ -32,9 +36,9 @@ class NaturalParkModel extends Equatable implements IPaginatedData {
   @override
   List<Object> get props {
     return [
-      parkName,
+      park_name,
       summary,
-      imageUrl,
+      image_link,
       longitude,
       latitude,
       sections,

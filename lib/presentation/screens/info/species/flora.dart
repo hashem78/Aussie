@@ -42,9 +42,7 @@ class FloraScreen extends StatelessWidget {
           return PaginatedScreenTile(
             color: _currentTheme.swatchColor,
             titleImage: buildImage(
-              _casted.thumbnailImageUrls.isNotEmpty
-                  ? _casted.thumbnailImageUrls[0]
-                  : null,
+              _casted.imageUrls.isNotEmpty ? _casted.imageUrls[0] : null,
               fit: BoxFit.cover,
             ),
             title: Text(

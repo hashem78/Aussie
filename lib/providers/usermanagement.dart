@@ -28,3 +28,21 @@ class UserManagementProvider {
     return UserSignupSuccessfulNotification();
   }
 }
+
+Future<UserManagementNotification> signin(Map<String, dynamic> map) async {
+  if (map["email"] == null) {
+    return InvalidEmailNotification();
+  } else {
+    if (map["password"] == null) WeakPasswordNotification();
+  }
+  var auth = FirebaseAuth.instance;
+  try {
+    await auth.signInWithEmailAndPassword(
+        email: map["email"], password: map["password"]);
+  } on FirebaseException catch (e) {
+    return UserManagementNotification.errorCodes[e.code];
+  } catch (e) {
+    return UserNotFoundNotification();
+  }
+  return UserSignupSuccessfulNotification();
+}
