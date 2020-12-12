@@ -1,14 +1,6 @@
 import 'dart:convert';
 
-import 'package:aussie/localizations.dart';
-import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
-import 'package:aussie/presentation/screens/feed/feed.dart';
-
-import 'package:aussie/presentation/screens/misc/settings.dart';
-
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/presentation/screens/usermanagement/initial.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,13 +9,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:aussie/localizations.dart';
 import 'package:aussie/models/themes/themes.dart';
+import 'package:aussie/presentation/screens/feed/feed.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
-import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
-
+import 'package:aussie/presentation/screens/misc/settings.dart';
+import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 void main() async {
@@ -45,7 +41,7 @@ void main() async {
     _perfs.setString("lang", "en");
     locale = Locale('en', '');
   }
-  runApp(MyApp(themeMap, locale));
+  if (!_perfs.containsKey("signed_in")) runApp(MyApp(themeMap, locale));
 }
 
 class MyApp extends StatelessWidget {
@@ -89,7 +85,7 @@ class MyApp extends StatelessWidget {
                     if (supportedLocales.contains(locale)) return locale;
                     return supportedLocales.first;
                   },
-                  initialRoute: "/home",
+                  home: InitialScreen(),
                   theme: ThemeData(
                     brightness: state.model.brightness,
                   ),
@@ -104,7 +100,7 @@ class MyApp extends StatelessWidget {
   }
 
   static final routes = {
-    "/home": (BuildContext context) => HomeScreen(),
+    "/feed": (BuildContext context) => FeedScreen(),
     NaturalParksScreen.data.navPath: (BuildContext context) =>
         NaturalParksScreen(),
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
@@ -113,40 +109,4 @@ class MyApp extends StatelessWidget {
     FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),
     SettingsScreen.navPath: (BuildContext context) => SettingsScreen(),
   };
-}
-
-GlobalKey<ScaffoldState> sstate = GlobalKey();
-
-class SingupScreen extends StatelessWidget {
-  final UserManagementCubit cubit = UserManagementCubit();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: sstate,
-      body: BlocListener<UserManagementCubit, UserManagementState>(
-        cubit: cubit,
-        listener: (context, state) {
-          if (state is UserManagementSignup) {
-            sstate.currentState.showSnackBar(SnackBar(content: Text("signup")));
-          } else {
-            if (state is UserManagementSignupError)
-              sstate.currentState.showSnackBar(
-                SnackBar(
-                  content: Text("${state.notification.message}"),
-                ),
-              );
-          }
-        },
-        child: Center(
-          child: RaisedButton(
-            child: Text("Signup"),
-            onPressed: () {
-              cubit.signup(
-                  SignupModel("hashem.olayano@gmail.com", "Mythi@2020"));
-            },
-          ),
-        ),
-      ),
-    );
-  }
 }

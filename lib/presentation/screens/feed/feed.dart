@@ -6,12 +6,12 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreen extends StatefulWidget {
+class FeedScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _FeedScreenState createState() => _FeedScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
+class _FeedScreenState extends State<FeedScreen>
     with SingleTickerProviderStateMixin {
   TabController controller;
 
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
+
     return SafeArea(
       child: AussieScaffold(
         drawer: getAppDrawer(context),

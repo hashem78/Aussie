@@ -10,6 +10,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="Aussie"
+        android:requestLegacyExternalStorage="true"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDHqDhLM6azPneCB5X8nDPthld9AcSnMEo"/>

@@ -1,29 +1,24 @@
+import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
+
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
-import 'package:aussie/models/signin_model/signin_model.dart';
+
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
-import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/user/user.dart';
+
 import 'package:aussie/providers/usermanagement.dart';
-import 'package:aussie/util/pair.dart';
 
 class UserManagementRepository {
   UserManagementProvider _provider = UserManagementProvider();
-  Future<Pair<AussieUser, UserManagementNotification>> signup(
-      SignupModel model) async {
-    var _notif = await _provider.signup(model.toJson());
-    if (_notif is UserSignupSuccessfulNotification) {
-      return Pair(AussieUser(), null);
-    }
-    return Pair(null, _notif);
-  }
+  Future<UserManagementNotification> signup(SignupModel model) async =>
+      await _provider.signup(model.toJson());
 
-  Future<Pair<AussieUser, UserManagementNotification>> signin(
-      SigninModel model) async {
-    var _notif = await _provider.signup(model.toJson());
-    if (_notif is UserSignupSuccessfulNotification) {
-      return Pair(AussieUser(), null);
-    }
-    return Pair(null, _notif);
+  Future<UserManagementNotification> signin(SigninModel model) async =>
+      await _provider.signin(model.toJson());
+
+  Future<AussieUser> signedin() async {
+    var _data = await _provider.signedin();
+
+    if (_data == null) return null;
+    return AussieUser.fromJson(_data);
   }
 }
-
-class AussieUser {}

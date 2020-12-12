@@ -100,7 +100,7 @@ class InvalidEmailNotification implements UserManagementNotification {
   String get message => "The email provided is badly formatted";
 }
 
-class UserVerifiedNotification implements UserSignupSuccessfulNotification {
+class UserVerifiedNotification implements UserManagementNotification {
   @override
   String get code => "";
 
@@ -109,6 +109,14 @@ class UserVerifiedNotification implements UserSignupSuccessfulNotification {
 }
 
 class UserSignupSuccessfulNotification implements UserManagementNotification {
+  @override
+  String get code => "";
+
+  @override
+  String get message => "Successfully signed up";
+}
+
+class UserSigninSuccessfulNotification implements UserManagementNotification {
   @override
   String get code => "";
 
