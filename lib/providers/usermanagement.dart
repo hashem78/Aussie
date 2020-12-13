@@ -2,15 +2,19 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
+
 import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
+@immutable
 class UserManagementProvider {
-  final _authInstance = FirebaseAuth.instance;
-  final _storageInstance = FirebaseStorage.instance;
+  static final _authInstance = FirebaseAuth.instance;
+  static final _storageInstance = FirebaseStorage.instance;
+  static final _firestoreInstance = FirebaseFirestore.instance;
   Future<UserManagementNotification> signup(Map<String, dynamic> map) async {
     if (map["email"] == "") {
       return InvalidEmailNotification();
@@ -41,7 +45,7 @@ class UserManagementProvider {
           } catch (onError) {
             return UserNotFoundNotification();
           }
-          await FirebaseFirestore.instance.doc("users/$uid").set(
+          await _firestoreInstance.doc("users/$uid").set(
             {
               "uid": uid,
               "profilePictureLink": _profileImageLink,
@@ -51,6 +55,21 @@ class UserManagementProvider {
               "fullname": map["fullname"]
             },
           );
+          await _firestoreInstance
+              .doc("users/$uid")
+              .collection("events")
+              .doc("INDEX")
+              .set({});
+          await _firestoreInstance
+              .doc("users/$uid")
+              .collection("attendees")
+              .doc("INDEX")
+              .set({});
+          await _firestoreInstance
+              .doc("users/$uid")
+              .collection("gallery")
+              .doc("INDEX")
+              .set({});
         },
       );
     } on FirebaseAuthException catch (e) {
@@ -112,7 +131,73 @@ class UserManagementProvider {
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserNotFoundNotification();
+      return UserManagementErrorNotification();
+    }
+  }
+
+  Future<UserManagementNotification> getUserDataFromUid(String uid) async {
+    try {
+      var _userModel =
+          await _firestoreInstance.collection("users").doc(uid).get();
+      return UserModelContainingNotification(
+        UnmodifiableMapView(
+          _userModel.data(),
+        ),
+      );
+    } on FirebaseException {
+      return UserManagementErrorNotification();
+    }
+  }
+
+  Future<UserManagementNotification> fetchEvents(
+    DocumentSnapshot documentSnapshot,
+  ) async {
+    try {
+      if (_authInstance.currentUser != null) {
+        String uid = _authInstance.currentUser.uid;
+        if (documentSnapshot != null) {
+          var _data = await _firestoreInstance
+              .collection("users/$uid/events")
+              .startAfterDocument(documentSnapshot)
+              .limit(5)
+              .get();
+          var _docs = _data.docs;
+          List<Map<String, dynamic>> _internalList = [];
+          _docs.forEach(
+            (element) {
+              if (element.id != "INDEX") {
+                _internalList.add(element.data());
+              }
+            },
+          );
+          return EventModelsContainingNotification(
+            eventModels: UnmodifiableListView(_internalList),
+            prevsnap: _docs.last,
+          );
+        } else {
+          var _data = await _firestoreInstance
+              .collection("users/$uid/events")
+              .where("field")
+              .limit(5)
+              .get();
+          var _docs = _data.docs;
+          List<Map<String, dynamic>> _internalList = [];
+          _docs.forEach(
+            (element) {
+              if (element.id != "INDEX") {
+                _internalList.add(element.data());
+              }
+            },
+          );
+          return EventModelsContainingNotification(
+            eventModels: UnmodifiableListView(_internalList),
+            prevsnap: _docs.last,
+          );
+        }
+      }
+      return UserManagementErrorNotification();
+    } on FirebaseException {
+      return UserManagementErrorNotification();
     }
   }
 }

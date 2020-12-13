@@ -10,6 +10,9 @@ part 'user.g.dart';
 )
 @immutable
 class AussieUser {
+  String get eventsCollectionPath => "users/$uid/events";
+  String get attendeesCollectionPath => "users/$uid/foreign/attendees";
+  String get galleryCollectionPath => "users/$uid/foreign/gallery";
   final String uid;
   final String displayName;
   final String email;

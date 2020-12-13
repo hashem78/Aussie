@@ -1,4 +1,5 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
+import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
@@ -6,6 +7,7 @@ import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:aussie/repositories/usermanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'usermanagement_state.dart';
 
@@ -58,6 +60,30 @@ class UserManagementCubit extends Cubit<UserManagementState> {
       (value) {
         if (value is UserModelContainingActualNotification) {
           emit(UserMangementHasUserData(value.user));
+        } else {
+          emit(UserManagementError(value));
+        }
+      },
+    );
+  }
+
+  void getUserDataFromUid(String uid) {
+    repository.getUserDataFromUid(uid).then(
+      (value) {
+        if (value is UserModelContainingActualNotification) {
+          emit(UserMangementHasUserData(value.user));
+        } else {
+          emit(UserManagementError(value));
+        }
+      },
+    );
+  }
+
+  void fetchEvents({DocumentSnapshot lastdoc}) {
+    repository.fetchEvents(lastdoc).then(
+      (value) {
+        if (value is EventModelsContainingActualNotification) {
+          emit(UserManagementEventsFetched(value.models));
         } else {
           emit(UserManagementError(value));
         }

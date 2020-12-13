@@ -37,6 +37,7 @@ dependencies:
   json_serializable: ^3.5.1
   provider: ^4.3.2+2
   shared_preferences: ^0.5.12+4
+  uuid: ^2.2.2
   weather_icons: ^2.0.2
 
 dev_dependencies:

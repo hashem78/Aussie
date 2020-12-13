@@ -1,5 +1,7 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
+import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WrongNameNotification implements UserManagementNotification {
   @override
@@ -75,6 +77,23 @@ class UserNotFoundNotification implements UserManagementNotification {
   factory UserNotFoundNotification() {
     if (_instance == null) {
       _instance = UserNotFoundNotification._();
+    }
+    return _instance;
+  }
+
+  @override
+  String get message =>
+      "There is no user record corresponding to this identifier. the user may have been deleted.";
+}
+
+class UserManagementErrorNotification implements UserManagementNotification {
+  @override
+  String get code => "error";
+  UserManagementErrorNotification._();
+  static UserManagementErrorNotification _instance;
+  factory UserManagementErrorNotification() {
+    if (_instance == null) {
+      _instance = UserManagementErrorNotification._();
     }
     return _instance;
   }
@@ -182,6 +201,35 @@ class UserModelContainingActualNotification
   final AussieUser user;
 
   UserModelContainingActualNotification(this.user);
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
+}
+
+class EventModelsContainingNotification extends UserManagementNotification {
+  final DocumentSnapshot prevsnap;
+  final List<Map<String, dynamic>> eventModels;
+
+  EventModelsContainingNotification({
+    this.prevsnap,
+    this.eventModels,
+  });
+
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
+}
+
+class EventModelsContainingActualNotification
+    extends UserManagementNotification {
+  final List<EventModel> models;
+
+  EventModelsContainingActualNotification(this.models);
+
   @override
   String get code => "";
 
