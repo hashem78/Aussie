@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:aussie/presentation/screens/usermanagement/initial.dart';
+import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/localizations.dart';
@@ -18,7 +19,6 @@ import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
@@ -61,36 +61,35 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider.value(value: _themeCubit),
         BlocProvider.value(value: _languageCubit),
+        BlocProvider(create: (context) => SignupBloc()),
+        BlocProvider(create: (context) => UserManagementCubit()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
           return BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, state) {
-              return Provider<AussieAppDrawer>(
-                create: (context) => AussieAppDrawer(),
-                child: MaterialApp(
-                  locale: languageState.currentLocale,
-                  debugShowCheckedModeBanner: false,
-                  localizationsDelegates: [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    AussieLocalizations.delegate,
-                  ],
-                  supportedLocales: [
-                    const Locale('en', ''),
-                    const Locale('ar', ''),
-                  ],
-                  localeResolutionCallback: (locale, supportedLocales) {
-                    if (supportedLocales.contains(locale)) return locale;
-                    return supportedLocales.first;
-                  },
-                  home: InitialScreen(),
-                  theme: ThemeData(
-                    brightness: state.model.brightness,
-                  ),
-                  routes: routes,
+              return MaterialApp(
+                locale: languageState.currentLocale,
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  AussieLocalizations.delegate,
+                ],
+                supportedLocales: [
+                  const Locale('en', ''),
+                  const Locale('ar', ''),
+                ],
+                localeResolutionCallback: (locale, supportedLocales) {
+                  if (supportedLocales.contains(locale)) return locale;
+                  return supportedLocales.first;
+                },
+                home: InitialScreen(),
+                theme: ThemeData(
+                  brightness: state.model.brightness,
                 ),
+                routes: routes,
               );
             },
           );

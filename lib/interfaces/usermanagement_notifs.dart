@@ -1,7 +1,7 @@
 import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 
 abstract class UserManagementNotification {
-  static get errorCodes => {
+  static get firebaseAuthErrorCodes => {
         "invalid-email": InvalidEmailNotification(),
         "wrong-password": WrongPasswordNotification(),
         "email-already-in-use": EmailAlreadyInUseNotification(),

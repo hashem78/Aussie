@@ -19,7 +19,7 @@ class CardOwner extends StatelessWidget {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return ProfileScreen();
+              return UserProfileScreen();
             },
           ),
         );

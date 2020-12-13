@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
-import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
+import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -61,9 +63,14 @@ Widget buildImage(
 
 ThemeModel getCurrentThemeModel(BuildContext context) =>
     BlocProvider.of<ThemeCubit>(context, listen: true).currentModel;
-AussieAppDrawer getAppDrawer(BuildContext context) =>
-    Provider.of<AussieAppDrawer>(context, listen: false);
+
+AussieUser getCurrentUser(BuildContext context) =>
+    Provider.of<AussieUser>(context, listen: false);
+
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
 AussieColorData getColorData(BuildContext context) =>
     Provider.of<AussieColorData>(context, listen: false);
+
+SignupBloc getSignupBloc(BuildContext context) =>
+    BlocProvider.of<SignupBloc>(context);

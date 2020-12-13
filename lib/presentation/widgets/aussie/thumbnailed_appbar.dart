@@ -6,27 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 
-class AussieThumbnailedAppBar extends StatefulWidget {
-  final ThumbnailCubit cubit;
+class AussieThumbnailedAppBar extends StatelessWidget {
   final String title;
   final double height;
   AussieThumbnailedAppBar({
-    @required this.cubit,
     @required this.title,
     double height,
   }) : height = height ?? .5.sh;
-
-  @override
-  _AussieThumbnailedAppBarState createState() =>
-      _AussieThumbnailedAppBarState();
-}
-
-class _AussieThumbnailedAppBarState extends State<AussieThumbnailedAppBar> {
-  @override
-  void initState() {
-    widget.cubit.fetch();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +20,11 @@ class _AussieThumbnailedAppBarState extends State<AussieThumbnailedAppBar> {
       backgroundColor: getColorData(context).swatchColor,
       pinned: true,
       primary: true,
-      expandedHeight: widget.height,
+      expandedHeight: height,
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(widget.title),
+        title: Text(title),
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
-          cubit: widget.cubit,
           builder: (context, state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
@@ -50,7 +35,7 @@ class _AussieThumbnailedAppBarState extends State<AussieThumbnailedAppBar> {
                   )
                 ],
                 options: CarouselOptions(
-                  height: widget.height,
+                  height: height,
                   viewportFraction: 1,
                   enableInfiniteScroll: false,
                 ),
@@ -65,7 +50,7 @@ class _AussieThumbnailedAppBarState extends State<AussieThumbnailedAppBar> {
                   fit: BoxFit.cover,
                 ),
                 options: CarouselOptions(
-                  height: widget.height,
+                  height: height,
                   viewportFraction: 1,
                   autoPlay: true,
                   autoPlayInterval: Duration(seconds: 10),

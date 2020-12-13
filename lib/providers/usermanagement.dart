@@ -1,10 +1,10 @@
+import 'dart:collection';
 import 'dart:io';
 
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 
@@ -13,11 +13,13 @@ class UserManagementProvider {
   final _storageInstance = FirebaseStorage.instance;
   Future<UserManagementNotification> signup(Map<String, dynamic> map) async {
     if (map["email"] == "") {
-      print("missing email");
       return InvalidEmailNotification();
-    } else {
-      if (map["password"] == "") WeakPasswordNotification();
-    }
+    } else if (map["password"] == "") {
+      return WeakPasswordNotification();
+    } else if (map["username"] == "" || map["fullname"] == "") {
+      return WrongNameNotification();
+    } else if (map["profileImagePath"] == "")
+      return ProfileImageRequiredNotification();
 
     try {
       await _authInstance.createUserWithEmailAndPassword(
@@ -25,7 +27,6 @@ class UserManagementProvider {
         password: map["password"],
       );
       String uid = FirebaseAuth.instance.currentUser.uid;
-      print("image path${map['profileImagePath']}");
       String _filename = path.basename(map['profileImagePath']);
 
       var _ref = _storageInstance.ref().child("users/$uid/profile/$_filename");
@@ -38,44 +39,32 @@ class UserManagementProvider {
           try {
             _profileImageLink = await _ref.getDownloadURL();
           } catch (onError) {
-            print("Error");
+            return UserNotFoundNotification();
           }
-          print(_profileImageLink);
           await FirebaseFirestore.instance.doc("users/$uid").set(
             {
               "uid": uid,
               "profilePictureLink": _profileImageLink,
+              "username": map["username"],
+              "profileBannerLink":
+                  map["profileBannerLink"] ?? "https://picsum.photos/1200",
+              "fullname": map["fullname"]
             },
           );
         },
       );
     } on FirebaseAuthException catch (e) {
-      return UserManagementNotification.errorCodes[e.code];
+      return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      print(e);
       return UserNotFoundNotification();
     }
-
     return UserSignupSuccessfulNotification();
   }
 
-  Future<Map<String, dynamic>> signedin() async {
+  Future<UserManagementNotification> isSignedin() async {
     User user = FirebaseAuth.instance.currentUser;
-    if (user == null) return null;
-    var _db = FirebaseFirestore.instance;
-    var _shot = await _db.doc('users/${user.uid}').get();
-    var _data = _shot.data();
-
-    var _internalMap = {
-      "uid": user.uid,
-      "name": user.displayName,
-      "email": user.email,
-      "verified": user.emailVerified,
-      "profilePictureLink": _data["profilePictureLink"] ?? "",
-      "profileBanner": "",
-    };
-    //_internalMap.addAll(_shot.data());
-    return _internalMap;
+    if (user == null) return UserHasNotSignedInNotification();
+    return UserSigninSuccessfulNotification();
   }
 
   Future<UserManagementNotification> signin(Map<String, dynamic> map) async {
@@ -83,6 +72,8 @@ class UserManagementProvider {
       return InvalidEmailNotification();
     } else if (map["password"] == "") {
       return WeakPasswordNotification();
+    } else if (map["username"] == "") {
+      return WrongNameNotification();
     }
 
     try {
@@ -92,13 +83,36 @@ class UserManagementProvider {
       );
 
       return UserSigninSuccessfulNotification();
-    } on FirebaseException catch (e) {
-      return UserManagementNotification.errorCodes[e.code];
+    } on FirebaseAuthException catch (e) {
+      return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
       return UserNotFoundNotification();
     }
   }
-  Future<Map<String,dynamic>> getUserData()async{
-    
+
+  Future<UserManagementNotification> getUserData() async {
+    try {
+      User user = FirebaseAuth.instance.currentUser;
+      if (user == null) return UserHasNotSignedInNotification();
+      var _db = FirebaseFirestore.instance;
+      var _shot = await _db.doc('users/${user.uid}').get();
+      var _data = _shot.data();
+
+      var _internalMap = {
+        "uid": user.uid,
+        "name": user.displayName,
+        "email": user.email,
+        "verified": user.emailVerified,
+        "profilePictureLink": _data["profilePictureLink"],
+        "username": _data["username"],
+        "fullname": _data["fullname"],
+        "profileBannerLink": _data["profileBannerLink"],
+      };
+      return UserModelContainingNotification(UnmodifiableMapView(_internalMap));
+    } on FirebaseAuthException catch (e) {
+      return UserManagementNotification.firebaseAuthErrorCodes[e.code];
+    } catch (e) {
+      return UserNotFoundNotification();
+    }
   }
 }

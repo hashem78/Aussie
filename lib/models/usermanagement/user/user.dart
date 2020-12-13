@@ -14,19 +14,35 @@ class AussieUser {
   final String displayName;
   final String email;
   final bool emailVerified;
+  final String username;
+  final String fullname;
 
+  @JsonKey(defaultValue: 0)
+  final int numberOfFollowers;
+  @JsonKey(defaultValue: 0)
+  final int numberOfFollowing;
+  @JsonKey(defaultValue: 0)
+  final int numberOfPosts;
+
+  @JsonKey(defaultValue: "")
   final String profilePictureLink;
-  final String profileBanner;
+  @JsonKey(defaultValue: "")
+  final String profileBannerLink;
   factory AussieUser.fromJson(Map<String, dynamic> json) =>
       _$AussieUserFromJson(json);
   Map<String, dynamic> toJson() => _$AussieUserToJson(this);
 
-  AussieUser({
+  const AussieUser({
     this.uid,
     this.displayName,
     this.email,
     this.emailVerified,
+    this.username,
+    this.numberOfFollowers,
+    this.numberOfFollowing,
+    this.numberOfPosts,
     this.profilePictureLink,
-    this.profileBanner,
+    this.profileBannerLink,
+    this.fullname,
   });
 }

@@ -13,9 +13,18 @@ AussieUser _$AussieUserFromJson(Map<String, dynamic> json) {
       displayName: $checkedConvert(json, 'displayName', (v) => v as String),
       email: $checkedConvert(json, 'email', (v) => v as String),
       emailVerified: $checkedConvert(json, 'emailVerified', (v) => v as bool),
+      username: $checkedConvert(json, 'username', (v) => v as String),
+      numberOfFollowers:
+          $checkedConvert(json, 'numberOfFollowers', (v) => v as int) ?? 0,
+      numberOfFollowing:
+          $checkedConvert(json, 'numberOfFollowing', (v) => v as int) ?? 0,
+      numberOfPosts:
+          $checkedConvert(json, 'numberOfPosts', (v) => v as int) ?? 0,
       profilePictureLink:
-          $checkedConvert(json, 'profilePictureLink', (v) => v as String),
-      profileBanner: $checkedConvert(json, 'profileBanner', (v) => v as String),
+          $checkedConvert(json, 'profilePictureLink', (v) => v as String) ?? '',
+      profileBannerLink:
+          $checkedConvert(json, 'profileBannerLink', (v) => v as String) ?? '',
+      fullname: $checkedConvert(json, 'fullname', (v) => v as String),
     );
     return val;
   });
@@ -27,6 +36,11 @@ Map<String, dynamic> _$AussieUserToJson(AussieUser instance) =>
       'displayName': instance.displayName,
       'email': instance.email,
       'emailVerified': instance.emailVerified,
+      'username': instance.username,
+      'fullname': instance.fullname,
+      'numberOfFollowers': instance.numberOfFollowers,
+      'numberOfFollowing': instance.numberOfFollowing,
+      'numberOfPosts': instance.numberOfPosts,
       'profilePictureLink': instance.profilePictureLink,
-      'profileBanner': instance.profileBanner,
+      'profileBannerLink': instance.profileBannerLink,
     };

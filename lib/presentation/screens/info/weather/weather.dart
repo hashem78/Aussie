@@ -37,9 +37,6 @@ class WeatherScreen extends StatefulWidget {
 
 class _WeatherScreenState extends State<WeatherScreen>
     with TickerProviderStateMixin {
-  final WeatherCubit cubit = WeatherCubit();
-  final ThumbnailCubit thumbnailCubit =
-      ThumbnailCubit(WeatherScreen.data.thumbnailRoute);
   GlobalKey<SliverAnimatedListState> _listKey = GlobalKey();
   List<WeatherModel> models = [];
   List<LatLng> _coords = [
@@ -55,76 +52,78 @@ class _WeatherScreenState extends State<WeatherScreen>
   int modelToBeLoadedIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
-
-    cubit.fetch(_coords[0]);
-  }
-
-  @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
     return Provider.value(
       value: _currentTheme,
       child: Scaffold(
         backgroundColor: _currentTheme.backgroundColor,
-        body: CustomScrollView(
-          slivers: [
-            AussieThumbnailedAppBar(
-              cubit: thumbnailCubit,
-              title: getTranslation(context, "weatherTitle"),
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) =>
+                  ThumbnailCubit(WeatherScreen.data.thumbnailRoute)..fetch(),
             ),
-            BlocBuilder<WeatherCubit, WeatherState>(
-              cubit: cubit,
-              builder: (context, state) {
-                if (state is WeatherLoading) {
-                  return SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
-                return SliverToBoxAdapter(
-                  child: Container(),
-                );
-              },
-            ),
-            BlocListener<WeatherCubit, WeatherState>(
-              cubit: cubit,
-              listener: (context, state) {
-                if (state is WeatherLoaded) {
-                  _listKey.currentState.insertItem(models.length);
-                  models.add(state.model);
-                  if (models.length < _coords.length)
-                    cubit.fetch(_coords[models.length]);
-                }
-              },
-              child: SliverAnimatedList(
-                initialItemCount: 0,
-                key: _listKey,
-                itemBuilder: (
-                  BuildContext context,
-                  int index,
-                  Animation<double> animation,
-                ) {
-                  return AnimatedSize(
-                    duration: Duration(milliseconds: 300),
-                    vsync: this,
-                    child: Container(
-                      height: animation.value * .4.sh,
-                      padding: index != 0
-                          ? const EdgeInsets.fromLTRB(10, 0, 10, 10)
-                          : const EdgeInsets.all(10),
-                      child: WeatherTile(
-                        model: models[index],
-                        showTitle: true,
+            BlocProvider(
+              create: (context) => WeatherCubit()..fetch(_coords[0]),
+            )
+          ],
+          child: CustomScrollView(
+            slivers: [
+              AussieThumbnailedAppBar(
+                title: getTranslation(context, "weatherTitle"),
+              ),
+              BlocBuilder<WeatherCubit, WeatherState>(
+                builder: (context, state) {
+                  if (state is WeatherLoading) {
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(),
                       ),
-                    ),
+                    );
+                  }
+                  return SliverToBoxAdapter(
+                    child: Container(),
                   );
                 },
               ),
-            ),
-          ],
+              BlocListener<WeatherCubit, WeatherState>(
+                listener: (context, state) {
+                  if (state is WeatherLoaded) {
+                    _listKey.currentState.insertItem(models.length);
+                    models.add(state.model);
+                    if (models.length < _coords.length)
+                      BlocProvider.of<WeatherCubit>(context)
+                          .fetch(_coords[models.length]);
+                  }
+                },
+                child: SliverAnimatedList(
+                  initialItemCount: 0,
+                  key: _listKey,
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                    Animation<double> animation,
+                  ) {
+                    return AnimatedSize(
+                      duration: Duration(milliseconds: 300),
+                      vsync: this,
+                      child: Container(
+                        height: animation.value * .4.sh,
+                        padding: index != 0
+                            ? const EdgeInsets.fromLTRB(10, 0, 10, 10)
+                            : const EdgeInsets.all(10),
+                        child: WeatherTile(
+                          model: models[index],
+                          showTitle: true,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

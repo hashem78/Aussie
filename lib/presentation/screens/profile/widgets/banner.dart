@@ -10,8 +10,9 @@ class BannerImage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    var banner = getCurrentUser(context).profileBannerLink;
     return buildImage(
-      "https://picsum.photos/400",
+      banner,
       fit: BoxFit.cover,
       colorFilter: colorFilter,
     );

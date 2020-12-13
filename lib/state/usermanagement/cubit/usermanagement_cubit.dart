@@ -1,6 +1,7 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
+import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:aussie/repositories/usermanagement_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -10,16 +11,16 @@ part 'usermanagement_state.dart';
 
 class UserManagementCubit extends Cubit<UserManagementState> {
   UserManagementCubit() : super(UserManagementInitial());
-  UserManagementRepository repository = UserManagementRepository();
+  final UserManagementRepository repository = UserManagementRepository();
   void signup(SignupModel model) {
     emit(UserManagementPerformingAction());
 
     repository.signup(model).then(
       (value) {
-        if (value is UserSigninSuccessfulNotification)
+        if (value is UserSignupSuccessfulNotification)
           emit(UserManagementSignup(value));
         else {
-          emit(UserManagementSignupError(value));
+          emit(UserManagementError(value));
         }
       },
     );
@@ -32,7 +33,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
         if (value is UserSigninSuccessfulNotification) {
           emit(UserManagementSignin());
         } else {
-          emit(UserManagementSigninError(value));
+          emit(UserManagementError(value));
         }
       },
     );
@@ -41,14 +42,30 @@ class UserManagementCubit extends Cubit<UserManagementState> {
   void isUserSignedIn() {
     emit(UserManagementPerformingAction());
 
-    repository.signedin().then(
+    repository.isSignedin().then(
       (value) {
-        if (value == null) {
-          emit(UserManagementNeedsAction());
-        } else {
+        if (value is UserSigninSuccessfulNotification) {
           emit(UserManagementSignin());
+        } else {
+          emit(UserManagementNeedsAction());
         }
       },
     );
+  }
+
+  void getUserData() {
+    repository.getUserData().then(
+      (value) {
+        if (value is UserModelContainingActualNotification) {
+          emit(UserMangementHasUserData(value.user));
+        } else {
+          emit(UserManagementError(value));
+        }
+      },
+    );
+  }
+
+  void emitInitial() {
+    emit(UserManagementInitial());
   }
 }

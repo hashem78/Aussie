@@ -17,22 +17,14 @@ class UserManagementSignup extends UserManagementState {
   List<Object> get props => [notification];
 }
 
-class UserManagementSignupError extends UserManagementState {
-  final UserManagementNotification notification;
-
-  UserManagementSignupError(this.notification);
-  @override
-  List<Object> get props => [notification];
-}
-
 class UserManagementSignin extends UserManagementState {
   UserManagementSignin();
 }
 
-class UserManagementSigninError extends UserManagementState {
+class UserManagementError extends UserManagementState {
   final UserManagementNotification notification;
 
-  UserManagementSigninError(this.notification);
+  UserManagementError(this.notification);
   @override
   List<Object> get props => [notification];
 }
@@ -40,3 +32,11 @@ class UserManagementSigninError extends UserManagementState {
 class UserManagementNeedsAction extends UserManagementState {}
 
 class UserManagementPerformingAction extends UserManagementState {}
+
+class UserMangementHasUserData extends UserManagementState {
+  final AussieUser user;
+
+  UserMangementHasUserData(this.user);
+  @override
+  List<Object> get props => [user];
+}

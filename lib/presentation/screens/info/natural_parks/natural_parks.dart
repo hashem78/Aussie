@@ -3,7 +3,7 @@ import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';
 import 'package:aussie/presentation/widgets/paginated/natural_parks_tile.dart';
-import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
+
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,17 +27,17 @@ class NaturalParksScreen extends StatelessWidget {
       backgroundColor: const Color(0xff1565c0),
     ),
   );
-  final PaginatedCubit<NaturalParkModel> cubit = PaginatedCubit("naturalParks");
+
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).naturalParksScreenColor;
-    return Provider<AussieColorData>.value(
+    return Provider.value(
       value: _currentTheme,
       child: SearchablePaginatedScreen(
-        cubit: cubit,
+        route: "naturalParks",
         title: getTranslation(context, data.tTitle),
         filterFor: "park_name",
-        thumbnailCubitRoute: NaturalParksScreen.data.thumbnailRoute,
+        thumbnailRoute: NaturalParksScreen.data.thumbnailRoute,
         itemBuilder: (_, item, index) {
           var _casted = item as NaturalParkModel;
           var _key = UniqueKey();

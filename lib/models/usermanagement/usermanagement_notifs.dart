@@ -1,4 +1,22 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/user/user.dart';
+
+class WrongNameNotification implements UserManagementNotification {
+  @override
+  String get code => "";
+
+  WrongNameNotification._();
+  static WrongNameNotification _instance;
+  factory WrongNameNotification() {
+    if (_instance == null) {
+      _instance = WrongNameNotification._();
+    }
+    return _instance;
+  }
+
+  @override
+  String get message => "The username supplied can't be used";
+}
 
 class MissingEmailNotification implements UserManagementNotification {
   @override
@@ -31,6 +49,22 @@ class WeakPasswordNotification implements UserManagementNotification {
 
   @override
   String get message => "The given password is invalid.";
+}
+
+class ProfileImageRequiredNotification implements UserManagementNotification {
+  @override
+  String get code => "weak-password";
+  ProfileImageRequiredNotification._();
+  static ProfileImageRequiredNotification _instance;
+  factory ProfileImageRequiredNotification() {
+    if (_instance == null) {
+      _instance = ProfileImageRequiredNotification._();
+    }
+    return _instance;
+  }
+
+  @override
+  String get message => "A profile image is required";
 }
 
 class UserNotFoundNotification implements UserManagementNotification {
@@ -122,4 +156,35 @@ class UserSigninSuccessfulNotification implements UserManagementNotification {
 
   @override
   String get message => "Operation sucsses";
+}
+
+class UserHasNotSignedInNotification implements UserManagementNotification {
+  @override
+  String get code => "";
+
+  @override
+  String get message => "User has not yet signed in";
+}
+
+class UserModelContainingNotification implements UserManagementNotification {
+  final Map<String, dynamic> user;
+
+  UserModelContainingNotification(this.user);
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
+}
+
+class UserModelContainingActualNotification
+    implements UserManagementNotification {
+  final AussieUser user;
+
+  UserModelContainingActualNotification(this.user);
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
 }

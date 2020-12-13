@@ -1,3 +1,4 @@
+import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
@@ -5,9 +6,10 @@ import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/presentation/widgets/aussie/inked_image.dart';
 
 import 'package:aussie/util/functions.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -162,6 +164,7 @@ class _DrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AussieUser user = getCurrentUser(context);
     return SizedBox(
       height: .2.sh,
       child: Material(
@@ -170,25 +173,21 @@ class _DrawerHeader extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ProfileScreen(),
+                builder: (context) => UserProfileScreen(),
               ),
             );
           },
           child: Row(
             children: [
               Expanded(
-                child: SizedBox.fromSize(
-                  size: Size(.15.sh, .15.sh),
-                  child: Ink.image(
-                    image: CachedNetworkImageProvider(
-                      "https://picsum.photos/300",
-                    ),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: InkedImage(user.profilePictureLink),
                 ),
               ),
               Expanded(
                 child: Text(
-                  "Mythi",
+                  user.username,
                   style: Theme.of(context).textTheme.headline5,
                 ),
               )

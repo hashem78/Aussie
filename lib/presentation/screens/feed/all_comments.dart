@@ -45,6 +45,7 @@ class _AllCommentsScreenState extends State<AllCommentsScreen> {
               title: Text("#Post title"),
             ),
           ),
+
           // TODO: post details
           PagedSliverList(
             pagingController: pagingController,

@@ -15,7 +15,6 @@ class InitialUserActionScreen extends StatefulWidget {
 class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
   final GlobalKey<ScaffoldState> sstate = GlobalKey();
 
-  final UserManagementCubit cubit = UserManagementCubit();
   final TextEditingController _emailEditingController = TextEditingController();
   final TextEditingController _passwordEditingController =
       TextEditingController();
@@ -32,47 +31,48 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     return SafeArea(
       child: Scaffold(
         key: sstate,
-        body: BlocListener<UserManagementCubit, UserManagementState>(
-          cubit: cubit,
-          listener: (context, state) {
-            if (state is UserManagementSignin) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FeedScreen(),
-                ),
-              );
-            }
-          },
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: .2.sh,
-                    width: .2.sh,
-                    color: Colors.red,
+        body: BlocProvider(
+          create: (context) => UserManagementCubit(),
+          child: BlocListener<UserManagementCubit, UserManagementState>(
+            listener: (context, state) {
+              if (state is UserManagementSignin) {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FeedScreen(),
                   ),
-                  buildTextFields(),
-                  BlocBuilder<UserManagementCubit, UserManagementState>(
-                    cubit: cubit,
-                    builder: (context, state) {
-                      Widget child;
+                );
+              }
+            },
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: .2.sh,
+                      width: .2.sh,
+                      color: Colors.red,
+                    ),
+                    buildTextFields(),
+                    BlocBuilder<UserManagementCubit, UserManagementState>(
+                      builder: (context, state) {
+                        Widget child;
 
-                      if (state is UserManagementPerformingAction)
-                        child = CircularProgressIndicator();
-                      else if (state is UserManagementSigninError) {
-                        child = Text(state.notification.message);
-                      }
-                      return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
-                        child: Center(child: child),
-                      );
-                    },
-                  ),
-                  buildSigninButton(),
-                  buildSignupButton(context),
-                ],
+                        if (state is UserManagementPerformingAction)
+                          child = CircularProgressIndicator();
+                        else if (state is UserManagementError) {
+                          child = Text(state.notification.message);
+                        }
+                        return AnimatedSwitcher(
+                          duration: Duration(milliseconds: 500),
+                          child: Center(child: child),
+                        );
+                      },
+                    ),
+                    buildSigninButton(),
+                    buildSignupButton(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -136,7 +136,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
   OutlineButton buildSigninButton() {
     return OutlineButton(
       onPressed: () {
-        cubit.singin(
+        BlocProvider.of<UserManagementCubit>(context).singin(
           SigninModel(
             _emailEditingController.text,
             _passwordEditingController.text,

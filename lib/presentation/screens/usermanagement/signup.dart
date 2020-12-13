@@ -1,37 +1,58 @@
 import 'dart:io';
 
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
+import 'package:aussie/presentation/screens/feed/feed.dart';
+
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/util/functions.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SingupScreen extends StatefulWidget {
+class SignupBloc extends FormBloc<String, String> {
+  // ignore: close_sinks
+  final fullName = TextFieldBloc(validators: [FieldBlocValidators.required]);
+  // ignore: close_sinks
+  final userName = TextFieldBloc(validators: [FieldBlocValidators.required]);
+  // ignore: close_sinks
+  final email = TextFieldBloc(
+    validators: [FieldBlocValidators.required, FieldBlocValidators.email],
+  );
+  // ignore: close_sinks
+  final password = TextFieldBloc(validators: [
+    FieldBlocValidators.required,
+    FieldBlocValidators.passwordMin6Chars
+  ]);
+
+  SignupBloc() {
+    addFieldBlocs(fieldBlocs: [
+      fullName,
+      userName,
+      email,
+      password,
+    ]);
+  }
+  String profileImagePath;
+
   @override
-  _SingupScreenState createState() => _SingupScreenState();
+  void onSubmitting() {}
 }
 
-class _SingupScreenState extends State<SingupScreen> {
+class SingupScreen extends StatelessWidget {
   final ValueNotifier<String> profileImage = ValueNotifier("");
-  final UserManagementCubit cubit = UserManagementCubit();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  @override
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Text("Signup"),
       ),
-      body: Center(
+      body: FormBlocListener<SignupBloc, String, String>(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,10 +61,34 @@ class _SingupScreenState extends State<SingupScreen> {
               SizedBox(height: .08.sh),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _email,
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).fullName,
                   decoration: InputDecoration(
-                    icon: Icon(Icons.email),
+                    prefixIcon: Icon(Icons.person_pin),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Full name",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).userName,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Username",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).email,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email),
                     border: InputBorder.none,
                     filled: true,
                     hintText: "Email",
@@ -52,11 +97,11 @@ class _SingupScreenState extends State<SingupScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _password,
-                  obscureText: true,
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).password,
+                  suffixButton: SuffixButton.clearText,
                   decoration: InputDecoration(
-                    icon: Icon(Icons.lock),
+                    prefixIcon: Icon(Icons.lock),
                     border: InputBorder.none,
                     filled: true,
                     hintText: "Password",
@@ -64,19 +109,32 @@ class _SingupScreenState extends State<SingupScreen> {
                 ),
               ),
               BlocConsumer<UserManagementCubit, UserManagementState>(
-                cubit: cubit,
-                listener: (context, state) {
-                  if (state is UserManagementSignup) {
-                    Future.delayed(Duration(seconds: 2)).whenComplete(
-                      () => Navigator.of(context).pop(),
-                    );
+                listenWhen: (previous, current) {
+                  if (current is UserManagementSignup) {
+                    return true;
                   }
+                  return false;
+                },
+                listener: (context, state) {
+                  Future.delayed(Duration(seconds: 2)).whenComplete(
+                    () {
+                      getSignupBloc(context).clear();
+                      BlocProvider.of<UserManagementCubit>(context)
+                          .emitInitial();
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (_) => FeedScreen(),
+                        ),
+                      );
+                    },
+                  );
                 },
                 builder: (context, state) {
                   Widget child;
+
                   if (state is UserManagementPerformingAction)
                     child = CircularProgressIndicator();
-                  else if (state is UserManagementSignupError)
+                  else if (state is UserManagementError)
                     child = Text(
                       "${state.notification.message}",
                       style: TextStyle(color: Colors.red),
@@ -94,11 +152,16 @@ class _SingupScreenState extends State<SingupScreen> {
               ),
               OutlineButton(
                 onPressed: () {
-                  cubit.signup(
+                  // ignore: close_sinks
+                  final signupBloc = getSignupBloc(context);
+                  signupBloc.submit();
+                  BlocProvider.of<UserManagementCubit>(context).signup(
                     SignupModel(
-                      _email.text,
-                      _password.text,
-                      profileImage.value,
+                      email: signupBloc.email.value,
+                      password: signupBloc.password.value,
+                      profileImagePath: profileImage.value,
+                      username: signupBloc.userName.value,
+                      fullname: signupBloc.fullName.value,
                     ),
                   );
                 },
