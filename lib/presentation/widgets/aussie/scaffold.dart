@@ -8,6 +8,7 @@ class AussieScaffold extends StatelessWidget {
   final Widget appBar;
   final GlobalKey<ScaffoldState> state;
   final Widget floatingActionButton;
+
   const AussieScaffold({
     this.body,
     this.backgroundColor,

@@ -36,15 +36,11 @@ class UserManagementProvider {
       var _ref = _storageInstance.ref().child("users/$uid/profile/$_filename");
       var _uploadTask = _ref.putFile(File(map['profileImagePath']));
 
-      String _profileImageLink;
-
-      _uploadTask.whenComplete(
+      await _uploadTask.whenComplete(
         () async {
-          try {
-            _profileImageLink = await _ref.getDownloadURL();
-          } catch (onError) {
-            return UserNotFoundNotification();
-          }
+          String _profileImageLink = await _ref.getDownloadURL();
+          print(_profileImageLink);
+
           await _firestoreInstance.doc("users/$uid").set(
             {
               "uid": uid,
@@ -55,27 +51,22 @@ class UserManagementProvider {
               "fullname": map["fullname"]
             },
           );
-          await _firestoreInstance
-              .doc("users/$uid")
-              .collection("events")
-              .doc("INDEX")
-              .set({});
-          await _firestoreInstance
-              .doc("users/$uid")
-              .collection("attendees")
-              .doc("INDEX")
-              .set({});
-          await _firestoreInstance
-              .doc("users/$uid")
-              .collection("gallery")
-              .doc("INDEX")
-              .set({});
         },
       );
+      _firestoreInstance
+          .doc("users/$uid")
+          .collection("events")
+          .doc("INDEX")
+          .set({});
+      _firestoreInstance
+          .doc("users/$uid")
+          .collection("attendees")
+          .doc("INDEX")
+          .set({});
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserNotFoundNotification();
+      return UserManagementErrorNotification();
     }
     return UserSignupSuccessfulNotification();
   }
@@ -105,13 +96,16 @@ class UserManagementProvider {
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserNotFoundNotification();
+      return UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> getUserData() async {
     try {
       User user = FirebaseAuth.instance.currentUser;
+      print("=============");
+      print("user is null: ${user == null}");
+      print("=============");
       if (user == null) return UserHasNotSignedInNotification();
       var _db = FirebaseFirestore.instance;
       var _shot = await _db.doc('users/${user.uid}').get();
@@ -131,6 +125,10 @@ class UserManagementProvider {
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
+      print("=========================");
+      print(e.runtimeType);
+      print(e);
+      print("=========================");
       return UserManagementErrorNotification();
     }
   }

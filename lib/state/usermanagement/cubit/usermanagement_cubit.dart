@@ -59,8 +59,14 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     repository.getUserData().then(
       (value) {
         if (value is UserModelContainingActualNotification) {
+          print("====we've got data==========");
+          print(value.user);
+          print("============================");
           emit(UserMangementHasUserData(value.user));
         } else {
+          print("=====error======");
+          print(value.message);
+          print("===============");
           emit(UserManagementError(value));
         }
       },

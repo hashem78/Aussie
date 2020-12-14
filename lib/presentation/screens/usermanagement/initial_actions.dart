@@ -31,48 +31,48 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     return SafeArea(
       child: Scaffold(
         key: sstate,
-        body: BlocProvider(
-          create: (context) => UserManagementCubit(),
-          child: BlocListener<UserManagementCubit, UserManagementState>(
-            listener: (context, state) {
-              if (state is UserManagementSignin) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FeedScreen(),
-                  ),
-                );
-              }
-            },
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: .2.sh,
-                      width: .2.sh,
-                      color: Colors.red,
-                    ),
-                    buildTextFields(),
-                    BlocBuilder<UserManagementCubit, UserManagementState>(
-                      builder: (context, state) {
-                        Widget child;
-
-                        if (state is UserManagementPerformingAction)
-                          child = CircularProgressIndicator();
-                        else if (state is UserManagementError) {
-                          child = Text(state.notification.message);
-                        }
-                        return AnimatedSwitcher(
-                          duration: Duration(milliseconds: 500),
-                          child: Center(child: child),
-                        );
-                      },
-                    ),
-                    buildSigninButton(),
-                    buildSignupButton(context),
-                  ],
+        body: BlocListener<UserManagementCubit, UserManagementState>(
+          listener: (context, state) {
+            if (state is UserManagementSignin) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FeedScreen(),
                 ),
+              );
+            }
+          },
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    height: .2.sh,
+                    width: .2.sh,
+                    color: Colors.red,
+                  ),
+                  buildTextFields(),
+                  BlocBuilder<UserManagementCubit, UserManagementState>(
+                    builder: (context, state) {
+                      Widget child;
+
+                      if (state is UserManagementPerformingAction)
+                        child = CircularProgressIndicator();
+                      else if (state is UserManagementError) {
+                        child = Text(
+                          state.notification.message,
+                          textAlign: TextAlign.center,
+                        );
+                      }
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        child: Center(child: child),
+                      );
+                    },
+                  ),
+                  buildSigninButton(),
+                  buildSignupButton(context),
+                ],
               ),
             ),
           ),

@@ -5,7 +5,6 @@ import 'package:aussie/presentation/screens/feed/widgets/card_image.dart';
 import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class EventCard extends StatelessWidget {
   const EventCard({
@@ -19,16 +18,7 @@ class EventCard extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MultiProvider(
-              providers: [
-                Provider(
-                  create: (context) => AussieUser(
-                    profileBannerLink: "https://picsum.photos/1200",
-                  ),
-                )
-              ],
-              child: EventDetails(),
-            ),
+            builder: (context) => EventDetails(),
           ),
         ),
         child: Padding(

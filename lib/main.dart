@@ -24,6 +24,7 @@ import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   var _perfs = await SharedPreferences.getInstance();
   Map<String, dynamic> themeMap;
@@ -41,7 +42,7 @@ void main() async {
     _perfs.setString("lang", "en");
     locale = Locale('en', '');
   }
-  if (!_perfs.containsKey("signed_in")) runApp(MyApp(themeMap, locale));
+  runApp(MyApp(themeMap, locale));
 }
 
 class MyApp extends StatelessWidget {
