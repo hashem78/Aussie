@@ -223,92 +223,7 @@ class EventCreationScreen extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              TextFieldBlocBuilder(
-                textFieldBloc: context.watch<EventCreationBlocForm>().title,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person_pin),
-                  border: InputBorder.none,
-                  filled: true,
-                  labelText: "Title",
-                  hintText: "Make it descriptive",
-                ),
-              ),
-              TextFieldBlocBuilder(
-                textFieldBloc: context.watch<EventCreationBlocForm>().subtitle,
-                maxLines: null,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person_pin),
-                  border: InputBorder.none,
-                  filled: true,
-                  labelText: "Subtitle",
-                  hintText: "Could be a location for example",
-                ),
-              ),
-              DateTimeFieldBlocBuilder(
-                dateTimeFieldBloc:
-                    context.watch<EventCreationBlocForm>().dateAndTime1,
-                format: DateFormat.yMMMMEEEEd(),
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime(2100),
-                decoration: InputDecoration(
-                  labelText: 'Start Date',
-                  filled: true,
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.date_range),
-                  hintText: "The date of the the Event",
-                ),
-              ),
-              DateTimeFieldBlocBuilder(
-                dateTimeFieldBloc:
-                    context.watch<EventCreationBlocForm>().dateAndTime2,
-                format: DateFormat.yMMMMEEEEd(),
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now(),
-                lastDate: DateTime(2100),
-                decoration: InputDecoration(
-                  labelText: 'End Date',
-                  filled: true,
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.date_range),
-                  hintText: "The date the event ends",
-                ),
-              ),
-              TimeFieldBlocBuilder(
-                timeFieldBloc: context.watch<EventCreationBlocForm>().timeonly1,
-                format: DateFormat('hh:mm a'),
-                initialTime: TimeOfDay.now(),
-                decoration: InputDecoration(
-                  labelText: 'Starting Time',
-                  filled: true,
-                  border: InputBorder.none,
-                  hintText: "Time of day",
-                  prefixIcon: Icon(Icons.access_time),
-                ),
-              ),
-              TimeFieldBlocBuilder(
-                timeFieldBloc: context.watch<EventCreationBlocForm>().timeonly2,
-                format: DateFormat('hh:mm a'),
-                initialTime: TimeOfDay.now(),
-                decoration: InputDecoration(
-                  labelText: 'Ending Time',
-                  filled: true,
-                  border: InputBorder.none,
-                  hintText: "Time of day",
-                  prefixIcon: Icon(Icons.access_time),
-                ),
-              ),
-              TextFieldBlocBuilder(
-                textFieldBloc:
-                    context.watch<EventCreationBlocForm>().description,
-                maxLines: null,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person_pin),
-                  border: InputBorder.none,
-                  filled: true,
-                  hintText: "Description",
-                ),
-              ),
+              EventCreationFormFields(),
               BlocBuilder<LocationPickingCubit, LocationPickingState>(
                 builder: (context, state) {
                   return TextField(
@@ -445,5 +360,200 @@ class EventCreationScreen extends StatelessWidget {
         ),
       ],
     )));
+  }
+}
+
+class EventCreationFormFields extends StatelessWidget {
+  const EventCreationFormFields({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TitleFormField(),
+        SubtitleFormField(),
+        StartDateFormField(),
+        EndDateFormField(),
+        StartTimeFormField(),
+        EndTimeFormField(),
+        DescriptionFormField(),
+      ],
+    );
+  }
+}
+
+class DescriptionFormField extends StatelessWidget {
+  const DescriptionFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, TextFieldBloc>(
+        (value) => value.description);
+    return TextFieldBlocBuilder(
+      textFieldBloc: _formElement,
+      maxLines: null,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.person_pin),
+        border: InputBorder.none,
+        filled: true,
+        hintText: "Description",
+      ),
+    );
+  }
+}
+
+class EndTimeFormField extends StatelessWidget {
+  const EndTimeFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
+        (value) => value.timeonly2);
+    return TimeFieldBlocBuilder(
+      timeFieldBloc: _formElement,
+      format: DateFormat('hh:mm a'),
+      initialTime: TimeOfDay.now(),
+      decoration: InputDecoration(
+        labelText: 'Ending Time',
+        filled: true,
+        border: InputBorder.none,
+        hintText: "Time of day",
+        prefixIcon: Icon(Icons.access_time),
+      ),
+    );
+  }
+}
+
+class StartTimeFormField extends StatelessWidget {
+  const StartTimeFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
+        (value) => value.timeonly1);
+    return TimeFieldBlocBuilder(
+      timeFieldBloc: _formElement,
+      format: DateFormat('hh:mm a'),
+      initialTime: TimeOfDay.now(),
+      decoration: InputDecoration(
+        labelText: 'Starting Time',
+        filled: true,
+        border: InputBorder.none,
+        hintText: "Time of day",
+        prefixIcon: Icon(Icons.access_time),
+      ),
+    );
+  }
+}
+
+class EndDateFormField extends StatelessWidget {
+  const EndDateFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
+        (value) => value.dateAndTime2);
+    return DateTimeFieldBlocBuilder(
+      dateTimeFieldBloc: _formElement,
+      format: DateFormat.yMMMMEEEEd(),
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+      decoration: InputDecoration(
+        labelText: 'End Date',
+        filled: true,
+        border: InputBorder.none,
+        prefixIcon: Icon(Icons.date_range),
+        hintText: "The date the event ends",
+      ),
+    );
+  }
+}
+
+class StartDateFormField extends StatelessWidget {
+  const StartDateFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
+        (value) => value.dateAndTime1);
+    return DateTimeFieldBlocBuilder(
+      dateTimeFieldBloc: _formElement,
+      format: DateFormat.yMMMMEEEEd(),
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100),
+      decoration: InputDecoration(
+        labelText: 'Start Date',
+        filled: true,
+        border: InputBorder.none,
+        prefixIcon: Icon(Icons.date_range),
+        hintText: "The date of the the Event",
+      ),
+    );
+  }
+}
+
+class SubtitleFormField extends StatelessWidget {
+  const SubtitleFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context.select<EventCreationBlocForm, TextFieldBloc>(
+        (value) => value.subtitle);
+    return TextFieldBlocBuilder(
+      textFieldBloc: _formElement,
+      maxLines: null,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.person_pin),
+        border: InputBorder.none,
+        filled: true,
+        labelText: "Subtitle",
+        hintText: "Could be a location for example",
+      ),
+    );
+  }
+}
+
+class TitleFormField extends StatelessWidget {
+  const TitleFormField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: close_sinks
+    final _formElement = context
+        .select<EventCreationBlocForm, TextFieldBloc>((value) => value.title);
+    return TextFieldBlocBuilder(
+      textFieldBloc: _formElement,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.person_pin),
+        border: InputBorder.none,
+        filled: true,
+        labelText: "Title",
+        hintText: "Make it descriptive",
+      ),
+    );
   }
 }

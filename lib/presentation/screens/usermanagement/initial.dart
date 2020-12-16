@@ -11,7 +11,6 @@ class InitialScreen extends StatelessWidget {
       body: BlocConsumer<UserManagementCubit, UserManagementState>(
         listener: (context, state) {
           if (state is UserManagementSignin) {
-            // print("in inital screen ${state.runtimeType}");
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {

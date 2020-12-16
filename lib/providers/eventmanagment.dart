@@ -13,8 +13,7 @@ class EventManagementProvider {
   static final _storage = FirebaseStorage.instance;
   static final _firestore = FirebaseFirestore.instance;
   static final _auth = FirebaseAuth.instance;
-  ByteData old;
-  bool firstime = true;
+
   Future<EventManagementNotification> addEvent(EventCreationModel model) async {
     try {
       final String uid = _auth.currentUser.uid;
@@ -52,7 +51,6 @@ class EventManagementProvider {
       );
 
       final updateGalleryLinksCallback = (String value) {
-        //print(value);
         return _firestore.doc(path).update(
           {
             "galleryImageLinks": FieldValue.arrayUnion([value])
@@ -62,12 +60,7 @@ class EventManagementProvider {
 
       final dlGalleryCallback = (ByteData element) {
         if (element == null) return;
-        if (firstime) {
-          old = element;
-          firstime = false;
-        } else {
-          print("bytedata is: ${element == old}");
-        }
+
         final _refG = _storage.ref().child("$path/galleryImageLinks");
 
         final _gUploadTask = _refG.putData(element.buffer.asUint8List());
@@ -92,7 +85,9 @@ class EventManagementProvider {
         );
       };
 
-      model.imageData.forEach(dlGalleryCallback);
+      for (var data in model.imageData) {
+        dlGalleryCallback(data);
+      }
       dlBannerCallback(model.bannerData);
     } on FirebaseAuthException {
       return EventManagementErrorNotification();

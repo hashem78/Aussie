@@ -17,27 +17,35 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
 
     List<Future<ByteData>> data = [];
 
-    assets.then(
+    assets
+        .then(
       (value) => value.forEach(
-        (element) => data.add(element.getByteData(quality: 60)),
+        (element) {
+          data.add(element.getByteData(quality: 60));
+        },
       ),
+    )
+        .then(
+      (_) {
+        Future.wait(data).then(
+          (value) {
+            emit(MultiImagePickingDone(value));
+          },
+        );
+      },
       onError: (Object e, StackTrace stackTrace) {
         if (e is PlatformException) {
-          if (e.code == "Exif error") {
-            print("-----------------EXIF ERROR--------------------");
-          }
+          if (e.code == "Exif error") {}
         } else if (e is NoImagesSelectedException) {
-          print("-----------------NoImage ERROR--------------------");
+          emit(MultiImagePickingError());
         }
-        emit(MultiImagePickingError());
       },
     );
-
-    Future.wait(data).then((value) => emit(MultiImagePickingDone(value)));
   }
 
   List<ByteData> get values {
     final _currentState = state;
+
     if (_currentState is MultiImagePickingDone) {
       return _currentState.assets;
     } else

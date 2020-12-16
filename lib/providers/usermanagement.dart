@@ -128,8 +128,6 @@ class UserManagementProvider {
 
   Future<UserManagementNotification> getUserDataFromUid(String uid) async {
     if (uid == null) return UserManagementErrorNotification();
-    print("====================================uid");
-    print(uid);
     try {
       var _userModel =
           await _firestoreInstance.collection("users").doc(uid).get();
