@@ -21,17 +21,19 @@ class EventModel extends Equatable {
   @JsonKey(defaultValue: "")
   final String title;
   @JsonKey(defaultValue: "")
-  final String subitle;
+  final String subtitle;
   @JsonKey(defaultValue: 0)
-  final int startTimestamp;
+  final int startingTimeStamp;
   @JsonKey(defaultValue: 0)
-  final int endTimestamp;
+  final int endingTimeStamp;
   @JsonKey(defaultValue: 0)
-  final int lat;
+  final double lat;
   @JsonKey(defaultValue: 0)
-  final int lng;
+  final double lng;
   @JsonKey(defaultValue: "")
   final String description;
+  @JsonKey(defaultValue: "")
+  final String address;
   @JsonKey(defaultValue: const [])
   final List<String> galleryImageLinks;
   factory EventModel.fromJson(Map<String, dynamic> json) =>
@@ -43,13 +45,14 @@ class EventModel extends Equatable {
     this.uid,
     this.bannerImageLink,
     this.title,
-    this.subitle,
-    this.startTimestamp,
-    this.endTimestamp,
+    this.subtitle,
+    this.startingTimeStamp,
+    this.endingTimeStamp,
     this.lat,
     this.lng,
     this.description,
     this.galleryImageLinks,
+    this.address,
   });
 
   @override
@@ -59,13 +62,14 @@ class EventModel extends Equatable {
       uid,
       bannerImageLink,
       title,
-      subitle,
-      startTimestamp,
-      endTimestamp,
+      subtitle,
+      startingTimeStamp,
+      endingTimeStamp,
       lat,
       lng,
       description,
       galleryImageLinks,
+      address,
     ];
   }
 }

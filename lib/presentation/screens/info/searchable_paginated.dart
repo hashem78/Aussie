@@ -38,9 +38,11 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
 
   @override
   void dispose() {
+    cubit.close();
     cubit = PaginatedCubit(widget.route);
     _controller.dispose();
     _controller = null;
+
     super.dispose();
   }
 

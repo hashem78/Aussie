@@ -10,13 +10,20 @@ import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatelessWidget {
   final UserManagementCubit cubit = UserManagementCubit();
+  final String uid;
   UserProfileScreen({
     Key key,
+    this.uid,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    cubit.getUserData();
+    if (uid == null)
+      cubit.getUserData();
+    else {
+      cubit.getUserDataFromUid(uid);
+    }
+
     return Scaffold(
       body: BlocBuilder<UserManagementCubit, UserManagementState>(
         cubit: cubit,

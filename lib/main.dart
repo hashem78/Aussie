@@ -47,21 +47,19 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final Map<String, dynamic> themeMap;
-  final ThemeCubit _themeCubit;
-  final LanguageCubit _languageCubit;
   final Locale locale;
+
   MyApp(this.themeMap, this.locale)
-      : assert(themeMap != null && locale != null),
-        _themeCubit = ThemeCubit(themeMap),
-        _languageCubit = LanguageCubit(locale);
+      : assert(themeMap != null && locale != null);
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: _themeCubit),
-        BlocProvider.value(value: _languageCubit),
+        BlocProvider(create: (context) => ThemeCubit(themeMap)),
+        BlocProvider(create: (context) => LanguageCubit(locale)),
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => UserManagementCubit()),
       ],
@@ -86,7 +84,10 @@ class MyApp extends StatelessWidget {
                   if (supportedLocales.contains(locale)) return locale;
                   return supportedLocales.first;
                 },
-                home: InitialScreen(),
+                home: BlocProvider(
+                  create: (context) => UserManagementCubit()..isUserSignedIn(),
+                  child: InitialScreen(),
+                ),
                 theme: ThemeData(
                   brightness: state.model.brightness,
                 ),
@@ -100,7 +101,6 @@ class MyApp extends StatelessWidget {
   }
 
   static final routes = {
-    "/feed": (BuildContext context) => FeedScreen(),
     NaturalParksScreen.data.navPath: (BuildContext context) =>
         NaturalParksScreen(),
     WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),

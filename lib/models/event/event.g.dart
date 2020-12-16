@@ -14,17 +14,19 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) {
       bannerImageLink:
           $checkedConvert(json, 'bannerImageLink', (v) => v as String) ?? '',
       title: $checkedConvert(json, 'title', (v) => v as String) ?? '',
-      subitle: $checkedConvert(json, 'subitle', (v) => v as String) ?? '',
-      startTimestamp:
-          $checkedConvert(json, 'startTimestamp', (v) => v as int) ?? 0,
-      endTimestamp: $checkedConvert(json, 'endTimestamp', (v) => v as int) ?? 0,
-      lat: $checkedConvert(json, 'lat', (v) => v as int) ?? 0,
-      lng: $checkedConvert(json, 'lng', (v) => v as int) ?? 0,
+      subtitle: $checkedConvert(json, 'subtitle', (v) => v as String) ?? '',
+      startingTimeStamp:
+          $checkedConvert(json, 'startingTimeStamp', (v) => v as int) ?? 0,
+      endingTimeStamp:
+          $checkedConvert(json, 'endingTimeStamp', (v) => v as int) ?? 0,
+      lat: $checkedConvert(json, 'lat', (v) => (v as num)?.toDouble()) ?? 0,
+      lng: $checkedConvert(json, 'lng', (v) => (v as num)?.toDouble()) ?? 0,
       description:
           $checkedConvert(json, 'description', (v) => v as String) ?? '',
       galleryImageLinks: $checkedConvert(json, 'galleryImageLinks',
               (v) => (v as List)?.map((e) => e as String)?.toList()) ??
           [],
+      address: $checkedConvert(json, 'address', (v) => v as String) ?? '',
     );
     return val;
   });
@@ -36,11 +38,12 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'uid': instance.uid,
       'bannerImageLink': instance.bannerImageLink,
       'title': instance.title,
-      'subitle': instance.subitle,
-      'startTimestamp': instance.startTimestamp,
-      'endTimestamp': instance.endTimestamp,
+      'subtitle': instance.subtitle,
+      'startingTimeStamp': instance.startingTimeStamp,
+      'endingTimeStamp': instance.endingTimeStamp,
       'lat': instance.lat,
       'lng': instance.lng,
       'description': instance.description,
+      'address': instance.address,
       'galleryImageLinks': instance.galleryImageLinks,
     };

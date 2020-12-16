@@ -1,16 +1,32 @@
 part of 'eventmanagement_cubit.dart';
 
-abstract class EventmanagementState extends Equatable {
-  const EventmanagementState();
+abstract class EventManagementState extends Equatable {
+  const EventManagementState();
 
   @override
   List<Object> get props => [];
 }
 
-class EventmanagementInitial extends EventmanagementState {}
+class EventmanagementInitial extends EventManagementState {}
 
-class EventmanagementPerformingAction extends EventmanagementState {}
+class EventManagementPerformingAction extends EventManagementState {}
 
-class EventmanagementCreated extends EventmanagementState {}
+class EventManagementCreated extends EventManagementState {}
 
-class EventmanagementError extends EventmanagementState {}
+class EventManagementError extends EventManagementState {}
+
+class EventManagementEventsFetched extends EventManagementState {
+  final List<EventModel> models;
+
+  EventManagementEventsFetched(this.models);
+  @override
+  List<Object> get props => [models];
+}
+
+class EventManagementEndEventsFetched extends EventManagementState {
+  final List<EventModel> models;
+
+  EventManagementEndEventsFetched(this.models);
+  @override
+  List<Object> get props => [models];
+}

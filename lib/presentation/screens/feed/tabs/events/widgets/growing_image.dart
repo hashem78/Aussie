@@ -1,7 +1,9 @@
-import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:provider/provider.dart';
 
 import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
 
 class GrowingImage extends StatefulWidget {
   @override
@@ -37,10 +39,18 @@ class _GrowingImageState extends State<GrowingImage>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onPanDown: (_) {
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) =>
+                EventGalleryPhotoView(url: Provider.of<String>(context)),
+          ),
+        );
+      },
+      onLongPressStart: (_) {
         controller..forward();
       },
-      onPanCancel: () {
+      onLongPressEnd: (details) {
         controller..reset();
         controller.stop();
       },
@@ -53,9 +63,33 @@ class _GrowingImageState extends State<GrowingImage>
           );
         },
         child: buildImage(
-          "https://picsum.photos/${1000 + Random().nextInt(100)}",
-          fit: BoxFit.cover,
+          Provider.of<String>(context),
+          fit: BoxFit.contain,
         ),
+      ),
+    );
+  }
+}
+
+class EventGalleryPhotoView extends StatelessWidget {
+  final String url;
+  const EventGalleryPhotoView({
+    Key key,
+    this.url,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
+      bottomNavigationBar: BottomAppBar(),
+      body: PhotoView(
+        minScale: PhotoViewComputedScale.contained,
+        maxScale: 1.0,
+        imageProvider: CachedNetworkImageProvider(url),
       ),
     );
   }

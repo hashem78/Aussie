@@ -1,7 +1,10 @@
-import 'package:aussie/presentation/screens/profile/profile_screen.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 
 class CardOwner extends StatelessWidget {
   final double size;
@@ -14,35 +17,52 @@ class CardOwner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return UserProfileScreen();
-            },
-          ),
-        );
-      },
-      child: Row(
-        children: [
-          Container(
-            width: size,
-            height: size,
-            margin: const EdgeInsets.all(5),
-            child: Ink.image(
-              image: CachedNetworkImageProvider(
-                "https://picsum.photos/200",
+    return BlocBuilder<UserManagementCubit, UserManagementState>(
+      builder: (context, state) {
+        Widget child;
+
+        if (state is UserMangementHasUserData) {
+          child = Ink(
+            color: Colors.black12,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return UserProfileScreen();
+                    },
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  Container(
+                    width: size,
+                    height: size,
+                    margin: const EdgeInsets.all(5),
+                    child: Ink.image(
+                      image: CachedNetworkImageProvider(
+                        state.user.profilePictureLink,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: .05.sw),
+                  Text(
+                    state.user.username,
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
               ),
             ),
-          ),
-          SizedBox(width: .05.sw),
-          Text(
-            "Ali al mestrihi",
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
-        ],
-      ),
+          );
+        } else {
+          child = Container();
+        }
+        return AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: child,
+        );
+      },
     );
   }
 }

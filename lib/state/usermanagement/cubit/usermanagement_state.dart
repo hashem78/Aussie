@@ -40,11 +40,3 @@ class UserMangementHasUserData extends UserManagementState {
   @override
   List<Object> get props => [user];
 }
-
-class UserManagementEventsFetched extends UserManagementState {
-  final List<EventModel> models;
-
-  UserManagementEventsFetched(this.models);
-  @override
-  List<Object> get props => [models];
-}

@@ -1,9 +1,10 @@
 import 'package:aussie/presentation/screens/feed/all_comments.dart';
-import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
 import 'package:aussie/presentation/screens/feed/widgets/card_textfieild.dart';
-import 'package:aussie/presentation/screens/feed/widgets/card_image.dart';
+import 'package:aussie/presentation/screens/feed/widgets/feed_card_image.dart';
 import 'package:aussie/presentation/screens/feed/widgets/comment.dart';
 import 'package:flutter/material.dart';
+
+import 'card_owner.dart';
 
 class FeedCard extends StatelessWidget {
   const FeedCard({

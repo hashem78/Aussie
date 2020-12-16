@@ -1,14 +1,88 @@
+import 'package:aussie/models/event/event.dart';
 import 'package:aussie/presentation/screens/feed/tabs/events/widgets/card.dart';
-import 'package:flutter/material.dart';
+import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 
-class EventsTab extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+
+class EventsTab extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        EventCard(),
-      ],
+  _EventsTabState createState() => _EventsTabState();
+}
+
+class _EventsTabState extends State<EventsTab>
+    with AutomaticKeepAliveClientMixin {
+  PagingController<int, EventModel> _controller =
+      PagingController<int, EventModel>(firstPageKey: 0);
+
+  EventManagementCubit cubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.addPageRequestListener(
+      (pageKey) {
+        if (cubit.prevSnap == null) {
+          cubit.fetchEvents();
+        } else {
+          cubit.fetchEvents(lastdoc: cubit.prevSnap);
+        }
+      },
     );
   }
+
+  @override
+  void didChangeDependencies() {
+    cubit = BlocProvider.of<EventManagementCubit>(context);
+
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return BlocListener<EventManagementCubit, EventManagementState>(
+      cubit: cubit,
+      listener: (context, state) {
+        if (state is EventManagementEventsFetched) {
+          _controller.appendPage(
+            state.models,
+            _controller.nextPageKey + state.models.length,
+          );
+        } else if (state is EventManagementEndEventsFetched) {
+          _controller.appendLastPage(state.models);
+        }
+      },
+      child: RefreshIndicator(
+        onRefresh: () async {
+          cubit.refresh();
+          _controller.refresh();
+        },
+        child: PagedListView<int, EventModel>(
+          pagingController: _controller,
+          builderDelegate: PagedChildBuilderDelegate(
+            itemBuilder: (context, item, index) {
+              return BlocProvider.value(
+                value: cubit,
+                child: Provider.value(
+                  value: item,
+                  child: Builder(
+                    builder: (context) {
+                      return EventCard();
+                    },
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
 }

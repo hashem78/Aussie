@@ -39,7 +39,6 @@ class UserManagementProvider {
       await _uploadTask.whenComplete(
         () async {
           String _profileImageLink = await _ref.getDownloadURL();
-          print(_profileImageLink);
 
           await _firestoreInstance.doc("users/$uid").set(
             {
@@ -48,7 +47,10 @@ class UserManagementProvider {
               "username": map["username"],
               "profileBannerLink":
                   map["profileBannerLink"] ?? "https://picsum.photos/1200",
-              "fullname": map["fullname"]
+              "fullname": map["fullname"],
+              "numberOfFollowers": 0,
+              "numberOfFollowing": 0,
+              "numberOfPosts": 0,
             },
           );
         },
@@ -56,12 +58,7 @@ class UserManagementProvider {
       _firestoreInstance
           .doc("users/$uid")
           .collection("events")
-          .doc("INDEX")
-          .set({});
-      _firestoreInstance
-          .doc("users/$uid")
-          .collection("attendees")
-          .doc("INDEX")
+          .doc("~INDEX")
           .set({});
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
@@ -103,9 +100,6 @@ class UserManagementProvider {
   Future<UserManagementNotification> getUserData() async {
     try {
       User user = FirebaseAuth.instance.currentUser;
-      print("=============");
-      print("user is null: ${user == null}");
-      print("=============");
       if (user == null) return UserHasNotSignedInNotification();
       var _db = FirebaseFirestore.instance;
       var _shot = await _db.doc('users/${user.uid}').get();
@@ -120,20 +114,22 @@ class UserManagementProvider {
         "username": _data["username"],
         "fullname": _data["fullname"],
         "profileBannerLink": _data["profileBannerLink"],
+        "numberOfFollowers": _data["numberOfFollowers"],
+        "numberOfFollowing": _data["numberOfFollowing"],
+        "numberOfPosts": _data["numberOfPosts"],
       };
       return UserModelContainingNotification(UnmodifiableMapView(_internalMap));
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      print("=========================");
-      print(e.runtimeType);
-      print(e);
-      print("=========================");
       return UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> getUserDataFromUid(String uid) async {
+    if (uid == null) return UserManagementErrorNotification();
+    print("====================================uid");
+    print(uid);
     try {
       var _userModel =
           await _firestoreInstance.collection("users").doc(uid).get();
@@ -142,58 +138,6 @@ class UserManagementProvider {
           _userModel.data(),
         ),
       );
-    } on FirebaseException {
-      return UserManagementErrorNotification();
-    }
-  }
-
-  Future<UserManagementNotification> fetchEvents(
-    DocumentSnapshot documentSnapshot,
-  ) async {
-    try {
-      if (_authInstance.currentUser != null) {
-        String uid = _authInstance.currentUser.uid;
-        if (documentSnapshot != null) {
-          var _data = await _firestoreInstance
-              .collection("users/$uid/events")
-              .startAfterDocument(documentSnapshot)
-              .limit(5)
-              .get();
-          var _docs = _data.docs;
-          List<Map<String, dynamic>> _internalList = [];
-          _docs.forEach(
-            (element) {
-              if (element.id != "INDEX") {
-                _internalList.add(element.data());
-              }
-            },
-          );
-          return EventModelsContainingNotification(
-            eventModels: UnmodifiableListView(_internalList),
-            prevsnap: _docs.last,
-          );
-        } else {
-          var _data = await _firestoreInstance
-              .collection("users/$uid/events")
-              .where("field")
-              .limit(5)
-              .get();
-          var _docs = _data.docs;
-          List<Map<String, dynamic>> _internalList = [];
-          _docs.forEach(
-            (element) {
-              if (element.id != "INDEX") {
-                _internalList.add(element.data());
-              }
-            },
-          );
-          return EventModelsContainingNotification(
-            eventModels: UnmodifiableListView(_internalList),
-            prevsnap: _docs.last,
-          );
-        }
-      }
-      return UserManagementErrorNotification();
     } on FirebaseException {
       return UserManagementErrorNotification();
     }

@@ -127,7 +127,7 @@ class SingupScreen extends StatelessWidget {
                       },
                       builder: (context, state) {
                         Widget child;
-                        print(state);
+
                         if (state is UserManagementPerformingAction)
                           child = CircularProgressIndicator();
                         else if (state is UserManagementError)

@@ -1,7 +1,5 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
-import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WrongNameNotification implements UserManagementNotification {
   @override
@@ -201,35 +199,6 @@ class UserModelContainingActualNotification
   final AussieUser user;
 
   UserModelContainingActualNotification(this.user);
-  @override
-  String get code => "";
-
-  @override
-  String get message => "";
-}
-
-class EventModelsContainingNotification extends UserManagementNotification {
-  final DocumentSnapshot prevsnap;
-  final List<Map<String, dynamic>> eventModels;
-
-  EventModelsContainingNotification({
-    this.prevsnap,
-    this.eventModels,
-  });
-
-  @override
-  String get code => "";
-
-  @override
-  String get message => "";
-}
-
-class EventModelsContainingActualNotification
-    extends UserManagementNotification {
-  final List<EventModel> models;
-
-  EventModelsContainingActualNotification(this.models);
-
   @override
   String get code => "";
 

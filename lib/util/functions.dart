@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
@@ -74,3 +75,6 @@ AussieColorData getColorData(BuildContext context) =>
 
 SignupBloc getSignupBloc(BuildContext context) =>
     BlocProvider.of<SignupBloc>(context);
+
+EventModel getEventModel(BuildContext context) =>
+    Provider.of<EventModel>(context, listen: false);

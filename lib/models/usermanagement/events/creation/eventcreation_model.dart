@@ -10,6 +10,7 @@ class EventCreationModel extends Equatable {
   final String description;
   final String title;
   final String subtitle;
+  final String address;
 
   final String uuid = Uuid().generateV4();
   final double lat;
@@ -28,6 +29,7 @@ class EventCreationModel extends Equatable {
     this.subtitle,
     this.imageData,
     this.bannerData,
+    this.address,
   });
 
   @override
@@ -40,6 +42,7 @@ class EventCreationModel extends Equatable {
       subtitle,
       lat,
       lng,
+      this.address,
     ];
   }
 }
