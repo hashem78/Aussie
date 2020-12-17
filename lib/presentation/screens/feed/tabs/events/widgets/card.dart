@@ -8,13 +8,20 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EventCard extends StatelessWidget {
+class EventCard extends StatefulWidget {
   const EventCard({
     Key key,
   }) : super(key: key);
 
   @override
+  _EventCardState createState() => _EventCardState();
+}
+
+class _EventCardState extends State<EventCard>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final EventModel e = getEventModel(context);
 
     return Card(
@@ -44,4 +51,7 @@ class EventCard extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

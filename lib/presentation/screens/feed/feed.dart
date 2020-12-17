@@ -94,7 +94,7 @@ class _FeedScreenState extends State<FeedScreen>
                             controller: controller,
                             tabs: [
                               Icon(Icons.home),
-                              Icon(Icons.event),
+                              Icon(Icons.public),
                             ],
                           ),
                         ),
@@ -103,11 +103,11 @@ class _FeedScreenState extends State<FeedScreen>
                     body: TabBarView(
                       controller: controller,
                       children: [
-                        HomeTab(),
                         BlocProvider(
                           create: (context) => EventManagementCubit(),
-                          child: EventsTab(),
+                          child: HomeEventsTab(),
                         ),
+                        PublicEventsTab(),
                       ],
                     ),
                   ),

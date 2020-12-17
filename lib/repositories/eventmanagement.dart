@@ -8,15 +8,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventManagementRepository {
   EventManagementProvider _provider = EventManagementProvider();
-  Future<EventManagementNotification> addEvent(EventCreationModel model) {
+  Future<EventManagementNotification> addUserEvent(EventCreationModel model) {
     return _provider.addEvent(model);
   }
 
-  Future<EventManagementNotification> fetchEvents(
+  Future<EventManagementNotification> fetchUserEvents(
     DocumentSnapshot prevSnap,
   ) async {
     EventManagementNotification notification =
-        await _provider.fetchEvents(prevSnap);
+        await _provider.fetchUserEvents(prevSnap);
     if (notification is EventModelsContainingNotification) {
       List<EventModel> models = [];
       notification.eventModels.forEach(

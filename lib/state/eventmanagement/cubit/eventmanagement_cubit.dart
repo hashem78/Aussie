@@ -21,7 +21,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
   DocumentSnapshot prevSnap;
   void addEvent(EventCreationModel model) {
     emit(EventManagementPerformingAction());
-    _repository.addEvent(model).then(
+    _repository.addUserEvent(model).then(
       (value) {
         if (value is EventManagementSuccessNotification) {
           emit(EventManagementCreated());
@@ -32,8 +32,8 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
-  void fetchEvents({DocumentSnapshot lastdoc}) {
-    _repository.fetchEvents(lastdoc).then(
+  void fetchUserEvents({DocumentSnapshot lastdoc}) {
+    _repository.fetchUserEvents(lastdoc).then(
       (value) {
         if (value is EventModelsContainingActualNotification) {
           prevSnap = value.prevSnap;

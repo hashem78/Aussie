@@ -7,12 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
-class EventsTab extends StatefulWidget {
+class HomeEventsTab extends StatefulWidget {
   @override
-  _EventsTabState createState() => _EventsTabState();
+  _HomeEventsTabState createState() => _HomeEventsTabState();
 }
 
-class _EventsTabState extends State<EventsTab>
+class _HomeEventsTabState extends State<HomeEventsTab>
     with AutomaticKeepAliveClientMixin {
   PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
@@ -26,9 +26,9 @@ class _EventsTabState extends State<EventsTab>
     _controller.addPageRequestListener(
       (pageKey) {
         if (cubit.prevSnap == null) {
-          cubit.fetchEvents();
+          cubit.fetchUserEvents();
         } else {
-          cubit.fetchEvents(lastdoc: cubit.prevSnap);
+          cubit.fetchUserEvents(lastdoc: cubit.prevSnap);
         }
       },
     );

@@ -98,7 +98,7 @@ class EventManagementProvider {
     return EventManagementSuccessNotification();
   }
 
-  Future<EventManagementNotification> fetchEvents(
+  Future<EventManagementNotification> fetchUserEvents(
     DocumentSnapshot documentSnapshot,
   ) async {
     try {
@@ -109,17 +109,18 @@ class EventManagementProvider {
               .collection("users/$uid/events")
               .orderBy("uuid")
               .startAfterDocument(documentSnapshot)
-              .limit(6)
+              .limit(5)
               .get();
           var _docs = _data.docs;
 
           List<Map<String, dynamic>> _internalList = [];
           _docs.forEach(
             (element) {
-              if (_docs.last.id != "~INDEX") _internalList.add(element.data());
+              _internalList.add(element.data());
             },
           );
-
+          if (_docs.length < 5)
+            return EventModelsContainingEndNotification(_internalList);
           return EventModelsContainingNotification(
             eventModels: UnmodifiableListView(_internalList),
             prevsnap: _docs.last,
@@ -135,7 +136,7 @@ class EventManagementProvider {
           List<Map<String, dynamic>> _internalList = [];
           _docs.forEach(
             (element) {
-              if (_docs.last.id != "~INDEX") _internalList.add(element.data());
+              _internalList.add(element.data());
             },
           );
           if (_docs.length < 5)
