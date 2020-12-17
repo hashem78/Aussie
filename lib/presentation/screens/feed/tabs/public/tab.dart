@@ -65,7 +65,8 @@ class _PublicEventsTabState extends State<PublicEventsTab>
               return MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (context) => UserManagementCubit(),
+                    create: (context) =>
+                        UserManagementCubit()..getUserDataFromUid(item.uid),
                   ),
                   BlocProvider.value(value: cubit)
                 ],

@@ -77,6 +77,8 @@ class PublicCardOwner extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
+        print("=====public card owner=======");
+        print(state);
         Widget child;
 
         if (state is UserMangementHasUserData) {
@@ -85,7 +87,11 @@ class PublicCardOwner extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return UserProfileScreen();
+                    return BlocProvider(
+                      create: (context) => UserManagementCubit()
+                        ..getUserDataFromUid(state.user.uid),
+                      child: UserProfileScreen(),
+                    );
                   },
                 ),
               );

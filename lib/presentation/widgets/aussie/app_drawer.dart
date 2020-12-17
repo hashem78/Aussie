@@ -7,11 +7,13 @@ import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
 import 'package:aussie/presentation/widgets/aussie/inked_image.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 
 import 'package:aussie/util/functions.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
@@ -173,7 +175,10 @@ class _DrawerHeader extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => UserProfileScreen(),
+                builder: (context) => BlocProvider(
+                  create: (context) => UserManagementCubit()..getUserData(),
+                  child: UserProfileScreen(),
+                ),
               ),
             );
           },
