@@ -21,7 +21,6 @@ import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
