@@ -1,6 +1,7 @@
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
+import 'package:aussie/presentation/screens/info/weather/weather_card.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/screens/info/weather/weather_tile.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
@@ -10,8 +11,10 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class WeatherScreen extends StatefulWidget {
@@ -35,10 +38,10 @@ class WeatherScreen extends StatefulWidget {
   _WeatherScreenState createState() => _WeatherScreenState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen>
-    with TickerProviderStateMixin {
-  GlobalKey<SliverAnimatedListState> _listKey = GlobalKey();
-  List<WeatherModel> models = [];
+class _WeatherScreenState extends State<WeatherScreen> {
+  PagingController<int, WeatherModel> _pagingController =
+      PagingController<int, WeatherModel>(firstPageKey: 0);
+
   List<LatLng> _coords = [
     LatLng(-34.93, 138.6),
     LatLng(-33.861481, 151.205475),
@@ -52,77 +55,90 @@ class _WeatherScreenState extends State<WeatherScreen>
   int modelToBeLoadedIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _pagingController.addPageRequestListener(
+      (index) {
+        context.read<WeatherCubit>().fetch(_coords[index]);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
     return Provider.value(
       value: _currentTheme,
       child: Scaffold(
         backgroundColor: _currentTheme.backgroundColor,
-        body: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) =>
-                  ThumbnailCubit(WeatherScreen.data.thumbnailRoute)..fetch(),
-            ),
-            BlocProvider(
-              create: (context) => WeatherCubit()..fetch(_coords[0]),
-            )
-          ],
-          child: CustomScrollView(
-            slivers: [
-              AussieThumbnailedAppBar(
-                title: getTranslation(context, "weatherTitle"),
-              ),
-              BlocBuilder<WeatherCubit, WeatherState>(
-                builder: (context, state) {
-                  if (state is WeatherLoading) {
-                    return SliverToBoxAdapter(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  return SliverToBoxAdapter(
-                    child: Container(),
-                  );
-                },
-              ),
-              BlocListener<WeatherCubit, WeatherState>(
-                listener: (context, state) {
-                  if (state is WeatherLoaded) {
-                    _listKey.currentState.insertItem(models.length);
-                    models.add(state.model);
-                    if (models.length < _coords.length)
-                      BlocProvider.of<WeatherCubit>(context)
-                          .fetch(_coords[models.length]);
-                  }
-                },
-                child: SliverAnimatedList(
-                  initialItemCount: 0,
-                  key: _listKey,
-                  itemBuilder: (
-                    BuildContext context,
-                    int index,
-                    Animation<double> animation,
-                  ) {
-                    return AnimatedSize(
-                      duration: Duration(milliseconds: 300),
-                      vsync: this,
-                      child: Container(
-                        height: animation.value * .4.sh,
-                        padding: index != 0
-                            ? const EdgeInsets.fromLTRB(10, 0, 10, 10)
-                            : const EdgeInsets.all(10),
-                        child: WeatherTile(
-                          model: models[index],
-                          showTitle: true,
-                        ),
-                      ),
-                    );
-                  },
+        body: BlocProvider(
+          create: (context) =>
+              ThumbnailCubit(WeatherScreen.data.thumbnailRoute)..fetch(),
+          child: Builder(
+            builder: (context) => CustomScrollView(
+              slivers: [
+                AussieThumbnailedAppBar(
+                  title: getTranslation(context, "weatherTitle"),
                 ),
-              ),
-            ],
+                SliverToBoxAdapter(
+                  child: BlocBuilder<WeatherCubit, WeatherState>(
+                    builder: (context, state) {
+                      Widget child;
+                      if (state is WeatherLoading) {
+                        child = Container(
+                          child: Text("Weather is being fetched"),
+                        );
+                      } else if (state is WeatherError) {
+                        child = Container(
+                          child: Text("An error occured, try again later"),
+                        );
+                      } else {
+                        String formattedTime =
+                            DateFormat("dd-MM-YY hh:mm").format(DateTime.now());
+                        child = Container(
+                          child: Text("Data as of $formattedTime local time"),
+                        );
+                      }
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 500),
+                        child: child,
+                      );
+                    },
+                  ),
+                ),
+                BlocListener<WeatherCubit, WeatherState>(
+                  listener: (context, state) {
+                    if (state is WeatherLoaded) {
+                      if (_pagingController.nextPageKey + 1 < _coords.length) {
+                        _pagingController.appendPage(
+                          [state.model],
+                          _pagingController.nextPageKey + 1,
+                        );
+                      } else {
+                        _pagingController.appendLastPage([state.model]);
+                      }
+                    }
+                  },
+                  child: PagedSliverList<int, WeatherModel>(
+                    pagingController: _pagingController,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder: (context, item, index) {
+                        return WeatherTile(
+                          model: item,
+                          showTitle: true,
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

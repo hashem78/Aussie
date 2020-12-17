@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:aussie/presentation/screens/usermanagement/initial.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/state/weather/cubit/weather_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,11 +21,13 @@ import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
+  await FirebaseFirestore.instance.disableNetwork();
   var _perfs = await SharedPreferences.getInstance();
   Map<String, dynamic> themeMap;
   if (_perfs.containsKey("theme")) {
@@ -117,7 +120,10 @@ class MyApp extends StatelessWidget {
   static final routes = {
     NaturalParksScreen.data.navPath: (BuildContext context) =>
         NaturalParksScreen(),
-    WeatherScreen.data.navPath: (BuildContext context) => WeatherScreen(),
+    WeatherScreen.data.navPath: (BuildContext context) => BlocProvider(
+          create: (context) => WeatherCubit(),
+          child: WeatherScreen(),
+        ),
     TeritoriesScreen.data.navPath: (BuildContext context) => TeritoriesScreen(),
     FaunaScreen.data.navPath: (BuildContext context) => FaunaScreen(),
     FloraScreen.data.navPath: (BuildContext context) => FloraScreen(),

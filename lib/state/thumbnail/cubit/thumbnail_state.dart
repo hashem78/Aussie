@@ -18,3 +18,5 @@ class ThumbnailLoaded extends ThumbnailState {
   @override
   List<Object> get props => [imageUrls];
 }
+
+class ThumbnailsUnavailable extends ThumbnailState {}

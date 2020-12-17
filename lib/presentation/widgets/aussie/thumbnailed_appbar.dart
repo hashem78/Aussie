@@ -28,12 +28,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
           builder: (context, state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
-                items: [
-                  Center(
-                    child:
-                        CircularProgressIndicator(backgroundColor: Colors.red),
-                  )
-                ],
+                items: [Center(child: CircularProgressIndicator())],
                 options: CarouselOptions(
                   height: height,
                   viewportFraction: 1,
@@ -57,7 +52,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
                 ),
               );
             }
-            return Container();
+            return Container(child: Icon(Icons.wifi_off, size: 300.sp));
           },
         ),
       ),

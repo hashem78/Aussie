@@ -17,8 +17,10 @@ class WeatherTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var _today = model;
 
-    return ColoredBox(
+    return Container(
       color: Colors.blue.shade700,
+      height: .3.sh,
+      margin: const EdgeInsets.fromLTRB(5, 0, 5, 5),
       child: Stack(
         children: [
           Align(

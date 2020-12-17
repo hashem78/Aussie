@@ -16,6 +16,9 @@ class ThumbnailCubit extends Cubit<ThumbnailState> {
   Future<void> fetch() async {
     emit(ThumbnailLoading());
     var _internalList = await _proivder.fetch();
-    emit(ThumbnailLoaded(imageUrls: _internalList));
+    if (_internalList.isEmpty)
+      emit(ThumbnailsUnavailable());
+    else
+      emit(ThumbnailLoaded(imageUrls: _internalList));
   }
 }
