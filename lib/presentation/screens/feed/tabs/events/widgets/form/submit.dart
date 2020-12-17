@@ -9,102 +9,92 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:provider/provider.dart';
 
 class EventCreationSubmitButton extends StatelessWidget {
+  final bool enabled;
   const EventCreationSubmitButton({
     Key key,
-    @required this.scaffkey,
+    @required this.enabled,
   }) : super(key: key);
-
-  final GlobalKey<ScaffoldState> scaffkey;
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EventManagementCubit, EventManagementState>(
-      listenWhen: (previous, current) {
-        if (previous is EventManagementPerformingAction)
-          return false;
-        else if (current is EventManagementPerformingAction) return false;
-        return true;
-      },
-      listener: (context, state) {
-        if (state is EventManagementCreated) {
-          _sn("Event created");
-          Future.delayed(Duration(seconds: 2))
-              .whenComplete(() => Navigator.of(context).pop());
-        } else {
-          _sn("Failed to create Event");
-        }
-      },
-      builder: (context, state) {
-        bool enabled = true;
-        if (state is EventManagementPerformingAction) enabled = false;
-        return OutlinedButton(
-          onPressed: enabled
-              ? () {
-                  // ignore: close_sinks
-                  final _formBloc = context.read<EventCreationBlocForm>();
-                  _formBloc.submit();
-                  if (!_formBloc.state.canSubmit) {
-                    final _start = _formBloc.dateAndTime1.value;
-                    final _startTime = _formBloc.timeonly1.value;
-                    final _end = _formBloc.dateAndTime2.value;
-                    final _endTime = _formBloc.timeonly2.value;
-                    final _combined1 = DateTime(
-                      _start.year,
-                      _start.month,
-                      _start.day,
-                      _startTime.hour,
-                      _startTime.minute,
-                    );
-                    final _combined2 = DateTime(
-                      _end.year,
-                      _end.month,
-                      _end.day,
-                      _endTime.hour,
-                      _endTime.minute,
-                    );
-                    final _locCubit = context.read<LocationPickingCubit>();
-
-                    final _multiImageCubit =
-                        context.read<MultiImagePickingCubit>();
-                    final _singleImageCubit =
-                        context.read<SingleImagePickingCubit>();
-                    final _evmCubit = context.read<EventManagementCubit>();
-
-                    if (_evmCubit.validate(_locCubit.value)) {
-                      _sn("Choose a valid location");
-                      return;
-                    } else if (_evmCubit.validate(_singleImageCubit.value)) {
-                      _sn("Please choose a banner for you event");
-                      return;
-                    } else if (_evmCubit.validate(_multiImageCubit.values)) {
-                      _sn("Please add atleast an image to your events' gallery");
-                      return;
-                    } else
-                      _evmCubit.addEvent(
-                        EventCreationModel(
-                          startingTimeStamp: _combined1.millisecondsSinceEpoch,
-                          endingTimeStamp: _combined2.millisecondsSinceEpoch,
-                          lat: _locCubit.value.latLng.latitude,
-                          lng: _locCubit.value.latLng.longitude,
-                          address: _locCubit.value.formattedAddress,
-                          title: _formBloc.title.value,
-                          subtitle: _formBloc.subtitle.value,
-                          description: _formBloc.description.value,
-                          imageData: _multiImageCubit.values,
-                          bannerData: _singleImageCubit.value,
-                        ),
-                      );
-                  }
-                }
-              : null,
-          child: Text("Create Event"),
-        );
-      },
+    return OutlinedButton(
+      onPressed: enabled
+          ? () {
+              // ignore: close_sinks
+              final _formBloc = context.read<EventCreationBlocForm>();
+              final _locCubit = context.read<LocationPickingCubit>();
+              final _multiImageCubit = context.read<MultiImagePickingCubit>();
+              final _singleImageCubit = context.read<SingleImagePickingCubit>();
+              final _evmCubit = context.read<EventManagementCubit>();
+              final _title = _formBloc.title;
+              final _subtitle = _formBloc.subtitle;
+              // ignore: close_sinks
+              final _description = _formBloc.description;
+              final _start = _formBloc.dateAndTime1.value;
+              final _startTime = _formBloc.timeonly1.value;
+              final _end = _formBloc.dateAndTime2.value;
+              final _endTime = _formBloc.timeonly2.value;
+              _evmCubit.emitInitial();
+              if (_evmCubit.validate(_title)) {
+                _sn(context, "Choose a valid title");
+              } else if (_evmCubit.validate(_subtitle)) {
+                _sn(context, "Choose a valid subtitle");
+              } else if (_evmCubit.validate(_description.value)) {
+                _sn(context, "Choose a valid description");
+              } else if (_evmCubit.validate(_start)) {
+                _sn(context, "Choose a valid starting date");
+              } else if (_evmCubit.validate(_startTime)) {
+                _sn(context, "Choose a valid starting time");
+              } else if (_evmCubit.validate(_end)) {
+                _sn(context, "Choose a valid ending date");
+              } else if (_evmCubit.validate(_endTime)) {
+                _sn(context, "Choose a valid ending time");
+              } else if (_evmCubit.validate(_locCubit.value)) {
+                _sn(context, "Choose a valid location");
+              } else if (_evmCubit.validate(_singleImageCubit.value)) {
+                _sn(context, "Please choose a banner for you event");
+              } else if (_evmCubit.validate(_multiImageCubit.values)) {
+                _sn(context,
+                    "Please add atleast an image to your events' gallery");
+              } else {
+                final _combined1 = DateTime(
+                  _start.year,
+                  _start.month,
+                  _start.day,
+                  _startTime.hour,
+                  _startTime.minute,
+                );
+                final _combined2 = DateTime(
+                  _end.year,
+                  _end.month,
+                  _end.day,
+                  _endTime.hour,
+                  _endTime.minute,
+                );
+                print("adding");
+                _evmCubit.addEvent(
+                  EventCreationModel(
+                    startingTimeStamp: _combined1.millisecondsSinceEpoch,
+                    endingTimeStamp: _combined2.millisecondsSinceEpoch,
+                    lat: _locCubit.value.latLng.latitude,
+                    lng: _locCubit.value.latLng.longitude,
+                    address: _locCubit.value.formattedAddress,
+                    title: _title.value,
+                    subtitle: _subtitle.value,
+                    description: _formBloc.description.value,
+                    imageData: _multiImageCubit.values,
+                    bannerData: _singleImageCubit.value,
+                  ),
+                );
+              }
+            }
+          : null,
+      child: Text("Create Event"),
     );
   }
 
-  void _sn(String text) {
-    scaffkey.currentState.showSnackBar(
+  void _sn(BuildContext context, String text) {
+    Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Text(text),
       ),

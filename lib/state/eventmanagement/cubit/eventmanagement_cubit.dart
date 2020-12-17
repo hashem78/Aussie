@@ -45,7 +45,11 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
+  void emitInitial() {
+    emit(EventmanagementInitial());
+  }
+
   bool validate(dynamic data) {
-    return data == null;
+    return data == null || data == "";
   }
 }

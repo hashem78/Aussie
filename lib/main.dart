@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
                   create: (context) => UserManagementCubit()..isUserSignedIn(),
                   child: InitialScreen(),
                 ),
-                theme: Theme.of(context).copyWith(
+                theme: ThemeData(
                   brightness: state.model.brightness,
                   outlinedButtonTheme: OutlinedButtonThemeData(
                     style: OutlinedButton.styleFrom(

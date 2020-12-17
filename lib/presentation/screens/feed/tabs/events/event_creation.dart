@@ -14,6 +14,7 @@ class EventCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> scaffkey = GlobalKey();
+
     return Scaffold(
       key: scaffkey,
       body: CustomScrollView(
@@ -44,11 +45,48 @@ class EventCreationScreen extends StatelessWidget {
                     return Container();
                   },
                 ),
-                EventCreationSubmitButton(scaffkey: scaffkey),
+                BlocConsumer<EventManagementCubit, EventManagementState>(
+                  listener: (context, state) {
+                    print("===========");
+                    print("Event creation status");
+                    print(state);
+                    print("===========");
+                    if (state is EventManagementCreated) {
+                      _sn("Event created", scaffkey);
+                      Future.delayed(Duration(seconds: 2))
+                          .whenComplete(() => Navigator.of(context).pop());
+                    } else if (state is EventManagementError) {
+                      _sn("Failed to create Event", scaffkey);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is EventManagementPerformingAction)
+                      return EventCreationSubmitButton(
+                        enabled: false,
+                      );
+                    else if (state is EventManagementCreated) {
+                      return EventCreationSubmitButton(
+                        enabled: false,
+                      );
+                    } else {
+                      return EventCreationSubmitButton(
+                        enabled: true,
+                      );
+                    }
+                  },
+                ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  void _sn(String text, GlobalKey<ScaffoldState> scaffkey) {
+    scaffkey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(text),
       ),
     );
   }

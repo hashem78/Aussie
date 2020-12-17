@@ -4,7 +4,7 @@ import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/species/details.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
-
+import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class FloraScreen extends StatelessWidget {
       backgroundColor: Colors.green.shade300,
     ),
   );
-
+  final PaginatedCubit cubit = PaginatedCubit<SpeciesDetailsModel>("flora");
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).floraScreenColor;
@@ -34,8 +34,8 @@ class FloraScreen extends StatelessWidget {
       value: _currentTheme,
       child: SearchablePaginatedScreen(
         title: getTranslation(context, FloraScreen.data.tTitle),
-        route: "flora",
-        thumbnailRoute: "flora_images",
+        cubit: cubit,
+        thumbnailCubitRoute: "flora_images",
         filterFor: "commonName",
         itemBuilder: (context, item, index) {
           var _casted = item as SpeciesDetailsModel;

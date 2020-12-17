@@ -52,122 +52,120 @@ class SingupScreen extends StatelessWidget {
         elevation: 0,
         title: Text("Signup"),
       ),
-      body: BlocProvider(
-        create: (context) => UserManagementCubit(),
-        child: Builder(
-          builder: (context) {
-            return FormBlocListener<SignupBloc, String, String>(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _SignupProfileImage(profileImage: profileImage),
-                    SizedBox(height: .08.sh),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFieldBlocBuilder(
-                        textFieldBloc: getSignupBloc(context).fullName,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person_pin),
-                          border: InputBorder.none,
-                          filled: true,
-                          hintText: "Full name",
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFieldBlocBuilder(
-                        textFieldBloc: getSignupBloc(context).userName,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.person),
-                          border: InputBorder.none,
-                          filled: true,
-                          hintText: "Username",
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFieldBlocBuilder(
-                        textFieldBloc: getSignupBloc(context).email,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email),
-                          border: InputBorder.none,
-                          filled: true,
-                          hintText: "Email",
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFieldBlocBuilder(
-                        textFieldBloc: getSignupBloc(context).password,
-                        suffixButton: SuffixButton.clearText,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock),
-                          border: InputBorder.none,
-                          filled: true,
-                          hintText: "Password",
-                        ),
-                      ),
-                    ),
-                    BlocConsumer<UserManagementCubit, UserManagementState>(
-                      listener: (context, state) {
-                        if (state is UserManagementSignup)
-                          Future.delayed(Duration(seconds: 2)).whenComplete(
-                            () {
-                              Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                  builder: (_) => FeedScreen(),
-                                ),
-                              );
-                            },
-                          );
-                      },
-                      builder: (context, state) {
-                        Widget child;
-
-                        if (state is UserManagementPerformingAction)
-                          child = CircularProgressIndicator();
-                        else if (state is UserManagementError)
-                          child = Text(
-                            "${state.notification.message}",
-                            style: TextStyle(color: Colors.red),
-                          );
-                        else if (state is UserManagementSignup)
-                          child = Text(
-                            state.notification.message,
-                            style: TextStyle(color: Colors.green),
-                          );
-                        return AnimatedSwitcher(
-                          duration: Duration(milliseconds: 500),
-                          child: Center(child: child),
-                        );
-                      },
-                    ),
-                    OutlineButton(
-                      onPressed: () {
-                        // ignore: close_sinks
-                        final signupBloc = getSignupBloc(context);
-                        signupBloc.submit();
-                        BlocProvider.of<UserManagementCubit>(context).signup(
-                          SignupModel(
-                            email: signupBloc.email.value,
-                            password: signupBloc.password.value,
-                            profileImagePath: profileImage.value,
-                            username: signupBloc.userName.value,
-                            fullname: signupBloc.fullName.value,
+      body: FormBlocListener<SignupBloc, String, String>(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _SignupProfileImage(profileImage: profileImage),
+              SizedBox(height: .08.sh),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).fullName,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person_pin),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Full name",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).userName,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Username",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).email,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.email),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Email",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFieldBlocBuilder(
+                  textFieldBloc: getSignupBloc(context).password,
+                  suffixButton: SuffixButton.clearText,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    border: InputBorder.none,
+                    filled: true,
+                    hintText: "Password",
+                  ),
+                ),
+              ),
+              BlocConsumer<UserManagementCubit, UserManagementState>(
+                listener: (context, state) {
+                  print(state);
+                  if (state is UserManagementSignup)
+                    Future.delayed(Duration(seconds: 2)).whenComplete(
+                      () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider(
+                              create: (context) =>
+                                  UserManagementCubit()..getUserData(),
+                              child: FeedScreen(),
+                            ),
                           ),
                         );
                       },
-                      child: Text("Sign up"),
-                    ),
-                  ],
-                ),
+                    );
+                },
+                builder: (context, state) {
+                  Widget child;
+
+                  if (state is UserManagementPerformingAction)
+                    child = CircularProgressIndicator();
+                  else if (state is UserManagementError)
+                    child = Text(
+                      "${state.notification.message}",
+                      style: TextStyle(color: Colors.red),
+                    );
+                  else if (state is UserManagementSignup)
+                    child = Text(
+                      state.notification.message,
+                      style: TextStyle(color: Colors.green),
+                    );
+                  return AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: Center(child: child),
+                  );
+                },
               ),
-            );
-          },
+              OutlineButton(
+                onPressed: () {
+                  // ignore: close_sinks
+                  final signupBloc = getSignupBloc(context);
+                  signupBloc.submit();
+                  BlocProvider.of<UserManagementCubit>(context).signup(
+                    SignupModel(
+                      email: signupBloc.email.value,
+                      password: signupBloc.password.value,
+                      profileImagePath: profileImage.value,
+                      username: signupBloc.userName.value,
+                      fullname: signupBloc.fullName.value,
+                    ),
+                  );
+                },
+                child: Text("Sign up"),
+              ),
+            ],
+          ),
         ),
       ),
     );

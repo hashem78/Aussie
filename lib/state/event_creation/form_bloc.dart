@@ -57,7 +57,7 @@ class EventCreationBlocForm extends FormBloc<String, String> {
           return;
         }
       } else if (val is TextFieldBloc) {
-        if (val.value == null) {
+        if (val.value == null || val.value == "") {
           emitFailure();
           return;
         }

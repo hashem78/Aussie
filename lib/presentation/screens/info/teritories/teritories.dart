@@ -1,11 +1,10 @@
 import 'package:aussie/models/info/teritory/teritory.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
-
+import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/models/gmap.dart';
@@ -31,6 +30,7 @@ class TeritoriesScreen extends StatelessWidget {
     ),
   );
 
+  final PaginatedCubit<TeritoryModel> cubit = PaginatedCubit("teritories");
   @override
   Widget build(BuildContext context) {
     var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
@@ -38,9 +38,9 @@ class TeritoriesScreen extends StatelessWidget {
     return Provider.value(
       value: _currentTheme,
       child: SearchablePaginatedScreen(
-        route: "teritories",
         title: getTranslation(context, TeritoriesScreen.data.tTitle),
-        thumbnailRoute: TeritoriesScreen.data.thumbnailRoute,
+        thumbnailCubitRoute: TeritoriesScreen.data.thumbnailRoute,
+        cubit: cubit,
         filterFor: "title",
         itemBuilder: (context, item, index) {
           var _casted = item as TeritoryModel;
