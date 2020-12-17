@@ -87,8 +87,23 @@ class MyApp extends StatelessWidget {
                   create: (context) => UserManagementCubit()..isUserSignedIn(),
                   child: InitialScreen(),
                 ),
-                theme: ThemeData(
+                theme: Theme.of(context).copyWith(
                   brightness: state.model.brightness,
+                  outlinedButtonTheme: OutlinedButtonThemeData(
+                    style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.all(15.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                  ),
+                  textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                  ),
                 ),
                 routes: routes,
               );

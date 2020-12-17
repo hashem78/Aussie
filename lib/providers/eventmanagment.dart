@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
+import 'package:place_picker/uuid.dart';
 
 class EventManagementProvider {
   static final _storage = FirebaseStorage.instance;
@@ -19,20 +20,23 @@ class EventManagementProvider {
       final String uid = _auth.currentUser.uid;
 
       final String path = "users/$uid/events/${model.uuid}";
-
-      _firestore.collection("global_events").doc().set(
+      WriteBatch batch = _firestore.batch();
+      batch.set(
+        _firestore.collection("global_events").doc(),
         {
           "eventOwner": uid,
           "eventUuid": model.uuid,
         },
       );
-      _firestore.collection("users").doc(uid).update(
+      batch.update(
+        _firestore.collection("users").doc(uid),
         {
           "numberOfPosts": FieldValue.increment(1),
         },
       );
 
-      await _firestore.doc(path).set(
+      batch.set(
+        _firestore.doc(path),
         {
           "uid": uid,
           "startingTimeStamp": model.startingTimeStamp,
@@ -46,49 +50,46 @@ class EventManagementProvider {
           "subtitle": model.subtitle,
           "galleryImageLinks": [],
           "bannerImageLink": "",
-          "eventAttendees": []
+          "eventAttendees": [],
+          "isDone": false,
         },
       );
-
       final updateGalleryLinksCallback = (String value) {
-        return _firestore.doc(path).update(
-          {
-            "galleryImageLinks": FieldValue.arrayUnion([value])
-          },
-        );
+        print(value);
+        return batch.update(_firestore.doc(path), {
+          "galleryImageLinks": FieldValue.arrayUnion([value])
+        });
       };
 
-      final dlGalleryCallback = (ByteData element) {
+      final dlGalleryCallback = (ByteData element) async {
         if (element == null) return;
 
-        final _refG = _storage.ref().child("$path/galleryImageLinks");
+        final _refG = _storage.ref(path).child(Uuid().generateV4());
 
-        final _gUploadTask = _refG.putData(element.buffer.asUint8List());
-        _gUploadTask.whenComplete(
-          () => _refG.getDownloadURL().then(updateGalleryLinksCallback),
-        );
+        final _gUploadTask = await _refG.putData(element.buffer.asUint8List());
+        final downloadUrl = await _gUploadTask.ref.getDownloadURL();
+        updateGalleryLinksCallback(downloadUrl);
       };
 
       final updateBannerLinkCallback = (String value) {
-        return _firestore.doc(path).update(
+        return batch.update(
+          _firestore.doc(path),
           {"bannerImageLink": value},
         );
       };
 
-      final dlBannerCallback = (ByteData element) {
+      final dlBannerCallback = (ByteData element) async {
         if (element == null) return;
-        final _refB = _storage.ref().child(path);
-        final _bUploadTask = _refB.putData(element.buffer.asUint8List());
-
-        _bUploadTask.whenComplete(
-          () => _refB.getDownloadURL().then(updateBannerLinkCallback),
-        );
+        final _refB = _storage.ref(path).child(Uuid().generateV4());
+        final _bUploadTask = await _refB.putData(element.buffer.asUint8List());
+        final downloadUrl = await _bUploadTask.ref.getDownloadURL();
+        updateBannerLinkCallback(downloadUrl);
       };
-
       for (var data in model.imageData) {
-        dlGalleryCallback(data);
+        await dlGalleryCallback(data);
       }
-      dlBannerCallback(model.bannerData);
+      await dlBannerCallback(model.bannerData);
+      batch.commit();
     } on FirebaseAuthException {
       return EventManagementErrorNotification();
     } on FirebaseException {

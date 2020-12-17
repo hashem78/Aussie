@@ -6,6 +6,8 @@ import 'package:aussie/repositories/eventmanagement.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
+import 'package:place_picker/entities/entities.dart';
 
 part 'eventmanagement_state.dart';
 
@@ -26,7 +28,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
         if (value is EventManagementSuccessNotification) {
           emit(EventManagementCreated());
         } else {
-          emit(EventManagementError());
+          emit(EventManagementError(""));
         }
       },
     );
@@ -43,5 +45,30 @@ class EventManagementCubit extends Cubit<EventManagementState> {
         }
       },
     );
+  }
+
+  void validateLocation(LocationResult result, String errorText) {
+    if (result == null) {
+      emit(EventManagementError(errorText));
+    } else
+      emitValid();
+  }
+
+  void validateMultiImage(List<ByteData> data, String errorText) {
+    if (data == null)
+      emit(EventManagementError(errorText));
+    else
+      emitValid();
+  }
+
+  void validateSingleImage(ByteData data, String errorText) {
+    if (data == null)
+      emit(EventManagementError(errorText));
+    else
+      emitValid();
+  }
+
+  void emitValid() {
+    emit(EvenetManagmentAllGood());
   }
 }

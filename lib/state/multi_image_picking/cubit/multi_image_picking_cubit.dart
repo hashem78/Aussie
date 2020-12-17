@@ -17,15 +17,14 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
 
     List<Future<ByteData>> data = [];
 
-    assets
-        .then(
-      (value) => value.forEach(
-        (element) {
+    assets.then(
+      (value) {
+        for (var element in value) {
           data.add(element.getByteData(quality: 60));
-        },
-      ),
-    )
-        .then(
+        }
+        print(data.length);
+      },
+    ).then(
       (_) {
         Future.wait(data).then(
           (value) {

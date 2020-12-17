@@ -22,37 +22,34 @@ class CardOwner extends StatelessWidget {
         Widget child;
 
         if (state is UserMangementHasUserData) {
-          child = Ink(
-            color: Colors.black12,
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return UserProfileScreen();
-                    },
-                  ),
-                );
-              },
-              child: Row(
-                children: [
-                  Container(
-                    width: size,
-                    height: size,
-                    margin: const EdgeInsets.all(5),
-                    child: Ink.image(
-                      image: CachedNetworkImageProvider(
-                        state.user.profilePictureLink,
-                      ),
+          child = InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return UserProfileScreen();
+                  },
+                ),
+              );
+            },
+            child: Row(
+              children: [
+                Container(
+                  width: size,
+                  height: size,
+                  margin: const EdgeInsets.all(5),
+                  child: Ink.image(
+                    image: CachedNetworkImageProvider(
+                      state.user.profilePictureLink,
                     ),
                   ),
-                  SizedBox(width: .05.sw),
-                  Text(
-                    state.user.username,
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(width: .05.sw),
+                Text(
+                  state.user.username,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+              ],
             ),
           );
         } else {
