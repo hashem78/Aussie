@@ -77,8 +77,6 @@ class PublicCardOwner extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
-        print("=====public card owner=======");
-        print(state);
         Widget child;
 
         if (state is UserMangementHasUserData) {

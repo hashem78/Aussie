@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -120,7 +121,7 @@ class _FeedScreenState extends State<FeedScreen>
           }
 
           return Center(
-            child: CircularProgressIndicator(),
+            child: LoadingBouncingGrid.square(),
           );
         },
       ),

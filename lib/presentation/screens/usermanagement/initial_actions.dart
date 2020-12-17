@@ -5,6 +5,7 @@ import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class InitialUserActionScreen extends StatefulWidget {
   @override
@@ -57,7 +58,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
                       Widget child;
 
                       if (state is UserManagementPerformingAction)
-                        child = CircularProgressIndicator();
+                        child = LoadingBouncingGrid.square();
                       else if (state is UserManagementError) {
                         child = Text(
                           state.notification.message,

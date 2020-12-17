@@ -20,7 +20,7 @@ class EventCardDetails extends StatelessWidget {
         children: [
           EventCardDetailsHeader(),
           EventCardDescription(),
-          EventCardAtendees(),
+          EventCardAttendees(),
         ],
       ),
     );

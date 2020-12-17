@@ -9,6 +9,7 @@ import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class EventCreationScreen extends StatelessWidget {
   @override
@@ -39,7 +40,7 @@ class EventCreationScreen extends StatelessWidget {
                 BlocBuilder<EventManagementCubit, EventManagementState>(
                   builder: (context, state) {
                     if (state is EventManagementPerformingAction) {
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child: LoadingBouncingGrid.square());
                     }
                     return Container();
                   },

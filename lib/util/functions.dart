@@ -11,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:aussie/localizations.dart';
 
@@ -51,7 +52,7 @@ Widget buildImage(
           ? (context, url) => Container(
                 color: Colors.lightBlueAccent,
                 child: Center(
-                  child: CircularProgressIndicator(),
+                  child: LoadingBouncingGrid.square(),
                 ),
               )
           : null,

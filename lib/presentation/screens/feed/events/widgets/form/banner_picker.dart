@@ -1,6 +1,7 @@
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class EventBannerPicker extends StatelessWidget {
   const EventBannerPicker({
@@ -25,7 +26,7 @@ class EventBannerPicker extends StatelessWidget {
               return Container();
             } else {
               return Center(
-                child: CircularProgressIndicator(),
+                child: LoadingBouncingGrid.square(),
               );
             }
           },

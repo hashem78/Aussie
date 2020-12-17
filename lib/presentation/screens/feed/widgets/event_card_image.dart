@@ -6,6 +6,7 @@ import 'package:aussie/util/pair.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 
 class EventCardImage extends StatelessWidget {
@@ -27,7 +28,7 @@ class EventCardImage extends StatelessWidget {
             height: .4.sh,
             width: 1.sw,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: LoadingBouncingGrid.square(),
             ),
           );
         else if (snapshot.data == null)

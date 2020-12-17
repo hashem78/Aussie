@@ -27,7 +27,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  await FirebaseFirestore.instance.disableNetwork();
+  //await FirebaseFirestore.instance.disableNetwork();
   var _perfs = await SharedPreferences.getInstance();
   Map<String, dynamic> themeMap;
   if (_perfs.containsKey("theme")) {

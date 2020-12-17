@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:aussie/util/pair.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class InkedImage extends StatelessWidget {
   final String url;
@@ -25,7 +26,7 @@ class InkedImage extends StatelessWidget {
           child = Container(
             key: ValueKey(0),
             child: Center(
-              child: CircularProgressIndicator(),
+              child: LoadingBouncingGrid.square(),
             ),
           );
         else if (snapshot.data != null)

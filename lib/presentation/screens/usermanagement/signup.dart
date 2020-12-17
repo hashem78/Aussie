@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 class SignupBloc extends FormBloc<String, String> {
   // ignore: close_sinks
@@ -99,7 +100,7 @@ class SingupScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFieldBlocBuilder(
                   textFieldBloc: getSignupBloc(context).password,
-                  suffixButton: SuffixButton.clearText,
+                  suffixButton: SuffixButton.obscureText,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.lock),
                     border: InputBorder.none,
@@ -129,7 +130,7 @@ class SingupScreen extends StatelessWidget {
                   Widget child;
 
                   if (state is UserManagementPerformingAction)
-                    child = CircularProgressIndicator();
+                    child = LoadingBouncingGrid.square();
                   else if (state is UserManagementError)
                     child = Text(
                       "${state.notification.message}",
