@@ -22,7 +22,6 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
         for (var element in value) {
           data.add(element.getByteData(quality: 60));
         }
-        print(data.length);
       },
     ).then(
       (_) {

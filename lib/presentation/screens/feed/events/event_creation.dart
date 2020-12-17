@@ -1,9 +1,9 @@
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/event_creation_form_fields.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/banner_picker.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/gallery_picker_button.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/gallery_status.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/location_picker.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/submit.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/event_creation_form_fields.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/form/banner_picker.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/form/gallery_picker_button.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/form/gallery_status.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/form/location_picker.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/form/submit.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 
 import 'package:flutter/material.dart';
@@ -38,7 +38,6 @@ class EventCreationScreen extends StatelessWidget {
                 EventImageGalleryPickerButton(),
                 BlocBuilder<EventManagementCubit, EventManagementState>(
                   builder: (context, state) {
-                    print("here");
                     if (state is EventManagementPerformingAction) {
                       return Center(child: CircularProgressIndicator());
                     }
@@ -47,10 +46,6 @@ class EventCreationScreen extends StatelessWidget {
                 ),
                 BlocConsumer<EventManagementCubit, EventManagementState>(
                   listener: (context, state) {
-                    print("===========");
-                    print("Event creation status");
-                    print(state);
-                    print("===========");
                     if (state is EventManagementCreated) {
                       _sn("Event created", scaffkey);
                       Future.delayed(Duration(seconds: 2))

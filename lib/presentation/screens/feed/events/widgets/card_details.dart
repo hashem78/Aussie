@@ -1,8 +1,10 @@
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/atendees.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/card_header.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/description.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/atendees.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/description.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'card_header.dart';
 
 class EventCardDetails extends StatelessWidget {
   const EventCardDetails({

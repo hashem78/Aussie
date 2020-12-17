@@ -40,4 +40,33 @@ class EventManagementRepository {
       return notification;
     }
   }
+
+  Future<EventManagementNotification> fetchPublicEvents(
+    DocumentSnapshot prevSnap,
+  ) async {
+    EventManagementNotification notification =
+        await _provider.fetchPublicEvents(prevSnap);
+    if (notification is EventModelsContainingNotification) {
+      List<EventModel> models = [];
+      notification.eventModels.forEach(
+        (element) {
+          models.add(EventModel.fromJson(element));
+        },
+      );
+      return EventModelsContainingActualNotification(
+        models,
+        notification.prevsnap,
+      );
+    } else if (notification is EventModelsContainingEndNotification) {
+      List<EventModel> models = [];
+      notification.eventModels.forEach(
+        (element) {
+          models.add(EventModel.fromJson(element));
+        },
+      );
+      return EventModelsContainingActualEndNotification(models);
+    } else {
+      return notification;
+    }
+  }
 }

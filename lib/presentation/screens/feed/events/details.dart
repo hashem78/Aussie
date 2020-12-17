@@ -1,5 +1,5 @@
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/event_details_card_stack.dart';
-import 'package:aussie/presentation/screens/feed/tabs/events/widgets/growing_image.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/event_details_card_stack.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/growing_image.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';

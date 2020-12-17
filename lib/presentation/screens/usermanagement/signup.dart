@@ -110,7 +110,6 @@ class SingupScreen extends StatelessWidget {
               ),
               BlocConsumer<UserManagementCubit, UserManagementState>(
                 listener: (context, state) {
-                  print(state);
                   if (state is UserManagementSignup)
                     Future.delayed(Duration(seconds: 2)).whenComplete(
                       () {

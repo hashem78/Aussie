@@ -71,7 +71,6 @@ class EventCreationSubmitButton extends StatelessWidget {
                   _endTime.hour,
                   _endTime.minute,
                 );
-                print("adding");
                 _evmCubit.addEvent(
                   EventCreationModel(
                     startingTimeStamp: _combined1.millisecondsSinceEpoch,
