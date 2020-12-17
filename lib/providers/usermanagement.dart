@@ -55,11 +55,6 @@ class UserManagementProvider {
           );
         },
       );
-      _firestoreInstance
-          .doc("users/$uid")
-          .collection("events")
-          .doc("~INDEX")
-          .set({});
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {

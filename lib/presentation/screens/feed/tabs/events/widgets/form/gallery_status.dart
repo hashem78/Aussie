@@ -32,7 +32,7 @@ class EventImageGalleryStatus extends StatelessWidget {
                 Icons.check,
                 color: Colors.green,
               ),
-              Text("Added images"),
+              Text("Added ${state.assets.length} image(s)"),
             ],
           );
         }

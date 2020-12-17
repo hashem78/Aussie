@@ -14,12 +14,8 @@ class EventManagementPerformingAction extends EventManagementState {}
 class EventManagementCreated extends EventManagementState {}
 
 class EventManagementError extends EventManagementState {
-  final String error;
-
-  EventManagementError(this.error);
+  EventManagementError();
 }
-
-class EvenetManagmentAllGood extends EventManagementState {}
 
 class EventManagementEventsFetched extends EventManagementState {
   final List<EventModel> models;

@@ -4,8 +4,10 @@ import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/galler
 import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/gallery_status.dart';
 import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/location_picker.dart';
 import 'package:aussie/presentation/screens/feed/tabs/events/widgets/form/submit.dart';
+import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventCreationScreen extends StatelessWidget {
@@ -33,6 +35,15 @@ class EventCreationScreen extends StatelessWidget {
                 EventLocationPicker(),
                 EventImageGalleryStatus(),
                 EventImageGalleryPickerButton(),
+                BlocBuilder<EventManagementCubit, EventManagementState>(
+                  builder: (context, state) {
+                    print("here");
+                    if (state is EventManagementPerformingAction) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return Container();
+                  },
+                ),
                 EventCreationSubmitButton(scaffkey: scaffkey),
               ],
             ),
