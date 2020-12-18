@@ -32,8 +32,14 @@ class NaturalParksTile extends StatelessWidget {
         children: [
           Row(
             children: [
-              Expanded(child: buildChip("Longitude", model.longitude)),
-              Expanded(child: buildChip("Latitude", model.latitude)),
+              Expanded(
+                child: buildChip(
+                    getTranslation(context, "longitude"), model.longitude),
+              ),
+              Expanded(
+                child: buildChip(
+                    getTranslation(context, "latitude"), model.latitude),
+              ),
             ],
           ),
           Card(

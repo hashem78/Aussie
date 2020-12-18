@@ -67,8 +67,11 @@ class TeritoriesScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: buildChip(_currentTheme.swatchColor,
-                            "Population", _casted.population),
+                        child: buildChip(
+                          _currentTheme.swatchColor,
+                          getTranslation(context, "population"),
+                          _casted.population,
+                        ),
                       ),
                     ],
                   ),
@@ -78,11 +81,19 @@ class TeritoriesScreen extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                          child: buildChip(_currentTheme.swatchColor,
-                              "Longitude", _casted.lng)),
+                        child: buildChip(
+                          _currentTheme.swatchColor,
+                          getTranslation(context, "longitude"),
+                          _casted.lng,
+                        ),
+                      ),
                       Expanded(
-                          child: buildChip(_currentTheme.swatchColor,
-                              "Latitude", _casted.lat)),
+                        child: buildChip(
+                          _currentTheme.swatchColor,
+                          getTranslation(context, "latitude"),
+                          _casted.lat,
+                        ),
+                      ),
                     ],
                   ),
                 ],

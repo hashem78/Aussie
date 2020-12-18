@@ -1,4 +1,3 @@
-import 'package:aussie/presentation/screens/feed/events/widgets/atendees.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/description.dart';
 
 import 'package:flutter/material.dart';
@@ -20,7 +19,6 @@ class EventCardDetails extends StatelessWidget {
         children: [
           EventCardDetailsHeader(),
           EventCardDescription(),
-          EventCardAttendees(),
         ],
       ),
     );

@@ -43,8 +43,6 @@ class EventManagementProvider {
           "subtitle": model.subtitle,
           "galleryImageLinks": [],
           "bannerImageLink": "",
-          // TODO: Check if this is really needed
-          //"eventAttendees": [],
           "created": FieldValue.serverTimestamp(),
         },
       );
