@@ -35,12 +35,12 @@ AussieUser _$AussieUserFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AussieUserToJson(AussieUser instance) =>
     <String, dynamic>{
-      'uid': instance.uid,
       'displayName': instance.displayName,
       'email': instance.email,
       'emailVerified': instance.emailVerified,
       'username': instance.username,
       'fullname': instance.fullname,
+      'uid': instance.uid,
       'attends': instance.attends,
       'numberOfFollowers': instance.numberOfFollowers,
       'numberOfFollowing': instance.numberOfFollowing,

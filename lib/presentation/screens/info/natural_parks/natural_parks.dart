@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class NaturalParksScreen extends StatelessWidget {
@@ -45,16 +46,15 @@ class NaturalParksScreen extends StatelessWidget {
             heroTag: _key.toString(),
             model: _casted,
             onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) {
-                  return Provider.value(
-                    value: _currentTheme,
-                    child: NaturalParksDetailsScreen(
-                      heroTag: _key.toString(),
-                      model: _casted,
-                    ),
-                  );
-                },
+              PageTransition(
+                child: Provider.value(
+                  value: _currentTheme,
+                  child: NaturalParksDetailsScreen(
+                    heroTag: _key.toString(),
+                    model: _casted,
+                  ),
+                ),
+                type: getAppropriateAnimation(context),
               ),
             ),
           );

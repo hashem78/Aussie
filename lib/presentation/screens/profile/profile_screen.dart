@@ -2,11 +2,11 @@ import 'package:aussie/presentation/screens/profile/widgets/banner.dart';
 import 'package:aussie/presentation/screens/profile/widgets/card_stack.dart';
 import 'package:aussie/presentation/screens/profile/widgets/events.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatelessWidget {
@@ -51,7 +51,7 @@ class UserProfileScreen extends StatelessWidget {
             );
           } else {
             return Center(
-              child: LoadingBouncingGrid.square(),
+              child: getIndicator(context),
             );
           }
         },

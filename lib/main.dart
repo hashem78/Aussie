@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:loading_animations/loading_animations.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/localizations.dart';
@@ -57,61 +59,67 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => ThemeCubit(themeMap)),
-        BlocProvider(create: (context) => LanguageCubit(locale)),
-        BlocProvider(create: (context) => SignupBloc()),
-        BlocProvider(create: (context) => UserManagementCubit()),
-      ],
-      child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, languageState) {
-          return BlocBuilder<ThemeCubit, ThemeState>(
-            builder: (context, state) {
-              return MaterialApp(
-                locale: languageState.currentLocale,
-                debugShowCheckedModeBanner: false,
-                localizationsDelegates: [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  AussieLocalizations.delegate,
-                ],
-                supportedLocales: [
-                  const Locale('en', ''),
-                  const Locale('ar', ''),
-                ],
-                localeResolutionCallback: (locale, supportedLocales) {
-                  if (supportedLocales.contains(locale)) return locale;
-                  return supportedLocales.first;
-                },
-                home: BlocProvider(
-                  create: (context) => UserManagementCubit()..isUserSignedIn(),
-                  child: InitialScreen(),
-                ),
-                theme: ThemeData(
-                  brightness: state.model.brightness,
-                  outlinedButtonTheme: OutlinedButtonThemeData(
-                    style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.all(15.0),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
+    return Provider.value(
+      value: LoadingBouncingGrid.square(
+        backgroundColor: Colors.blue,
+      ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => ThemeCubit(themeMap)),
+          BlocProvider(create: (context) => LanguageCubit(locale)),
+          BlocProvider(create: (context) => SignupBloc()),
+          BlocProvider(create: (context) => UserManagementCubit()),
+        ],
+        child: BlocBuilder<LanguageCubit, LanguageState>(
+          builder: (context, languageState) {
+            return BlocBuilder<ThemeCubit, ThemeState>(
+              builder: (context, state) {
+                return MaterialApp(
+                  locale: languageState.currentLocale,
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    AussieLocalizations.delegate,
+                  ],
+                  supportedLocales: [
+                    const Locale('en', ''),
+                    const Locale('ar', ''),
+                  ],
+                  localeResolutionCallback: (locale, supportedLocales) {
+                    if (supportedLocales.contains(locale)) return locale;
+                    return supportedLocales.first;
+                  },
+                  home: BlocProvider(
+                    create: (context) =>
+                        UserManagementCubit()..isUserSignedIn(),
+                    child: InitialScreen(),
+                  ),
+                  theme: ThemeData(
+                    brightness: state.model.brightness,
+                    outlinedButtonTheme: OutlinedButtonThemeData(
+                      style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.all(15.0),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                      ),
+                    ),
+                    textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
                       ),
                     ),
                   ),
-                  textButtonTheme: TextButtonThemeData(
-                    style: TextButton.styleFrom(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.zero,
-                      ),
-                    ),
-                  ),
-                ),
-                routes: routes,
-              );
-            },
-          );
-        },
+                  routes: routes,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

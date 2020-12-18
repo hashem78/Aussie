@@ -5,6 +5,7 @@ import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/themes.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/language/cubit/language_cubit.dart';
 
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animations/loading_animations.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:aussie/localizations.dart';
 
@@ -52,7 +54,7 @@ Widget buildImage(
           ? (context, url) => Container(
                 color: Colors.lightBlueAccent,
                 child: Center(
-                  child: LoadingBouncingGrid.square(),
+                  child: getIndicator(context),
                 ),
               )
           : null,
@@ -62,6 +64,12 @@ Widget buildImage(
     return null;
   }
 }
+
+LoadingBouncingGrid getIndicator(context) =>
+    Provider.of<LoadingBouncingGrid>(context, listen: false);
+
+PageTransitionType getAppropriateAnimation(BuildContext context) =>
+    BlocProvider.of<LanguageCubit>(context).appropriateAnimation();
 
 ThemeModel getCurrentThemeModel(BuildContext context) =>
     BlocProvider.of<ThemeCubit>(context, listen: true).currentModel;

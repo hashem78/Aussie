@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 
@@ -41,9 +42,9 @@ class _GrowingImageState extends State<GrowingImage>
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) =>
-                EventGalleryPhotoView(url: Provider.of<String>(context)),
+          PageTransition(
+            child: EventGalleryPhotoView(url: Provider.of<String>(context)),
+            type: PageTransitionType.fade,
           ),
         );
       },

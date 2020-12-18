@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
-import 'package:loading_animations/loading_animations.dart';
 
 class AussieThumbnailedAppBar extends StatelessWidget {
   final String title;
@@ -29,7 +28,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
           builder: (context, state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
-                items: [Center(child: LoadingBouncingGrid.square())],
+                items: [Center(child: getIndicator(context))],
                 options: CarouselOptions(
                   height: height,
                   viewportFraction: 1,

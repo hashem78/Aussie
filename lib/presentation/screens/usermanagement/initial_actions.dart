@@ -2,10 +2,11 @@ import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animations/loading_animations.dart';
+import 'package:page_transition/page_transition.dart';
 
 class InitialUserActionScreen extends StatefulWidget {
   @override
@@ -37,8 +38,12 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             if (state is UserManagementSignin) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => FeedScreen(),
+                PageTransition(
+                  child: BlocProvider(
+                    create: (context) => UserManagementCubit()..getUserData(),
+                    child: FeedScreen(),
+                  ),
+                  type: getAppropriateAnimation(context),
                 ),
               );
             }
@@ -58,7 +63,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
                       Widget child;
 
                       if (state is UserManagementPerformingAction)
-                        child = LoadingBouncingGrid.square();
+                        child = getIndicator(context);
                       else if (state is UserManagementError) {
                         child = Text(
                           state.notification.message,
@@ -72,7 +77,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
                     },
                   ),
                   buildSigninButton(),
-                  buildSignupButton(context),
+                  buildSignupButton(),
                 ],
               ),
             ),
@@ -116,7 +121,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     );
   }
 
-  TextButton buildSignupButton(BuildContext context) {
+  TextButton buildSignupButton() {
     return TextButton(
       style: TextButton.styleFrom(
         shape: const RoundedRectangleBorder(
@@ -125,8 +130,9 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
       ),
       onPressed: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => SingupScreen(),
+          PageTransition(
+            child: SingupScreen(),
+            type: getAppropriateAnimation(context),
           ),
         );
       },

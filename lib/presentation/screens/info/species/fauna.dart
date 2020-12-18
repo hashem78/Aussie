@@ -8,6 +8,7 @@ import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class FaunaScreen extends StatelessWidget {
@@ -48,11 +49,12 @@ class FaunaScreen extends StatelessWidget {
             ),
             onTap: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => Provider.value(
+              PageTransition(
+                child: Provider.value(
                   value: _currentTheme,
                   child: SpeciesDetails(model: item),
                 ),
+                type: getAppropriateAnimation(context),
               ),
             ),
           );

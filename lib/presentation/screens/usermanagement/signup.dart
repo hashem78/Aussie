@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animations/loading_animations.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SignupBloc extends FormBloc<String, String> {
   // ignore: close_sinks
@@ -59,7 +59,6 @@ class SingupScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _SignupProfileImage(profileImage: profileImage),
-              SizedBox(height: .08.sh),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFieldBlocBuilder(
@@ -115,12 +114,13 @@ class SingupScreen extends StatelessWidget {
                     Future.delayed(Duration(seconds: 2)).whenComplete(
                       () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider(
+                          PageTransition(
+                            child: BlocProvider(
                               create: (context) =>
                                   UserManagementCubit()..getUserData(),
                               child: FeedScreen(),
                             ),
+                            type: getAppropriateAnimation(context),
                           ),
                         );
                       },
@@ -130,7 +130,7 @@ class SingupScreen extends StatelessWidget {
                   Widget child;
 
                   if (state is UserManagementPerformingAction)
-                    child = LoadingBouncingGrid.square();
+                    child = getIndicator(context);
                   else if (state is UserManagementError)
                     child = Text(
                       "${state.notification.message}",
@@ -187,18 +187,11 @@ class __SignupProfileImageState extends State<_SignupProfileImage> {
   Future<PickedFile> futureProfileImage;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      overflow: Overflow.visible,
+    return Column(
       children: [
         Container(
-          width: .6.sw,
-          height: .6.sw,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-              width: 1,
-            ),
-          ),
+          width: 1.sw,
+          height: 1.sw,
           child: FutureBuilder<PickedFile>(
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -219,44 +212,38 @@ class __SignupProfileImageState extends State<_SignupProfileImage> {
             future: futureProfileImage,
           ),
         ),
-        Positioned(
-          bottom: -.02.sh,
-          left: -0.02.sh,
-          child: buildButton(
-            imageSource: ImageSource.gallery,
-            iconData: Icons.image,
-          ),
-        ),
-        Positioned(
-          bottom: -.02.sh,
-          right: -0.02.sh,
-          child: buildButton(
-            imageSource: ImageSource.camera,
-            iconData: Icons.camera_alt,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            buildButton(
+              imageSource: ImageSource.gallery,
+              iconData: Icons.image,
+            ),
+            buildButton(
+              imageSource: ImageSource.camera,
+              iconData: Icons.camera_alt,
+            ),
+          ],
         ),
       ],
     );
   }
 
-  Container buildButton({ImageSource imageSource, IconData iconData}) {
-    return Container(
-      color: Colors.amber,
-      child: IconButton(
-        onPressed: () async {
-          setState(
-            () {
-              futureProfileImage = picker.getImage(
-                source: imageSource,
-                maxWidth: 300,
-                maxHeight: 300,
-              );
-            },
-          );
-        },
-        iconSize: 100.sp,
-        icon: Icon(iconData),
-      ),
+  Widget buildButton({ImageSource imageSource, IconData iconData}) {
+    return IconButton(
+      onPressed: () async {
+        setState(
+          () {
+            futureProfileImage = picker.getImage(
+              source: imageSource,
+              maxWidth: 300,
+              maxHeight: 300,
+            );
+          },
+        );
+      },
+      iconSize: 100.sp,
+      icon: Icon(iconData),
     );
   }
 }
