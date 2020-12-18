@@ -2,13 +2,12 @@ import 'package:aussie/models/info/natural_parks/natural_parks.dart';
 import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';
+import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/widgets/paginated/natural_parks_tile.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 

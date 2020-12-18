@@ -2,7 +2,6 @@ import 'package:aussie/models/info/species/species.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

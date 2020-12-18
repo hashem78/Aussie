@@ -1,22 +1,21 @@
+import 'dart:math' as math;
+
 import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
-import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
 import 'package:aussie/presentation/widgets/aussie/inked_image.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-
 import 'package:aussie/util/functions.dart';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:math' as math;
 
 @immutable
 class _DrawerItemModel extends Equatable {

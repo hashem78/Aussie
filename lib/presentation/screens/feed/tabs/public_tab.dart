@@ -2,7 +2,6 @@ import 'package:aussie/models/event/event.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';

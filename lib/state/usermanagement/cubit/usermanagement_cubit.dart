@@ -1,6 +1,5 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/event/event.dart';
-
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';

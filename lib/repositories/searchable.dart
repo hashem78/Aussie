@@ -4,9 +4,7 @@ import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/models/info/natural_parks/natural_parks.dart';
 import 'package:aussie/models/info/species/species.dart';
 import 'package:aussie/models/info/teritory/teritory.dart';
-
 import 'package:aussie/providers/searchable.dart';
-
 import 'package:flutter/foundation.dart';
 
 @immutable

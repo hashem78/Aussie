@@ -6,7 +6,6 @@ import 'package:aussie/presentation/screens/feed/events/widgets/form/location_pi
 import 'package:aussie/presentation/screens/feed/events/widgets/form/submit.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

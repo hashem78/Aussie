@@ -62,7 +62,3 @@ flutter:
   assets:
     - assets/images/
     - assets/json/
-  fonts:
-    - family: BrandIcons
-      fonts:
-        - asset: fonts/BrandIcons.ttf

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
 import 'package:aussie/util/functions.dart';
+import 'package:flutter/material.dart';
 
 class BannerImage extends StatelessWidget {
   final ColorFilter colorFilter;

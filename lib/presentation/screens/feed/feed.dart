@@ -5,14 +5,11 @@ import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/state/event_creation/form_bloc.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
-
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
 import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';

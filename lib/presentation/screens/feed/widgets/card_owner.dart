@@ -1,11 +1,10 @@
+import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import 'package:aussie/presentation/screens/profile/profile_screen.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CardOwner extends StatelessWidget {

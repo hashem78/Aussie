@@ -3,12 +3,10 @@ import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/feed/events/event_details.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card_details.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/public_event_attend_button.dart';
-
-import 'package:aussie/presentation/screens/feed/widgets/event_card_image.dart';
 import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
+import 'package:aussie/presentation/screens/feed/widgets/event_card_image.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
