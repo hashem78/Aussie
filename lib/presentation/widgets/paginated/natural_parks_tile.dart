@@ -40,8 +40,8 @@ class NaturalParksTile extends StatelessWidget {
             elevation: 2,
             color: Colors.cyan,
             margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero,
             ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
@@ -79,8 +79,8 @@ class NaturalParksTile extends StatelessWidget {
       child: Card(
         elevation: 2,
         margin: const EdgeInsets.symmetric(horizontal: 5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
         ),
         color: Colors.lime,
         child: Column(

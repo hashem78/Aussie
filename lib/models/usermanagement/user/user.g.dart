@@ -10,6 +10,9 @@ AussieUser _$AussieUserFromJson(Map<String, dynamic> json) {
   return $checkedNew('AussieUser', json, () {
     final val = AussieUser(
       uid: $checkedConvert(json, 'uid', (v) => v as String),
+      attends: $checkedConvert(json, 'attends',
+              (v) => (v as List)?.map((e) => e as String)?.toList()) ??
+          [],
       displayName: $checkedConvert(json, 'displayName', (v) => v as String),
       email: $checkedConvert(json, 'email', (v) => v as String),
       emailVerified: $checkedConvert(json, 'emailVerified', (v) => v as bool),
@@ -38,6 +41,7 @@ Map<String, dynamic> _$AussieUserToJson(AussieUser instance) =>
       'emailVerified': instance.emailVerified,
       'username': instance.username,
       'fullname': instance.fullname,
+      'attends': instance.attends,
       'numberOfFollowers': instance.numberOfFollowers,
       'numberOfFollowing': instance.numberOfFollowing,
       'numberOfPosts': instance.numberOfPosts,

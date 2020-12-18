@@ -10,16 +10,17 @@ part 'user.g.dart';
 )
 @immutable
 class AussieUser {
-  String get eventsCollectionPath => "users/$uid/events";
-  String get attendeesCollectionPath => "users/$uid/foreign/attendees";
-  String get galleryCollectionPath => "users/$uid/foreign/gallery";
-  final String uid;
   final String displayName;
   final String email;
   final bool emailVerified;
   final String username;
   final String fullname;
 
+  @JsonKey()
+  final String uid;
+
+  @JsonKey(defaultValue: const [])
+  final List<String> attends;
   @JsonKey(defaultValue: 0)
   final int numberOfFollowers;
   @JsonKey(defaultValue: 0)
@@ -37,6 +38,7 @@ class AussieUser {
 
   const AussieUser({
     this.uid,
+    this.attends,
     this.displayName,
     this.email,
     this.emailVerified,

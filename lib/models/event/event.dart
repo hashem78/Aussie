@@ -12,9 +12,7 @@ part 'event.g.dart';
 )
 @immutable
 class EventModel extends Equatable {
-  @JsonKey(defaultValue: "")
   final String eventId;
-  @JsonKey(defaultValue: "")
   final String uid;
   @JsonKey(defaultValue: "")
   final String bannerImageLink;

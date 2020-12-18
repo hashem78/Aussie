@@ -12,7 +12,7 @@ class EventCreationModel extends Equatable {
   final String subtitle;
   final String address;
 
-  final String uuid = Uuid().generateV4();
+  final String eventId = Uuid().generateV4();
   final double lat;
   final double lng;
 

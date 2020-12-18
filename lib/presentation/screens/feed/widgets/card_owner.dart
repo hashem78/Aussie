@@ -67,10 +67,8 @@ class CardOwner extends StatelessWidget {
 class PublicCardOwner extends StatelessWidget {
   final double size;
 
-  PublicCardOwner({
-    Key key,
-    double size,
-  })  : size = size ?? .1.sw,
+  PublicCardOwner({Key key, double size, bool useValue})
+      : size = size ?? .1.sw,
         super(key: key);
 
   @override

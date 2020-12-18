@@ -9,8 +9,8 @@ part of 'event.dart';
 EventModel _$EventModelFromJson(Map<String, dynamic> json) {
   return $checkedNew('EventModel', json, () {
     final val = EventModel(
-      eventId: $checkedConvert(json, 'eventId', (v) => v as String) ?? '',
-      uid: $checkedConvert(json, 'uid', (v) => v as String) ?? '',
+      eventId: $checkedConvert(json, 'eventId', (v) => v as String),
+      uid: $checkedConvert(json, 'uid', (v) => v as String),
       bannerImageLink:
           $checkedConvert(json, 'bannerImageLink', (v) => v as String) ?? '',
       title: $checkedConvert(json, 'title', (v) => v as String) ?? '',

@@ -20,7 +20,7 @@ class ProfileCardStack extends StatelessWidget {
           child: Card(
             margin: EdgeInsets.zero,
             elevation: 10,
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),

@@ -19,7 +19,7 @@ class EventManagementProvider {
     try {
       final String uid = _auth.currentUser.uid;
 
-      final String path = "users/$uid/events/${model.uuid}";
+      final String path = "users/$uid/events/${model.eventId}";
       WriteBatch batch = _firestore.batch();
       batch.update(
         _firestore.collection("users").doc(uid),
@@ -32,19 +32,19 @@ class EventManagementProvider {
         _firestore.doc(path),
         {
           "uid": uid,
+          "eventId": model.eventId,
           "startingTimeStamp": model.startingTimeStamp,
           "endingTimeStamp": model.endingTimeStamp,
           "description": model.description,
           "address": model.address,
-          "uuid": model.uuid,
           "lat": model.lat,
           "lng": model.lng,
           "title": model.title,
           "subtitle": model.subtitle,
           "galleryImageLinks": [],
           "bannerImageLink": "",
-          "eventAttendees": [],
-          "isDone": false,
+          // TODO: Check if this is really needed
+          //"eventAttendees": [],
           "created": FieldValue.serverTimestamp(),
         },
       );
@@ -100,7 +100,7 @@ class EventManagementProvider {
         if (documentSnapshot != null) {
           var _data = await _firestore
               .collection("users/$uid/events")
-              .orderBy("uuid")
+              .orderBy("eventId")
               .startAfterDocument(documentSnapshot)
               .limit(5)
               .get();
@@ -121,7 +121,7 @@ class EventManagementProvider {
         } else {
           var _data = await _firestore
               .collection("users/$uid/events")
-              .orderBy("uuid")
+              .orderBy("eventId")
               .limit(5)
               .get();
           var _docs = _data.docs;

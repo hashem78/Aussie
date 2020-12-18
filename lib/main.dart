@@ -94,7 +94,7 @@ class MyApp extends StatelessWidget {
                   outlinedButtonTheme: OutlinedButtonThemeData(
                     style: OutlinedButton.styleFrom(
                       padding: EdgeInsets.all(15.0),
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                     ),

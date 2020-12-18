@@ -37,4 +37,9 @@ class UserManagementRepository {
     else
       return notification;
   }
+
+  Future<UserManagementNotification> makeUserWithIdAttendEvent(
+      String uid, String eventUuid) async {
+    return await _provider.makeUserWithIdAttendEvent(uid, eventUuid);
+  }
 }

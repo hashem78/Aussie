@@ -1,4 +1,5 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
+import 'package:aussie/models/event/event.dart';
 
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
@@ -77,6 +78,31 @@ class UserManagementCubit extends Cubit<UserManagementState> {
         }
       },
     );
+  }
+
+  void makeUserWithIdAttendEvent(AussieUser user, String eventUuid) {
+    emit(UserManagementPerformingAction());
+
+    repository
+        .makeUserWithIdAttendEvent(
+      user.uid,
+      eventUuid,
+    )
+        .then(
+      (value) {
+        if (value is UserMangementUserAttendedEventNotification) {
+          emit(UserManagementAttended());
+        } else {
+          emit(UserManagementError(value));
+        }
+      },
+    );
+  }
+
+  void isUserAttending(AussieUser user, EventModel eventModel) {
+    if (user.attends.contains(eventModel.eventId)) {
+      emit(UserManagementAttended());
+    }
   }
 
   void emitInitial() {

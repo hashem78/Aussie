@@ -205,3 +205,21 @@ class UserModelContainingActualNotification
   @override
   String get message => "";
 }
+
+class UserMangementUserAttendedEventNotification
+    implements UserManagementNotification {
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
+}
+
+class UserMangementUserUnAttendedEventNotification
+    implements UserManagementNotification {
+  @override
+  String get code => "";
+
+  @override
+  String get message => "";
+}

@@ -1,12 +1,16 @@
 import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/feed/events/details.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card_details.dart';
 
 import 'package:aussie/presentation/screens/feed/widgets/event_card_image.dart';
 import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 
 class EventCard extends StatefulWidget {
@@ -24,17 +28,18 @@ class _EventCardState extends State<EventCard>
   Widget build(BuildContext context) {
     super.build(context);
     final EventModel e = getEventModel(context);
+    final AussieUser u = getCurrentUser(context);
 
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: InkWell(
         onTap: () => Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return Provider.value(
-                value: e,
-                child: Builder(builder: (context) => EventDetails()),
-              );
+              return MultiProvider(providers: [
+                Provider.value(value: e),
+                Provider.value(value: u),
+              ], child: EventDetails());
             },
           ),
         ),
@@ -73,25 +78,40 @@ class _PublicEventCardState extends State<PublicEventCard>
     super.build(context);
 
     final EventModel e = getEventModel(context);
+    final AussieUser user = getCurrentUser(context);
+    print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
 
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return Provider.value(
-                value: e,
-                child: Builder(builder: (context) => EventDetails()),
-              );
-            },
-          ),
-        ),
+        onTap: () {
+          print(user);
+          print("hhhhhhhhhhhhhhhhhhh");
+          return Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return MultiProvider(
+                  providers: [
+                    Provider.value(
+                      value: e,
+                    ),
+                    Provider.value(value: user),
+                  ],
+                  child: EventDetails(),
+                );
+              },
+            ),
+          );
+        },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              BlocProvider(
+                create: (context) => UserManagementCubit(),
+                child: PublicAttendButton(),
+              ),
               PublicCardOwner(),
               EventCardImage(),
               EventCardDetails(),
@@ -104,4 +124,51 @@ class _PublicEventCardState extends State<PublicEventCard>
 
   @override
   bool get wantKeepAlive => true;
+}
+
+class PublicAttendButton extends StatelessWidget {
+  const PublicAttendButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final EventModel e = getEventModel(context);
+    AussieUser currentUser = getCurrentUser(context);
+
+    context.watch<UserManagementCubit>().isUserAttending(currentUser, e);
+
+    return BlocBuilder<UserManagementCubit, UserManagementState>(
+      builder: (context, state) {
+        if (state is UserManagementInitial)
+          return ElevatedButton(
+            onPressed: () {
+              context
+                  .read<UserManagementCubit>()
+                  .makeUserWithIdAttendEvent(currentUser, e.eventId);
+            },
+            child: const Text("Attend"),
+          );
+        else if (state is UserManagementPerformingAction) {
+          return ElevatedButton(
+            onPressed: null,
+            child: Row(
+              children: [
+                Center(child: LoadingBouncingGrid.square()),
+                const Text("Attempting to attend"),
+              ],
+            ),
+          );
+        } else if (state is UserManagementAttended) {
+          return ElevatedButton(
+            onPressed: null,
+            child: const Text("Already attending"),
+          );
+        } else {
+          return ElevatedButton(
+              onPressed: null, child: Text("An error Occured"));
+        }
+      },
+    );
+  }
 }

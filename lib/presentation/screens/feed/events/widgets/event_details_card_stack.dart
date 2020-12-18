@@ -24,7 +24,7 @@ class EventCardStack extends StatelessWidget {
     final formattedEndTime = DateFormat("hh:mm:ss").format(end);
     return Card(
       margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero,
       ),
       child: Column(

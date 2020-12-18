@@ -55,8 +55,8 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                 var sectionText = model.sections[index]["text"];
                 return Card(
                   color: Colors.cyan,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(0),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

@@ -119,7 +119,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
   TextButton buildSignupButton(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),
       ),

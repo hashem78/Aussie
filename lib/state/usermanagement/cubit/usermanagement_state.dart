@@ -9,6 +9,8 @@ abstract class UserManagementState extends Equatable {
 
 class UserManagementInitial extends UserManagementState {}
 
+class UserManagementAttended extends UserManagementState {}
+
 class UserManagementSignup extends UserManagementState {
   final UserManagementNotification notification;
 

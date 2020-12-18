@@ -100,8 +100,8 @@ class TeritoriesScreen extends StatelessWidget {
       child: Card(
         elevation: 2,
         margin: EdgeInsets.symmetric(horizontal: 5),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
         ),
         color: chipColor,
         child: Column(

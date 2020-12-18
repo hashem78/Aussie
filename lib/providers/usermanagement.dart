@@ -51,6 +51,7 @@ class UserManagementProvider {
               "numberOfFollowers": 0,
               "numberOfFollowing": 0,
               "numberOfPosts": 0,
+              "attends": [],
             },
           );
         },
@@ -112,6 +113,7 @@ class UserManagementProvider {
         "numberOfFollowers": _data["numberOfFollowers"],
         "numberOfFollowing": _data["numberOfFollowing"],
         "numberOfPosts": _data["numberOfPosts"],
+        "attends": _data["attends"],
       };
       return UserModelContainingNotification(UnmodifiableMapView(_internalMap));
     } on FirebaseAuthException catch (e) {
@@ -131,6 +133,59 @@ class UserManagementProvider {
           _userModel.data(),
         ),
       );
+    } on FirebaseException {
+      return UserManagementErrorNotification();
+    }
+  }
+
+  Future<UserManagementNotification> makeUserWithIdAttendEvent(
+      String uid, String eventUuid) async {
+    if (uid == null || eventUuid == null)
+      return UserManagementErrorNotification();
+    try {
+      WriteBatch writeBatch = _firestoreInstance.batch();
+      writeBatch.set(
+          _firestoreInstance
+              .collection("event")
+              .doc(eventUuid)
+              .collection("attendees")
+              .doc(uid),
+          {"uid": uid});
+      writeBatch.update(
+        _firestoreInstance.collection("users").doc(uid),
+        {
+          "attends": FieldValue.arrayUnion([eventUuid])
+        },
+      );
+      writeBatch.commit();
+      return UserMangementUserAttendedEventNotification();
+    } on FirebaseException {
+      return UserManagementErrorNotification();
+    }
+  }
+
+  Future<UserManagementNotification> makeUserWithIdUnAttendEvent(
+      String uid, String eventUuid) async {
+    if (uid == null || eventUuid == null)
+      return UserManagementErrorNotification();
+    try {
+      WriteBatch writeBatch = _firestoreInstance.batch();
+
+      writeBatch.delete(
+        _firestoreInstance
+            .collection("event")
+            .doc(eventUuid)
+            .collection("attendees")
+            .doc(uid),
+      );
+      writeBatch.update(
+        _firestoreInstance.collection("users").doc(uid),
+        {
+          "attends": FieldValue.arrayRemove([eventUuid])
+        },
+      );
+      writeBatch.commit();
+      return UserMangementUserUnAttendedEventNotification();
     } on FirebaseException {
       return UserManagementErrorNotification();
     }
