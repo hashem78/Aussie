@@ -60,11 +60,11 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Text(
-              "Attendees",
+              getTranslation(context, "attendees"),
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
-          height: .05.sh,
+          height: .1.sh,
         ),
         itemBuilder: (index, context, snapshot) {
           final data = snapshot.data();

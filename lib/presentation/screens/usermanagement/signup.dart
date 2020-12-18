@@ -4,6 +4,7 @@ import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -54,7 +55,7 @@ class SingupScreen extends StatelessWidget {
       body: FormBlocListener<SignupBloc, String, String>(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _SignupProfileImage(profileImage: profileImage),
               Padding(
@@ -148,7 +149,7 @@ class SingupScreen extends StatelessWidget {
                   );
                 },
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () {
                   // ignore: close_sinks
                   final signupBloc = getSignupBloc(context);
@@ -163,7 +164,10 @@ class SingupScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text(getTranslation(context, "signup2ButtonText")),
+                child: AutoSizeText(
+                  getTranslation(context, "signup2ButtonText"),
+                  //style: TextStyle(fontSize: 50.sp),
+                ),
               ),
             ],
           ),
@@ -191,8 +195,6 @@ class __SignupProfileImageState extends State<_SignupProfileImage> {
     return Column(
       children: [
         Container(
-          width: 1.sw,
-          height: 1.sw,
           child: FutureBuilder<PickedFile>(
             builder: (context, snapshot) {
               if (snapshot.hasData) {

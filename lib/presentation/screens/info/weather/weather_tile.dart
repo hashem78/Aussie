@@ -39,7 +39,7 @@ class WeatherTile extends StatelessWidget {
                 Expanded(
                   child: BoxedIcon(
                     WeatherIcons.fromString(model.iconString),
-                    size: 250.sp,
+                    size: 150.sp,
                     color: Colors.amber,
                   ),
                 ),

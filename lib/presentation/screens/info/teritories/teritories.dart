@@ -152,7 +152,7 @@ class AussieGMapScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         title: Text(
           model.title,
-          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 100.sp),
+          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40.sp),
         ),
         centerTitle: true,
       ),

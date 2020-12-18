@@ -13,14 +13,11 @@ class EventDetailsDescriptionCard extends StatelessWidget {
 
     return Card(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      margin: const EdgeInsets.all(8.0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ExpandText(
-          e.description,
-          textAlign: TextAlign.center,
-          expandOnGesture: false,
-        ),
+      margin: EdgeInsets.zero,
+      child: ExpandText(
+        e.description,
+        textAlign: TextAlign.center,
+        expandOnGesture: false,
       ),
     );
   }

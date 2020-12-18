@@ -10,6 +10,7 @@ import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
@@ -30,69 +31,65 @@ class FeedScreen extends StatelessWidget {
               length: 2,
               child: Provider.value(
                 value: state.user,
-                child: SafeArea(
-                  child: AussieScaffold(
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            child: MultiBlocProvider(
-                              providers: [
-                                BlocProvider(
-                                    create: (_) => EventCreationBlocForm()),
-                                BlocProvider(
-                                    create: (_) => EventManagementCubit()),
-                                BlocProvider(
-                                    create: (_) => MultiImagePickingCubit()),
-                                BlocProvider(
-                                    create: (_) => SingleImagePickingCubit()),
-                                BlocProvider(
-                                    create: (_) => LocationPickingCubit()),
-                              ],
-                              child: EventCreationScreen(),
-                            ),
-                            type: getAppropriateAnimation(context),
+                child: AussieScaffold(
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          child: MultiBlocProvider(
+                            providers: [
+                              BlocProvider(
+                                  create: (_) => EventCreationBlocForm()),
+                              BlocProvider(
+                                  create: (_) => EventManagementCubit()),
+                              BlocProvider(
+                                  create: (_) => MultiImagePickingCubit()),
+                              BlocProvider(
+                                  create: (_) => SingleImagePickingCubit()),
+                              BlocProvider(
+                                  create: (_) => LocationPickingCubit()),
+                            ],
+                            child: EventCreationScreen(),
                           ),
-                        );
-                      },
-                      child: Icon(Icons.add, size: 100.sp),
-                    ),
-                    drawer: AussieAppDrawer(),
-                    body: NestedScrollView(
-                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                        SliverSafeArea(
-                          sliver: SliverAppBar(
-                            primary: true,
-                            pinned: true,
-                            centerTitle: true,
-                            title: Text(
-                              getTranslation(context, "feedScreenTitle"),
-                              style: TextStyle(
-                                  fontSize: 60.sp, fontWeight: FontWeight.w400),
-                            ),
-                            elevation: 0,
-                            bottom: TabBar(
-                              tabs: [
-                                Icon(Icons.home),
-                                Icon(Icons.public),
-                              ],
-                            ),
-                          ),
+                          type: getAppropriateAnimation(context),
+                        ),
+                      );
+                    },
+                    child: Center(child: Icon(Icons.add, size: 20)),
+                  ),
+                  drawer: AussieAppDrawer(),
+                  body: NestedScrollView(
+                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                      SliverAppBar(
+                        primary: true,
+                        pinned: true,
+                        centerTitle: true,
+                        title: AutoSizeText(
+                          getTranslation(context, "feedScreenTitle"),
+                          style: TextStyle(
+                              fontSize: 60.sp, fontWeight: FontWeight.w400),
+                        ),
+                        elevation: 0,
+                        bottom: TabBar(
+                          tabs: [
+                            Icon(Icons.home),
+                            Icon(Icons.public),
+                          ],
+                        ),
+                      ),
+                    ],
+                    body: TabBarView(
+                      children: [
+                        BlocProvider(
+                          create: (context) => EventManagementCubit(),
+                          child: HomeEventsTab(),
+                        ),
+                        BlocProvider(
+                          create: (context) => EventManagementCubit(),
+                          child: PublicEventsTab(),
                         ),
                       ],
-                      body: TabBarView(
-                        children: [
-                          BlocProvider(
-                            create: (context) => EventManagementCubit(),
-                            child: HomeEventsTab(),
-                          ),
-                          BlocProvider(
-                            create: (context) => EventManagementCubit(),
-                            child: PublicEventsTab(),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),

@@ -27,23 +27,14 @@ class UserProfileScreen extends StatelessWidget {
                     expandedHeight: .4.sh,
                     //collapsedHeight: .4.sh,
                     pinned: true,
-                    flexibleSpace: Stack(
-                      overflow: Overflow.visible,
-                      children: [
-                        BannerImage(
-                          colorFilter: ColorFilter.mode(
-                            Colors.white.withAlpha(70),
-                            BlendMode.lighten,
-                          ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: -.1.sh,
-                          child: ProfileCardStack(),
-                        ),
-                      ],
+                    flexibleSpace: BannerImage(
+                      colorFilter: ColorFilter.mode(
+                        Colors.white.withAlpha(70),
+                        BlendMode.lighten,
+                      ),
                     ),
                   ),
+                  SliverToBoxAdapter(child: ProfileCard()),
                   ProfileEvents(),
                 ],
               ),

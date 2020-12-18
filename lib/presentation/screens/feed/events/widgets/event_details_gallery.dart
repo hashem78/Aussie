@@ -21,25 +21,22 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
     super.build(context);
     final e = getEventModel(context);
 
-    return SliverPadding(
-      padding: const EdgeInsets.all(8.0),
-      sliver: SliverToBoxAdapter(
-        child: CarouselSlider(
-          items: e.galleryImageLinks
-              .map(
-                (e) => Provider.value(
-                  value: e,
-                  child: GrowingImage(),
-                ),
-              )
-              .toList(),
-          options: CarouselOptions(
-            viewportFraction: 1,
-            height: .6.sh,
-            pageSnapping: true,
-            enableInfiniteScroll: false,
-            pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
-          ),
+    return SliverToBoxAdapter(
+      child: CarouselSlider(
+        items: e.galleryImageLinks
+            .map(
+              (e) => Provider.value(
+                value: e,
+                child: GrowingImage(),
+              ),
+            )
+            .toList(),
+        options: CarouselOptions(
+          viewportFraction: 1,
+          height: .6.sh,
+          pageSnapping: true,
+          enableInfiniteScroll: false,
+          pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
         ),
       ),
     );

@@ -8,7 +8,6 @@ import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
-import 'package:aussie/presentation/widgets/aussie/inked_image.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:equatable/equatable.dart';
@@ -125,31 +124,34 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: _DrawerHeader(),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final int itemIndex = index ~/ 2;
-                if (index.isEven) {
-                  return sections[itemIndex];
-                }
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 2,
-                  ),
-                );
-              },
-              childCount: math.max(0, sections.length * 2 - 1),
+    return Container(
+      width: .8.sw,
+      child: Drawer(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: _DrawerHeader(),
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final int itemIndex = index ~/ 2;
+                  if (index.isEven) {
+                    return sections[itemIndex];
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 2,
+                    ),
+                  );
+                },
+                childCount: math.max(0, sections.length * 2 - 1),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -163,8 +165,8 @@ class _DrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AussieUser user = getCurrentUser(context);
-    return SizedBox(
-      height: .2.sh,
+    return AspectRatio(
+      aspectRatio: 1.8,
       child: Material(
         color: Theme.of(context).backgroundColor,
         child: InkWell(
@@ -179,18 +181,18 @@ class _DrawerHeader extends StatelessWidget {
             );
           },
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: InkedImage(user.profilePictureLink),
-                ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                    width: .2.sw,
+                    height: .2.sw,
+                    child: buildImage(user.profilePictureLink)),
               ),
-              Expanded(
-                child: Text(
-                  user.username,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
+              Text(
+                user.username,
+                style: Theme.of(context).textTheme.headline5,
               )
             ],
           ),
@@ -222,12 +224,12 @@ class _DrawerItem extends StatelessWidget {
             },
             leading: SvgPicture.asset(
               "assets/images/${model.svgName}",
-              height: 60.sp,
+              height: 30,
               color: model.iconColor,
             ),
             title: Text(
               getTranslation(context, model.tTitle),
-              style: TextStyle(fontSize: 50.sp),
+              style: TextStyle(fontSize: 20),
             ),
           ),
         ],
@@ -251,14 +253,18 @@ class _DrawerSectionTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Row(
         children: [
-          Expanded(
-            child: Icon(iconData, size: 70.sp),
+          SizedBox(
+            width: 10,
+          ),
+          Icon(iconData, size: 30),
+          SizedBox(
+            width: 10,
           ),
           Expanded(
             flex: 5,
             child: Text(
               title,
-              style: TextStyle(fontSize: 70.sp),
+              style: TextStyle(fontSize: 20),
             ),
           ),
         ],

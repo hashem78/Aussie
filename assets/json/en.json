@@ -64,6 +64,9 @@
     "signupScreenUsernameTitle": "Username",
     "signupScreenEmailTitle": "Email",
     "signupScreenPasswordTitle": "Password",
+    "gallery":"Gallery",
+    "description":"Description",
+    "attendees":"Attendees",
 
     "latitude":"Latitude",
     "longitude":"Longitude",

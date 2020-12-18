@@ -16,22 +16,21 @@ class EventDetails extends StatelessWidget {
         length: 2,
         child: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverSafeArea(
-              sliver: SliverAppBar(
-                expandedHeight: .6.sh,
-                primary: true,
-                pinned: true,
-                title: Text(getTranslation(context, "eventDetailsTitle")),
-                flexibleSpace: buildImage(
-                  e.bannerImageLink,
-                  fit: BoxFit.cover,
-                ),
-                bottom: TabBar(
-                  tabs: [
-                    Icon(Icons.description),
-                    Icon(Icons.attach_email_rounded),
-                  ],
-                ),
+            SliverAppBar(
+              expandedHeight: .6.sh,
+              collapsedHeight: .2.sh,
+              primary: true,
+              pinned: true,
+              title: Text(getTranslation(context, "eventDetailsTitle")),
+              flexibleSpace: buildImage(
+                e.bannerImageLink,
+                fit: BoxFit.cover,
+              ),
+              bottom: TabBar(
+                tabs: [
+                  Icon(Icons.description),
+                  Icon(Icons.attach_email_rounded),
+                ],
               ),
             ),
           ],
@@ -63,15 +62,12 @@ class _EventDetailsMainState extends State<EventDetailsMain>
     super.build(context);
     return CustomScrollView(
       slivers: [
-        SliverPadding(
-          padding: const EdgeInsets.all(8.0),
-          sliver: SliverToBoxAdapter(
-            child: EventCardStack(),
-          ),
+        SliverToBoxAdapter(
+          child: EventCardStack(),
         ),
-        buildTitle(context, "Description"),
+        buildTitle(context, getTranslation(context, "description")),
         SliverToBoxAdapter(child: EventDetailsDescriptionCard()),
-        buildTitle(context, "Gallery"),
+        buildTitle(context, getTranslation(context, "gallery")),
         EventDetailsGallery(),
       ],
     );

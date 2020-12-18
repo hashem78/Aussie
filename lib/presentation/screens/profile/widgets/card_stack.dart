@@ -2,44 +2,40 @@ import 'package:aussie/presentation/screens/profile/widgets/details.dart';
 import 'package:aussie/presentation/screens/profile/widgets/image.dart';
 import 'package:aussie/presentation/screens/profile/widgets/stats.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileCardStack extends StatelessWidget {
-  const ProfileCardStack({
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      overflow: Overflow.visible,
-      children: [
-        Container(
-          height: .25.sh,
-          width: .9.sw,
-          child: Card(
-            margin: EdgeInsets.zero,
-            elevation: 10,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero,
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: Card(
+        margin: EdgeInsets.zero,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  ProfileScreenImage(),
+                  SizedBox(width: 10),
+                  ProfileScreenCardDetails(),
+                ],
+              ),
             ),
-          ),
+            ProfileScreenCardStats(),
+          ],
         ),
-        Positioned(
-          top: -.05.sh,
-          left: .04.sw,
-          child: ProfileScreenImage(),
-        ),
-        Positioned(
-          top: .02.sh,
-          left: .35.sw,
-          child: ProfileScreenCardDetails(),
-        ),
-        Positioned(
-          bottom: .02.sh,
-          child: ProfileScreenCardStats(),
-        ),
-      ],
+      ),
     );
   }
 }

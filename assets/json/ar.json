@@ -62,7 +62,9 @@
     "signupScreenFullNameTitle": "الاسم الكامل",
     "signupScreenUsernameTitle": "اسم المستخدم",
     "signupScreenEmailTitle": "البريد الاكتروني",
-
+    "gallery":"الصور",
+    "description":"الوصف",
+    "attendees":"الحاضرون",
     "latitude":"خط العرض",
     "longitude":"خط الطول",
     "population":"تعداد السكان",

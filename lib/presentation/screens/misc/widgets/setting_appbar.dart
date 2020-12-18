@@ -29,10 +29,6 @@ class SettingsAppbar extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Icon(Icons.arrow_drop_down),
-            ),
           ],
         ),
       ),
