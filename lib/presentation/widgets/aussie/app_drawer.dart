@@ -61,10 +61,7 @@ class _DrawerSection extends StatelessWidget {
         ),
         ...models
             .map(
-              (e) => _DrawerItem(
-                e,
-                color: tilesColor,
-              ),
+              (e) => _DrawerItem(e, color: tilesColor),
             )
             .toList(),
       ],

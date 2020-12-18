@@ -1,6 +1,6 @@
 import 'package:aussie/presentation/screens/feed/events/event_creation.dart';
-import 'package:aussie/presentation/screens/feed/tabs/home/tab.dart';
-import 'package:aussie/presentation/screens/feed/tabs/public/tab.dart';
+import 'package:aussie/presentation/screens/feed/tabs/home_tab.dart';
+import 'package:aussie/presentation/screens/feed/tabs/public_tab.dart';
 import 'package:aussie/presentation/widgets/aussie/app_drawer.dart';
 import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/state/event_creation/form_bloc.dart';

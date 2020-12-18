@@ -22,13 +22,16 @@ class CardOwner extends StatelessWidget {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
         Widget child;
-
         if (state is UserMangementHasUserData) {
           child = InkWell(
             onTap: () {
               Navigator.of(context).push(
                 PageTransition(
-                  child: UserProfileScreen(),
+                  child: BlocProvider(
+                    create: (context) => UserManagementCubit()
+                      ..getUserDataFromUid(state.user.uid),
+                    child: UserProfileScreen(),
+                  ),
                   type: getAppropriateAnimation(context),
                 ),
               );

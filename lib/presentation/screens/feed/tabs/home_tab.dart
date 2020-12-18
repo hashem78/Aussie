@@ -65,15 +65,12 @@ class _HomeEventsTabState extends State<HomeEventsTab>
           pagingController: _controller,
           builderDelegate: PagedChildBuilderDelegate(
             itemBuilder: (context, item, index) {
-              return BlocProvider.value(
-                value: cubit,
-                child: Provider.value(
-                  value: item,
-                  child: Builder(
-                    builder: (context) {
-                      return EventCard();
-                    },
-                  ),
+              return Provider.value(
+                value: item,
+                child: Builder(
+                  builder: (context) {
+                    return EventCard();
+                  },
                 ),
               );
             },
