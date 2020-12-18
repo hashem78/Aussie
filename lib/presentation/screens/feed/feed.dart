@@ -70,7 +70,7 @@ class FeedScreen extends StatelessWidget {
                             pinned: true,
                             centerTitle: true,
                             title: Text(
-                              "Feed",
+                              getTranslation(context, "feedScreenTitle"),
                               style: TextStyle(
                                   fontSize: 60.sp, fontWeight: FontWeight.w400),
                             ),

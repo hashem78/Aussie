@@ -1,4 +1,5 @@
 import 'package:aussie/state/event_creation/form_bloc.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
@@ -19,11 +20,11 @@ class StartDateFormField extends StatelessWidget {
       firstDate: DateTime.now(),
       lastDate: DateTime(2100),
       decoration: InputDecoration(
-        labelText: 'Start Date',
+        labelText: getTranslation(context, "eventCreationStartingDateTitle"),
         filled: true,
         border: InputBorder.none,
         prefixIcon: Icon(Icons.date_range),
-        hintText: "The date of the the Event",
+        hintText: getTranslation(context, "eventCreationStartingDateHint"),
       ),
     );
   }

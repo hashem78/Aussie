@@ -112,7 +112,8 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
         noItemsFoundIndicatorBuilder: (_) => Container(
           height: 100,
           child: Center(
-            child: Text("No items found"),
+            child: Text(
+                getTranslation(context, "searchablePaginatedNoItemsFound")),
           ),
         ),
         noMoreItemsIndicatorBuilder: (_) => Container(

@@ -17,9 +17,15 @@ class ProfileScreenCardStats extends StatelessWidget {
       height: 50,
       child: Row(
         children: [
-          Expanded(child: Text("${user.numberOfPosts} posts")),
-          Expanded(child: Text("${user.numberOfFollowers} followers")),
-          Expanded(child: Text("${user.numberOfFollowing} following")),
+          Expanded(
+              child: Text(
+                  "${user.numberOfPosts} ${getTranslation(context, 'userProfileStatsPosts')}")),
+          Expanded(
+              child: Text(
+                  "${user.numberOfFollowers} ${getTranslation(context, 'userProfileStatsFollowers')}")),
+          Expanded(
+              child: Text(
+                  "${user.numberOfFollowing} ${getTranslation(context, 'userProfileStatsFollowing')}")),
         ],
       ),
     );

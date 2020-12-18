@@ -51,7 +51,7 @@ class SingupScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text("Signup"),
+        title: Text(getTranslation(context, "signup2ButtonText")),
       ),
       body: FormBlocListener<SignupBloc, String, String>(
         child: SingleChildScrollView(
@@ -67,7 +67,8 @@ class SingupScreen extends StatelessWidget {
                     prefixIcon: Icon(Icons.person_pin),
                     border: InputBorder.none,
                     filled: true,
-                    hintText: "Full name",
+                    hintText:
+                        getTranslation(context, "signupScreenFullNameTitle"),
                   ),
                 ),
               ),
@@ -79,7 +80,8 @@ class SingupScreen extends StatelessWidget {
                     prefixIcon: Icon(Icons.person),
                     border: InputBorder.none,
                     filled: true,
-                    hintText: "Username",
+                    hintText:
+                        getTranslation(context, "signupScreenUsernameTitle"),
                   ),
                 ),
               ),
@@ -91,7 +93,7 @@ class SingupScreen extends StatelessWidget {
                     prefixIcon: Icon(Icons.email),
                     border: InputBorder.none,
                     filled: true,
-                    hintText: "Email",
+                    hintText: getTranslation(context, "signupScreenEmailTitle"),
                   ),
                 ),
               ),
@@ -104,7 +106,8 @@ class SingupScreen extends StatelessWidget {
                     prefixIcon: Icon(Icons.lock),
                     border: InputBorder.none,
                     filled: true,
-                    hintText: "Password",
+                    hintText:
+                        getTranslation(context, "signupScreenPasswordTitle"),
                   ),
                 ),
               ),
@@ -162,7 +165,7 @@ class SingupScreen extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text("Sign up"),
+                child: Text(getTranslation(context, "signup2ButtonText")),
               ),
             ],
           ),

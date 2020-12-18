@@ -90,11 +90,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Widget child;
                       if (state is WeatherLoading) {
                         child = Container(
-                          child: Text("Weather is being fetched"),
+                          child:
+                              Text(getTranslation(context, "weatherFetching")),
                         );
                       } else if (state is WeatherError) {
                         child = Container(
-                          child: Text("An error occured, try again later"),
+                          child: Text(getTranslation(context, "weatherError")),
                         );
                       } else {
                         String formattedTime =

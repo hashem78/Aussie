@@ -5,13 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class EventDetailsGallery extends StatelessWidget {
+class EventDetailsGallery extends StatefulWidget {
   const EventDetailsGallery({
     Key key,
   }) : super(key: key);
 
   @override
+  _EventDetailsGalleryState createState() => _EventDetailsGalleryState();
+}
+
+class _EventDetailsGalleryState extends State<EventDetailsGallery>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final e = getEventModel(context);
 
     return SliverPadding(
@@ -22,13 +29,13 @@ class EventDetailsGallery extends StatelessWidget {
               .map(
                 (e) => Provider.value(
                   value: e,
-                  child: Builder(builder: (_) => GrowingImage()),
+                  child: GrowingImage(),
                 ),
               )
               .toList(),
           options: CarouselOptions(
             viewportFraction: 1,
-            height: .5.sh,
+            height: .6.sh,
             pageSnapping: true,
             enableInfiniteScroll: false,
             pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
@@ -37,4 +44,7 @@ class EventDetailsGallery extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

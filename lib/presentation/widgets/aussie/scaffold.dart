@@ -1,3 +1,4 @@
+import 'package:aussie/util/functions.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,8 @@ class AussieScaffold extends StatelessWidget {
       floatingActionButton: floatingActionButton,
       body: DoubleBackToCloseApp(
         child: body,
-        snackBar: const SnackBar(content: Text("Tap back again to close app.")),
+        snackBar:
+            SnackBar(content: Text(getTranslation(context, "tapbackToClose"))),
       ),
     );
   }

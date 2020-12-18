@@ -1,4 +1,5 @@
 import 'package:aussie/state/event_creation/form_bloc.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
@@ -19,7 +20,7 @@ class DescriptionFormField extends StatelessWidget {
         prefixIcon: Icon(Icons.person_pin),
         border: InputBorder.none,
         filled: true,
-        hintText: "Description",
+        hintText: getTranslation(context, "eventCreationDescriptionTitle"),
       ),
     );
   }

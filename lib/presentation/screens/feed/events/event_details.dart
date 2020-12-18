@@ -3,7 +3,7 @@ import 'package:aussie/presentation/screens/feed/events/widgets/event_descriptio
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_card_stack.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_gallery.dart';
 
-import 'package:aussie/presentation/screens/feed/events/widgets/paginated_atendeesd.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/paginated_attendees.dart';
 import 'package:aussie/util/functions.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +23,7 @@ class EventDetails extends StatelessWidget {
                 expandedHeight: .6.sh,
                 primary: true,
                 pinned: true,
-                title: Text("Event"),
+                title: Text(getTranslation(context, "eventDetailsTitle")),
                 flexibleSpace: buildImage(
                   e.bannerImageLink,
                   fit: BoxFit.cover,
@@ -39,25 +39,43 @@ class EventDetails extends StatelessWidget {
           ],
           body: TabBarView(
             children: [
-              CustomScrollView(
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.all(8.0),
-                    sliver: SliverToBoxAdapter(
-                      child: EventCardStack(),
-                    ),
-                  ),
-                  buildTitle(context, "Description"),
-                  SliverToBoxAdapter(child: EventDetailsDescriptionCard()),
-                  buildTitle(context, "Gallery"),
-                  EventDetailsGallery(),
-                ],
-              ),
+              EventDetailsMain(),
               PaginatedAtendees(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class EventDetailsMain extends StatefulWidget {
+  const EventDetailsMain({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _EventDetailsMainState createState() => _EventDetailsMainState();
+}
+
+class _EventDetailsMainState extends State<EventDetailsMain>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.all(8.0),
+          sliver: SliverToBoxAdapter(
+            child: EventCardStack(),
+          ),
+        ),
+        buildTitle(context, "Description"),
+        SliverToBoxAdapter(child: EventDetailsDescriptionCard()),
+        buildTitle(context, "Gallery"),
+        EventDetailsGallery(),
+      ],
     );
   }
 
@@ -72,4 +90,7 @@ class EventDetails extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

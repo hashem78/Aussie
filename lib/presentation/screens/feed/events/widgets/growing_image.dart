@@ -43,7 +43,8 @@ class _GrowingImageState extends State<GrowingImage>
       onTap: () {
         Navigator.of(context).push(
           PageTransition(
-            child: EventGalleryPhotoView(url: Provider.of<String>(context)),
+            child: EventGalleryPhotoView(
+                url: Provider.of<String>(context, listen: false)),
             type: PageTransitionType.fade,
           ),
         );
@@ -64,8 +65,8 @@ class _GrowingImageState extends State<GrowingImage>
           );
         },
         child: buildImage(
-          Provider.of<String>(context),
-          fit: BoxFit.contain,
+          Provider.of<String>(context, listen: false),
+          fit: BoxFit.cover,
         ),
       ),
     );

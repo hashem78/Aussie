@@ -1,4 +1,5 @@
 import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,7 @@ class EventImageGalleryPickerButton extends StatelessWidget {
       onPressed: () {
         context.read<MultiImagePickingCubit>().pickImages();
       },
-      child: Text("Pick Images"),
+      child: Text(getTranslation(context, "eventCreationPickerButtonText")),
     );
   }
 }

@@ -24,7 +24,7 @@ class PublicAttendButton extends StatelessWidget {
                   .read<UserManagementCubit>()
                   .makeUserWithIdAttendEvent(currentUser, e.eventId);
             },
-            child: const Text("Attend"),
+            child: Text(getTranslation(context, "attendButtonTextNormal")),
           );
         else if (state is UserManagementPerformingAction) {
           return TextButton(
@@ -32,17 +32,19 @@ class PublicAttendButton extends StatelessWidget {
             child: Row(
               children: [
                 Center(child: getIndicator(context)),
-                const Text("Attempting to attend"),
+                Text(getTranslation(context, "attendButtonTextAttempting")),
               ],
             ),
           );
         } else if (state is UserManagementAttended) {
           return TextButton(
             onPressed: null,
-            child: const Text("Attending"),
+            child: Text(getTranslation(context, "attendButtonTextAttending")),
           );
         } else {
-          return TextButton(onPressed: null, child: Text("An error Occured"));
+          return TextButton(
+              onPressed: null,
+              child: Text(getTranslation(context, "attendButtonTextError")));
         }
       },
     );

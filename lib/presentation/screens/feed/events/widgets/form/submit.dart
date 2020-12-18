@@ -4,6 +4,7 @@ import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
 import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +15,18 @@ class EventCreationSubmitButton extends StatelessWidget {
     Key key,
     @required this.enabled,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    _sn(String tid) {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            getTranslation(context, tid),
+          ),
+        ),
+      );
+    }
+
     return OutlinedButton(
       onPressed: enabled
           ? () {
@@ -36,26 +46,25 @@ class EventCreationSubmitButton extends StatelessWidget {
               final _endTime = _formBloc.timeonly2.value;
               _evmCubit.emitInitial();
               if (_evmCubit.validate(_title)) {
-                _sn(context, "Choose a valid title");
+                _sn("eventCreationErrorTitle");
               } else if (_evmCubit.validate(_subtitle)) {
-                _sn(context, "Choose a valid subtitle");
+                _sn("eventCreationErrorSubtile");
               } else if (_evmCubit.validate(_description.value)) {
-                _sn(context, "Choose a valid description");
+                _sn("eventCreationErrorDescription");
               } else if (_evmCubit.validate(_start)) {
-                _sn(context, "Choose a valid starting date");
+                _sn("eventCreationErrorStartingDate");
               } else if (_evmCubit.validate(_startTime)) {
-                _sn(context, "Choose a valid starting time");
+                _sn("eventCreationErrorStartingTime");
               } else if (_evmCubit.validate(_end)) {
-                _sn(context, "Choose a valid ending date");
+                _sn("eventCreationErrorEndingDate");
               } else if (_evmCubit.validate(_endTime)) {
-                _sn(context, "Choose a valid ending time");
+                _sn("eventCreationErrorEndingTime");
               } else if (_evmCubit.validate(_locCubit.value)) {
-                _sn(context, "Choose a valid location");
+                _sn("eventCreationErrorLocation");
               } else if (_evmCubit.validate(_singleImageCubit.value)) {
-                _sn(context, "Please choose a banner for you event");
+                _sn("eventCreationErrorBanner");
               } else if (_evmCubit.validate(_multiImageCubit.values)) {
-                _sn(context,
-                    "Please add atleast an image to your events' gallery");
+                _sn("eventCreationErrorGallery");
               } else {
                 final _combined1 = DateTime(
                   _start.year,
@@ -88,15 +97,8 @@ class EventCreationSubmitButton extends StatelessWidget {
               }
             }
           : null,
-      child: Text("Create Event"),
-    );
-  }
-
-  void _sn(BuildContext context, String text) {
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
+      child:
+          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")),
     );
   }
 }

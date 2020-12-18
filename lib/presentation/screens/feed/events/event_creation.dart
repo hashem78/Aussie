@@ -24,7 +24,7 @@ class EventCreationScreen extends StatelessWidget {
             pinned: true,
             expandedHeight: .5.sh,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("New event"),
+              title: Text(getTranslation(context, "eventCreationTitle")),
               background: EventBannerPicker(),
             ),
           ),

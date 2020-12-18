@@ -1,4 +1,5 @@
 import 'package:aussie/state/event_creation/form_bloc.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
@@ -17,10 +18,10 @@ class EndTimeFormField extends StatelessWidget {
       format: DateFormat('hh:mm a'),
       initialTime: TimeOfDay.now(),
       decoration: InputDecoration(
-        labelText: 'Ending Time',
+        labelText: getTranslation(context, "eventCreationEndingTimeTitle"),
         filled: true,
         border: InputBorder.none,
-        hintText: "Time of day",
+        hintText: getTranslation(context, "eventCreationEndingTimeHint"),
         prefixIcon: Icon(Icons.access_time),
       ),
     );

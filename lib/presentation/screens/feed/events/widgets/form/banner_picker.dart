@@ -32,7 +32,7 @@ class EventBannerPicker extends StatelessWidget {
           },
         ),
         IconButton(
-          tooltip: "Add a banner",
+          tooltip: getTranslation(context, "eventCreationAddBannerTip"),
           icon: Icon(Icons.add),
           onPressed: () {
             final _singleImageCubit = context.read<SingleImagePickingCubit>();

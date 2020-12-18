@@ -95,7 +95,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
           TextField(
             controller: _emailEditingController,
             decoration: InputDecoration(
-              hintText: "Email",
+              hintText: getTranslation(context, "initialActionsEmailTitle"),
               hintStyle: TextStyle(fontSize: 40.sp),
               icon: Icon(Icons.login),
               filled: true,
@@ -109,7 +109,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             obscureText: true,
             controller: _passwordEditingController,
             decoration: InputDecoration(
-              hintText: "Password",
+              hintText: getTranslation(context, "initialActionsPasswordTitle"),
               hintStyle: TextStyle(fontSize: 40.sp),
               icon: Icon(Icons.lock),
               filled: true,
@@ -136,7 +136,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
           ),
         );
       },
-      child: Text("Sign up for an account"),
+      child: Text(getTranslation(context, "signupButtonText")),
     );
   }
 
@@ -152,7 +152,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
         // _emailEditingController.clear();
         _passwordEditingController.clear();
       },
-      child: Text("Sign in"),
+      child: Text(getTranslation(context, "signinButtonText")),
     );
   }
 }
