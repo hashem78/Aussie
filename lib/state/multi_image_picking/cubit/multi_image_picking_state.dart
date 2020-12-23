@@ -16,7 +16,7 @@ class MultiImageMultiPickingLoading extends MultiImagePickingState {}
 class MultiImagePickingDone extends MultiImagePickingState {
   final List<ByteData> assets;
 
-  MultiImagePickingDone(this.assets);
+  const MultiImagePickingDone(this.assets);
   @override
   List<Object> get props => [assets];
 }

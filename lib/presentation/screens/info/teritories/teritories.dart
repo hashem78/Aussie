@@ -32,7 +32,7 @@ class TeritoriesScreen extends StatelessWidget {
   final PaginatedCubit<TeritoryModel> cubit = PaginatedCubit("teritories");
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
+    final _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
 
     return Provider.value(
       value: _currentTheme,
@@ -42,7 +42,7 @@ class TeritoriesScreen extends StatelessWidget {
         cubit: cubit,
         filterFor: "title",
         itemBuilder: (context, item, index) {
-          var _casted = item as TeritoryModel;
+          final _casted = item as TeritoryModel;
           return PaginatedScreenTile(
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
@@ -74,9 +74,7 @@ class TeritoriesScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Row(
                     children: [
                       Expanded(
@@ -109,10 +107,8 @@ class TeritoriesScreen extends StatelessWidget {
       height: .08.sh,
       child: Card(
         elevation: 2,
-        margin: EdgeInsets.symmetric(horizontal: 5),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        shape: const RoundedRectangleBorder(),
         color: chipColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +153,7 @@ class AussieGMapScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: AussieGMap(
-        size: Size(double.infinity, double.infinity),
+        size: const Size(double.infinity, double.infinity),
         model: model,
       ),
     );

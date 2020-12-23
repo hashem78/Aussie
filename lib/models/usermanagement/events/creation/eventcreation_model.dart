@@ -42,7 +42,7 @@ class EventCreationModel extends Equatable {
       subtitle,
       lat,
       lng,
-      this.address,
+      address,
     ];
   }
 }

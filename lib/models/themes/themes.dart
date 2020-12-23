@@ -25,11 +25,6 @@ class ThemeModel extends Equatable {
   };
   ThemeModel({
     Brightness brightness,
-    AussieColorData peopleScreenColor,
-    AussieColorData foodScreenColor,
-    AussieColorData eventsScreenColor,
-    AussieColorData placesScreenColor,
-    AussieColorData entertainmentScreenColor,
     AussieColorData faunaScreenColor,
     AussieColorData floraScreenColor,
     AussieColorData teritoriesScreenColor,
@@ -48,16 +43,21 @@ class ThemeModel extends Equatable {
     return ThemeModel(
       brightness:
           map['brightness'] == "light" ? Brightness.light : Brightness.dark,
-      faunaScreenColor:
-          AussieColorData.fromMap(map[FaunaScreen.data.themeAttribute]),
-      floraScreenColor:
-          AussieColorData.fromMap(map[FloraScreen.data.themeAttribute]),
-      teritoriesScreenColor:
-          AussieColorData.fromMap(map[TeritoriesScreen.data.themeAttribute]),
-      weatherScreenColor:
-          AussieColorData.fromMap(map[WeatherScreen.data.themeAttribute]),
-      naturalParksScreenColor:
-          AussieColorData.fromMap(map[NaturalParksScreen.data.themeAttribute]),
+      faunaScreenColor: AussieColorData.fromMap(
+        map[FaunaScreen.data.themeAttribute] as Map<String, dynamic>,
+      ),
+      floraScreenColor: AussieColorData.fromMap(
+        map[FloraScreen.data.themeAttribute] as Map<String, dynamic>,
+      ),
+      teritoriesScreenColor: AussieColorData.fromMap(
+        map[TeritoriesScreen.data.themeAttribute] as Map<String, dynamic>,
+      ),
+      weatherScreenColor: AussieColorData.fromMap(
+        map[WeatherScreen.data.themeAttribute] as Map<String, dynamic>,
+      ),
+      naturalParksScreenColor: AussieColorData.fromMap(
+        map[NaturalParksScreen.data.themeAttribute] as Map<String, dynamic>,
+      ),
     );
   }
   Map<String, dynamic> get toMap => {

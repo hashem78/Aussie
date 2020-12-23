@@ -11,12 +11,11 @@ class ProfileScreenCardDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AussieUser user = getCurrentUser(context);
+    final AussieUser user = getCurrentUser(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Container(
+        SizedBox(
           width: .6.sw,
           child: AutoSizeText(
             user.fullname,

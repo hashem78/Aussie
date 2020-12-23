@@ -12,7 +12,7 @@ class EventDetailsDescriptionCard extends StatelessWidget {
     final e = getEventModel(context);
 
     return Card(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(),
       margin: EdgeInsets.zero,
       child: ExpandText(
         e.description,

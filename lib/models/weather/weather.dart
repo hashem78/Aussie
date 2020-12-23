@@ -20,8 +20,8 @@ class WeatherModel extends Equatable {
   const WeatherModel({
     this.day,
     this.state,
-    this.iconString,
-    this.title,
+    @required this.iconString,
+    @required this.title,
     this.imageUrl,
     this.highTemp,
     this.lowTemp,
@@ -106,45 +106,53 @@ class WeatherModel extends Equatable {
 
   factory WeatherModel.fromMapWithFourDays(Map<String, dynamic> map) {
     if (map == null) return null;
-
+    final Map<String, dynamic> fourDays =
+        map['fourDayModels'] as Map<String, dynamic>;
+    final List<WeatherModel> weatherModels = [];
+    for (final model in fourDays.entries) {
+      weatherModels
+          .add(WeatherModel.fromMap(model.value as Map<String, dynamic>));
+    }
     return WeatherModel.withFourDays(
-      day: map['day'],
-      state: map['state'],
-      iconString: map['iconString'],
-      title: map['title'],
-      imageUrl: map['imageUrl'],
-      highTemp: map['highTemp'],
-      lowTemp: map['lowTemp'],
-      pressure: map['pressure'],
-      humidity: map['humidity'],
-      description: map['description'],
-      fourDayModels: List<WeatherModel>.from(
-          map['fourDayModels']?.map((x) => WeatherModel.fromMap(x))),
+      day: map['day'] as String,
+      state: map['state'] as String,
+      iconString: map['iconString'] as String,
+      title: map['title'] as String,
+      imageUrl: map['imageUrl'] as String,
+      highTemp: map['highTemp'] as double,
+      lowTemp: map['lowTemp'] as double,
+      pressure: map['pressure'] as double,
+      humidity: map['humidity'] as double,
+      description: map['description'] as String,
+      fourDayModels: weatherModels,
     );
   }
   factory WeatherModel.fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
     return WeatherModel(
-      day: map['day'],
-      state: map['state'],
-      iconString: map['iconString'],
-      title: map['title'],
-      imageUrl: map['imageUrl'],
-      highTemp: map['highTemp'],
-      lowTemp: map['lowTemp'],
-      pressure: map['pressure'],
-      humidity: map['humidity'],
-      description: map['description'],
+      day: map['day'] as String,
+      state: map['state'] as String,
+      iconString: map['iconString'] as String,
+      title: map['title'] as String,
+      imageUrl: map['imageUrl'] as String,
+      highTemp: map['highTemp'] as double,
+      lowTemp: map['lowTemp'] as double,
+      pressure: map['pressure'] as double,
+      humidity: map['humidity'] as double,
+      description: map['description'] as String,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory WeatherModel.fromJson(String source) =>
-      WeatherModel.fromMap(json.decode(source));
+  factory WeatherModel.fromJson(String source) => WeatherModel.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
   factory WeatherModel.fromJsonWithFourDays(String source) =>
-      WeatherModel.fromMapWithFourDays(json.decode(source));
+      WeatherModel.fromMapWithFourDays(
+        json.decode(source) as Map<String, dynamic>,
+      );
 
   @override
   bool get stringify => true;

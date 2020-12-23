@@ -14,7 +14,7 @@ class PaginatedOnlineRatingsProvider {
     int page, {
     int fetchAmount,
   }) async {
-    var _reviewsCollection = await FirebaseFirestore.instance
+    final _reviewsCollection = await FirebaseFirestore.instance
         .collection("$route/$docId/reviews")
         .where(
           "index",
@@ -22,11 +22,11 @@ class PaginatedOnlineRatingsProvider {
           isLessThan: page + fetchAmount,
         )
         .get();
-    var _reviewDocs = _reviewsCollection.docs;
-    List<Map<String, dynamic>> _internalList = [];
-    for (var doc in _reviewDocs) {
+    final _reviewDocs = _reviewsCollection.docs;
+    final List<Map<String, dynamic>> _internalList = [];
+    for (final doc in _reviewDocs) {
       if (doc.id != "current_index") {
-        var _data = doc.data();
+        final _data = doc.data();
         _internalList.add(_data);
       }
     }
@@ -34,15 +34,15 @@ class PaginatedOnlineRatingsProvider {
   }
 
   Future<List<Map<String, dynamic>>> getSpecificAmount(int fetchAmount) async {
-    var _reviewsCollection = await FirebaseFirestore.instance
+    final _reviewsCollection = await FirebaseFirestore.instance
         .collection("$route/$docId/reviews")
         .limit(3)
         .get();
-    var _reviewDocs = _reviewsCollection.docs;
-    List<Map<String, dynamic>> _internalList = [];
-    for (var doc in _reviewDocs) {
+    final _reviewDocs = _reviewsCollection.docs;
+    final List<Map<String, dynamic>> _internalList = [];
+    for (final doc in _reviewDocs) {
       if (doc.id != "current_index") {
-        var _data = doc.data();
+        final _data = doc.data();
         _internalList.add(_data);
       }
     }
@@ -52,13 +52,13 @@ class PaginatedOnlineRatingsProvider {
   Future<void> addRating(Map<String, dynamic> rating) async {
     FirebaseFirestore.instance.runTransaction(
       (transaction) async {
-        var _reviewsCollection =
+        final _reviewsCollection =
             FirebaseFirestore.instance.collection("$route/$docId/reviews");
 
-        var _currentIndex = await transaction.get(
+        final _currentIndex = await transaction.get(
           _reviewsCollection.doc("current_index"),
         );
-        Map<String, dynamic> _internalMap = {};
+        final Map<String, dynamic> _internalMap = {};
         _internalMap.addAll(rating);
         _internalMap["index"] = _currentIndex.data()["index"] + 1;
         transaction.update(

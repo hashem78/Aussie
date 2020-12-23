@@ -13,11 +13,11 @@ class PublicAttendButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);
-    AussieUser currentUser = getCurrentUser(context);
+    final AussieUser currentUser = getCurrentUser(context);
 
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
-        if (state is UserManagementInitial)
+        if (state is UserManagementInitial) {
           return TextButton(
             onPressed: () {
               context
@@ -26,7 +26,7 @@ class PublicAttendButton extends StatelessWidget {
             },
             child: Text(getTranslation(context, "attendButtonTextNormal")),
           );
-        else if (state is UserManagementPerformingAction) {
+        } else if (state is UserManagementPerformingAction) {
           return TextButton(
             onPressed: null,
             child: Row(

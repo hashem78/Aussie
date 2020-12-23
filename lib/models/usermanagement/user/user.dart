@@ -10,6 +10,20 @@ part 'user.g.dart';
 )
 @immutable
 class AussieUser {
+  const AussieUser({
+    this.uid,
+    this.attends,
+    this.displayName,
+    this.email,
+    this.emailVerified,
+    this.username,
+    this.numberOfFollowers,
+    this.numberOfFollowing,
+    this.numberOfPosts,
+    this.profilePictureLink,
+    this.profileBannerLink,
+    this.fullname,
+  });
   final String displayName;
   final String email;
   final bool emailVerified;
@@ -19,7 +33,7 @@ class AussieUser {
   @JsonKey()
   final String uid;
 
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: [])
   final List<String> attends;
   @JsonKey(defaultValue: 0)
   final int numberOfFollowers;
@@ -35,19 +49,4 @@ class AussieUser {
   factory AussieUser.fromJson(Map<String, dynamic> json) =>
       _$AussieUserFromJson(json);
   Map<String, dynamic> toJson() => _$AussieUserToJson(this);
-
-  const AussieUser({
-    this.uid,
-    this.attends,
-    this.displayName,
-    this.email,
-    this.emailVerified,
-    this.username,
-    this.numberOfFollowers,
-    this.numberOfFollowing,
-    this.numberOfPosts,
-    this.profilePictureLink,
-    this.profileBannerLink,
-    this.fullname,
-  });
 }

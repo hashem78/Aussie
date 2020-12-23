@@ -2,33 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class EventCreationBlocForm extends FormBloc<String, String> {
-  // ignore: close_sinks
-  final dateAndTime1 = InputFieldBloc<DateTime, Object>(
+  final InputFieldBloc<DateTime, Object> dateAndTime1 =
+      InputFieldBloc<DateTime, Object>(
     validators: [FieldBlocValidators.required],
   );
-  // ignore: close_sinks
-  final dateAndTime2 = InputFieldBloc<DateTime, Object>(
+  final InputFieldBloc<DateTime, Object> dateAndTime2 =
+      InputFieldBloc<DateTime, Object>(
     validators: [FieldBlocValidators.required],
   );
-  // ignore: close_sinks
-  final timeonly1 = InputFieldBloc<TimeOfDay, Object>(
-    validators: [FieldBlocValidators.required],
-  );
-
-  // ignore: close_sinks
-  final timeonly2 = InputFieldBloc<TimeOfDay, Object>(
+  final InputFieldBloc<TimeOfDay, Object> timeonly1 =
+      InputFieldBloc<TimeOfDay, Object>(
     validators: [FieldBlocValidators.required],
   );
 
-  // ignore: close_sinks
+  final InputFieldBloc<TimeOfDay, Object> timeonly2 =
+      InputFieldBloc<TimeOfDay, Object>(
+    validators: [FieldBlocValidators.required],
+  );
+
   final description = TextFieldBloc(
     validators: [FieldBlocValidators.required],
   );
-  // ignore: close_sinks
   final title = TextFieldBloc(
     validators: [FieldBlocValidators.required],
   );
-  // ignore: close_sinks
   final subtitle = TextFieldBloc(
     validators: [FieldBlocValidators.required],
   );

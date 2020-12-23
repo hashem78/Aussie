@@ -13,7 +13,7 @@ part 'signin_model.g.dart';
 class SigninModel extends Equatable {
   final String email;
   final String password;
-  SigninModel(this.email, this.password);
+  const SigninModel(this.email, this.password);
 
   Map<String, dynamic> toJson() => _$SigninModelToJson(this);
   factory SigninModel.fromJson(Map<String, dynamic> json) =>

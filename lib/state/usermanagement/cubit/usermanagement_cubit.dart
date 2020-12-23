@@ -19,9 +19,9 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
     repository.signup(model).then(
       (value) {
-        if (value is UserSignupSuccessfulNotification)
+        if (value is UserSignupSuccessfulNotification) {
           emit(UserManagementSignup(value));
-        else {
+        } else {
           emit(UserManagementError(value));
         }
       },
@@ -33,7 +33,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     repository.signin(model).then(
       (value) {
         if (value is UserSigninSuccessfulNotification) {
-          emit(UserManagementSignin());
+          emit(const UserManagementSignin());
         } else {
           emit(UserManagementError(value));
         }
@@ -47,7 +47,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     repository.isSignedin().then(
       (value) {
         if (value is UserSigninSuccessfulNotification) {
-          emit(UserManagementSignin());
+          emit(const UserManagementSignin());
         } else {
           emit(UserManagementNeedsAction());
         }

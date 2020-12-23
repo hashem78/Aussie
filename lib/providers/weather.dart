@@ -7,7 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherProvider {
-  static Map<String, List<int>> _icns = {
+  static const Map<String, List<int>> _icns = {
     "wi-thunderstorm": [200, 201, 202, 210, 211, 212, 221, 230, 232],
     "wi-raindrops": [
       300,
@@ -32,30 +32,31 @@ class WeatherProvider {
   Future<Map<String, dynamic>> fetch(LatLng coord) async {
     if (!await isConnectedToTheInternet) return error;
 
-    String query =
+    final String query =
         "https://api.openweathermap.org/data/2.5/forecast?lat=${coord.latitude}&lon=${coord.longitude}&units=metric&appid=5017190165cca808a48d1eff54927701";
-    var _response = await http.get(query);
+    final _response = await http.get(query);
 
     if (_response.statusCode == 200) {
-      var _decoded = await jsonDecode(_response.body);
+      final _decoded = await jsonDecode(_response.body);
       if (_decoded["cod"] == "200") {
         // every day has 8 lists and there are 5 day responses
-        Map<int, dynamic> _internalMap = {};
+        final Map<int, dynamic> _internalMap = {};
         for (int i = 0; i < 40; i += 8) {
-          var element = _decoded["list"][i];
-          var _minTemp = element["main"]["temp_min"];
-          var _maxTemp = element["main"]["temp_max"];
-          var _humidity = element["main"]["humidity"];
-          var _pressure = element["main"]["pressure"];
-          var _currentWeather = element["weather"][0];
-          var _status = _currentWeather["main"];
-          var _description = _currentWeather["description"];
-          var _icon = _currentWeather["icon"];
-          var _statusId = _currentWeather["id"];
+          final element = _decoded["list"][i];
+          final _minTemp = element["main"]["temp_min"];
+          final _maxTemp = element["main"]["temp_max"];
+          final _humidity = element["main"]["humidity"];
+          final _pressure = element["main"]["pressure"];
+          final _currentWeather = element["weather"][0];
+          final _status = _currentWeather["main"];
+          final _description = _currentWeather["description"];
+          final String _icon = _currentWeather["icon"] as String;
+          final int _statusId = _currentWeather["id"] as int;
+          final int _dt = element["dt"] * 1000 as int;
 
           _internalMap[i ~/ 8] = {
             'day': weekDayToString(
-              DateTime.fromMillisecondsSinceEpoch(element["dt"] * 1000).weekday,
+              DateTime.fromMillisecondsSinceEpoch(_dt).weekday,
             ),
             'state': _status,
             'iconString': _statusId >= 800
@@ -70,7 +71,8 @@ class WeatherProvider {
             'description': _description,
           };
         }
-        Map<String, dynamic> _firstDay = _internalMap[0];
+        final Map<String, dynamic> _firstDay =
+            _internalMap[0] as Map<String, dynamic>;
         _firstDay["fourDayModels"] = [
           _internalMap[1],
           _internalMap[2],
@@ -86,7 +88,7 @@ class WeatherProvider {
 
   Map<String, dynamic> get error => {"-1": "An error occured"};
   Future<bool> get isConnectedToTheInternet async {
-    var _status = await DataConnectionChecker().connectionStatus;
+    final _status = await DataConnectionChecker().connectionStatus;
     if (_status == DataConnectionStatus.connected) return true;
     return false;
   }
@@ -96,16 +98,18 @@ class WeatherProvider {
       assert(status != null, "A status with id greater than 800 can't be null");
       switch (id) {
         case 800:
-          if (status.endsWith("d"))
+          if (status.endsWith("d")) {
             return "wi-day-sunny";
-          else
+          } else {
             return "wi-night-clear";
+          }
           break;
         case 801:
-          if (status.endsWith("d"))
+          if (status.endsWith("d")) {
             return "wi-day-cloudy";
-          else
+          } else {
             return "wi-night-cloudy";
+          }
           break;
         case 802:
           return "wi-cloud";
@@ -118,7 +122,7 @@ class WeatherProvider {
     String ans;
     _icns.forEach(
       (key, value) {
-        for (var x in value) {
+        for (final x in value) {
           if (x == id) ans = key;
           break;
         }

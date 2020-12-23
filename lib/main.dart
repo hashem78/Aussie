@@ -24,16 +24,16 @@ import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
   //await FirebaseFirestore.instance.disableNetwork();
-  var _perfs = await SharedPreferences.getInstance();
+  final _perfs = await SharedPreferences.getInstance();
   Map<String, dynamic> themeMap;
   if (_perfs.containsKey("theme")) {
-    final String themeString = _perfs.get("theme");
-    themeMap = jsonDecode(themeString);
+    final String themeString = _perfs.get("theme") as String;
+    themeMap = jsonDecode(themeString) as Map<String, dynamic>;
   } else {
     themeMap = ThemeModel.defaultThemeMap;
     _perfs.setString("theme", jsonEncode(themeMap));
@@ -43,7 +43,7 @@ void main() async {
     locale = Locale(_perfs.getString("lang"), '');
   } else {
     _perfs.setString("lang", "en");
-    locale = Locale('en', '');
+    locale = const Locale('en', '');
   }
   runApp(MyApp(themeMap, locale));
 }
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
   final Map<String, dynamic> themeMap;
   final Locale locale;
 
-  MyApp(this.themeMap, this.locale)
+  const MyApp(this.themeMap, this.locale)
       : assert(themeMap != null && locale != null);
 
   @override
@@ -77,15 +77,15 @@ class MyApp extends StatelessWidget {
                 return MaterialApp(
                   locale: languageState.currentLocale,
                   debugShowCheckedModeBanner: false,
-                  localizationsDelegates: [
+                  localizationsDelegates: const [
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                     AussieLocalizations.delegate,
                   ],
-                  supportedLocales: [
-                    const Locale('en', ''),
-                    const Locale('ar', ''),
+                  supportedLocales: const [
+                    Locale('en', ''),
+                    Locale('ar', ''),
                   ],
                   localeResolutionCallback: (locale, supportedLocales) {
                     if (supportedLocales.contains(locale)) return locale;
@@ -100,17 +100,13 @@ class MyApp extends StatelessWidget {
                     brightness: state.model.brightness,
                     outlinedButtonTheme: OutlinedButtonThemeData(
                       style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.all(15.0),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        ),
+                        padding: const EdgeInsets.all(15.0),
+                        shape: const RoundedRectangleBorder(),
                       ),
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
-                        ),
+                        shape: const RoundedRectangleBorder(),
                       ),
                     ),
                   ),

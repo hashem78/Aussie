@@ -35,16 +35,17 @@ class WeatherDetails extends StatelessWidget {
                 WeatherCard(
                   day: WeatherCardChildModel(
                     model: model,
-                    title: "${model.description}",
+                    title: model.description,
                   ),
                 ),
                 AspectRatio(
                   aspectRatio: 1,
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                     ),
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: model.fourDayModels.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AbsorbPointer(

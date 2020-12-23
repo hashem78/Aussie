@@ -10,7 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    EventModel e = getEventModel(context);
+    final EventModel e = getEventModel(context);
     return Scaffold(
       body: DefaultTabController(
         length: 2,
@@ -19,14 +19,13 @@ class EventDetails extends StatelessWidget {
             SliverAppBar(
               expandedHeight: .6.sh,
               collapsedHeight: .2.sh,
-              primary: true,
               pinned: true,
               title: Text(getTranslation(context, "eventDetailsTitle")),
               flexibleSpace: buildImage(
                 e.bannerImageLink,
                 fit: BoxFit.cover,
               ),
-              bottom: TabBar(
+              bottom: const TabBar(
                 tabs: [
                   Icon(Icons.description),
                   Icon(Icons.attach_email_rounded),
@@ -34,7 +33,7 @@ class EventDetails extends StatelessWidget {
               ),
             ),
           ],
-          body: TabBarView(
+          body: const TabBarView(
             children: [
               EventDetailsMain(),
               PaginatedAtendees(),
@@ -62,13 +61,11 @@ class _EventDetailsMainState extends State<EventDetailsMain>
     super.build(context);
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: EventCardStack(),
-        ),
+        const SliverToBoxAdapter(child: EventCardStack()),
         buildTitle(context, getTranslation(context, "description")),
-        SliverToBoxAdapter(child: EventDetailsDescriptionCard()),
+        const SliverToBoxAdapter(child: EventDetailsDescriptionCard()),
         buildTitle(context, getTranslation(context, "gallery")),
-        EventDetailsGallery(),
+        const EventDetailsGallery(),
       ],
     );
   }

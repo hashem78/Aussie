@@ -18,7 +18,6 @@ class AussieThumbnailedAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: getColorData(context).swatchColor,
       pinned: true,
-      primary: true,
       expandedHeight: height,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(title),
@@ -40,18 +39,18 @@ class AussieThumbnailedAppBar extends StatelessWidget {
                 itemBuilder: (context, index) => buildImage(
                   state.imageUrls[index],
                   showPlaceHolder: false,
-                  fadeInDuration: Duration.zero,
+                  fadeIn: Duration.zero,
                   fit: BoxFit.cover,
                 ),
                 options: CarouselOptions(
                   height: height,
                   viewportFraction: 1,
                   autoPlay: true,
-                  autoPlayInterval: Duration(seconds: 10),
+                  autoPlayInterval: const Duration(seconds: 10),
                 ),
               );
             }
-            return Container(child: Icon(Icons.wifi_off, size: 300.sp));
+            return Icon(Icons.wifi_off, size: 300.sp);
           },
         ),
       ),

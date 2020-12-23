@@ -18,7 +18,7 @@ class EventImageGalleryStatus extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.close,
                 color: Colors.red,
               ),
@@ -29,7 +29,7 @@ class EventImageGalleryStatus extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.check,
                 color: Colors.green,
               ),

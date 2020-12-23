@@ -10,11 +10,11 @@ class ThumbnailOnlineProivder {
   });
 
   Future<List<String>> fetch() async {
-    var _list = await FirebaseFirestore.instance.collection(route).get();
-    var _internalList = <String>[];
-    _list.docs.forEach((element) {
-      _internalList.add(element.data()["image_link"]);
-    });
+    final _list = await FirebaseFirestore.instance.collection(route).get();
+    final _internalList = <String>[];
+    _list.docs.forEach(
+      (element) => _internalList.add(element.data()["image_link"] as String),
+    );
     _internalList.shuffle();
     return UnmodifiableListView(List<String>.from(_internalList));
   }

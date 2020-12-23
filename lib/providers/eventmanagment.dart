@@ -19,7 +19,7 @@ class EventManagementProvider {
       final String uid = _auth.currentUser.uid;
 
       final String path = "users/$uid/events/${model.eventId}";
-      WriteBatch batch = _firestore.batch();
+      final WriteBatch batch = _firestore.batch();
       batch.update(
         _firestore.collection("users").doc(uid),
         {
@@ -75,7 +75,7 @@ class EventManagementProvider {
         final downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl);
       };
-      for (var data in model.imageData) {
+      for (final data in model.imageData) {
         await dlGalleryCallback(data);
       }
       await dlBannerCallback(model.bannerData);
@@ -93,44 +93,46 @@ class EventManagementProvider {
   ) async {
     try {
       if (_auth.currentUser != null) {
-        String uid = _auth.currentUser.uid;
+        final String uid = _auth.currentUser.uid;
         if (documentSnapshot != null) {
-          var _data = await _firestore
+          final _data = await _firestore
               .collection("users/$uid/events")
               .orderBy("eventId")
               .startAfterDocument(documentSnapshot)
               .limit(5)
               .get();
-          var _docs = _data.docs;
+          final _docs = _data.docs;
 
-          List<Map<String, dynamic>> _internalList = [];
+          final List<Map<String, dynamic>> _internalList = [];
           _docs.forEach(
             (element) {
               _internalList.add(element.data());
             },
           );
-          if (_docs.length < 5)
+          if (_docs.length < 5) {
             return EventModelsContainingEndNotification(_internalList);
+          }
           return EventModelsContainingNotification(
             eventModels: UnmodifiableListView(_internalList),
             prevsnap: _docs.last,
           );
         } else {
-          var _data = await _firestore
+          final _data = await _firestore
               .collection("users/$uid/events")
               .orderBy("eventId")
               .limit(5)
               .get();
-          var _docs = _data.docs;
+          final _docs = _data.docs;
 
-          List<Map<String, dynamic>> _internalList = [];
+          final List<Map<String, dynamic>> _internalList = [];
           _docs.forEach(
             (element) {
               _internalList.add(element.data());
             },
           );
-          if (_docs.length < 5)
+          if (_docs.length < 5) {
             return EventModelsContainingEndNotification(_internalList);
+          }
 
           return EventModelsContainingNotification(
             eventModels: UnmodifiableListView(_internalList),
@@ -149,38 +151,40 @@ class EventManagementProvider {
   ) async {
     try {
       if (documentSnapshot != null) {
-        var _data = await _firestore
+        final _data = await _firestore
             .collectionGroup("events")
             .startAfterDocument(documentSnapshot)
             .limit(5)
             .get();
-        var _docs = _data.docs;
+        final _docs = _data.docs;
 
-        List<Map<String, dynamic>> _internalList = [];
+        final List<Map<String, dynamic>> _internalList = [];
         _docs.forEach(
           (element) {
             _internalList.add(element.data());
           },
         );
-        if (_docs.length < 5)
+        if (_docs.length < 5) {
           return EventModelsContainingEndNotification(_internalList);
+        }
         return EventModelsContainingNotification(
           eventModels: UnmodifiableListView(_internalList),
           prevsnap: _docs.last,
         );
       } else {
-        var _data = await _firestore.collectionGroup("events").limit(5).get();
-        var _docs = _data.docs;
+        final _data = await _firestore.collectionGroup("events").limit(5).get();
+        final _docs = _data.docs;
 
-        List<Map<String, dynamic>> _internalList = [];
+        final List<Map<String, dynamic>> _internalList = [];
         _docs.forEach(
           (element) {
             _internalList.add(element.data());
           },
         );
 
-        if (_docs.length < 5)
+        if (_docs.length < 5) {
           return EventModelsContainingEndNotification(_internalList);
+        }
 
         return EventModelsContainingNotification(
           eventModels: UnmodifiableListView(_internalList),

@@ -62,16 +62,18 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
                     builder: (context, state) {
                       Widget child;
 
-                      if (state is UserManagementPerformingAction)
+                      if (state is UserManagementPerformingAction) {
                         child = getIndicator(context);
-                      else if (state is UserManagementError) {
-                        child = Text(
-                          state.notification.message,
-                          textAlign: TextAlign.center,
-                        );
+                      } else {
+                        if (state is UserManagementError) {
+                          child = Text(
+                            state.notification.message,
+                            textAlign: TextAlign.center,
+                          );
+                        }
                       }
                       return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         child: Center(child: child),
                       );
                     },
@@ -97,7 +99,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             decoration: InputDecoration(
               hintText: getTranslation(context, "initialActionsEmailTitle"),
               hintStyle: TextStyle(fontSize: 40.sp),
-              icon: Icon(Icons.login),
+              icon: const Icon(Icons.login),
               filled: true,
               border: InputBorder.none,
             ),
@@ -111,7 +113,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             decoration: InputDecoration(
               hintText: getTranslation(context, "initialActionsPasswordTitle"),
               hintStyle: TextStyle(fontSize: 40.sp),
-              icon: Icon(Icons.lock),
+              icon: const Icon(Icons.lock),
               filled: true,
               border: InputBorder.none,
             ),
@@ -124,9 +126,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
   TextButton buildSignupButton() {
     return TextButton(
       style: TextButton.styleFrom(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        shape: const RoundedRectangleBorder(),
       ),
       onPressed: () {
         Navigator.of(context).push(

@@ -10,8 +10,9 @@ class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
   Future<void> pickImage() async {
     emit(SingleImagePickingLoading());
 
-    Future<List<Asset>> assets = MultiImagePicker.pickImages(maxImages: 1);
-    Future<ByteData> data =
+    final Future<List<Asset>> assets =
+        MultiImagePicker.pickImages(maxImages: 1);
+    final Future<ByteData> data =
         assets.then((value) => value.first.getByteData(quality: 60));
     data
         .then(
@@ -24,7 +25,8 @@ class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
     final _currentState = state;
     if (_currentState is SingleImagePickingDone) {
       return _currentState.data;
-    } else
+    } else {
       return null;
+    }
   }
 }

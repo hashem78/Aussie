@@ -12,6 +12,20 @@ part 'event.g.dart';
 )
 @immutable
 class EventModel extends Equatable {
+  const EventModel({
+    this.eventId,
+    this.uid,
+    this.bannerImageLink,
+    this.title,
+    this.subtitle,
+    this.startingTimeStamp,
+    this.endingTimeStamp,
+    this.lat,
+    this.lng,
+    this.description,
+    this.galleryImageLinks,
+    this.address,
+  });
   final String eventId;
   final String uid;
   @JsonKey(defaultValue: "")
@@ -32,26 +46,11 @@ class EventModel extends Equatable {
   final String description;
   @JsonKey(defaultValue: "")
   final String address;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: [])
   final List<String> galleryImageLinks;
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
   Map<String, dynamic> toJson() => _$EventModelToJson(this);
-
-  EventModel({
-    this.eventId,
-    this.uid,
-    this.bannerImageLink,
-    this.title,
-    this.subtitle,
-    this.startingTimeStamp,
-    this.endingTimeStamp,
-    this.lat,
-    this.lng,
-    this.description,
-    this.galleryImageLinks,
-    this.address,
-  });
 
   @override
   List<Object> get props {

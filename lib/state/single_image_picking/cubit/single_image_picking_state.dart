@@ -12,7 +12,7 @@ class SingleImagePickingInitial extends SingleImagePickingState {}
 class SingleImagePickingDone extends SingleImagePickingState {
   final ByteData data;
 
-  SingleImagePickingDone(this.data);
+  const SingleImagePickingDone(this.data);
   @override
   List<Object> get props => [data];
 }

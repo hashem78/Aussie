@@ -17,9 +17,10 @@ class AussieLocalizations {
   Map<String, String> _localizedStrings;
 
   Future<void> load(Locale locale) async {
-    var _assetData =
+    final _assetData =
         await rootBundle.loadString("assets/json/${locale.languageCode}.json");
-    Map<String, dynamic> _map = jsonDecode(_assetData);
+    final Map<String, dynamic> _map =
+        jsonDecode(_assetData) as Map<String, dynamic>;
     _localizedStrings = Map<String, String>.from(_map);
   }
 
@@ -37,7 +38,7 @@ class _AussieLocalizationsDelegate
 
   @override
   Future<AussieLocalizations> load(Locale locale) async {
-    AussieLocalizations localizations = new AussieLocalizations(locale);
+    final AussieLocalizations localizations = AussieLocalizations(locale);
     await localizations.load(locale);
     return localizations;
   }

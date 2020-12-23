@@ -15,14 +15,14 @@ class EventLocationPicker extends StatelessWidget {
         return TextField(
           readOnly: true,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.map),
+            prefixIcon: const Icon(Icons.map),
             suffixIcon: IconButton(
               onPressed: () async {
-                var _k = await Navigator.of(context).push(
+                final _k = await Navigator.of(context).push(
                   MaterialPageRoute<LocationResult>(
                     builder: (context) => PlacePicker(
                       "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
-                      displayLocation: LatLng(-33.8688, 151.2093),
+                      displayLocation: const LatLng(-33.8688, 151.2093),
                     ),
                   ),
                 );
@@ -30,7 +30,7 @@ class EventLocationPicker extends StatelessWidget {
 
                 _locCubit.pickLoc(_k);
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.location_pin,
                 color: Colors.red,
               ),

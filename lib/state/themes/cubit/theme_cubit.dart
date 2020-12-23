@@ -30,7 +30,7 @@ class ThemeCubit extends Cubit<ThemeState> {
     AussieColorData naturalParksScreenColor,
     AussieColorData dykScreenColor,
   }) {
-    var _modifiedModel = currentModel.copyWith(
+    final _modifiedModel = currentModel.copyWith(
       brightness: brightness,
       faunaScreenColor: faunaScreenColor,
       floraScreenColor: floraScreenColor,

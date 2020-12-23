@@ -6,40 +6,42 @@ import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:aussie/providers/usermanagement.dart';
 
 class UserManagementRepository {
-  UserManagementProvider _provider = UserManagementProvider();
+  final UserManagementProvider _provider = UserManagementProvider();
   Future<UserManagementNotification> signup(SignupModel model) async =>
-      await _provider.signup(model.toJson());
+      _provider.signup(model.toJson());
 
   Future<UserManagementNotification> signin(SigninModel model) async =>
-      await _provider.signin(model.toJson());
+      _provider.signin(model.toJson());
 
-  Future<UserManagementNotification> isSignedin() async {
-    return await _provider.isSignedin();
-  }
+  Future<UserManagementNotification> isSignedin() async =>
+      _provider.isSignedin();
 
   Future<UserManagementNotification> getUserData() async {
-    UserManagementNotification notification = await _provider.getUserData();
-    if (notification is UserModelContainingNotification)
+    final UserManagementNotification notification =
+        await _provider.getUserData();
+    if (notification is UserModelContainingNotification) {
       return UserModelContainingActualNotification(
         AussieUser.fromJson(notification.user),
       );
-    else
+    } else {
       return notification;
+    }
   }
 
   Future<UserManagementNotification> getUserDataFromUid(String uid) async {
-    UserManagementNotification notification =
+    final UserManagementNotification notification =
         await _provider.getUserDataFromUid(uid);
-    if (notification is UserModelContainingNotification)
+    if (notification is UserModelContainingNotification) {
       return UserModelContainingActualNotification(
         AussieUser.fromJson(notification.user),
       );
-    else
+    } else {
       return notification;
+    }
   }
 
   Future<UserManagementNotification> makeUserWithIdAttendEvent(
       String uid, String eventUuid) async {
-    return await _provider.makeUserWithIdAttendEvent(uid, eventUuid);
+    return _provider.makeUserWithIdAttendEvent(uid, eventUuid);
   }
 }

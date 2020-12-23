@@ -6,7 +6,7 @@ class AussieScaffold extends StatelessWidget {
   final Widget body;
   final Color backgroundColor;
   final Widget drawer;
-  final Widget appBar;
+  final PreferredSizeWidget appBar;
   final GlobalKey<ScaffoldState> state;
   final Widget floatingActionButton;
 
@@ -28,9 +28,9 @@ class AussieScaffold extends StatelessWidget {
       appBar: appBar,
       floatingActionButton: floatingActionButton,
       body: DoubleBackToCloseApp(
-        child: body,
         snackBar:
             SnackBar(content: Text(getTranslation(context, "tapbackToClose"))),
+        child: body,
       ),
     );
   }

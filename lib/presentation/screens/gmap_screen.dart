@@ -23,7 +23,6 @@ class AussieGMap extends StatelessWidget {
     return SizedBox.fromSize(
       size: size,
       child: GoogleMap(
-        myLocationEnabled: false,
         initialCameraPosition: _position,
         mapType: MapType.hybrid,
         markers: {

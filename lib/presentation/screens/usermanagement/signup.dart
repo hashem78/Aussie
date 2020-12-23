@@ -63,7 +63,7 @@ class SingupScreen extends StatelessWidget {
                 child: TextFieldBlocBuilder(
                   textFieldBloc: getSignupBloc(context).fullName,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person_pin),
+                    prefixIcon: const Icon(Icons.person_pin),
                     border: InputBorder.none,
                     filled: true,
                     hintText:
@@ -76,7 +76,7 @@ class SingupScreen extends StatelessWidget {
                 child: TextFieldBlocBuilder(
                   textFieldBloc: getSignupBloc(context).userName,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person),
+                    prefixIcon: const Icon(Icons.person),
                     border: InputBorder.none,
                     filled: true,
                     hintText:
@@ -89,7 +89,7 @@ class SingupScreen extends StatelessWidget {
                 child: TextFieldBlocBuilder(
                   textFieldBloc: getSignupBloc(context).email,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: const Icon(Icons.email),
                     border: InputBorder.none,
                     filled: true,
                     hintText: getTranslation(context, "signupScreenEmailTitle"),
@@ -102,7 +102,7 @@ class SingupScreen extends StatelessWidget {
                   textFieldBloc: getSignupBloc(context).password,
                   suffixButton: SuffixButton.obscureText,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     border: InputBorder.none,
                     filled: true,
                     hintText:
@@ -112,8 +112,8 @@ class SingupScreen extends StatelessWidget {
               ),
               BlocConsumer<UserManagementCubit, UserManagementState>(
                 listener: (context, state) {
-                  if (state is UserManagementSignup)
-                    Future.delayed(Duration(seconds: 2)).whenComplete(
+                  if (state is UserManagementSignup) {
+                    Future.delayed(const Duration(seconds: 2)).whenComplete(
                       () {
                         Navigator.of(context).pushReplacement(
                           PageTransition(
@@ -127,24 +127,27 @@ class SingupScreen extends StatelessWidget {
                         );
                       },
                     );
+                  }
                 },
                 builder: (context, state) {
                   Widget child;
 
-                  if (state is UserManagementPerformingAction)
+                  if (state is UserManagementPerformingAction) {
                     child = getIndicator(context);
-                  else if (state is UserManagementError)
-                    child = Text(
-                      "${state.notification.message}",
-                      style: TextStyle(color: Colors.red),
-                    );
-                  else if (state is UserManagementSignup)
+                  } else if (state is UserManagementError) {
                     child = Text(
                       state.notification.message,
-                      style: TextStyle(color: Colors.green),
+                      style: const TextStyle(color: Colors.red),
                     );
+                  } else if (state is UserManagementSignup) {
+                    child = Text(
+                      state.notification.message,
+                      style: const TextStyle(color: Colors.green),
+                    );
+                  }
+
                   return AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     child: Center(child: child),
                   );
                 },
@@ -166,7 +169,7 @@ class SingupScreen extends StatelessWidget {
                 },
                 child: AutoSizeText(
                   getTranslation(context, "signup2ButtonText"),
-                  //style: TextStyle(fontSize: 50.sp),
+                  //style: const TextStyle(fontSize: 50.sp),
                 ),
               ),
             ],
@@ -194,26 +197,22 @@ class __SignupProfileImageState extends State<_SignupProfileImage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          child: FutureBuilder<PickedFile>(
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                widget.profileImage.value = snapshot.data.path;
+        FutureBuilder<PickedFile>(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              widget.profileImage.value = snapshot.data.path;
 
-                return Image.file(
-                  File(snapshot.data.path),
-                  fit: BoxFit.fill,
-                );
-              }
-              return Container(
-                child: Icon(
-                  Icons.person,
-                  size: 400.sp,
-                ),
+              return Image.file(
+                File(snapshot.data.path),
+                fit: BoxFit.fill,
               );
-            },
-            future: futureProfileImage,
-          ),
+            }
+            return Icon(
+              Icons.person,
+              size: 400.sp,
+            );
+          },
+          future: futureProfileImage,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

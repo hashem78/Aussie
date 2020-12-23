@@ -25,15 +25,15 @@ class AussieColorData extends Equatable {
     if (map == null) return null;
 
     return AussieColorData(
-      swatchColor: Color(map['swatchColor']),
-      backgroundColor: Color(map['backgroundColor']),
+      swatchColor: Color(map['swatchColor'] as int),
+      backgroundColor: Color(map['backgroundColor'] as int),
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory AussieColorData.fromJson(String source) =>
-      AussieColorData.fromMap(json.decode(source));
+      AussieColorData.fromMap(jsonDecode(source) as Map<String, dynamic>);
 
   AussieColorData copyWith({
     Color swatchColor,

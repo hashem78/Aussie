@@ -16,7 +16,7 @@ class SignupModel extends Equatable {
   final String profileImagePath;
   final String username;
   final String fullname;
-  SignupModel({
+  const SignupModel({
     @required this.email,
     @required this.password,
     @required this.profileImagePath,

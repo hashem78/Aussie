@@ -10,11 +10,10 @@ import 'package:page_transition/page_transition.dart';
 class CardOwner extends StatelessWidget {
   final double size;
 
-  CardOwner({
+  const CardOwner({
     Key key,
-    double size,
-  })  : size = size ?? .1.sw,
-        super(key: key);
+    this.size,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class CardOwner extends StatelessWidget {
                   child: BlocProvider(
                     create: (context) => UserManagementCubit()
                       ..getUserDataFromUid(state.user.uid),
-                    child: UserProfileScreen(),
+                    child: const UserProfileScreen(),
                   ),
                   type: getAppropriateAnimation(context),
                 ),
@@ -38,8 +37,8 @@ class CardOwner extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: size,
-                  height: size,
+                  width: size ?? .1.sw,
+                  height: size ?? .1.sw,
                   margin: const EdgeInsets.all(5),
                   child: Ink.image(
                     image: CachedNetworkImageProvider(
@@ -59,7 +58,7 @@ class CardOwner extends StatelessWidget {
           child = Container();
         }
         return AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           child: child,
         );
       },
@@ -70,9 +69,7 @@ class CardOwner extends StatelessWidget {
 class PublicCardOwner extends StatelessWidget {
   final double size;
 
-  PublicCardOwner({Key key, double size, bool useValue})
-      : size = size ?? .1.sw,
-        super(key: key);
+  const PublicCardOwner({Key key, this.size}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +85,7 @@ class PublicCardOwner extends StatelessWidget {
                   child: BlocProvider(
                     create: (context) => UserManagementCubit()
                       ..getUserDataFromUid(state.user.uid),
-                    child: UserProfileScreen(),
+                    child: const UserProfileScreen(),
                   ),
                   type: getAppropriateAnimation(context),
                 ),
@@ -97,8 +94,8 @@ class PublicCardOwner extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: size,
-                  height: size,
+                  width: size ?? .1.sw,
+                  height: size ?? .1.sw,
                   margin: const EdgeInsets.all(5),
                   child: Ink.image(
                     image: CachedNetworkImageProvider(
@@ -118,7 +115,7 @@ class PublicCardOwner extends StatelessWidget {
           child = Container();
         }
         return AnimatedSwitcher(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           child: child,
         );
       },

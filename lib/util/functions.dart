@@ -17,7 +17,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 Color getRandomColor() {
-  var _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  final _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
   if (_col == Colors.amber) return Colors.lightBlue;
 
   return _col.shade700;
@@ -27,7 +27,7 @@ Widget buildImage(
   String imageUrl, {
   BoxFit fit = BoxFit.fill,
   bool showPlaceHolder = true,
-  Duration fadeInDuration = const Duration(milliseconds: 500),
+  Duration fadeIn = const Duration(milliseconds: 500),
   ColorFilter colorFilter,
 }) {
   if (imageUrl == null) return null;
@@ -48,7 +48,7 @@ Widget buildImage(
           ),
         ),
       ),
-      fadeInDuration: fadeInDuration,
+      fadeInDuration: Duration.zero,
       placeholder: showPlaceHolder
           ? (context, url) => Container(
                 color: Colors.lightBlueAccent,
@@ -57,14 +57,14 @@ Widget buildImage(
                 ),
               )
           : null,
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   } else {
     return null;
   }
 }
 
-LoadingBouncingGrid getIndicator(context) =>
+LoadingBouncingGrid getIndicator(BuildContext context) =>
     Provider.of<LoadingBouncingGrid>(context, listen: false);
 
 PageTransitionType getAppropriateAnimation(BuildContext context) =>

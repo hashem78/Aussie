@@ -15,24 +15,21 @@ class ProfileCard extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        shape: const RoundedRectangleBorder(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
-                children: [
+                children: const [
                   ProfileScreenImage(),
                   SizedBox(width: 10),
                   ProfileScreenCardDetails(),
                 ],
               ),
             ),
-            ProfileScreenCardStats(),
+            const ProfileScreenCardStats(),
           ],
         ),
       ),

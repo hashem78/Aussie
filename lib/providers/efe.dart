@@ -6,20 +6,20 @@ class EFEOnlineDataProvider {
   final String route;
   EFEOnlineDataProvider(this.route);
   Future<List<Map<String, dynamic>>> fetch() async {
-    var _docs = await FirebaseFirestore.instance
+    final _docs = await FirebaseFirestore.instance
         .collection(route)
         .where("featured", isEqualTo: true)
         .get();
-    List<Map<String, dynamic>> _internalList = [];
-    for (var _doc in _docs.docs) {
-      var _data = _doc.data();
+    final List<Map<String, dynamic>> _internalList = [];
+    for (final _doc in _docs.docs) {
+      final _data = _doc.data();
       _internalList.add(_data);
     }
     return UnmodifiableListView(_internalList);
   }
 
   Future<List<Map<String, dynamic>>> loadMore(int page) async {
-    var _docs = await FirebaseFirestore.instance
+    final _docs = await FirebaseFirestore.instance
         .collection(route)
         .where(
           "idx",
@@ -28,9 +28,9 @@ class EFEOnlineDataProvider {
         )
         .get();
 
-    List<Map<String, dynamic>> _internalList = [];
-    for (var _doc in _docs.docs) {
-      var _data = _doc.data();
+    final List<Map<String, dynamic>> _internalList = [];
+    for (final _doc in _docs.docs) {
+      final _data = _doc.data();
       _internalList.add(_data);
     }
     return UnmodifiableListView(_internalList);

@@ -13,7 +13,7 @@ class HomeEventsTab extends StatefulWidget {
 
 class _HomeEventsTabState extends State<HomeEventsTab>
     with AutomaticKeepAliveClientMixin {
-  PagingController<int, EventModel> _controller =
+  final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
 
   EventManagementCubit cubit;
@@ -68,7 +68,7 @@ class _HomeEventsTabState extends State<HomeEventsTab>
                 value: item,
                 child: Builder(
                   builder: (context) {
-                    return EventCard();
+                    return const EventCard();
                   },
                 ),
               );

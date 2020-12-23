@@ -34,7 +34,7 @@ class SpeciesDetails extends StatelessWidget {
                       itemBuilder: (context, index) => buildImage(
                         model.imageUrls[index],
                         showPlaceHolder: false,
-                        fadeInDuration: Duration.zero,
+                        fadeIn: Duration.zero,
                         fit: BoxFit.cover,
                       ),
                       options: CarouselOptions(
@@ -44,7 +44,7 @@ class SpeciesDetails extends StatelessWidget {
                         autoPlay: true,
                         enableInfiniteScroll:
                             model.imageUrls.length == 1 ? false : true,
-                        autoPlayInterval: Duration(seconds: 10),
+                        autoPlayInterval: const Duration(seconds: 10),
                       ),
                     ),
             ),
@@ -66,7 +66,7 @@ class SpeciesDetails extends StatelessWidget {
   }
 
   DataTable buildDataTable() => DataTable(
-        dataTextStyle: TextStyle(fontWeight: FontWeight.bold),
+        dataTextStyle: const TextStyle(fontWeight: FontWeight.bold),
         columnSpacing: 3,
         headingRowHeight: 0,
         columns: [
@@ -78,7 +78,7 @@ class SpeciesDetails extends StatelessWidget {
           if (model.commonName != null && model.commonName != "")
             DataRow(
               cells: [
-                DataCell(
+                const DataCell(
                   Text(
                     "Common name",
                     style: TextStyle(
@@ -91,7 +91,7 @@ class SpeciesDetails extends StatelessWidget {
             ),
           DataRow(
             cells: [
-              DataCell(
+              const DataCell(
                 Text(
                   "Scientific name",
                   style: TextStyle(
@@ -105,7 +105,7 @@ class SpeciesDetails extends StatelessWidget {
           if (model.type != null)
             DataRow(
               cells: [
-                DataCell(
+                const DataCell(
                   Text(
                     "Type",
                     style: TextStyle(
@@ -119,7 +119,7 @@ class SpeciesDetails extends StatelessWidget {
           if (model.conservationStatus != null)
             DataRow(
               cells: [
-                DataCell(
+                const DataCell(
                   Text(
                     "Conservation status",
                     style: TextStyle(

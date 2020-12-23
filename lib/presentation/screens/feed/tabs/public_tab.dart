@@ -14,7 +14,7 @@ class PublicEventsTab extends StatefulWidget {
 
 class _PublicEventsTabState extends State<PublicEventsTab>
     with AutomaticKeepAliveClientMixin {
-  PagingController<int, EventModel> _controller =
+  final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
   EventManagementCubit cubit;
   @override
@@ -71,7 +71,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
                 ],
                 child: Provider.value(
                   value: item,
-                  child: PublicEventCard(),
+                  child: const PublicEventCard(),
                 ),
               );
             },

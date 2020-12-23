@@ -5,7 +5,7 @@ class AboutAussieTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.all(5),
+      contentPadding: const EdgeInsets.all(5),
       onTap: () {
         showAboutDialog(
           context: context,
@@ -15,8 +15,8 @@ class AboutAussieTile extends StatelessWidget {
         );
       },
       leading: Text(getTranslation(context, "aboutAussieText")),
-      trailing: Padding(
-        padding: const EdgeInsets.only(right: 20.0),
+      trailing: const Padding(
+        padding: EdgeInsets.only(right: 20.0),
         child: Icon(Icons.info),
       ),
     );

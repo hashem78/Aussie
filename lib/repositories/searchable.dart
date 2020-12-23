@@ -13,7 +13,8 @@ class PaginatedRepositoy<T extends IPaginatedData> {
   PaginatedRepositoy({
     String route,
   }) : _onlineDataProvider = PaginatedOnlineDataProvider(route);
-  Future<List<IPaginatedData>> fetch(int page, {int fetchAmount}) async {
+  Future<List<IPaginatedData>> fetch(int page,
+      {@required int fetchAmount}) async {
     assert(fetchAmount != null, "Fetch Amount is null");
     Map<String, dynamic> _repResponse;
 
@@ -33,20 +34,28 @@ class PaginatedRepositoy<T extends IPaginatedData> {
 
   List<IPaginatedData> _toData(Map<String, dynamic> response) {
     if (response.containsKey('error')) {
-      throw ("${response['error']}");
+      throw response['error'];
     } else {
-      List<IPaginatedData> _q = [];
+      final List<IPaginatedData> _q = [];
       if (T == NaturalParkModel) {
         response.entries.forEach((element) {
-          _q.add(NaturalParkModel.fromJson(element.value));
+          _q.add(
+            NaturalParkModel.fromJson(element.value as Map<String, dynamic>),
+          );
         });
       } else if (T == TeritoryModel) {
         response.entries.forEach((element) {
-          _q.add(TeritoryModel.fromJson(element.value));
+          _q.add(
+            TeritoryModel.fromJson(element.value as Map<String, dynamic>),
+          );
         });
       } else if (T == SpeciesDetailsModel) {
         response.entries.forEach((element) {
-          _q.add(SpeciesDetailsModel.fromJson(element.value));
+          _q.add(
+            SpeciesDetailsModel.fromJson(
+              element.value as Map<String, dynamic>,
+            ),
+          );
         });
       }
       return _q;

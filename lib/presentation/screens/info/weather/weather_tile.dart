@@ -15,7 +15,7 @@ class WeatherTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _today = model;
+    final _today = model;
 
     return Container(
       color: Colors.blue.shade700,
@@ -24,9 +24,7 @@ class WeatherTile extends StatelessWidget {
       child: Stack(
         children: [
           Align(
-            alignment: Alignment.center,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AutoSizeText(
                   showTitle ? model.title : model.day,

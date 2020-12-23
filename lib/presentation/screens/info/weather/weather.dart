@@ -37,10 +37,10 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  PagingController<int, WeatherModel> _pagingController =
+  final PagingController<int, WeatherModel> _pagingController =
       PagingController<int, WeatherModel>(firstPageKey: 0);
 
-  List<LatLng> _coords = [
+  final List<LatLng> _coords = const [
     LatLng(-34.93, 138.6),
     LatLng(-33.861481, 151.205475),
     LatLng(-37.813938, 144.963425),
@@ -70,7 +70,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
+    final _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
     return Provider.value(
       value: _currentTheme,
       child: Scaffold(
@@ -89,23 +89,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     builder: (context, state) {
                       Widget child;
                       if (state is WeatherLoading) {
-                        child = Container(
-                          child:
-                              Text(getTranslation(context, "weatherFetching")),
-                        );
+                        child =
+                            Text(getTranslation(context, "weatherFetching"));
                       } else if (state is WeatherError) {
-                        child = Container(
-                          child: Text(getTranslation(context, "weatherError")),
-                        );
+                        child = Text(getTranslation(context, "weatherError"));
                       } else {
-                        String formattedTime =
+                        final String formattedTime =
                             DateFormat("dd-MM-YY hh:mm").format(DateTime.now());
-                        child = Container(
-                          child: Text("Data as of $formattedTime local time"),
-                        );
+                        child = Text("Data as of $formattedTime local time");
                       }
                       return AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         child: child,
                       );
                     },

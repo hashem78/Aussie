@@ -9,6 +9,7 @@ class SettingsScreen extends StatelessWidget {
   static String svgName = "settings.svg";
   static String tTitle = "settingsTitle";
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(

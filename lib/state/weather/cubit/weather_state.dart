@@ -12,7 +12,7 @@ class WeatherInitial extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
   final WeatherModel model;
-  WeatherLoaded(this.model);
+  const WeatherLoaded(this.model);
   @override
   List<Object> get props => [model];
 }

@@ -5,14 +5,7 @@ class WrongNameNotification implements UserManagementNotification {
   @override
   String get code => "";
 
-  WrongNameNotification._();
-  static WrongNameNotification _instance;
-  factory WrongNameNotification() {
-    if (_instance == null) {
-      _instance = WrongNameNotification._();
-    }
-    return _instance;
-  }
+  const WrongNameNotification();
 
   @override
   String get message => "The username supplied can't be used";
@@ -22,14 +15,7 @@ class MissingEmailNotification implements UserManagementNotification {
   @override
   String get code => "missing-email";
 
-  MissingEmailNotification._();
-  static MissingEmailNotification _instance;
-  factory MissingEmailNotification() {
-    if (_instance == null) {
-      _instance = MissingEmailNotification._();
-    }
-    return _instance;
-  }
+  const MissingEmailNotification();
 
   @override
   String get message => "An email address must be provided";
@@ -38,14 +24,7 @@ class MissingEmailNotification implements UserManagementNotification {
 class WeakPasswordNotification implements UserManagementNotification {
   @override
   String get code => "weak-password";
-  WeakPasswordNotification._();
-  static WeakPasswordNotification _instance;
-  factory WeakPasswordNotification() {
-    if (_instance == null) {
-      _instance = WeakPasswordNotification._();
-    }
-    return _instance;
-  }
+  const WeakPasswordNotification();
 
   @override
   String get message => "The given password is invalid.";
@@ -53,15 +32,8 @@ class WeakPasswordNotification implements UserManagementNotification {
 
 class ProfileImageRequiredNotification implements UserManagementNotification {
   @override
-  String get code => "weak-password";
-  ProfileImageRequiredNotification._();
-  static ProfileImageRequiredNotification _instance;
-  factory ProfileImageRequiredNotification() {
-    if (_instance == null) {
-      _instance = ProfileImageRequiredNotification._();
-    }
-    return _instance;
-  }
+  String get code => "";
+  const ProfileImageRequiredNotification();
 
   @override
   String get message => "A profile image is required";
@@ -70,14 +42,7 @@ class ProfileImageRequiredNotification implements UserManagementNotification {
 class UserNotFoundNotification implements UserManagementNotification {
   @override
   String get code => "user-not-found";
-  UserNotFoundNotification._();
-  static UserNotFoundNotification _instance;
-  factory UserNotFoundNotification() {
-    if (_instance == null) {
-      _instance = UserNotFoundNotification._();
-    }
-    return _instance;
-  }
+  const UserNotFoundNotification();
 
   @override
   String get message =>
@@ -87,14 +52,7 @@ class UserNotFoundNotification implements UserManagementNotification {
 class UserManagementErrorNotification implements UserManagementNotification {
   @override
   String get code => "error";
-  UserManagementErrorNotification._();
-  static UserManagementErrorNotification _instance;
-  factory UserManagementErrorNotification() {
-    if (_instance == null) {
-      _instance = UserManagementErrorNotification._();
-    }
-    return _instance;
-  }
+  const UserManagementErrorNotification();
 
   @override
   String get message =>
@@ -104,14 +62,7 @@ class UserManagementErrorNotification implements UserManagementNotification {
 class EmailAlreadyInUseNotification implements UserManagementNotification {
   @override
   String get code => "email-already-in-use";
-  EmailAlreadyInUseNotification._();
-  static UserManagementNotification _instance;
-  factory EmailAlreadyInUseNotification() {
-    if (_instance == null) {
-      _instance = EmailAlreadyInUseNotification._();
-    }
-    return _instance;
-  }
+  const EmailAlreadyInUseNotification();
 
   @override
   String get message =>
@@ -121,14 +72,7 @@ class EmailAlreadyInUseNotification implements UserManagementNotification {
 class WrongPasswordNotification implements UserManagementNotification {
   @override
   String get code => "wrong-password";
-  WrongPasswordNotification._();
-  static WrongPasswordNotification _instance;
-  factory WrongPasswordNotification() {
-    if (_instance == null) {
-      _instance = WrongPasswordNotification._();
-    }
-    return _instance;
-  }
+  const WrongPasswordNotification();
 
   @override
   String get message =>
@@ -138,14 +82,7 @@ class WrongPasswordNotification implements UserManagementNotification {
 class InvalidEmailNotification implements UserManagementNotification {
   @override
   String get code => "invalid-email";
-  InvalidEmailNotification._();
-  static InvalidEmailNotification _instance;
-  factory InvalidEmailNotification() {
-    if (_instance == null) {
-      _instance = InvalidEmailNotification._();
-    }
-    return _instance;
-  }
+  const InvalidEmailNotification();
 
   @override
   String get message => "The email provided is badly formatted";
@@ -160,6 +97,7 @@ class UserVerifiedNotification implements UserManagementNotification {
 }
 
 class UserSignupSuccessfulNotification implements UserManagementNotification {
+  const UserSignupSuccessfulNotification();
   @override
   String get code => "";
 
@@ -168,6 +106,7 @@ class UserSignupSuccessfulNotification implements UserManagementNotification {
 }
 
 class UserSigninSuccessfulNotification implements UserManagementNotification {
+  const UserSigninSuccessfulNotification();
   @override
   String get code => "";
 
@@ -176,6 +115,7 @@ class UserSigninSuccessfulNotification implements UserManagementNotification {
 }
 
 class UserHasNotSignedInNotification implements UserManagementNotification {
+  const UserHasNotSignedInNotification();
   @override
   String get code => "";
 

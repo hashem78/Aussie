@@ -16,7 +16,7 @@ class TitleFormField extends StatelessWidget {
     return TextFieldBlocBuilder(
       textFieldBloc: _formElement,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.person_pin),
+        prefixIcon: const Icon(Icons.person_pin),
         border: InputBorder.none,
         filled: true,
         labelText: getTranslation(context, "eventCreationTitleTitle"),

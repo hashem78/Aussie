@@ -16,28 +16,30 @@ class UserManagementProvider {
   static final _firestoreInstance = FirebaseFirestore.instance;
   Future<UserManagementNotification> signup(Map<String, dynamic> map) async {
     if (map["email"] == "") {
-      return InvalidEmailNotification();
+      return const InvalidEmailNotification();
     } else if (map["password"] == "") {
-      return WeakPasswordNotification();
+      return const WeakPasswordNotification();
     } else if (map["username"] == "" || map["fullname"] == "") {
-      return WrongNameNotification();
-    } else if (map["profileImagePath"] == "")
-      return ProfileImageRequiredNotification();
+      return const WrongNameNotification();
+    } else if (map["profileImagePath"] == "") {
+      return const ProfileImageRequiredNotification();
+    }
 
     try {
       await _authInstance.createUserWithEmailAndPassword(
-        email: map["email"],
-        password: map["password"],
+        email: map["email"] as String,
+        password: map["password"] as String,
       );
-      String uid = FirebaseAuth.instance.currentUser.uid;
-      String _filename = path.basename(map['profileImagePath']);
+      final String uid = FirebaseAuth.instance.currentUser.uid;
+      final String _filename = path.basename(map['profileImagePath'] as String);
 
-      var _ref = _storageInstance.ref().child("users/$uid/profile/$_filename");
-      var _uploadTask = _ref.putFile(File(map['profileImagePath']));
+      final _ref =
+          _storageInstance.ref().child("users/$uid/profile/$_filename");
+      final _uploadTask = _ref.putFile(File(map['profileImagePath'] as String));
 
       await _uploadTask.whenComplete(
         () async {
-          String _profileImageLink = await _ref.getDownloadURL();
+          final String _profileImageLink = await _ref.getDownloadURL();
 
           await _firestoreInstance.doc("users/$uid").set(
             {
@@ -58,49 +60,49 @@ class UserManagementProvider {
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
-    return UserSignupSuccessfulNotification();
+    return const UserSignupSuccessfulNotification();
   }
 
   Future<UserManagementNotification> isSignedin() async {
-    User user = FirebaseAuth.instance.currentUser;
-    if (user == null) return UserHasNotSignedInNotification();
-    return UserSigninSuccessfulNotification();
+    final User user = FirebaseAuth.instance.currentUser;
+    if (user == null) return const UserHasNotSignedInNotification();
+    return const UserSigninSuccessfulNotification();
   }
 
   Future<UserManagementNotification> signin(Map<String, dynamic> map) async {
     if (map["email"] == "") {
-      return InvalidEmailNotification();
+      return const InvalidEmailNotification();
     } else if (map["password"] == "") {
-      return WeakPasswordNotification();
+      return const WeakPasswordNotification();
     } else if (map["username"] == "") {
-      return WrongNameNotification();
+      return const WrongNameNotification();
     }
 
     try {
       await _authInstance.signInWithEmailAndPassword(
-        email: map["email"],
-        password: map["password"],
+        email: map["email"] as String,
+        password: map["password"] as String,
       );
 
-      return UserSigninSuccessfulNotification();
+      return const UserSigninSuccessfulNotification();
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> getUserData() async {
     try {
-      User user = FirebaseAuth.instance.currentUser;
-      if (user == null) return UserHasNotSignedInNotification();
-      var _db = FirebaseFirestore.instance;
-      var _shot = await _db.doc('users/${user.uid}').get();
-      var _data = _shot.data();
+      final User user = FirebaseAuth.instance.currentUser;
+      if (user == null) return const UserHasNotSignedInNotification();
+      final _db = FirebaseFirestore.instance;
+      final _shot = await _db.doc('users/${user.uid}').get();
+      final _data = _shot.data();
 
-      var _internalMap = {
+      final _internalMap = {
         "uid": user.uid,
         "name": user.displayName,
         "email": user.email,
@@ -118,14 +120,14 @@ class UserManagementProvider {
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> getUserDataFromUid(String uid) async {
-    if (uid == null) return UserManagementErrorNotification();
+    if (uid == null) return const UserManagementErrorNotification();
     try {
-      var _userModel =
+      final _userModel =
           await _firestoreInstance.collection("users").doc(uid).get();
       return UserModelContainingNotification(
         UnmodifiableMapView(
@@ -133,16 +135,17 @@ class UserManagementProvider {
         ),
       );
     } on FirebaseException {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> makeUserWithIdAttendEvent(
       String uid, String eventUuid) async {
-    if (uid == null || eventUuid == null)
-      return UserManagementErrorNotification();
+    if (uid == null || eventUuid == null) {
+      return const UserManagementErrorNotification();
+    }
     try {
-      WriteBatch writeBatch = _firestoreInstance.batch();
+      final WriteBatch writeBatch = _firestoreInstance.batch();
       writeBatch.set(
           _firestoreInstance
               .collection("event")
@@ -159,16 +162,17 @@ class UserManagementProvider {
       writeBatch.commit();
       return UserMangementUserAttendedEventNotification();
     } on FirebaseException {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
   }
 
   Future<UserManagementNotification> makeUserWithIdUnAttendEvent(
       String uid, String eventUuid) async {
-    if (uid == null || eventUuid == null)
-      return UserManagementErrorNotification();
+    if (uid == null || eventUuid == null) {
+      return const UserManagementErrorNotification();
+    }
     try {
-      WriteBatch writeBatch = _firestoreInstance.batch();
+      final WriteBatch writeBatch = _firestoreInstance.batch();
 
       writeBatch.delete(
         _firestoreInstance
@@ -186,7 +190,7 @@ class UserManagementProvider {
       writeBatch.commit();
       return UserMangementUserUnAttendedEventNotification();
     } on FirebaseException {
-      return UserManagementErrorNotification();
+      return const UserManagementErrorNotification();
     }
   }
 }

@@ -20,7 +20,6 @@ class AussieAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      primary: true,
       pinned: true,
       automaticallyImplyLeading: automaticallyImplyLeading,
       expandedHeight: .23.sh,
@@ -31,7 +30,6 @@ class AussieAppBar extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               Positioned.fill(
-                top: 0,
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: Container(

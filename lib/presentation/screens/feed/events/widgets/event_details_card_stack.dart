@@ -14,7 +14,7 @@ class EventCardStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EventModel e = getEventModel(context);
+    final EventModel e = getEventModel(context);
     final DateTime begin =
         DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp);
     final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp);
@@ -24,14 +24,11 @@ class EventCardStack extends StatelessWidget {
     final formattedEndTime = DateFormat("hh:mm:ss").format(end);
     return Card(
       margin: EdgeInsets.zero,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
+      shape: const RoundedRectangleBorder(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-            alignment: Alignment.center,
             child: AutoSizeText(
               e.title,
               style: Theme.of(context)
@@ -91,7 +88,6 @@ class EventCardStack extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Align(
-              alignment: Alignment.center,
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
@@ -112,7 +108,7 @@ class EventCardStack extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.location_pin,
                         color: Colors.red,
                       ),

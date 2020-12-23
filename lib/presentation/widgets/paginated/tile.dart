@@ -23,15 +23,16 @@ class PaginatedScreenTile extends StatelessWidget {
       onTap: onTap,
       child: Card(
         color: getColorData(context).swatchColor,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        shape: const RoundedRectangleBorder(),
         child: Column(
           children: [
-            titleImage != null
-                ? AspectRatio(
-                    aspectRatio: aspectRatio,
-                    child: titleImage,
-                  )
-                : Container(),
+            if (titleImage != null)
+              AspectRatio(
+                aspectRatio: aspectRatio,
+                child: titleImage,
+              )
+            else
+              Container(),
             title,
             subtitle ?? Container(),
           ],

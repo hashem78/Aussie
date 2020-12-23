@@ -29,7 +29,7 @@ class FloraScreen extends StatelessWidget {
   final PaginatedCubit cubit = PaginatedCubit<SpeciesDetailsModel>("flora");
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context).floraScreenColor;
+    final _currentTheme = getCurrentThemeModel(context).floraScreenColor;
     return Provider.value(
       value: _currentTheme,
       child: SearchablePaginatedScreen(
@@ -38,7 +38,7 @@ class FloraScreen extends StatelessWidget {
         thumbnailCubitRoute: "flora_images",
         filterFor: "commonName",
         itemBuilder: (context, item, index) {
-          var _casted = item as SpeciesDetailsModel;
+          final _casted = item as SpeciesDetailsModel;
           return PaginatedScreenTile(
             color: _currentTheme.swatchColor,
             titleImage: buildImage(
@@ -47,14 +47,14 @@ class FloraScreen extends StatelessWidget {
             ),
             title: Text(
               _casted.commonName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             onTap: () => Navigator.push(
               context,
               PageTransition(
                 child: Provider.value(
                   value: _currentTheme,
-                  child: SpeciesDetails(model: item),
+                  child: SpeciesDetails(model: item as SpeciesDetailsModel),
                 ),
                 type: getAppropriateAnimation(context),
               ),

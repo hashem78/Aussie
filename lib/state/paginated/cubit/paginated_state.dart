@@ -17,7 +17,7 @@ class PaginatedInitialLoaded extends PaginatedState {
 }
 
 class PaginatedDataChanged extends PaginatedState {
-  const PaginatedDataChanged(models) : super(models);
+  const PaginatedDataChanged(List<IPaginatedData> models) : super(models);
 }
 
 class PaginatedEnd extends PaginatedState {

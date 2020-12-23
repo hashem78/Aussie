@@ -18,19 +18,19 @@ class NaturalParksScreen extends StatelessWidget {
     themeAttribute: "naturalParksScreenColor",
     navPath: "/main/info/naturalParks",
     svgName: "parks.svg",
-    dark: const AussieColorData(
-      swatchColor: const Color(0xff0d47a1),
-      backgroundColor: const Color(0xff1565c0),
+    dark: AussieColorData(
+      swatchColor: Color(0xff0d47a1),
+      backgroundColor: Color(0xff1565c0),
     ),
-    light: const AussieColorData(
-      swatchColor: const Color(0xff0d47a1),
-      backgroundColor: const Color(0xff1565c0),
+    light: AussieColorData(
+      swatchColor: Color(0xff0d47a1),
+      backgroundColor: Color(0xff1565c0),
     ),
   );
   final PaginatedCubit<NaturalParkModel> cubit = PaginatedCubit("naturalParks");
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context).naturalParksScreenColor;
+    final _currentTheme = getCurrentThemeModel(context).naturalParksScreenColor;
     return Provider<AussieColorData>.value(
       value: _currentTheme,
       child: SearchablePaginatedScreen(
@@ -39,8 +39,8 @@ class NaturalParksScreen extends StatelessWidget {
         filterFor: "park_name",
         thumbnailCubitRoute: NaturalParksScreen.data.thumbnailRoute,
         itemBuilder: (_, item, index) {
-          var _casted = item as NaturalParkModel;
-          var _key = UniqueKey();
+          final _casted = item as NaturalParkModel;
+          final _key = UniqueKey();
           return NaturalParksTile(
             heroTag: _key.toString(),
             model: _casted,

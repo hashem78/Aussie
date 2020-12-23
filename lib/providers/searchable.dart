@@ -9,9 +9,9 @@ class PaginatedOnlineDataProvider {
 
   const PaginatedOnlineDataProvider(this.route);
   Future<Map<String, dynamic>> fetch(int page, {int fetchAmount = 10}) async {
-    var _internalMap = Map<String, dynamic>();
+    final _internalMap = <String, dynamic>{};
 
-    var queries = await FirebaseFirestore.instance
+    final queries = await FirebaseFirestore.instance
         .collection(route)
         .orderBy('idx')
         .where(
@@ -22,19 +22,19 @@ class PaginatedOnlineDataProvider {
         .get();
 
     queries.docs.forEach((element) {
-      var mp = element.data();
+      final mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
     });
     return UnmodifiableMapView(_internalMap);
   }
 
   Future<Map<String, dynamic>> filter(String field, String value) async {
-    var _internalMap = Map<String, dynamic>();
+    final _internalMap = <String, dynamic>{};
 
-    //  var _split = filed.s
+    //  final _split = filed.s
     String searchQuery = "";
     if (field.length > 1) {
-      List<String> _split = value.split(' ');
+      final List<String> _split = value.split(' ');
       searchQuery = _split
           .map((e) => '${e[0].toUpperCase()}${e.substring(1)}')
           .toList()
@@ -42,7 +42,7 @@ class PaginatedOnlineDataProvider {
     } else {
       searchQuery = searchQuery.toUpperCase();
     }
-    var queries = await FirebaseFirestore.instance
+    final queries = await FirebaseFirestore.instance
         .collection(route)
         .where(
           field,
@@ -51,7 +51,7 @@ class PaginatedOnlineDataProvider {
         .get();
 
     queries.docs.forEach((element) {
-      var mp = element.data();
+      final mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
     });
     return UnmodifiableMapView(_internalMap);

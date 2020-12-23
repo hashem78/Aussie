@@ -17,7 +17,7 @@ class EventCreationSubmitButton extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    _sn(String tid) {
+    void _sn(String tid) {
       Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text(

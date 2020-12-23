@@ -9,9 +9,9 @@ abstract class LanguageState extends Equatable {
 }
 
 class LanguageInitial extends LanguageState {
-  LanguageInitial(Locale currentLocale) : super(currentLocale);
+  const LanguageInitial(Locale currentLocale) : super(currentLocale);
 }
 
 class LanguageChanged extends LanguageState {
-  LanguageChanged(Locale currentLocale) : super(currentLocale);
+  const LanguageChanged(Locale currentLocale) : super(currentLocale);
 }

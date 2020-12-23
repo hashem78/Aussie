@@ -9,7 +9,7 @@ part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(WeatherInitial());
-  OnlineWeatherRepository _repository = OnlineWeatherRepository();
+  final OnlineWeatherRepository _repository = OnlineWeatherRepository();
   void fetch(LatLng coord) {
     emit(WeatherLoading());
     _repository.fetch(coord).then(

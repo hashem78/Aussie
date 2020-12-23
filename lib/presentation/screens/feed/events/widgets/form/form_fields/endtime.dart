@@ -11,8 +11,10 @@ class EndTimeFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
-        (value) => value.timeonly2);
+    final InputFieldBloc<TimeOfDay, Object> _formElement = context
+        .select<EventCreationBlocForm, InputFieldBloc<TimeOfDay, Object>>(
+      (value) => value.timeonly2,
+    );
     return TimeFieldBlocBuilder(
       timeFieldBloc: _formElement,
       format: DateFormat('hh:mm a'),
@@ -22,7 +24,7 @@ class EndTimeFormField extends StatelessWidget {
         filled: true,
         border: InputBorder.none,
         hintText: getTranslation(context, "eventCreationEndingTimeHint"),
-        prefixIcon: Icon(Icons.access_time),
+        prefixIcon: const Icon(Icons.access_time),
       ),
     );
   }

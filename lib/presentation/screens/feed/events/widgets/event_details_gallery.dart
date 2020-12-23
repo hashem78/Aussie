@@ -34,7 +34,6 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
         options: CarouselOptions(
           viewportFraction: 1,
           height: .6.sh,
-          pageSnapping: true,
           enableInfiniteScroll: false,
           pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
         ),

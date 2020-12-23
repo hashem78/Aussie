@@ -15,14 +15,13 @@ class SizedTile extends StatelessWidget {
 
   final Color swatchColor;
   final void Function() onTap;
-  final swatchMaxLines;
+  final int swatchMaxLines;
 
   SizedTile({
-    Key key,
     @required this.title,
     @required this.image,
-    this.widthFactor,
-    this.heightFactor,
+    @required this.widthFactor,
+    @required this.heightFactor,
     Color swatchColor,
     this.swatchMaxLines = 1,
     this.swatchHeightFactor = 40,
@@ -96,13 +95,13 @@ class SizedTileSwatch extends StatelessWidget {
   final String title;
   final Color color;
 
-  SizedTileSwatch({
+  const SizedTileSwatch({
     Key key,
     this.maxLines = 1,
     @required this.widthFactor,
     @required this.heightFactor,
     @required this.title,
-    this.color,
+    @required this.color,
   })  : assert(
           color != null &&
               widthFactor != null &&

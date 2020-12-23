@@ -14,7 +14,7 @@ class WeatherCardChild extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    var _weatherModel = model.model;
+    final _weatherModel = model.model;
     return ColoredBox(
       color: Colors.yellow,
       child: Column(
@@ -59,7 +59,7 @@ class WeatherCardChild extends StatelessWidget {
           Text(
             model.title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 40),
+            style: const TextStyle(fontSize: 40),
           ),
           Align(
             alignment: FractionalOffset.bottomLeft,

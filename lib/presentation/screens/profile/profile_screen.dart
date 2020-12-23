@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  UserProfileScreen({
+  const UserProfileScreen({
     Key key,
   }) : super(key: key);
 
@@ -34,8 +34,8 @@ class UserProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SliverToBoxAdapter(child: ProfileCard()),
-                  ProfileEvents(),
+                  const SliverToBoxAdapter(child: ProfileCard()),
+                  const ProfileEvents(),
                 ],
               ),
             );

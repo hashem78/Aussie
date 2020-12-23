@@ -24,7 +24,6 @@ class NaturalParksDetailsScreen extends StatelessWidget {
           SliverAppBar(
             backgroundColor: getColorData(context).swatchColor,
             elevation: 0,
-            primary: true,
             pinned: true,
             expandedHeight: .4.sh,
             flexibleSpace: FlexibleSpaceBar(
@@ -50,13 +49,11 @@ class NaturalParksDetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                var sectionTitle = model.sections[index]["title"];
-                var sectionText = model.sections[index]["text"];
+                final sectionTitle = model.sections[index]["title"];
+                final sectionText = model.sections[index]["text"];
                 return Card(
                   color: Colors.cyan,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
+                  shape: const RoundedRectangleBorder(),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -71,9 +68,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                         ),
                         ExpandText(
                           "   $sectionText",
-                          style: TextStyle(
-                            fontSize: 45.sp,
-                          ),
+                          style: TextStyle(fontSize: 45.sp),
                           maxLines: 5,
                           expandOnGesture: false,
                         ),

@@ -68,7 +68,7 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  static get infoModels => [
+  static List<_DrawerItemModel> get infoModels => [
         _DrawerItemModel(
           navPath: FaunaScreen.data.navPath,
           svgName: FaunaScreen.data.svgName,
@@ -100,7 +100,7 @@ class AussieAppDrawer extends StatelessWidget {
           iconColor: Colors.green.shade900,
         ),
       ];
-  static get miscModels => [
+  static List<_DrawerItemModel> get miscModels => [
         _DrawerItemModel(
           tTitle: SettingsScreen.tTitle,
           svgName: SettingsScreen.svgName,
@@ -108,7 +108,7 @@ class AussieAppDrawer extends StatelessWidget {
           iconColor: Colors.grey,
         ),
       ];
-  static get sections => [
+  static List<_DrawerSection> get sections => [
         _DrawerSection(
           sectionIcon: Icons.info,
           tSectionTitle: "infoSectionTitle",
@@ -124,12 +124,12 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: .8.sw,
       child: Drawer(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
+            const SliverToBoxAdapter(
               child: _DrawerHeader(),
             ),
             SliverList(
@@ -139,8 +139,8 @@ class AussieAppDrawer extends StatelessWidget {
                   if (index.isEven) {
                     return sections[itemIndex];
                   }
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Divider(
                       color: Colors.grey,
                       thickness: 2,
@@ -175,7 +175,7 @@ class _DrawerHeader extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => BlocProvider(
                   create: (context) => UserManagementCubit()..getUserData(),
-                  child: UserProfileScreen(),
+                  child: const UserProfileScreen(),
                 ),
               ),
             );
@@ -185,10 +185,11 @@ class _DrawerHeader extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Container(
-                    width: .2.sw,
-                    height: .2.sw,
-                    child: buildImage(user.profilePictureLink)),
+                child: SizedBox(
+                  width: .2.sw,
+                  height: .2.sw,
+                  child: buildImage(user.profilePictureLink),
+                ),
               ),
               Text(
                 user.username,
@@ -229,7 +230,7 @@ class _DrawerItem extends StatelessWidget {
             ),
             title: Text(
               getTranslation(context, model.tTitle),
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
         ],
@@ -253,18 +254,18 @@ class _DrawerSectionTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Row(
         children: [
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Icon(iconData, size: 30),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
             flex: 5,
             child: Text(
               title,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ),
         ],

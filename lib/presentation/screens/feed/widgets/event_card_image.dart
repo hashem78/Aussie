@@ -22,35 +22,34 @@ class EventCardImage extends StatelessWidget {
       future: _image.second,
       builder: (context, snapshot) {
         Widget child;
-        if (!snapshot.hasData)
-          child = Container(
-            key: ValueKey(0),
+        if (!snapshot.hasData) {
+          child = SizedBox(
+            key: const ValueKey(0),
             height: .4.sh,
             width: 1.sw,
-            child: Center(
-              child: getIndicator(context),
-            ),
+            child: Center(child: getIndicator(context)),
           );
-        else if (snapshot.data == null)
+        } else if (snapshot.data == null) {
           child = Container(
-            key: ValueKey(1),
+            key: const ValueKey(1),
             width: .2.sw,
             height: .3.sh,
             color: Colors.red,
           );
-        else
-          child = Container(
-            key: ValueKey(2),
+        } else {
+          child = SizedBox(
+            key: const ValueKey(2),
             width: min(1.sw, snapshot.data.width),
             height: min(.4.sh, snapshot.data.height),
             child: _image.first,
           );
+        }
 
         return Padding(
           padding: EdgeInsets.only(top: .02.sh),
           child: Center(
             child: AnimatedSwitcher(
-              duration: Duration(seconds: 1),
+              duration: const Duration(seconds: 1),
               child: child,
             ),
           ),
@@ -60,15 +59,16 @@ class EventCardImage extends StatelessWidget {
   }
 
   Pair<Ink, Future<Size>> _getImage(String url) {
-    Completer<Size> completer = Completer();
+    final Completer<Size> completer = Completer();
 
-    ImageProvider image = CachedNetworkImageProvider(url);
+    final ImageProvider image = CachedNetworkImageProvider(url);
 
-    image.resolve(ImageConfiguration()).addListener(
+    image.resolve(const ImageConfiguration()).addListener(
       ImageStreamListener(
         (ImageInfo image, bool synchronousCall) {
-          var myImage = image.image;
-          Size size = Size(myImage.width.toDouble(), myImage.height.toDouble());
+          final myImage = image.image;
+          final Size size =
+              Size(myImage.width.toDouble(), myImage.height.toDouble());
           completer.complete(size);
         },
       ),

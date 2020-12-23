@@ -13,7 +13,7 @@ class SettingsAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: .5.sh,
-      title: Text("Aussie"),
+      title: const Text("Aussie"),
       centerTitle: true,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(

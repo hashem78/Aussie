@@ -22,7 +22,7 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
-        contentPadding: EdgeInsets.all(5.0),
+        contentPadding: const EdgeInsets.all(5.0),
         leading: Text(getTranslation(context, "darkmodeText")),
         trailing: BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {

@@ -29,7 +29,7 @@ class _EventCardState extends State<EventCard>
     final EventModel e = getEventModel(context);
     final AussieUser u = getCurrentUser(context);
     return Card(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(),
       child: InkWell(
         onTap: () => Navigator.push(
           context,
@@ -48,7 +48,7 @@ class _EventCardState extends State<EventCard>
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               CardOwner(),
               EventCardImage(),
               EventCardDetails(),
@@ -82,7 +82,7 @@ class _PublicEventCardState extends State<PublicEventCard>
     final AussieUser user = getCurrentUser(context);
 
     return Card(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -108,16 +108,16 @@ class _PublicEventCardState extends State<PublicEventCard>
             children: [
               Row(
                 children: [
-                  Expanded(child: PublicCardOwner()),
+                  const Expanded(child: PublicCardOwner()),
                   BlocProvider(
                     create: (context) => UserManagementCubit()
                       ..isUserAttending(getCurrentUser(context), e),
-                    child: PublicAttendButton(),
+                    child: const PublicAttendButton(),
                   ),
                 ],
               ),
-              EventCardImage(),
-              EventCardDetails(),
+              const EventCardImage(),
+              const EventCardDetails(),
             ],
           ),
         ),

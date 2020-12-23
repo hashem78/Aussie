@@ -10,7 +10,7 @@ part 'eventmanagement_state.dart';
 
 class EventManagementCubit extends Cubit<EventManagementState> {
   EventManagementCubit() : super(EventmanagementInitial());
-  EventManagementRepository _repository = EventManagementRepository();
+  final EventManagementRepository _repository = EventManagementRepository();
 
   void refresh() {
     prevSnap = null;
@@ -25,7 +25,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
         if (value is EventManagementSuccessNotification) {
           emit(EventManagementCreated());
         } else {
-          emit(EventManagementError());
+          emit(const EventManagementError());
         }
       },
     );

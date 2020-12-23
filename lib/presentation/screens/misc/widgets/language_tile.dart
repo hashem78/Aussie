@@ -8,16 +8,17 @@ class LanguageTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, state) {
-        var _currentLanguage = state.currentLocale.languageCode;
+        final _currentLanguage = state.currentLocale.languageCode;
         return ListTile(
           title: Text(getTranslation(context, "languageTitle")),
           subtitle: Text(
-              "${state.currentLocale.languageCode == "ar" ? "العربية" : "English"}"),
+            state.currentLocale.languageCode == "ar" ? "العربية" : "English",
+          ),
           onTap: () {
             if (_currentLanguage == "ar") {
               BlocProvider.of<LanguageCubit>(context)
                   .changeLocale(
-                    Locale("en", ""),
+                    const Locale("en", ""),
                   )
                   .whenComplete(
                     () => Scaffold.of(context).showSnackBar(
@@ -31,7 +32,7 @@ class LanguageTile extends StatelessWidget {
             } else {
               BlocProvider.of<LanguageCubit>(context)
                   .changeLocale(
-                    Locale("ar", ""),
+                    const Locale("ar", ""),
                   )
                   .whenComplete(
                     () => Scaffold.of(context).showSnackBar(

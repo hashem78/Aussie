@@ -14,13 +14,13 @@ class EventManagementPerformingAction extends EventManagementState {}
 class EventManagementCreated extends EventManagementState {}
 
 class EventManagementError extends EventManagementState {
-  EventManagementError();
+  const EventManagementError();
 }
 
 class EventManagementEventsFetched extends EventManagementState {
   final List<EventModel> models;
 
-  EventManagementEventsFetched(this.models);
+  const EventManagementEventsFetched(this.models);
   @override
   List<Object> get props => [models];
 }
@@ -28,7 +28,7 @@ class EventManagementEventsFetched extends EventManagementState {
 class EventManagementEndEventsFetched extends EventManagementState {
   final List<EventModel> models;
 
-  EventManagementEndEventsFetched(this.models);
+  const EventManagementEndEventsFetched(this.models);
   @override
   List<Object> get props => [models];
 }

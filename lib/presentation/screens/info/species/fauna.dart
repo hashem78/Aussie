@@ -29,7 +29,7 @@ class FaunaScreen extends StatelessWidget {
   final PaginatedCubit cubit = PaginatedCubit<SpeciesDetailsModel>("fauna");
   @override
   Widget build(BuildContext context) {
-    var _currentTheme = getCurrentThemeModel(context).faunaScreenColor;
+    final _currentTheme = getCurrentThemeModel(context).faunaScreenColor;
 
     return Provider.value(
       value: _currentTheme,
@@ -39,19 +39,19 @@ class FaunaScreen extends StatelessWidget {
         filterFor: "commonName",
         thumbnailCubitRoute: FaunaScreen.data.thumbnailRoute,
         itemBuilder: (context, item, index) {
-          var _casted = item as SpeciesDetailsModel;
+          final _casted = item as SpeciesDetailsModel;
           return PaginatedScreenTile(
-            titleImage: buildImage(_casted.titleImageUrl ?? null),
+            titleImage: buildImage(_casted.titleImageUrl),
             title: Text(
               _casted.commonName,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             onTap: () => Navigator.push(
               context,
               PageTransition(
                 child: Provider.value(
                   value: _currentTheme,
-                  child: SpeciesDetails(model: item),
+                  child: SpeciesDetails(model: item as SpeciesDetailsModel),
                 ),
                 type: getAppropriateAnimation(context),
               ),

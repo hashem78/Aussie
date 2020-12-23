@@ -6,7 +6,7 @@ import 'package:aussie/providers/eventmanagment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventManagementRepository {
-  EventManagementProvider _provider = EventManagementProvider();
+  final EventManagementProvider _provider = EventManagementProvider();
   Future<EventManagementNotification> addUserEvent(EventCreationModel model) {
     return _provider.addEvent(model);
   }
@@ -14,10 +14,10 @@ class EventManagementRepository {
   Future<EventManagementNotification> fetchUserEvents(
     DocumentSnapshot prevSnap,
   ) async {
-    EventManagementNotification notification =
+    final EventManagementNotification notification =
         await _provider.fetchUserEvents(prevSnap);
     if (notification is EventModelsContainingNotification) {
-      List<EventModel> models = [];
+      final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
@@ -28,7 +28,7 @@ class EventManagementRepository {
         notification.prevsnap,
       );
     } else if (notification is EventModelsContainingEndNotification) {
-      List<EventModel> models = [];
+      final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
@@ -43,10 +43,10 @@ class EventManagementRepository {
   Future<EventManagementNotification> fetchPublicEvents(
     DocumentSnapshot prevSnap,
   ) async {
-    EventManagementNotification notification =
+    final EventManagementNotification notification =
         await _provider.fetchPublicEvents(prevSnap);
     if (notification is EventModelsContainingNotification) {
-      List<EventModel> models = [];
+      final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
@@ -57,7 +57,7 @@ class EventManagementRepository {
         notification.prevsnap,
       );
     } else if (notification is EventModelsContainingEndNotification) {
-      List<EventModel> models = [];
+      final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));

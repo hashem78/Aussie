@@ -17,7 +17,7 @@ class DescriptionFormField extends StatelessWidget {
       textFieldBloc: _formElement,
       maxLines: null,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.person_pin),
+        prefixIcon: const Icon(Icons.person_pin),
         border: InputBorder.none,
         filled: true,
         hintText: getTranslation(context, "eventCreationDescriptionTitle"),

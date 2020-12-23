@@ -19,12 +19,14 @@ class _GrowingImageState extends State<GrowingImage>
   void initState() {
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     )..addStatusListener(
         (status) {
-          if (status == AnimationStatus.completed)
-            controller..animateBack(0, duration: Duration(seconds: 3));
-          else if (status == AnimationStatus.dismissed) controller..forward();
+          if (status == AnimationStatus.completed) {
+            controller.animateBack(0, duration: const Duration(seconds: 3));
+          } else {
+            if (status == AnimationStatus.dismissed) controller.forward();
+          }
         },
       );
     animation = Tween<double>(begin: 1, end: 2).animate(controller);
@@ -50,10 +52,10 @@ class _GrowingImageState extends State<GrowingImage>
         );
       },
       onLongPressStart: (_) {
-        controller..forward();
+        controller.forward();
       },
       onLongPressEnd: (details) {
-        controller..reset();
+        controller.reset();
         controller.stop();
       },
       child: AnimatedBuilder(
@@ -87,7 +89,7 @@ class EventGalleryPhotoView extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      bottomNavigationBar: BottomAppBar(),
+      bottomNavigationBar: const BottomAppBar(),
       body: PhotoView(
         minScale: PhotoViewComputedScale.contained,
         maxScale: 1.0,

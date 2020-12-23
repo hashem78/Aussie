@@ -27,11 +27,10 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
   Widget build(BuildContext context) {
     super.build(context);
 
-    EventModel e = getEventModel(context);
+    final EventModel e = getEventModel(context);
 
     return RefreshIndicator(
       onRefresh: () async {
-        print("refresh");
         refreshChangeListener.refreshed = true;
       },
       child: PaginateFirestore(
@@ -43,7 +42,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
                 Icons.sentiment_dissatisfied,
                 size: 300.sp,
               ),
-              Text(
+              const Text(
                 "There are no attendees at this moment, refresh or try again later",
                 textAlign: TextAlign.center,
               )
@@ -56,7 +55,8 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
             size: 15,
           ),
         ),
-        header: Container(
+        header: SizedBox(
+          height: .1.sh,
           child: Align(
             alignment: Alignment.bottomCenter,
             child: Text(
@@ -64,14 +64,13 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
               style: Theme.of(context).textTheme.headline4,
             ),
           ),
-          height: .1.sh,
         ),
         itemBuilder: (index, context, snapshot) {
           final data = snapshot.data();
           return BlocProvider(
-            create: (context) =>
-                UserManagementCubit()..getUserDataFromUid(data["uid"]),
-            child: PublicCardOwner(useValue: true),
+            create: (context) => UserManagementCubit()
+              ..getUserDataFromUid(data["uid"] as String),
+            child: const PublicCardOwner(),
           );
         },
         listeners: [

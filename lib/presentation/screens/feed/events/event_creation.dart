@@ -24,7 +24,7 @@ class EventCreationScreen extends StatelessWidget {
             expandedHeight: .5.sh,
             flexibleSpace: FlexibleSpaceBar(
               title: Text(getTranslation(context, "eventCreationTitle")),
-              background: EventBannerPicker(),
+              background: const EventBannerPicker(),
             ),
           ),
           SliverToBoxAdapter(
@@ -32,10 +32,10 @@ class EventCreationScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                EventCreationFormFields(),
-                EventLocationPicker(),
-                EventImageGalleryStatus(),
-                EventImageGalleryPickerButton(),
+                const EventCreationFormFields(),
+                const EventLocationPicker(),
+                const EventImageGalleryStatus(),
+                const EventImageGalleryPickerButton(),
                 BlocBuilder<EventManagementCubit, EventManagementState>(
                   builder: (context, state) {
                     if (state is EventManagementPerformingAction) {
@@ -48,25 +48,21 @@ class EventCreationScreen extends StatelessWidget {
                   listener: (context, state) {
                     if (state is EventManagementCreated) {
                       _sn("Event created", scaffkey);
-                      Future.delayed(Duration(seconds: 2))
+                      Future.delayed(const Duration(seconds: 2))
                           .whenComplete(() => Navigator.of(context).pop());
                     } else if (state is EventManagementError) {
                       _sn("Failed to create Event", scaffkey);
                     }
                   },
                   builder: (context, state) {
-                    if (state is EventManagementPerformingAction)
-                      return EventCreationSubmitButton(
-                        enabled: false,
-                      );
-                    else if (state is EventManagementCreated) {
-                      return EventCreationSubmitButton(
-                        enabled: false,
-                      );
+                    if (state is EventManagementPerformingAction) {
+                      return const EventCreationSubmitButton(enabled: false);
                     } else {
-                      return EventCreationSubmitButton(
-                        enabled: true,
-                      );
+                      if (state is EventManagementCreated) {
+                        return const EventCreationSubmitButton(enabled: false);
+                      } else {
+                        return const EventCreationSubmitButton(enabled: true);
+                      }
                     }
                   },
                 ),

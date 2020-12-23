@@ -56,22 +56,23 @@ class FeedScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: Center(child: Icon(Icons.add, size: 20)),
+                    child: const Center(child: Icon(Icons.add, size: 20)),
                   ),
                   drawer: AussieAppDrawer(),
                   body: NestedScrollView(
                     headerSliverBuilder: (context, innerBoxIsScrolled) => [
                       SliverAppBar(
-                        primary: true,
                         pinned: true,
                         centerTitle: true,
                         title: AutoSizeText(
                           getTranslation(context, "feedScreenTitle"),
                           style: TextStyle(
-                              fontSize: 60.sp, fontWeight: FontWeight.w400),
+                            fontSize: 60.sp,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                         elevation: 0,
-                        bottom: TabBar(
+                        bottom: const TabBar(
                           tabs: [
                             Icon(Icons.home),
                             Icon(Icons.public),

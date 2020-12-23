@@ -46,9 +46,7 @@ class NaturalParksTile extends StatelessWidget {
             elevation: 2,
             color: Colors.cyan,
             margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero,
-            ),
+            shape: const RoundedRectangleBorder(),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: ExpandText(
@@ -66,15 +64,13 @@ class NaturalParksTile extends StatelessWidget {
               child: buildImage(
                 model.image_link,
                 fit: BoxFit.cover,
-                fadeInDuration: Duration.zero,
-                showPlaceHolder: true,
+                fadeIn: Duration.zero,
               ),
             )
           : buildImage(
               model.image_link,
               fit: BoxFit.cover,
-              fadeInDuration: Duration.zero,
-              showPlaceHolder: true,
+              fadeIn: Duration.zero,
             ),
     );
   }
@@ -85,9 +81,7 @@ class NaturalParksTile extends StatelessWidget {
       child: Card(
         elevation: 2,
         margin: const EdgeInsets.symmetric(horizontal: 5),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero,
-        ),
+        shape: const RoundedRectangleBorder(),
         color: Colors.lime,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +99,7 @@ class NaturalParksTile extends StatelessWidget {
               padding: const EdgeInsets.all(5),
               child: Text(
                 value,
-                style: TextStyle(fontWeight: FontWeight.w600),
+                style: const TextStyle(fontWeight: FontWeight.w600),
               ),
             )
           ],

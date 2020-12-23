@@ -11,8 +11,10 @@ class StartTimeFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // ignore: close_sinks
-    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
-        (value) => value.timeonly1);
+    final InputFieldBloc<TimeOfDay, Object> _formElement = context
+        .select<EventCreationBlocForm, InputFieldBloc<TimeOfDay, Object>>(
+      (value) => value.timeonly1,
+    );
     return TimeFieldBlocBuilder(
       timeFieldBloc: _formElement,
       format: DateFormat('hh:mm a'),
@@ -22,7 +24,7 @@ class StartTimeFormField extends StatelessWidget {
         filled: true,
         border: InputBorder.none,
         hintText: getTranslation(context, "eventCreationStartingTimeHint"),
-        prefixIcon: Icon(Icons.access_time),
+        prefixIcon: const Icon(Icons.access_time),
       ),
     );
   }

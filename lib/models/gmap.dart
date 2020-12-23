@@ -7,7 +7,7 @@ class AussieGMapModel extends Equatable {
   final String latitude;
   final String title;
 
-  AussieGMapModel({
+  const AussieGMapModel({
     @required this.longitude,
     @required this.latitude,
     @required this.title,

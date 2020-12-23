@@ -13,13 +13,14 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
   Future<void> pickImages() async {
     emit(MultiImageMultiPickingLoading());
 
-    Future<List<Asset>> assets = MultiImagePicker.pickImages(maxImages: 10);
+    final Future<List<Asset>> assets =
+        MultiImagePicker.pickImages(maxImages: 10);
 
-    List<Future<ByteData>> data = [];
+    final List<Future<ByteData>> data = [];
 
     assets.then(
       (value) {
-        for (var element in value) {
+        for (final element in value) {
           data.add(element.getByteData(quality: 60));
         }
       },
@@ -46,7 +47,8 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
 
     if (_currentState is MultiImagePickingDone) {
       return _currentState.assets;
-    } else
+    } else {
       return null;
+    }
   }
 }

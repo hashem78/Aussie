@@ -10,16 +10,17 @@ class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit(Locale initialLocale) : super(LanguageInitial(initialLocale));
 
   Future<void> changeLocale(Locale newLocale) async {
-    var _perfs = await SharedPreferences.getInstance();
+    final _perfs = await SharedPreferences.getInstance();
     _perfs.setString("lang", newLocale.languageCode);
     emit(LanguageChanged(newLocale));
   }
 
   Locale get locale => state.currentLocale;
   PageTransitionType appropriateAnimation() {
-    if (locale.languageCode == Locale('en').languageCode)
+    if (locale.languageCode == const Locale('en').languageCode) {
       return PageTransitionType.rightToLeft;
-    else
+    } else {
       return PageTransitionType.leftToRight;
+    }
   }
 }

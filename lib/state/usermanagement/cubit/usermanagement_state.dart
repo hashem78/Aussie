@@ -14,19 +14,19 @@ class UserManagementAttended extends UserManagementState {}
 class UserManagementSignup extends UserManagementState {
   final UserManagementNotification notification;
 
-  UserManagementSignup(this.notification);
+  const UserManagementSignup(this.notification);
   @override
   List<Object> get props => [notification];
 }
 
 class UserManagementSignin extends UserManagementState {
-  UserManagementSignin();
+  const UserManagementSignin();
 }
 
 class UserManagementError extends UserManagementState {
   final UserManagementNotification notification;
 
-  UserManagementError(this.notification);
+  const UserManagementError(this.notification);
   @override
   List<Object> get props => [notification];
 }
@@ -38,7 +38,7 @@ class UserManagementPerformingAction extends UserManagementState {}
 class UserMangementHasUserData extends UserManagementState {
   final AussieUser user;
 
-  UserMangementHasUserData(this.user);
+  const UserMangementHasUserData(this.user);
   @override
   List<Object> get props => [user];
 }

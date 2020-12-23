@@ -10,9 +10,10 @@ class StartDateFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: close_sinks
-    final _formElement = context.select<EventCreationBlocForm, InputFieldBloc>(
-        (value) => value.dateAndTime1);
+    final InputFieldBloc<DateTime, Object> _formElement =
+        context.select<EventCreationBlocForm, InputFieldBloc<DateTime, Object>>(
+      (value) => value.dateAndTime1,
+    );
     return DateTimeFieldBlocBuilder(
       dateTimeFieldBloc: _formElement,
       format: DateFormat.yMMMMEEEEd(),
@@ -23,7 +24,7 @@ class StartDateFormField extends StatelessWidget {
         labelText: getTranslation(context, "eventCreationStartingDateTitle"),
         filled: true,
         border: InputBorder.none,
-        prefixIcon: Icon(Icons.date_range),
+        prefixIcon: const Icon(Icons.date_range),
         hintText: getTranslation(context, "eventCreationStartingDateHint"),
       ),
     );

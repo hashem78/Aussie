@@ -23,7 +23,7 @@ class ExpandingTextTile extends StatefulWidget {
     this.expandedTextColor = Colors.white,
   })  : color = color ?? Colors.purple.shade700,
         titleStyle = titleStyle ??
-            TextStyle(
+            const TextStyle(
               fontSize: 40,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
@@ -42,10 +42,12 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 200 + 100 * Random().nextInt(5)))
-      ..forward();
-    _animation = Tween<Offset>(begin: Offset(-1, 1), end: Offset.zero)
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200 + 100 * Random().nextInt(5),
+      ),
+    )..forward();
+    _animation = Tween<Offset>(begin: const Offset(-1, 1), end: Offset.zero)
         .animate(_controller);
   }
 

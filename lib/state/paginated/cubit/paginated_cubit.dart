@@ -10,27 +10,24 @@ part 'paginated_state.dart';
 class PaginatedCubit<T extends IPaginatedData> extends Cubit<PaginatedState> {
   PaginatedCubit(String repositoryRoute)
       : repositoy = PaginatedRepositoy(route: repositoryRoute),
-        super(PaginatedInitial());
+        super(const PaginatedInitial());
   final PaginatedRepositoy<T> repositoy;
-  void filter(String filterFor, String searchValue) async {
+  Future<void> filter(String filterFor, String searchValue) async {
     try {
-      var models = await repositoy.filter(filterFor, searchValue);
+      final models = await repositoy.filter(filterFor, searchValue);
       emit(PaginatedFiltered(UnmodifiableListView(models)));
-    } on NoSuchMethodError {
+    } catch (e) {
       emit(PaginatedFiltered(UnmodifiableListView([])));
     }
   }
 
   Future<void> loadMoreAsync({int page, int amount}) async {
-    var _avail = await repositoy.fetch(page, fetchAmount: amount);
-    if (_avail.length == 0) {
+    final _avail = await repositoy.fetch(page, fetchAmount: amount);
+    if (_avail.isEmpty) {
       emit(
         PaginatedEnd(UnmodifiableListView([])),
       );
       return;
-    }
-    if (amount > _avail.length) {
-      amount = _avail.length;
     }
 
     emit(PaginatedDataChanged(UnmodifiableListView(_avail)));

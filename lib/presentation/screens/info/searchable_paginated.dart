@@ -16,7 +16,7 @@ class SearchablePaginatedScreen extends StatefulWidget {
 
   final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
-  SearchablePaginatedScreen({
+  const SearchablePaginatedScreen({
     @required this.cubit,
     @required this.thumbnailCubitRoute,
     @required this.itemBuilder,
@@ -25,17 +25,16 @@ class SearchablePaginatedScreen extends StatefulWidget {
   });
   @override
   _SearchablePaginatedScreenState createState() =>
-      _SearchablePaginatedScreenState(thumbnailCubitRoute);
+      _SearchablePaginatedScreenState();
 }
 
 class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
-  static int _pageSize = 10;
+  static const int _pageSize = 10;
   ThumbnailCubit thumbnailCubit;
-  final String route;
   PagingController<int, IPaginatedData> _controller =
       PagingController<int, IPaginatedData>(firstPageKey: 0);
 
-  _SearchablePaginatedScreenState(this.route);
+  _SearchablePaginatedScreenState();
 
   @override
   void dispose() {
@@ -70,7 +69,8 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
         body: CustomScrollView(
           slivers: [
             BlocProvider(
-              create: (context) => ThumbnailCubit(route)..fetch(),
+              create: (context) =>
+                  ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
               child: AussieThumbnailedAppBar(
                 title: widget.title,
               ),
@@ -108,14 +108,14 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
       pagingController: _controller,
       builderDelegate: PagedChildBuilderDelegate<IPaginatedData>(
         itemBuilder: widget.itemBuilder,
-        noItemsFoundIndicatorBuilder: (_) => Container(
+        noItemsFoundIndicatorBuilder: (_) => SizedBox(
           height: 100,
           child: Center(
             child: Text(
                 getTranslation(context, "searchablePaginatedNoItemsFound")),
           ),
         ),
-        noMoreItemsIndicatorBuilder: (_) => Container(
+        noMoreItemsIndicatorBuilder: (_) => const SizedBox(
           height: 50,
           child: Center(
             child: Text(

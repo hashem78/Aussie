@@ -10,7 +10,7 @@ class PaginatedSearchBar extends StatelessWidget {
     return SliverToBoxAdapter(
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.search,
             size: 40,
           ),
