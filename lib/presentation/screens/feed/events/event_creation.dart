@@ -13,10 +13,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EventCreationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffkey = GlobalKey();
-
+    void _sn(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+      ),
+    );
+  }
     return Scaffold(
-      key: scaffkey,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -47,11 +51,11 @@ class EventCreationScreen extends StatelessWidget {
                 BlocConsumer<EventManagementCubit, EventManagementState>(
                   listener: (context, state) {
                     if (state is EventManagementCreated) {
-                      _sn("Event created", scaffkey);
+                      _sn("Event created");
                       Future.delayed(const Duration(seconds: 2))
                           .whenComplete(() => Navigator.of(context).pop());
                     } else if (state is EventManagementError) {
-                      _sn("Failed to create Event", scaffkey);
+                      _sn("Failed to create Event");
                     }
                   },
                   builder: (context, state) {
@@ -74,11 +78,5 @@ class EventCreationScreen extends StatelessWidget {
     );
   }
 
-  void _sn(String text, GlobalKey<ScaffoldState> scaffkey) {
-    scaffkey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
-    );
-  }
+  
 }

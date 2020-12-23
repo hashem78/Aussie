@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.10.0 <3.0.0"
 
 dependency_overrides:
-   intl: ^0.17.0-nullsafety.2
+  intl: ^0.17.0-nullsafety.2
 
 dependencies:
   flutter:
@@ -28,6 +28,7 @@ dependencies:
   build_runner: ^1.10.9
   cached_network_image: ^2.3.2+1
   carousel_slider: ^2.3.1
+  cloud_firestore_web: ^0.2.1+2
   cupertino_icons: ^1.0.0
   data_connection_checker: ^0.3.4
   double_back_to_close_app: ^1.2.0
@@ -55,14 +56,12 @@ dependencies:
   shared_preferences: ^0.5.12+4
   uuid: ^2.2.2
   weather_icons: ^2.0.2
-  cloud_firestore_web: ^0.2.1+2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   cloud_firestore: ^0.14.3
   # test:
-
   lint: ^1.0.0
 
 flutter:
