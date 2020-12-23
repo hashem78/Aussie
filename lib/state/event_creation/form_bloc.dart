@@ -45,7 +45,7 @@ class EventCreationBlocForm extends FormBloc<String, String> {
   String profileImagePath;
 
   @override
-  void onSubmitting() {
+  Future<void> onSubmitting() async {
     emitSubmitting();
     for (final val in _blocs) {
       if (val is InputFieldBloc) {
@@ -62,4 +62,13 @@ class EventCreationBlocForm extends FormBloc<String, String> {
     }
     emitSuccess();
   }
+
+  @override
+  Future<void> onCancelingSubmission() async {}
+
+  @override
+  Future<void> onDeleting() async {}
+
+  @override
+  Future<void> onLoading() async {}
 }

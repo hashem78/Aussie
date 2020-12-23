@@ -38,7 +38,16 @@ class SignupBloc extends FormBloc<String, String> {
   String profileImagePath;
 
   @override
-  void onSubmitting() {}
+  Future<void> onSubmitting() async {}
+
+  @override
+  Future<void> onCancelingSubmission() async {}
+
+  @override
+  Future<void> onDeleting() async {}
+
+  @override
+  Future<void> onLoading() async {}
 }
 
 class SingupScreen extends StatelessWidget {
