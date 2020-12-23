@@ -16,7 +16,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  #flutter_form_bloc: ^0.19.0
   flutter_form_bloc:
     git:
       url: https://github.com/hashem78/form_bloc
@@ -31,7 +30,7 @@ dependencies:
   cloud_firestore_web: ^0.2.1+2
   cupertino_icons: ^1.0.0
   data_connection_checker: ^0.3.4
-  double_back_to_close_app: ^1.2.0
+  double_back_to_close_app: ^2.0.1
   equatable: ^1.2.5
   expand_widget: ^1.1.0
   firebase_auth: ^0.18.4+1
@@ -40,12 +39,11 @@ dependencies:
   flutter_bloc: ^6.1.0
   flutter_screenutil: ^3.2.0
   flutter_svg: ^0.19.0
+
   google_maps_flutter: ^1.0.5
   http: ^0.12.2
   image_picker: ^0.6.7+15
   infinite_scroll_pagination: ^2.2.1
-  #intl: ^0.17.0-nullsafety.2
-  json_annotation: ^3.1.1
   json_serializable: ^3.5.1
   loading_animations: ^2.1.0
   page_transition: ^1.1.7+3
@@ -61,7 +59,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   cloud_firestore: ^0.14.3
-  # test:
+
+  json_annotation: ^3.1.1
   lint: ^1.0.0
 
 flutter:
