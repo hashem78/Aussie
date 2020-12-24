@@ -17,5 +17,5 @@ class LocationPicked extends LocationPickingState {
 }
 
 class LocationNotPicked extends LocationPickingState {
-  const LocationNotPicked() : super("Location");
+  const LocationNotPicked() : super("locationStateInitial");
 }

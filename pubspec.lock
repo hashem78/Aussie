@@ -184,7 +184,7 @@ packages:
     source: hosted
     version: "2.2.1"
   cloud_firestore_web:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: cloud_firestore_web
       url: "https://pub.dartlang.org"
@@ -577,7 +577,21 @@ packages:
       name: location
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.4"
+    version: "3.2.1"
+  location_platform_interface:
+    dependency: transitive
+    description:
+      name: location_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
+  location_web:
+    dependency: transitive
+    description:
+      name: location_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   logging:
     dependency: transitive
     description:
@@ -758,9 +772,11 @@ packages:
   place_picker:
     dependency: "direct main"
     description:
-      name: place_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "9013852d86d9816e3e63f12fe5b4bdac305fa748"
+      url: "https://github.com/hashem78/locationpicker"
+    source: git
     version: "0.9.17"
   platform:
     dependency: transitive
