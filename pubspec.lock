@@ -684,7 +684,7 @@ packages:
       name: page_transition
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.7+3"
+    version: "1.1.7+5"
   paginate_firestore:
     dependency: "direct main"
     description:
@@ -774,7 +774,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "9013852d86d9816e3e63f12fe5b4bdac305fa748"
+      resolved-ref: "7a6bccd5999f76e1b2b5fc02995b7244eee087af"
       url: "https://github.com/hashem78/locationpicker"
     source: git
     version: "0.9.17"

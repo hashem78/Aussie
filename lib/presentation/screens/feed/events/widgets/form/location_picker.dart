@@ -3,7 +3,7 @@ import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:place_picker/entities/localization_item.dart';
+import 'package:place_picker/entities/localization_item/localization_item.dart';
 import 'package:place_picker/place_picker.dart';
 
 class EventLocationPicker extends StatelessWidget {
@@ -32,37 +32,39 @@ class EventLocationPicker extends StatelessWidget {
               onPressed: () async {
                 final _k = await Navigator.of(context).push(
                   MaterialPageRoute<LocationResult>(
-                    builder: (_) => PlacePicker(
-                      "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
-                      displayLocation: const LatLng(-33.8688, 151.2093),
-                      localizationItem: LocalizationItem(
-                        languageCode: locale?.languageCode,
-                        searchTitle: getTranslation(
-                          context,
-                          "locationSearchTitle",
+                    builder: (context) {
+                      return PlacePicker(
+                        "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
+                        displayLocation: const LatLng(-33.8688, 151.2093),
+                        localizationItem: LocalizationItem(
+                          languageCode: locale?.languageCode,
+                          searchTitle: getTranslation(
+                            context,
+                            "locationSearchTitle",
+                          ),
+                          nearBy: getTranslation(
+                            context,
+                            "locationNearby",
+                          ),
+                          findingPlace: getTranslation(
+                            context,
+                            "locationFindingPlace",
+                          ),
+                          unnamedLocation: getTranslation(
+                            context,
+                            "locationUnamedLocation",
+                          ),
+                          noResultsFound: getTranslation(
+                            context,
+                            "locationNoResultsFound",
+                          ),
+                          tapToSelectLocation: getTranslation(
+                            context,
+                            "locationTapToSelect",
+                          ),
                         ),
-                        nearBy: getTranslation(
-                          context,
-                          "locationNearby",
-                        ),
-                        findingPlace: getTranslation(
-                          context,
-                          "locationFindingPlace",
-                        ),
-                        unnamedLocation: getTranslation(
-                          context,
-                          "locationUnamedLocation",
-                        ),
-                        noResultsFound: getTranslation(
-                          context,
-                          "locationNoResultsFound",
-                        ),
-                        tapToSelectLocation: getTranslation(
-                          context,
-                          "locationTapToSelect",
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 );
                 final _locCubit = context.read<LocationPickingCubit>();

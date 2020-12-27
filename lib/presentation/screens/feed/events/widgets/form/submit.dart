@@ -84,8 +84,8 @@ class EventCreationSubmitButton extends StatelessWidget {
                   EventCreationModel(
                     startingTimeStamp: _combined1.millisecondsSinceEpoch,
                     endingTimeStamp: _combined2.millisecondsSinceEpoch,
-                    lat: _locCubit.value.latLng.latitude,
-                    lng: _locCubit.value.latLng.longitude,
+                    lat: _locCubit.value.lat,
+                    lng: _locCubit.value.lng,
                     address: _locCubit.value.formattedAddress,
                     title: _title.value,
                     subtitle: _subtitle.value,
