@@ -13,15 +13,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SignupBloc extends FormBloc<String, String> {
-  // ignore: close_sinks
   final fullName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  // ignore: close_sinks
   final userName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  // ignore: close_sinks
   final email = TextFieldBloc(
     validators: [FieldBlocValidators.required, FieldBlocValidators.email],
   );
-  // ignore: close_sinks
   final password = TextFieldBloc(validators: [
     FieldBlocValidators.required,
     FieldBlocValidators.passwordMin6Chars

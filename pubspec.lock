@@ -253,6 +253,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  easy_debounce:
+    dependency: transitive
+    description:
+      name: easy_debounce
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   equatable:
     dependency: "direct main"
     description:
@@ -772,11 +779,9 @@ packages:
   place_picker:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "7a6bccd5999f76e1b2b5fc02995b7244eee087af"
-      url: "https://github.com/hashem78/locationpicker"
-    source: git
+      path: locationpicker
+      relative: true
+    source: path
     version: "0.9.17"
   platform:
     dependency: transitive
