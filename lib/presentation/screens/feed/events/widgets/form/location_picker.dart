@@ -34,33 +34,37 @@ class EventLocationPicker extends StatelessWidget {
                   MaterialPageRoute<LocationResult>(
                     builder: (context) {
                       return PlacePicker(
-                        "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
-                        displayLocation: const LatLng(-33.8688, 151.2093),
-                        localizationItem: LocalizationItem(
-                          languageCode: locale?.languageCode,
-                          searchTitle: getTranslation(
-                            context,
-                            "locationSearchTitle",
-                          ),
-                          nearBy: getTranslation(
-                            context,
-                            "locationNearby",
-                          ),
-                          findingPlace: getTranslation(
-                            context,
-                            "locationFindingPlace",
-                          ),
-                          unnamedLocation: getTranslation(
-                            context,
-                            "locationUnamedLocation",
-                          ),
-                          noResultsFound: getTranslation(
-                            context,
-                            "locationNoResultsFound",
-                          ),
-                          tapToSelectLocation: getTranslation(
-                            context,
-                            "locationTapToSelect",
+                        PlacePickingConfiguration(
+                          "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
+                          initialLat: -33.8688,
+                          initialLng: 151.2093,
+                          countries: const ["AU"],
+                          localizationItem: LocalizationItem(
+                            languageCode: locale?.languageCode,
+                            searchTitle: getTranslation(
+                              context,
+                              "locationSearchTitle",
+                            ),
+                            nearBy: getTranslation(
+                              context,
+                              "locationNearby",
+                            ),
+                            findingPlace: getTranslation(
+                              context,
+                              "locationFindingPlace",
+                            ),
+                            unnamedLocation: getTranslation(
+                              context,
+                              "locationUnamedLocation",
+                            ),
+                            noResultsFound: getTranslation(
+                              context,
+                              "locationNoResultsFound",
+                            ),
+                            tapToSelectLocation: getTranslation(
+                              context,
+                              "locationTapToSelect",
+                            ),
                           ),
                         ),
                       );

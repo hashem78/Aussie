@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:place_picker/uuid.dart';
+import 'package:uuid/uuid.dart';
 
 @immutable
 class EventCreationModel extends Equatable {
@@ -12,7 +12,7 @@ class EventCreationModel extends Equatable {
   final String subtitle;
   final String address;
 
-  final String eventId = Uuid().generateV4();
+  final String eventId = Uuid().v4();
   final double lat;
   final double lng;
 

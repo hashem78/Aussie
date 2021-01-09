@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:place_picker/entities/entities.dart';
+import 'package:place_picker/entities/location_result/location_result.dart';
 
 part 'locationpicking_state.dart';
 

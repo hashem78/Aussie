@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
-import 'package:place_picker/uuid.dart';
+import 'package:uuid/uuid.dart';
 
 class EventManagementProvider {
   static final _storage = FirebaseStorage.instance;
@@ -54,7 +54,7 @@ class EventManagementProvider {
       final dlGalleryCallback = (ByteData element) async {
         if (element == null) return;
 
-        final _refG = _storage.ref(path).child(Uuid().generateV4());
+        final _refG = _storage.ref(path).child(Uuid().v4());
 
         final _gUploadTask = await _refG.putData(element.buffer.asUint8List());
         final downloadUrl = await _gUploadTask.ref.getDownloadURL();
@@ -70,7 +70,7 @@ class EventManagementProvider {
 
       final dlBannerCallback = (ByteData element) async {
         if (element == null) return;
-        final _refB = _storage.ref(path).child(Uuid().generateV4());
+        final _refB = _storage.ref(path).child(Uuid().v4());
         final _bUploadTask = await _refB.putData(element.buffer.asUint8List());
         final downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl);
