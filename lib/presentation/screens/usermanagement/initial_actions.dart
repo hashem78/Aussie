@@ -140,8 +140,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     );
   }
 
-  OutlineButton buildSigninButton() {
-    return OutlineButton(
+  OutlinedButton buildSigninButton() {
+    return OutlinedButton(
       onPressed: () {
         BlocProvider.of<UserManagementCubit>(context).singin(
           SigninModel(
