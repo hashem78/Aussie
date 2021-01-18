@@ -11,23 +11,29 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SettingsAppbar(tTitle: tTitle),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                BrightnessSwitch(),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                  child: AboutAussieTile(),
-                ),
-                LanguageTile(),
-              ],
+    return WillPopScope(
+      onWillPop: () async {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        return true;
+      },
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SettingsAppbar(tTitle: tTitle),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  BrightnessSwitch(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: AboutAussieTile(),
+                  ),
+                  LanguageTile(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -21,7 +21,7 @@ class LanguageTile extends StatelessWidget {
                     const Locale("en", ""),
                   )
                   .whenComplete(
-                    () => ScaffoldMessenger.of(context) .showSnackBar(
+                    () => ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
                           getTranslation(context, "languageChangedText"),
