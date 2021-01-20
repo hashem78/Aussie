@@ -59,6 +59,7 @@ class SingupScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _SignupProfileImage(profileImage: profileImage),
               TextFieldBlocBuilder(
@@ -163,6 +164,7 @@ class SingupScreen extends StatelessWidget {
                   onPressed: () {
                     // ignore: close_sinks
                     final signupBloc = getSignupBloc(context);
+                    FocusManager.instance.primaryFocus.unfocus();
                     signupBloc.submit();
                     BlocProvider.of<UserManagementCubit>(context).signup(
                       SignupModel(
