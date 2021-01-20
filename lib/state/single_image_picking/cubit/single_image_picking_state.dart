@@ -10,13 +10,27 @@ abstract class SingleImagePickingState extends Equatable {
 class SingleImagePickingInitial extends SingleImagePickingState {}
 
 class SingleImagePickingDone extends SingleImagePickingState {
-  final ByteData data;
+  final AussieByteData data;
+  final Image image;
+  final String path;
 
-  const SingleImagePickingDone(this.data);
+  const SingleImagePickingDone({
+    this.data,
+    this.image,
+    this.path,
+  });
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [
+        data,
+        image,
+        path,
+      ];
 }
 
-class SingleImagePickingError extends SingleImagePickingState {}
+class SingleImagePickingError extends SingleImagePickingState {
+  const SingleImagePickingError();
+}
 
-class SingleImagePickingLoading extends SingleImagePickingState {}
+class SingleImagePickingLoading extends SingleImagePickingState {
+  const SingleImagePickingLoading();
+}

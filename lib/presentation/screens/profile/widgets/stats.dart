@@ -1,7 +1,6 @@
 import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreenCardStats extends StatelessWidget {
   const ProfileScreenCardStats({
@@ -11,21 +10,17 @@ class ProfileScreenCardStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AussieUser user = getCurrentUser(context);
-    return Container(
-      width: 1.sw,
-      padding: const EdgeInsets.all(10),
-      height: 50,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-              child: Text(
-                  "${user.numberOfPosts} ${getTranslation(context, 'userProfileStatsPosts')}")),
-          Expanded(
-              child: Text(
-                  "${user.numberOfFollowers} ${getTranslation(context, 'userProfileStatsFollowers')}")),
-          Expanded(
-              child: Text(
-                  "${user.numberOfFollowing} ${getTranslation(context, 'userProfileStatsFollowing')}")),
+          Text(
+              "${user.numberOfPosts} ${getTranslation(context, 'userProfileStatsPosts')}"),
+          Text(
+              "${user.numberOfFollowers} ${getTranslation(context, 'userProfileStatsFollowers')}"),
+          Text(
+              "${user.numberOfFollowing} ${getTranslation(context, 'userProfileStatsFollowing')}"),
         ],
       ),
     );

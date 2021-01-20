@@ -6,7 +6,7 @@ import 'package:aussie/models/usermanagement/events/creation/eventcreation_model
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/services.dart';
+
 import 'package:uuid/uuid.dart';
 
 class EventManagementProvider {
@@ -40,40 +40,57 @@ class EventManagementProvider {
           "lng": model.lng,
           "title": model.title,
           "subtitle": model.subtitle,
-          "galleryImageLinks": [],
-          "bannerImageLink": "",
+          "galleryImages": [],
+          "bannerImage": {},
           "created": FieldValue.serverTimestamp(),
         },
       );
-      final updateGalleryLinksCallback = (String value) {
+      final updateGalleryLinksCallback =
+          (String value, AussieByteData byteData) {
         return batch.update(_firestore.doc(path), {
-          "galleryImageLinks": FieldValue.arrayUnion([value])
+          "galleryImages": FieldValue.arrayUnion([
+            {
+              "imageLink": value,
+              "height": byteData.height,
+              "width": byteData.width,
+            }
+          ])
         });
       };
 
-      final dlGalleryCallback = (ByteData element) async {
+      final dlGalleryCallback = (AussieByteData element) async {
         if (element == null) return;
 
         final _refG = _storage.ref(path).child(Uuid().v4());
 
-        final _gUploadTask = await _refG.putData(element.buffer.asUint8List());
+        final _gUploadTask = await _refG.putData(
+          element.byteData.buffer.asUint8List(),
+        );
         final downloadUrl = await _gUploadTask.ref.getDownloadURL();
-        updateGalleryLinksCallback(downloadUrl);
+        updateGalleryLinksCallback(downloadUrl, element);
       };
 
-      final updateBannerLinkCallback = (String value) {
+      final updateBannerLinkCallback = (String link, AussieByteData byteData) {
         return batch.update(
           _firestore.doc(path),
-          {"bannerImageLink": value},
+          {
+            "bannerImage": {
+              "imageLink": link,
+              "height": byteData.height,
+              "width": byteData.width,
+            }
+          },
         );
       };
 
-      final dlBannerCallback = (ByteData element) async {
+      final dlBannerCallback = (AussieByteData element) async {
         if (element == null) return;
         final _refB = _storage.ref(path).child(Uuid().v4());
-        final _bUploadTask = await _refB.putData(element.buffer.asUint8List());
+        final _bUploadTask = await _refB.putData(
+          element.byteData.buffer.asUint8List(),
+        );
         final downloadUrl = await _bUploadTask.ref.getDownloadURL();
-        updateBannerLinkCallback(downloadUrl);
+        updateBannerLinkCallback(downloadUrl, element);
       };
       for (final data in model.imageData) {
         await dlGalleryCallback(data);

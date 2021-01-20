@@ -57,6 +57,8 @@
     "eventCreationErrorGallery": "اختر على الأقل صورة واحدة للحدث",
     "eventCreationCreateEventButtonTitle": "انشاء الحدث",
     "eventCreationAddBannerTip": "اضف عارضة",
+    "eventsNoHome":"لم يتم اننشاء اي احداث من قبلك بعد.",
+    "eventsPublic":"يبدو انه لا يوجد احداث جديدة بعد.",
     "initialActionsEmailTitle": "البريد الالكتروني",
     "initialActionsPasswordTitle": "الرمز السري",
     "signupScreenFullNameTitle": "الاسم الكامل",

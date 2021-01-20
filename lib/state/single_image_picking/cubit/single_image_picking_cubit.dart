@@ -1,32 +1,83 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/util/asize.dart';
+import 'package:aussie/util/jpeg_decoder.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
-
+import 'package:image_cropper/image_cropper.dart';
+import 'package:path_provider/path_provider.dart';
 part 'single_image_picking_state.dart';
 
 class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
   SingleImagePickingCubit() : super(SingleImagePickingInitial());
-  Future<void> pickImage() async {
-    emit(SingleImagePickingLoading());
+  Future<void> pickImage({
+    int maxWidth,
+    int maxHeight,
+    CropStyle cropStyle,
+    CropAspectRatio aspectRatio,
+  }) async {
+    try {
+      final List<Asset> assets = await MultiImagePicker.pickImages(
+        maxImages: 1,
+        enableCamera: true,
+      );
+      final ByteData data = await assets.first.getByteData(quality: 60);
+      final Directory docDir = await getApplicationDocumentsDirectory();
+      final String docPath = docDir.path;
+      final ByteBuffer buffer = data.buffer;
 
-    final Future<List<Asset>> assets =
-        MultiImagePicker.pickImages(maxImages: 1);
-    final Future<ByteData> data =
-        assets.then((value) => value.first.getByteData(quality: 60));
-    data
-        .then(
-          (value) => emit(SingleImagePickingDone(value)),
-        )
-        .catchError((error) => emit(SingleImagePickingError()));
+      final File file = File("$docPath/singUpImage.jpeg")
+        ..writeAsBytesSync(
+          buffer.asUint8List(
+            data.offsetInBytes,
+            data.lengthInBytes,
+          ),
+        );
+      final File croppedImage = await ImageCropper.cropImage(
+        sourcePath: file.path,
+        maxHeight: maxHeight,
+        maxWidth: maxWidth,
+        cropStyle: cropStyle,
+        aspectRatio: aspectRatio,
+        androidUiSettings: const AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: Colors.blue,
+          hideBottomControls: true,
+        ),
+      );
+      final JpegDecoder decoder = JpegDecoder(croppedImage.readAsBytesSync());
+      final ASize size = decoder.size;
+
+      emit(
+        SingleImagePickingDone(
+          data: AussieByteData(
+            byteData: ByteData.view(croppedImage.readAsBytesSync().buffer),
+            height: size?.height ?? maxHeight,
+            width: size?.width ?? maxWidth,
+          ),
+          path: croppedImage.path,
+        ),
+      );
+    } on Exception {
+      emit(const SingleImagePickingError());
+    }
   }
 
-  ByteData get value {
+  AussieByteData get value {
     final _currentState = state;
     if (_currentState is SingleImagePickingDone) {
       return _currentState.data;
     } else {
       return null;
     }
+  }
+
+  void emitInitial() {
+    emit(SingleImagePickingInitial());
   }
 }

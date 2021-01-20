@@ -11,8 +11,8 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) {
     final val = EventModel(
       eventId: $checkedConvert(json, 'eventId', (v) => v as String),
       uid: $checkedConvert(json, 'uid', (v) => v as String),
-      bannerImageLink:
-          $checkedConvert(json, 'bannerImageLink', (v) => v as String) ?? '',
+      bannerImage: $checkedConvert(json, 'bannerImage',
+          (v) => EventImageModel.fromJson(v as Map<String, dynamic>)),
       title: $checkedConvert(json, 'title', (v) => v as String) ?? '',
       subtitle: $checkedConvert(json, 'subtitle', (v) => v as String) ?? '',
       startingTimeStamp:
@@ -23,8 +23,14 @@ EventModel _$EventModelFromJson(Map<String, dynamic> json) {
       lng: $checkedConvert(json, 'lng', (v) => (v as num)?.toDouble()) ?? 0,
       description:
           $checkedConvert(json, 'description', (v) => v as String) ?? '',
-      galleryImageLinks: $checkedConvert(json, 'galleryImageLinks',
-              (v) => (v as List)?.map((e) => e as String)?.toList()) ??
+      galleryImages: $checkedConvert(
+              json,
+              'galleryImages',
+              (v) => (v as List)
+                  ?.map((e) => e == null
+                      ? null
+                      : EventImageModel.fromJson(e as Map<String, dynamic>))
+                  ?.toList()) ??
           [],
       address: $checkedConvert(json, 'address', (v) => v as String) ?? '',
     );
@@ -36,7 +42,7 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
     <String, dynamic>{
       'eventId': instance.eventId,
       'uid': instance.uid,
-      'bannerImageLink': instance.bannerImageLink,
+      'bannerImage': instance.bannerImage.toJson(),
       'title': instance.title,
       'subtitle': instance.subtitle,
       'startingTimeStamp': instance.startingTimeStamp,
@@ -45,5 +51,6 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
       'lng': instance.lng,
       'description': instance.description,
       'address': instance.address,
-      'galleryImageLinks': instance.galleryImageLinks,
+      'galleryImages':
+          instance.galleryImages?.map((e) => e?.toJson())?.toList(),
     };

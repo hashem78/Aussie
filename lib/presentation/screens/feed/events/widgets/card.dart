@@ -47,7 +47,6 @@ class _EventCardState extends State<EventCard>
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               CardOwner(),
               EventCardImage(),

@@ -2,6 +2,7 @@ import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/presentation/screens/usermanagement/initial_actions.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,7 +18,7 @@ class InitialScreen extends StatelessWidget {
                 builder: (context) {
                   return BlocProvider(
                     create: (context) => UserManagementCubit()..getUserData(),
-                    child: FeedScreen(),
+                    child: DevicePreview(builder: (_) => FeedScreen()),
                   );
                 },
               ),

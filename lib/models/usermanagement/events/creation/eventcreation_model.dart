@@ -3,6 +3,18 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
+class AussieByteData {
+  final ByteData byteData;
+  final int width;
+  final int height;
+
+  AussieByteData({
+    this.byteData,
+    this.width,
+    this.height,
+  });
+}
+
 @immutable
 class EventCreationModel extends Equatable {
   final int startingTimeStamp;
@@ -16,8 +28,8 @@ class EventCreationModel extends Equatable {
   final double lat;
   final double lng;
 
-  final List<ByteData> imageData;
-  final ByteData bannerData;
+  final List<AussieByteData> imageData;
+  final AussieByteData bannerData;
 
   EventCreationModel({
     this.startingTimeStamp,

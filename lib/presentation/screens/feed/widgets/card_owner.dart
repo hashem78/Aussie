@@ -8,11 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
 class CardOwner extends StatelessWidget {
-  final double size;
-
   const CardOwner({
     Key key,
-    this.size,
   }) : super(key: key);
 
   @override
@@ -37,10 +34,11 @@ class CardOwner extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: size ?? .1.sw,
-                  height: size ?? .1.sw,
+                  width: 50,
+                  height: 50,
                   margin: const EdgeInsets.all(5),
                   child: Ink.image(
+                    fit: BoxFit.scaleDown,
                     image: CachedNetworkImageProvider(
                       state.user.profilePictureLink,
                     ),
@@ -94,8 +92,8 @@ class PublicCardOwner extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: size ?? .1.sw,
-                  height: size ?? .1.sw,
+                  width: 50,
+                  height: 50,
                   margin: const EdgeInsets.all(5),
                   child: Ink.image(
                     image: CachedNetworkImageProvider(

@@ -2,13 +2,18 @@ import 'dart:convert';
 
 import 'package:aussie/presentation/screens/usermanagement/initial.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
+import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animations/loading_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,48 +74,64 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => LanguageCubit(locale)),
           BlocProvider(create: (context) => SignupBloc()),
           BlocProvider(create: (context) => UserManagementCubit()),
+          BlocProvider(create: (_) => MultiImagePickingCubit()),
+          BlocProvider(create: (_) => SingleImagePickingCubit()),
         ],
         child: BlocBuilder<LanguageCubit, LanguageState>(
           builder: (context, languageState) {
             return BlocBuilder<ThemeCubit, ThemeState>(
               builder: (context, state) {
-                return MaterialApp(
-                  locale: languageState.currentLocale,
-                  debugShowCheckedModeBanner: false,
-                  localizationsDelegates: const [
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    AussieLocalizations.delegate,
-                  ],
-                  supportedLocales: const [
-                    Locale('en', ''),
-                    Locale('ar', ''),
-                  ],
-                  localeResolutionCallback: (locale, supportedLocales) {
-                    if (supportedLocales.contains(locale)) return locale;
-                    return supportedLocales.first;
+                return OrientationBuilder(
+                  builder: (context, orientation) {
+                    Size size;
+                    if (orientation == Orientation.portrait) {
+                      size = const Size(1920, 1080);
+                    } else {
+                      size = const Size(1080, 1920);
+                    }
+                    return ScreenUtilInit(
+                      designSize: size,
+                      child: MaterialApp(
+                        builder: DevicePreview.appBuilder,
+                        locale: languageState.currentLocale,
+                        debugShowCheckedModeBanner: false,
+                        localizationsDelegates: const [
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalCupertinoLocalizations.delegate,
+                          AussieLocalizations.delegate,
+                        ],
+                        supportedLocales: const [
+                          Locale('en', ''),
+                          Locale('ar', ''),
+                        ],
+                        localeResolutionCallback: (locale, supportedLocales) {
+                          if (supportedLocales.contains(locale)) return locale;
+                          return supportedLocales.first;
+                        },
+                        home: BlocProvider(
+                          create: (context) =>
+                              UserManagementCubit()..isUserSignedIn(),
+                          child: InitialScreen(),
+                        ),
+                        theme: ThemeData(
+                          brightness: state.model.brightness,
+                          outlinedButtonTheme: OutlinedButtonThemeData(
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.all(15.0),
+                              shape: const RoundedRectangleBorder(),
+                            ),
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                            ),
+                          ),
+                        ),
+                        routes: routes,
+                      ),
+                    );
                   },
-                  home: BlocProvider(
-                    create: (context) =>
-                        UserManagementCubit()..isUserSignedIn(),
-                    child: InitialScreen(),
-                  ),
-                  theme: ThemeData(
-                    brightness: state.model.brightness,
-                    outlinedButtonTheme: OutlinedButtonThemeData(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.all(15.0),
-                        shape: const RoundedRectangleBorder(),
-                      ),
-                    ),
-                    textButtonTheme: TextButtonThemeData(
-                      style: TextButton.styleFrom(
-                        shape: const RoundedRectangleBorder(),
-                      ),
-                    ),
-                  ),
-                  routes: routes,
                 );
               },
             );

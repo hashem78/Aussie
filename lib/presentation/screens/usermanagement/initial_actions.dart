@@ -1,6 +1,7 @@
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,6 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return SafeArea(
       child: Scaffold(
         key: sstate,
@@ -98,7 +98,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             controller: _emailEditingController,
             decoration: InputDecoration(
               hintText: getTranslation(context, "initialActionsEmailTitle"),
-              hintStyle: TextStyle(fontSize: 40.sp),
+              hintStyle: TextStyle(fontSize: 80.sp),
               icon: const Icon(Icons.login),
               filled: true,
               border: InputBorder.none,
@@ -112,7 +112,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
             controller: _passwordEditingController,
             decoration: InputDecoration(
               hintText: getTranslation(context, "initialActionsPasswordTitle"),
-              hintStyle: TextStyle(fontSize: 40.sp),
+              hintStyle: TextStyle(fontSize: 80.sp),
               icon: const Icon(Icons.lock),
               filled: true,
               border: InputBorder.none,
@@ -129,12 +129,16 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
         shape: const RoundedRectangleBorder(),
       ),
       onPressed: () {
-        Navigator.of(context).push(
-          PageTransition(
-            child: SingupScreen(),
-            type: getAppropriateAnimation(context),
-          ),
-        );
+        Navigator.of(context)
+            .push(
+              PageTransition(
+                child: SingupScreen(),
+                type: getAppropriateAnimation(context),
+              ),
+            )
+            .whenComplete(
+              () => context.read<SingleImagePickingCubit>().emitInitial(),
+            );
       },
       child: Text(getTranslation(context, "signupButtonText")),
     );

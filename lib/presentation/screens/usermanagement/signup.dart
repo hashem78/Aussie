@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
+import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -9,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:page_transition/page_transition.dart';
 
 class SignupBloc extends FormBloc<String, String> {
@@ -51,7 +50,6 @@ class SingupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -63,58 +61,60 @@ class SingupScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               _SignupProfileImage(profileImage: profileImage),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFieldBlocBuilder(
-                  textFieldBloc: getSignupBloc(context).fullName,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person_pin),
-                    border: InputBorder.none,
-                    filled: true,
-                    hintText:
-                        getTranslation(context, "signupScreenFullNameTitle"),
-                  ),
+              TextFieldBlocBuilder(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                textFieldBloc: getSignupBloc(context).fullName,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person_pin),
+                  border: InputBorder.none,
+                  filled: true,
+                  hintText:
+                      getTranslation(context, "signupScreenFullNameTitle"),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFieldBlocBuilder(
-                  textFieldBloc: getSignupBloc(context).userName,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person),
-                    border: InputBorder.none,
-                    filled: true,
-                    hintText:
-                        getTranslation(context, "signupScreenUsernameTitle"),
-                  ),
+              const SizedBox(height: 10),
+              TextFieldBlocBuilder(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32.0,
+                ),
+                textFieldBloc: getSignupBloc(context).userName,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.person),
+                  border: InputBorder.none,
+                  filled: true,
+                  hintText:
+                      getTranslation(context, "signupScreenUsernameTitle"),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFieldBlocBuilder(
-                  textFieldBloc: getSignupBloc(context).email,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.email),
-                    border: InputBorder.none,
-                    filled: true,
-                    hintText: getTranslation(context, "signupScreenEmailTitle"),
-                  ),
+              const SizedBox(height: 10),
+              TextFieldBlocBuilder(
+                textFieldBloc: getSignupBloc(context).email,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32.0,
+                ),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.email),
+                  border: InputBorder.none,
+                  filled: true,
+                  hintStyle: TextStyle(fontSize: 60.ssp),
+                  hintText: getTranslation(context, "signupScreenEmailTitle"),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFieldBlocBuilder(
-                  textFieldBloc: getSignupBloc(context).password,
-                  suffixButton: SuffixButton.obscureText,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock),
-                    border: InputBorder.none,
-                    filled: true,
-                    hintText:
-                        getTranslation(context, "signupScreenPasswordTitle"),
-                  ),
+              const SizedBox(height: 10),
+              TextFieldBlocBuilder(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                textFieldBloc: getSignupBloc(context).password,
+                suffixButton: SuffixButton.obscureText,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  border: InputBorder.none,
+                  filled: true,
+                  hintStyle: TextStyle(fontSize: 60.ssp),
+                  hintText:
+                      getTranslation(context, "signupScreenPasswordTitle"),
                 ),
               ),
+              const SizedBox(height: 10),
               BlocConsumer<UserManagementCubit, UserManagementState>(
                 listener: (context, state) {
                   if (state is UserManagementSignup) {
@@ -157,24 +157,27 @@ class SingupScreen extends StatelessWidget {
                   );
                 },
               ),
-              OutlinedButton(
-                onPressed: () {
-                  // ignore: close_sinks
-                  final signupBloc = getSignupBloc(context);
-                  signupBloc.submit();
-                  BlocProvider.of<UserManagementCubit>(context).signup(
-                    SignupModel(
-                      email: signupBloc.email.value,
-                      password: signupBloc.password.value,
-                      profileImagePath: profileImage.value,
-                      username: signupBloc.userName.value,
-                      fullname: signupBloc.fullName.value,
-                    ),
-                  );
-                },
-                child: AutoSizeText(
-                  getTranslation(context, "signup2ButtonText"),
-                  //style: const TextStyle(fontSize: 50.sp),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: OutlinedButton(
+                  onPressed: () {
+                    // ignore: close_sinks
+                    final signupBloc = getSignupBloc(context);
+                    signupBloc.submit();
+                    BlocProvider.of<UserManagementCubit>(context).signup(
+                      SignupModel(
+                        email: signupBloc.email.value,
+                        password: signupBloc.password.value,
+                        profileImagePath: profileImage.value,
+                        username: signupBloc.userName.value,
+                        fullname: signupBloc.fullName.value,
+                      ),
+                    );
+                  },
+                  child: AutoSizeText(
+                    getTranslation(context, "signup2ButtonText"),
+                    //style: const TextStyle(fontSize: 50.ssp),
+                  ),
                 ),
               ),
             ],
@@ -185,72 +188,53 @@ class SingupScreen extends StatelessWidget {
   }
 }
 
-class _SignupProfileImage extends StatefulWidget {
+class _SignupProfileImage extends StatelessWidget {
   final ValueNotifier<String> profileImage;
-  const _SignupProfileImage({
-    Key key,
-    @required this.profileImage,
-  }) : super(key: key);
-  @override
-  __SignupProfileImageState createState() => __SignupProfileImageState();
-}
 
-class __SignupProfileImageState extends State<_SignupProfileImage> {
-  final ImagePicker picker = ImagePicker();
-  Future<PickedFile> futureProfileImage;
+  const _SignupProfileImage({Key key, this.profileImage}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FutureBuilder<PickedFile>(
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              widget.profileImage.value = snapshot.data.path;
-
-              return Image.file(
-                File(snapshot.data.path),
-                fit: BoxFit.fill,
-              );
-            }
+    return InkWell(
+      onTap: () {
+        context.read<SingleImagePickingCubit>().pickImage(
+              cropStyle: CropStyle.rectangle,
+              maxWidth: 100,
+              maxHeight: 100,
+              aspectRatio: const CropAspectRatio(ratioX: .5, ratioY: .5),
+            );
+      },
+      child: BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
+        listener: (context, state) {
+          if (state is SingleImagePickingDone) {
+            profileImage.value = state.path;
+          }
+        },
+        builder: (context, state) {
+          if (state is SingleImagePickingInitial ||
+              state is SingleImagePickingError) {
             return Icon(
               Icons.person,
-              size: 400.sp,
+              size: 600.ssp,
             );
-          },
-          future: futureProfileImage,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            buildButton(
-              imageSource: ImageSource.gallery,
-              iconData: Icons.image,
-            ),
-            buildButton(
-              imageSource: ImageSource.camera,
-              iconData: Icons.camera_alt,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget buildButton({ImageSource imageSource, IconData iconData}) {
-    return IconButton(
-      onPressed: () async {
-        setState(
-          () {
-            futureProfileImage = picker.getImage(
-              source: imageSource,
-              maxWidth: 300,
-              maxHeight: 300,
+          } else if (state is SingleImagePickingDone) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 250,
+                width: 250,
+                child: Ink.image(
+                  fit: BoxFit.fill,
+                  image: MemoryImage(
+                    state.data.byteData.buffer.asUint8List(),
+                  ),
+                ),
+              ),
             );
-          },
-        );
-      },
-      iconSize: 100.sp,
-      icon: Icon(iconData),
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

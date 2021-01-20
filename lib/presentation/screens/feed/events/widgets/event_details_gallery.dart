@@ -3,7 +3,6 @@ import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventDetailsGallery extends StatefulWidget {
   const EventDetailsGallery({
@@ -21,22 +20,20 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
     super.build(context);
     final e = getEventModel(context);
 
-    return SliverToBoxAdapter(
-      child: CarouselSlider(
-        items: e.galleryImageLinks
-            .map(
-              (e) => Provider.value(
-                value: e,
-                child: GrowingImage(),
-              ),
-            )
-            .toList(),
-        options: CarouselOptions(
-          viewportFraction: 1,
-          height: .6.sh,
-          enableInfiniteScroll: false,
-          pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
-        ),
+    return CarouselSlider(
+      items: e.galleryImages
+          .map(
+            (e) => Provider.value(
+              value: e,
+              child: GrowingImage(),
+            ),
+          )
+          .toList(),
+      options: CarouselOptions(
+        viewportFraction: 1,
+        enlargeStrategy: CenterPageEnlargeStrategy.height,
+        enableInfiniteScroll: false,
+        pageViewKey: PageStorageKey<String>("dgal-${e.uid}"),
       ),
     );
   }

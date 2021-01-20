@@ -1,5 +1,7 @@
-import 'package:aussie/models/event/event.dart';
+import 'dart:math';
 
+import 'package:aussie/models/event/event.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +14,13 @@ class EventCardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EventModel e = Provider.of<EventModel>(context);
-    return AspectRatio(
-      aspectRatio: 1,
+    return SizedBox(
+      height: min(.5.sh, e.bannerImage.height.toDouble()),
+      width: double.infinity,
       child: Ink.image(
+        fit: BoxFit.fill,
         image: CachedNetworkImageProvider(
-          e.bannerImageLink,
+          e.bannerImage.imageLink,
         ),
       ),
     );

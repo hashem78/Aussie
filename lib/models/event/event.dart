@@ -1,3 +1,4 @@
+import 'package:aussie/models/event_image/event_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -9,13 +10,14 @@ part 'event.g.dart';
   checked: true,
   createToJson: true,
   createFactory: true,
+  explicitToJson: true,
 )
 @immutable
 class EventModel extends Equatable {
   const EventModel({
     this.eventId,
     this.uid,
-    this.bannerImageLink,
+    this.bannerImage,
     this.title,
     this.subtitle,
     this.startingTimeStamp,
@@ -23,13 +25,13 @@ class EventModel extends Equatable {
     this.lat,
     this.lng,
     this.description,
-    this.galleryImageLinks,
+    this.galleryImages,
     this.address,
   });
   final String eventId;
   final String uid;
-  @JsonKey(defaultValue: "")
-  final String bannerImageLink;
+  @JsonKey(nullable: false)
+  final EventImageModel bannerImage;
   @JsonKey(defaultValue: "")
   final String title;
   @JsonKey(defaultValue: "")
@@ -47,7 +49,8 @@ class EventModel extends Equatable {
   @JsonKey(defaultValue: "")
   final String address;
   @JsonKey(defaultValue: [])
-  final List<String> galleryImageLinks;
+  final List<EventImageModel> galleryImages;
+
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
   Map<String, dynamic> toJson() => _$EventModelToJson(this);
@@ -57,7 +60,7 @@ class EventModel extends Equatable {
     return [
       eventId,
       uid,
-      bannerImageLink,
+      bannerImage,
       title,
       subtitle,
       startingTimeStamp,
@@ -65,7 +68,7 @@ class EventModel extends Equatable {
       lat,
       lng,
       description,
-      galleryImageLinks,
+      galleryImages,
       address,
     ];
   }

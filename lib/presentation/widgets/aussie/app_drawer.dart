@@ -10,6 +10,8 @@ import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,34 +126,31 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: .8.sw,
-      child: Drawer(
-        child: CustomScrollView(
-          slivers: [
-            const SliverToBoxAdapter(
-              child: _DrawerHeader(),
+    return Drawer(
+      child: CustomScrollView(
+        slivers: [
+          const SliverToBoxAdapter(
+            child: _DrawerHeader(),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final int itemIndex = index ~/ 2;
+                if (index.isEven) {
+                  return sections[itemIndex];
+                }
+                return const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 2,
+                  ),
+                );
+              },
+              childCount: math.max(0, sections.length * 2 - 1),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  final int itemIndex = index ~/ 2;
-                  if (index.isEven) {
-                    return sections[itemIndex];
-                  }
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
-                  );
-                },
-                childCount: math.max(0, sections.length * 2 - 1),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -165,38 +164,46 @@ class _DrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AussieUser user = getCurrentUser(context);
-    return AspectRatio(
-      aspectRatio: 1.8,
-      child: Material(
-        color: Theme.of(context).backgroundColor,
-        child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => BlocProvider(
-                  create: (context) => UserManagementCubit()..getUserData(),
-                  child: const UserProfileScreen(),
+    return Material(
+      color: Theme.of(context).backgroundColor,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (context) => UserManagementCubit()..getUserData(),
+                child: const UserProfileScreen(),
+              ),
+            ),
+          );
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: CachedNetworkImage(
+                  imageUrl: user.profilePictureLink,
+                  imageBuilder: (context, imageProvider) {
+                    return Ink.image(image: imageProvider);
+                  },
                 ),
               ),
-            );
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SizedBox(
-                  width: .2.sw,
-                  height: .2.sw,
-                  child: buildImage(user.profilePictureLink),
-                ),
-              ),
-              Text(
+            ),
+            Expanded(
+              child: AutoSizeText(
                 user.username,
-                style: Theme.of(context).textTheme.headline5,
-              )
-            ],
-          ),
+                maxLines: 1,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5
+                    .copyWith(fontSize: 150.ssp),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -225,12 +232,12 @@ class _DrawerItem extends StatelessWidget {
             },
             leading: SvgPicture.asset(
               "assets/images/${model.svgName}",
-              height: 30,
+              height: 25,
               color: model.iconColor,
             ),
             title: Text(
               getTranslation(context, model.tTitle),
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 70.ssp),
             ),
           ),
         ],
@@ -257,7 +264,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Icon(iconData, size: 30),
+          Icon(iconData, size: 80.ssp),
           const SizedBox(
             width: 10,
           ),
@@ -265,7 +272,7 @@ class _DrawerSectionTitle extends StatelessWidget {
             flex: 5,
             child: Text(
               title,
-              style: const TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 80.ssp),
             ),
           ),
         ],

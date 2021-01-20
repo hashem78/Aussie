@@ -57,6 +57,8 @@
     "eventCreationErrorGallery": "Make sure to add atleast an image to your event",
     "eventCreationCreateEventButtonTitle": "Create Event",
     "eventCreationAddBannerTip": "Add a banner",
+    "eventsNoHome":"You haven't created any events Dingus!",
+    "eventsPublic":"Looks like there are no events :(",
     "initialActionsEmailTitle": "Email",
     "initialActionsPasswordTitle": "Password",
     "signupScreenFullNameTitle": "Full name",

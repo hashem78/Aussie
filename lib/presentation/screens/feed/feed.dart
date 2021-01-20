@@ -7,7 +7,7 @@ import 'package:aussie/state/event_creation/form_bloc.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
 import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
+
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -21,8 +21,6 @@ import 'package:provider/provider.dart';
 class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
-
     return Scaffold(
       body: BlocBuilder<UserManagementCubit, UserManagementState>(
         builder: (context, state) {
@@ -44,16 +42,16 @@ class FeedScreen extends StatelessWidget {
                               BlocProvider(
                                   create: (_) => EventManagementCubit()),
                               BlocProvider(
-                                  create: (_) => MultiImagePickingCubit()),
-                              BlocProvider(
-                                  create: (_) => SingleImagePickingCubit()),
-                              BlocProvider(
                                   create: (_) => LocationPickingCubit()),
                             ],
                             child: EventCreationScreen(),
                           ),
                           type: getAppropriateAnimation(context),
                         ),
+                      ).whenComplete(
+                        () {
+                          context.read<MultiImagePickingCubit>().emitInitial();
+                        },
                       );
                     },
                     child: const Center(child: Icon(Icons.add, size: 20)),
@@ -67,7 +65,7 @@ class FeedScreen extends StatelessWidget {
                         title: AutoSizeText(
                           getTranslation(context, "feedScreenTitle"),
                           style: TextStyle(
-                            fontSize: 60.sp,
+                            fontSize: 100.sp,
                             fontWeight: FontWeight.w400,
                           ),
                         ),

@@ -1,6 +1,7 @@
 import 'package:aussie/models/event/event.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -71,6 +72,11 @@ class _HomeEventsTabState extends State<HomeEventsTab>
                     return const EventCard();
                   },
                 ),
+              );
+            },
+            noItemsFoundIndicatorBuilder: (context) {
+              return Center(
+                child: Text(getTranslation(context, "eventsNoHome")),
               );
             },
           ),

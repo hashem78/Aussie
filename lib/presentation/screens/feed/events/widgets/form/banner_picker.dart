@@ -18,7 +18,7 @@ class EventBannerPicker extends StatelessWidget {
             if (state is SingleImagePickingDone) {
               return Ink.image(
                 image: MemoryImage(
-                  state.data.buffer.asUint8List(),
+                  state.data.byteData.buffer.asUint8List(),
                 ),
                 fit: BoxFit.cover,
               );
@@ -35,9 +35,7 @@ class EventBannerPicker extends StatelessWidget {
           tooltip: getTranslation(context, "eventCreationAddBannerTip"),
           icon: const Icon(Icons.add),
           onPressed: () {
-            final _singleImageCubit = context.read<SingleImagePickingCubit>();
-
-            _singleImageCubit.pickImage();
+            context.read<SingleImagePickingCubit>().pickImage();
           },
         ),
       ],

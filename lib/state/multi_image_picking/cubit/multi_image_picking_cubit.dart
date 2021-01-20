@@ -1,9 +1,16 @@
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/util/asize.dart';
+import 'package:aussie/util/jpeg_decoder.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'multi_image_picking_state.dart';
 
@@ -11,38 +18,55 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
   MultiImagePickingCubit() : super(MultiImagePickingInitial());
 
   Future<void> pickImages() async {
-    emit(MultiImageMultiPickingLoading());
+    try {
+      emit(MultiImageMultiPickingLoading());
 
-    final Future<List<Asset>> assets =
-        MultiImagePicker.pickImages(maxImages: 10);
+      final List<Asset> assets =
+          await MultiImagePicker.pickImages(maxImages: 10);
 
-    final List<Future<ByteData>> data = [];
-
-    assets.then(
-      (value) {
-        for (final element in value) {
-          data.add(element.getByteData(quality: 60));
-        }
-      },
-    ).then(
-      (_) {
-        Future.wait(data).then(
-          (value) {
-            emit(MultiImagePickingDone(value));
-          },
+      final List<AussieByteData> data = [];
+      final Directory dir = await getApplicationDocumentsDirectory();
+      for (final element in assets) {
+        final String filePath = "${dir.path}/${element.name}.jpeg";
+        final ByteData byteData = await element.getByteData(quality: 80);
+        File(filePath).writeAsBytesSync(
+          byteData.buffer.asUint8List(
+            byteData.offsetInBytes,
+            byteData.lengthInBytes,
+          ),
         );
-      },
-      onError: (Object e, StackTrace stackTrace) {
-        if (e is PlatformException) {
-          if (e.code == "Exif error") {}
-        } else if (e is NoImagesSelectedException) {
-          emit(MultiImagePickingError());
-        }
-      },
-    );
+        final File croppedFile = await ImageCropper.cropImage(
+          sourcePath: filePath,
+          aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
+          maxHeight: 1444,
+          androidUiSettings: const AndroidUiSettings(
+            toolbarTitle: 'Cropper',
+            toolbarColor: Colors.blue,
+            hideBottomControls: true,
+          ),
+        );
+        final Uint8List bytes = croppedFile.readAsBytesSync();
+        final JpegDecoder decoder = JpegDecoder(bytes);
+        final ASize size = decoder.size;
+        data.add(
+          AussieByteData(
+            byteData: ByteData.view(bytes.buffer),
+            height: size.height,
+            width: size.width,
+          ),
+        );
+      }
+      emit(MultiImagePickingDone(data));
+    } on Exception catch (e) {
+      if (e is PlatformException) {
+        if (e.code == "Exif error") {}
+      } else if (e is NoImagesSelectedException) {
+        emit(MultiImagePickingError());
+      }
+    }
   }
 
-  List<ByteData> get values {
+  List<AussieByteData> get values {
     final _currentState = state;
 
     if (_currentState is MultiImagePickingDone) {
@@ -50,5 +74,9 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
     } else {
       return null;
     }
+  }
+
+  void emitInitial() {
+    emit(MultiImagePickingInitial());
   }
 }

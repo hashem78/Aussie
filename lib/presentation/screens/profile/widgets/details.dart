@@ -2,7 +2,6 @@ import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreenCardDetails extends StatelessWidget {
   const ProfileScreenCardDetails({
@@ -15,12 +14,10 @@ class ProfileScreenCardDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          width: .6.sw,
-          child: AutoSizeText(
-            user.fullname,
-            style: Theme.of(context).textTheme.headline5,
-          ),
+        AutoSizeText(
+          user.fullname,
+          maxLines: 1,
+          style: Theme.of(context).textTheme.headline5,
         ),
         AutoSizeText(
           user.username,

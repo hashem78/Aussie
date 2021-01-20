@@ -1,3 +1,4 @@
+import 'package:aussie/models/event_image/event_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -30,6 +31,7 @@ class _GrowingImageState extends State<GrowingImage>
         },
       );
     animation = Tween<double>(begin: 1, end: 2).animate(controller);
+
     super.initState();
   }
 
@@ -46,7 +48,9 @@ class _GrowingImageState extends State<GrowingImage>
         Navigator.of(context).push(
           PageTransition(
             child: EventGalleryPhotoView(
-                url: Provider.of<String>(context, listen: false)),
+              url: Provider.of<EventImageModel>(context, listen: false)
+                  .imageLink,
+            ),
             type: PageTransitionType.fade,
           ),
         );
@@ -67,9 +71,8 @@ class _GrowingImageState extends State<GrowingImage>
           );
         },
         child: buildImage(
-          Provider.of<String>(context, listen: false),
-          fit: BoxFit.cover,
-        ),
+            Provider.of<EventImageModel>(context, listen: false).imageLink,
+            fit: BoxFit.fitHeight),
       ),
     );
   }

@@ -14,7 +14,7 @@ class MultiImagePickingError extends MultiImagePickingState {}
 class MultiImageMultiPickingLoading extends MultiImagePickingState {}
 
 class MultiImagePickingDone extends MultiImagePickingState {
-  final List<ByteData> assets;
+  final List<AussieByteData> assets;
 
   const MultiImagePickingDone(this.assets);
   @override
