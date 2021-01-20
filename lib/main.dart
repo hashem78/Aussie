@@ -6,7 +6,7 @@ import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
-import 'package:device_preview/device_preview.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
@@ -92,7 +92,6 @@ class MyApp extends StatelessWidget {
                     return ScreenUtilInit(
                       designSize: size,
                       child: MaterialApp(
-                        builder: DevicePreview.appBuilder,
                         locale: languageState.currentLocale,
                         debugShowCheckedModeBanner: false,
                         localizationsDelegates: const [

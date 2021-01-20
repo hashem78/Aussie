@@ -7,9 +7,17 @@ abstract class UserManagementState extends Equatable {
   List<Object> get props => [];
 }
 
-class UserManagementInitial extends UserManagementState {}
+class UserManagementInitial extends UserManagementState {
+  const UserManagementInitial();
+}
 
-class UserManagementAttended extends UserManagementState {}
+class UserManagementAttended extends UserManagementState {
+  const UserManagementAttended();
+}
+
+class UserManagementSignOut extends UserManagementState {
+  const UserManagementSignOut();
+}
 
 class UserManagementSignup extends UserManagementState {
   final UserManagementNotification notification;

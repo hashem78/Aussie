@@ -2,6 +2,8 @@ import 'package:aussie/presentation/screens/misc/widgets/about_aussie_tile.dart'
 import 'package:aussie/presentation/screens/misc/widgets/brightness_switch.dart';
 import 'package:aussie/presentation/screens/misc/widgets/language_tile.dart';
 import 'package:aussie/presentation/screens/misc/widgets/setting_appbar.dart';
+import 'package:aussie/presentation/screens/misc/widgets/signout_tile.dart';
+
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -22,13 +24,11 @@ class SettingsScreen extends StatelessWidget {
             SettingsAppbar(tTitle: tTitle),
             SliverList(
               delegate: SliverChildListDelegate(
-                [
+                const <Widget>[
                   BrightnessSwitch(),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                    child: AboutAussieTile(),
-                  ),
+                  AboutAussieTile(),
                   LanguageTile(),
+                  SignoutTile(),
                 ],
               ),
             ),

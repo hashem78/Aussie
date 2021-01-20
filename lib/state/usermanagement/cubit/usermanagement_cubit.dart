@@ -7,11 +7,12 @@ import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
 import 'package:aussie/repositories/usermanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'usermanagement_state.dart';
 
 class UserManagementCubit extends Cubit<UserManagementState> {
-  UserManagementCubit() : super(UserManagementInitial());
+  UserManagementCubit() : super(const UserManagementInitial());
   final UserManagementRepository repository = UserManagementRepository();
 
   void signup(SignupModel model) {
@@ -23,6 +24,17 @@ class UserManagementCubit extends Cubit<UserManagementState> {
           emit(UserManagementSignup(value));
         } else {
           emit(UserManagementError(value));
+        }
+      },
+    );
+  }
+
+  void signout() {
+    FirebaseAuth.instance.signOut();
+    FirebaseAuth.instance.authStateChanges().listen(
+      (event) {
+        if (event == null) {
+          emit(const UserManagementSignOut());
         }
       },
     );
@@ -90,7 +102,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
         .then(
       (value) {
         if (value is UserMangementUserAttendedEventNotification) {
-          emit(UserManagementAttended());
+          emit(const UserManagementAttended());
         } else {
           emit(UserManagementError(value));
         }
@@ -100,11 +112,11 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void isUserAttending(AussieUser user, EventModel eventModel) {
     if (user.attends.contains(eventModel.eventId)) {
-      emit(UserManagementAttended());
+      emit(const UserManagementAttended());
     }
   }
 
   void emitInitial() {
-    emit(UserManagementInitial());
+    emit(const UserManagementInitial());
   }
 }

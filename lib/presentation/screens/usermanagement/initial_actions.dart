@@ -155,6 +155,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
         );
         // _emailEditingController.clear();
         _passwordEditingController.clear();
+        FocusManager.instance.primaryFocus.unfocus();
       },
       child: Text(getTranslation(context, "signinButtonText")),
     );
