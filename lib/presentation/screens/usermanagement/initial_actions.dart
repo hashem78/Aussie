@@ -15,7 +15,8 @@ class InitialUserActionScreen extends StatefulWidget {
       _InitialUserActionScreenState();
 }
 
-class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
+class _InitialUserActionScreenState extends State<InitialUserActionScreen>
+    with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> sstate = GlobalKey();
 
   final TextEditingController _emailEditingController = TextEditingController();
@@ -30,57 +31,65 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        key: sstate,
-        body: BlocListener<UserManagementCubit, UserManagementState>(
-          listener: (context, state) {
-            if (state is UserManagementSignin) {
-              Navigator.pushReplacement(
-                context,
-                PageTransition(
-                  child: BlocProvider(
-                    create: (context) => UserManagementCubit()..getUserData(),
-                    child: FeedScreen(),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus.unfocus();
+      },
+      child: SafeArea(
+        child: Scaffold(
+          key: sstate,
+          body: BlocListener<UserManagementCubit, UserManagementState>(
+            listener: (context, state) {
+              if (state is UserManagementSignin) {
+                Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                    child: BlocProvider(
+                      create: (context) => UserManagementCubit()..getUserData(),
+                      child: FeedScreen(),
+                    ),
+                    type: getAppropriateAnimation(context),
                   ),
-                  type: getAppropriateAnimation(context),
-                ),
-              );
-            }
-          },
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    height: .2.sh,
-                    width: .2.sh,
-                    color: Colors.red,
-                  ),
-                  buildTextFields(),
-                  BlocBuilder<UserManagementCubit, UserManagementState>(
-                    builder: (context, state) {
-                      Widget child;
+                );
+              }
+            },
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Container(
+                      height: .2.sh,
+                      width: .2.sh,
+                      color: Colors.red,
+                    ),
+                    buildTextFields(),
+                    BlocBuilder<UserManagementCubit, UserManagementState>(
+                      builder: (context, state) {
+                        Widget child;
 
-                      if (state is UserManagementPerformingAction) {
-                        child = getIndicator(context);
-                      } else {
-                        if (state is UserManagementError) {
-                          child = Text(
-                            state.notification.message,
-                            textAlign: TextAlign.center,
-                          );
+                        if (state is UserManagementPerformingAction) {
+                          child = getIndicator(context);
+                        } else {
+                          if (state is UserManagementError) {
+                            child = Text(
+                              state.notification.message,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(color: Colors.red),
+                            );
+                          }
                         }
-                      }
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child: Center(child: child),
-                      );
-                    },
-                  ),
-                  buildSigninButton(),
-                  buildSignupButton(),
-                ],
+                        return AnimatedSize(
+                          duration: const Duration(milliseconds: 500),
+                          vsync: this,
+                          child: Center(child: child),
+                        );
+                      },
+                    ),
+                    buildSigninButton(),
+                    buildSignupButton(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -89,33 +98,40 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     );
   }
 
-  Padding buildTextFields() {
+  Widget buildTextFields() {
     return Padding(
       padding: EdgeInsets.all(.05.sw),
       child: Column(
         children: [
-          TextField(
-            controller: _emailEditingController,
-            decoration: InputDecoration(
-              hintText: getTranslation(context, "initialActionsEmailTitle"),
-              hintStyle: TextStyle(fontSize: 80.sp),
-              icon: const Icon(Icons.login),
-              filled: true,
-              border: InputBorder.none,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              controller: _emailEditingController,
+              decoration: InputDecoration(
+                hintText: getTranslation(context, "initialActionsEmailTitle"),
+                hintStyle: TextStyle(fontSize: 80.sp),
+                icon: const Icon(Icons.login),
+                filled: true,
+                border: InputBorder.none,
+              ),
             ),
           ),
           SizedBox(
             height: .05.sh,
           ),
-          TextField(
-            obscureText: true,
-            controller: _passwordEditingController,
-            decoration: InputDecoration(
-              hintText: getTranslation(context, "initialActionsPasswordTitle"),
-              hintStyle: TextStyle(fontSize: 80.sp),
-              icon: const Icon(Icons.lock),
-              filled: true,
-              border: InputBorder.none,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: TextField(
+              obscureText: true,
+              controller: _passwordEditingController,
+              decoration: InputDecoration(
+                hintText:
+                    getTranslation(context, "initialActionsPasswordTitle"),
+                hintStyle: TextStyle(fontSize: 80.sp),
+                icon: const Icon(Icons.lock),
+                filled: true,
+                border: InputBorder.none,
+              ),
             ),
           ),
         ],
@@ -123,41 +139,47 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen> {
     );
   }
 
-  TextButton buildSignupButton() {
-    return TextButton(
-      style: TextButton.styleFrom(
-        shape: const RoundedRectangleBorder(),
+  Widget buildSignupButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 64.0),
+      child: TextButton(
+        style: TextButton.styleFrom(
+          shape: const RoundedRectangleBorder(),
+        ),
+        onPressed: () {
+          Navigator.of(context)
+              .push(
+                PageTransition(
+                  child: SingupScreen(),
+                  type: getAppropriateAnimation(context),
+                ),
+              )
+              .whenComplete(
+                () => context.read<SingleImagePickingCubit>().emitInitial(),
+              );
+        },
+        child: Text(getTranslation(context, "signupButtonText")),
       ),
-      onPressed: () {
-        Navigator.of(context)
-            .push(
-              PageTransition(
-                child: SingupScreen(),
-                type: getAppropriateAnimation(context),
-              ),
-            )
-            .whenComplete(
-              () => context.read<SingleImagePickingCubit>().emitInitial(),
-            );
-      },
-      child: Text(getTranslation(context, "signupButtonText")),
     );
   }
 
-  OutlinedButton buildSigninButton() {
-    return OutlinedButton(
-      onPressed: () {
-        BlocProvider.of<UserManagementCubit>(context).singin(
-          SigninModel(
-            _emailEditingController.text,
-            _passwordEditingController.text,
-          ),
-        );
-        // _emailEditingController.clear();
-        _passwordEditingController.clear();
-        FocusManager.instance.primaryFocus.unfocus();
-      },
-      child: Text(getTranslation(context, "signinButtonText")),
+  Widget buildSigninButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 64.0),
+      child: TextButton(
+        onPressed: () {
+          BlocProvider.of<UserManagementCubit>(context).singin(
+            SigninModel(
+              _emailEditingController.text,
+              _passwordEditingController.text,
+            ),
+          );
+          // _emailEditingController.clear();
+          _passwordEditingController.clear();
+          FocusManager.instance.primaryFocus.unfocus();
+        },
+        child: Text(getTranslation(context, "signinButtonText")),
+      ),
     );
   }
 }
