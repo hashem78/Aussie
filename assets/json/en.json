@@ -78,5 +78,6 @@
     "locationNoResultsFound": "Unnamed location",
     "locationTapToSelect": "Tap to select this location",
     "locationSearchTitle":"Search for a place",
-    "legalese": "*** All content in this app is for showcase and is not intended for actual release \n*** This app is built as an entry for the Australian Embassys competition \n*** All images in this app are either in public domain or are protected under the creative commons liscence. Credit goes to the original owners."
+    "legalese": "*** All content in this app is for showcase and is not intended for actual release \n*** This app is built as an entry for the Australian Embassys competition \n*** All images in this app are either in public domain or are protected under the creative commons liscence. Credit goes to the original owners.",
+    "signoutTileTitle":"Signout"
 }
