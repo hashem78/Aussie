@@ -9,36 +9,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class InitialScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<UserManagementCubit, UserManagementState>(
-        listener: (context, state) {
-          if (state is UserManagementSignin) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return BlocProvider(
-                    create: (context) => UserManagementCubit()..getUserData(),
-                    child: FeedScreen(),
-                  );
-                },
-              ),
-            );
-          } else if (state is UserManagementNeedsAction) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return InitialUserActionScreen();
-                },
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          return Center(
-            child: getIndicator(context),
+    return BlocConsumer<UserManagementCubit, UserManagementState>(
+      listener: (context, state) {
+        if (state is UserManagementSignin) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return BlocProvider(
+                  create: (context) => UserManagementCubit()..getUserData(),
+                  child: const FeedScreen(),
+                );
+              },
+            ),
           );
-        },
-      ),
+        } else if (state is UserManagementNeedsAction) {
+          print("needs action");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return InitialUserActionScreen();
+              },
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        print("state inside initial screen $state");
+        return Material(
+          child: Center(
+            child: getIndicator(context),
+          ),
+        );
+      },
     );
   }
 }

@@ -119,4 +119,9 @@ class UserManagementCubit extends Cubit<UserManagementState> {
   void emitInitial() {
     emit(const UserManagementInitial());
   }
+
+  void emitNeedsAction() {
+    print("emiited needs action");
+    emit(UserManagementNeedsAction());
+  }
 }

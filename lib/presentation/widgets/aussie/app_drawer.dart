@@ -126,31 +126,33 @@ class AussieAppDrawer extends StatelessWidget {
       ];
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: _DrawerHeader(),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final int itemIndex = index ~/ 2;
-                if (index.isEven) {
-                  return sections[itemIndex];
-                }
-                return const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Divider(
-                    color: Colors.grey,
-                    thickness: 2,
-                  ),
-                );
-              },
-              childCount: math.max(0, sections.length * 2 - 1),
+    return SafeArea(
+      child: Drawer(
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(
+              child: _DrawerHeader(),
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  final int itemIndex = index ~/ 2;
+                  if (index.isEven) {
+                    return sections[itemIndex];
+                  }
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 2,
+                    ),
+                  );
+                },
+                childCount: math.max(0, sections.length * 2 - 1),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
