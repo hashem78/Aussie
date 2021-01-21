@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider.value(
-      value: LoadingBouncingGrid.square(
+      value: LoadingBouncingGrid.circle(
         backgroundColor: Colors.blue,
       ),
       child: MultiBlocProvider(

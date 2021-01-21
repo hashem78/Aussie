@@ -7,11 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 
-class CardOwner extends StatelessWidget {
+class CardOwner extends StatefulWidget {
   const CardOwner({
     Key key,
   }) : super(key: key);
 
+  @override
+  _CardOwnerState createState() => _CardOwnerState();
+}
+
+class _CardOwnerState extends State<CardOwner>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
@@ -55,8 +61,9 @@ class CardOwner extends StatelessWidget {
         } else {
           child = Container();
         }
-        return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
+        return AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          vsync: this,
           child: child,
         );
       },
@@ -64,11 +71,17 @@ class CardOwner extends StatelessWidget {
   }
 }
 
-class PublicCardOwner extends StatelessWidget {
+class PublicCardOwner extends StatefulWidget {
   final double size;
 
   const PublicCardOwner({Key key, this.size}) : super(key: key);
 
+  @override
+  _PublicCardOwnerState createState() => _PublicCardOwnerState();
+}
+
+class _PublicCardOwnerState extends State<PublicCardOwner>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
@@ -110,10 +123,11 @@ class PublicCardOwner extends StatelessWidget {
             ),
           );
         } else {
-          child = Container();
+          child = const SizedBox();
         }
-        return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
+        return AnimatedSize(
+          duration: const Duration(milliseconds: 300),
+          vsync: this,
           child: child,
         );
       },
