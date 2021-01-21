@@ -12,7 +12,7 @@ class InitialScreen extends StatelessWidget {
     return BlocConsumer<UserManagementCubit, UserManagementState>(
       listener: (context, state) {
         if (state is UserManagementSignin) {
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
                 return BlocProvider(
@@ -24,7 +24,7 @@ class InitialScreen extends StatelessWidget {
           );
         } else if (state is UserManagementNeedsAction) {
           print("needs action");
-          Navigator.of(context).push(
+          Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
                 return InitialUserActionScreen();

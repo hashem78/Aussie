@@ -35,20 +35,28 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
       onTap: () {
         FocusManager.instance.primaryFocus.unfocus();
       },
-      child: SafeArea(
-        child: Scaffold(
-          key: sstate,
-          body: BlocListener<UserManagementCubit, UserManagementState>(
+      child: Scaffold(
+        key: sstate,
+        body: SafeArea(
+          child: BlocListener<UserManagementCubit, UserManagementState>(
             listener: (context, state) {
               if (state is UserManagementSignin) {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   PageTransition(
                     child: BlocProvider(
                       create: (context) => UserManagementCubit()..getUserData(),
-                      child: FeedScreen(),
+                      child: const FeedScreen(),
                     ),
                     type: getAppropriateAnimation(context),
+                  ),
+                );
+              } else if (state is UserManagementSignOut) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return InitialUserActionScreen();
+                    },
                   ),
                 );
               }

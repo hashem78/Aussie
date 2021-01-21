@@ -14,15 +14,9 @@ class SignoutTile extends StatelessWidget {
     return BlocListener<UserManagementCubit, UserManagementState>(
       listener: (context, state) {
         if (state is UserManagementSignOut) {
-          context.read<UserManagementCubit>().emitNeedsAction();
+          //context.read<UserManagementCubit>().emitNeedsAction();
 
           Navigator.of(context).popUntil((route) => route.isFirst);
-          Navigator.of(context).pop(context);
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) {
-              return InitialUserActionScreen();
-            },
-          ));
         }
       },
       child: ListTile(
