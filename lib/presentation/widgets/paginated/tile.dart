@@ -1,4 +1,4 @@
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:flutter/material.dart';
 
 class PaginatedScreenTile extends StatelessWidget {
@@ -7,13 +7,12 @@ class PaginatedScreenTile extends StatelessWidget {
   final Widget titleImage;
   final void Function() onTap;
   final double aspectRatio;
-  final Color color;
+
   const PaginatedScreenTile({
     @required this.title,
     this.subtitle,
     this.onTap,
     this.titleImage,
-    this.color,
     this.aspectRatio = 11 / 9,
   }) : assert(title != null && aspectRatio != null);
 
@@ -22,7 +21,7 @@ class PaginatedScreenTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        color: getColorData(context).swatchColor,
+        color: AussieThemeProvider.of(context).color.swatchColor,
         shape: const RoundedRectangleBorder(),
         child: Column(
           children: [

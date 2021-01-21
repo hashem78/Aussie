@@ -23,7 +23,6 @@ class InitialScreen extends StatelessWidget {
             ),
           );
         } else if (state is UserManagementNeedsAction) {
-          print("needs action");
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
@@ -34,7 +33,6 @@ class InitialScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        print("state inside initial screen $state");
         return Material(
           child: Center(
             child: getIndicator(context),

@@ -1,13 +1,9 @@
 import 'dart:math' as math;
 
 import 'package:aussie/models/usermanagement/user/user.dart';
-import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
-import 'package:aussie/presentation/screens/info/species/fauna.dart';
-import 'package:aussie/presentation/screens/info/species/flora.dart';
-import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
-import 'package:aussie/presentation/screens/info/weather/weather.dart';
-import 'package:aussie/presentation/screens/misc/settings.dart';
 import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
+
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -70,60 +66,60 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  static List<_DrawerItemModel> get infoModels => [
-        _DrawerItemModel(
-          navPath: FaunaScreen.data.navPath,
-          svgName: FaunaScreen.data.svgName,
-          tTitle: FaunaScreen.data.tTitle,
-          iconColor: Colors.brown,
-        ),
-        _DrawerItemModel(
-          navPath: FloraScreen.data.navPath,
-          svgName: FloraScreen.data.svgName,
-          tTitle: FloraScreen.data.tTitle,
-          iconColor: Colors.green.shade900,
-        ),
-        _DrawerItemModel(
-          navPath: WeatherScreen.data.navPath,
-          svgName: WeatherScreen.data.svgName,
-          tTitle: WeatherScreen.data.tTitle,
-          iconColor: Colors.lightBlue,
-        ),
-        _DrawerItemModel(
-          navPath: TeritoriesScreen.data.navPath,
-          svgName: TeritoriesScreen.data.svgName,
-          tTitle: TeritoriesScreen.data.tTitle,
-          iconColor: Colors.green,
-        ),
-        _DrawerItemModel(
-          navPath: NaturalParksScreen.data.navPath,
-          svgName: NaturalParksScreen.data.svgName,
-          tTitle: NaturalParksScreen.data.tTitle,
-          iconColor: Colors.green.shade900,
-        ),
-      ];
-  static List<_DrawerItemModel> get miscModels => [
-        _DrawerItemModel(
-          tTitle: SettingsScreen.tTitle,
-          svgName: SettingsScreen.svgName,
-          navPath: SettingsScreen.navPath,
-          iconColor: Colors.grey,
-        ),
-      ];
-  static List<_DrawerSection> get sections => [
-        _DrawerSection(
-          sectionIcon: Icons.info,
-          tSectionTitle: "infoSectionTitle",
-          tilesColor: Colors.blue,
-          models: infoModels,
-        ),
-        _DrawerSection(
-          sectionIcon: Icons.miscellaneous_services,
-          tSectionTitle: "miscSectionTitle",
-          tilesColor: Colors.blue,
-          models: miscModels,
-        ),
-      ];
+  static const List<_DrawerItemModel> infoModels = [
+    _DrawerItemModel(
+      navPath: AussieScreenData.faunaNavPath,
+      svgName: AussieScreenData.faunaSvgName,
+      tTitle: AussieScreenData.faunaTitle,
+      iconColor: Colors.brown,
+    ),
+    _DrawerItemModel(
+      navPath: AussieScreenData.floraNavPath,
+      svgName: AussieScreenData.floraSvgName,
+      tTitle: AussieScreenData.floraTitle,
+      iconColor: Color(0xFF1B5E20),
+    ),
+    _DrawerItemModel(
+      navPath: AussieScreenData.weatherNavPath,
+      svgName: AussieScreenData.weatherSvgName,
+      tTitle: AussieScreenData.weatherTitle,
+      iconColor: Colors.lightBlue,
+    ),
+    _DrawerItemModel(
+      navPath: AussieScreenData.territoriesNavPath,
+      svgName: AussieScreenData.territoriesSvgName,
+      tTitle: AussieScreenData.territoriesTitle,
+      iconColor: Colors.green,
+    ),
+    _DrawerItemModel(
+      navPath: AussieScreenData.naturalParksNavPath,
+      svgName: AussieScreenData.naturalParksSvgName,
+      tTitle: AussieScreenData.naturalParksTitle,
+      iconColor: Color(0xFF1B5E20),
+    ),
+  ];
+  static const List<_DrawerItemModel> miscModels = [
+    _DrawerItemModel(
+      tTitle: AussieScreenData.settingsTitle,
+      svgName: AussieScreenData.settingsSvgName,
+      navPath: AussieScreenData.settingsNavPath,
+      iconColor: Colors.grey,
+    ),
+  ];
+  static const List<_DrawerSection> sections = [
+    _DrawerSection(
+      sectionIcon: Icons.info,
+      tSectionTitle: "infoSectionTitle",
+      tilesColor: Colors.blue,
+      models: infoModels,
+    ),
+    _DrawerSection(
+      sectionIcon: Icons.miscellaneous_services,
+      tSectionTitle: "miscSectionTitle",
+      tilesColor: Colors.blue,
+      models: miscModels,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(

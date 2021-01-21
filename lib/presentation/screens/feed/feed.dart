@@ -23,84 +23,88 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (context, state) {
-          if (state is UserMangementHasUserData) {
-            return DefaultTabController(
-              length: 2,
-              child: Provider.value(
-                value: state.user,
-                child: AussieScaffold(
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: MultiBlocProvider(
-                            providers: [
-                              BlocProvider(
-                                  create: (_) => EventCreationBlocForm()),
-                              BlocProvider(
-                                  create: (_) => EventManagementCubit()),
-                              BlocProvider(
-                                  create: (_) => LocationPickingCubit()),
+      body: SafeArea(
+        child: BlocBuilder<UserManagementCubit, UserManagementState>(
+          builder: (context, state) {
+            if (state is UserMangementHasUserData) {
+              return DefaultTabController(
+                length: 2,
+                child: Provider.value(
+                  value: state.user,
+                  child: AussieScaffold(
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: MultiBlocProvider(
+                              providers: [
+                                BlocProvider(
+                                    create: (_) => EventCreationBlocForm()),
+                                BlocProvider(
+                                    create: (_) => EventManagementCubit()),
+                                BlocProvider(
+                                    create: (_) => LocationPickingCubit()),
+                              ],
+                              child: EventCreationScreen(),
+                            ),
+                            type: getAppropriateAnimation(context),
+                          ),
+                        ).whenComplete(
+                          () {
+                            context
+                                .read<MultiImagePickingCubit>()
+                                .emitInitial();
+                          },
+                        );
+                      },
+                      child: const Center(child: Icon(Icons.add, size: 20)),
+                    ),
+                    drawer: AussieAppDrawer(),
+                    body: NestedScrollView(
+                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                        SliverAppBar(
+                          pinned: true,
+                          centerTitle: true,
+                          title: AutoSizeText(
+                            getTranslation(context, "feedScreenTitle"),
+                            style: TextStyle(
+                              fontSize: 100.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          elevation: 0,
+                          bottom: const TabBar(
+                            tabs: [
+                              Icon(Icons.home),
+                              Icon(Icons.public),
                             ],
-                            child: EventCreationScreen(),
                           ),
-                          type: getAppropriateAnimation(context),
-                        ),
-                      ).whenComplete(
-                        () {
-                          context.read<MultiImagePickingCubit>().emitInitial();
-                        },
-                      );
-                    },
-                    child: const Center(child: Icon(Icons.add, size: 20)),
-                  ),
-                  drawer: AussieAppDrawer(),
-                  body: NestedScrollView(
-                    headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                      SliverAppBar(
-                        pinned: true,
-                        centerTitle: true,
-                        title: AutoSizeText(
-                          getTranslation(context, "feedScreenTitle"),
-                          style: TextStyle(
-                            fontSize: 100.sp,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        elevation: 0,
-                        bottom: const TabBar(
-                          tabs: [
-                            Icon(Icons.home),
-                            Icon(Icons.public),
-                          ],
-                        ),
-                      ),
-                    ],
-                    body: TabBarView(
-                      children: [
-                        BlocProvider(
-                          create: (context) => EventManagementCubit(),
-                          child: HomeEventsTab(),
-                        ),
-                        BlocProvider(
-                          create: (context) => EventManagementCubit(),
-                          child: PublicEventsTab(),
                         ),
                       ],
+                      body: TabBarView(
+                        children: [
+                          BlocProvider(
+                            create: (context) => EventManagementCubit(),
+                            child: HomeEventsTab(),
+                          ),
+                          BlocProvider(
+                            create: (context) => EventManagementCubit(),
+                            child: PublicEventsTab(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            );
-          }
+              );
+            }
 
-          return Center(
-            child: getIndicator(context),
-          );
-        },
+            return Center(
+              child: getIndicator(context),
+            );
+          },
+        ),
       ),
     );
   }

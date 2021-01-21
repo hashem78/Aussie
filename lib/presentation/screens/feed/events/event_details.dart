@@ -9,32 +9,40 @@ import 'package:flutter/material.dart';
 class EventDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    setStatusbarColor();
     final EventModel e = getEventModel(context);
-    return Scaffold(
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            SliverAppBar(
-              flexibleSpace: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: buildImage(e.bannerImage.imageLink),
+    return WillPopScope(
+      onWillPop: () async {
+        resetStatusbarColor(context);
+        return true;
+      },
+      child: Scaffold(
+        body: DefaultTabController(
+          length: 2,
+          child: NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              SliverAppBar(
+                flexibleSpace: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child:
+                      buildImage(e.bannerImage.imageLink, fit: BoxFit.fitWidth),
+                ),
+                pinned: true,
+                title: Text(getTranslation(context, "eventDetailsTitle")),
+                bottom: const TabBar(
+                  tabs: [
+                    Icon(Icons.description),
+                    Icon(Icons.attach_email_rounded),
+                  ],
+                ),
               ),
-              pinned: true,
-              title: Text(getTranslation(context, "eventDetailsTitle")),
-              bottom: const TabBar(
-                tabs: [
-                  Icon(Icons.description),
-                  Icon(Icons.attach_email_rounded),
-                ],
-              ),
-            ),
-          ],
-          body: const TabBarView(
-            children: [
-              EventDetailsMain(),
-              PaginatedAtendees(),
             ],
+            body: const TabBarView(
+              children: [
+                EventDetailsMain(),
+                PaginatedAtendees(),
+              ],
+            ),
           ),
         ),
       ),

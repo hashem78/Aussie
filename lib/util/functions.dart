@@ -1,15 +1,17 @@
 import 'dart:math';
 
 import 'package:aussie/localizations.dart';
+
 import 'package:aussie/models/event/event.dart';
-import 'package:aussie/models/themes/color_data.dart';
-import 'package:aussie/models/themes/themes.dart';
+
 import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:loading_animations/loading_animations.dart';
@@ -64,22 +66,39 @@ Widget buildImage(
   }
 }
 
+void setStatusbarColor({Color color = Colors.transparent}) {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: color),
+  );
+}
+
+void resetStatusbarColor(BuildContext context) {
+  final Brightness brightness =
+      context.read<BrightnessCubit>().currentBrightness;
+
+  Color color;
+  if (brightness == Brightness.light) {
+    color = Colors.blue;
+  } else {
+    color = Colors.grey.shade900;
+  }
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(statusBarColor: color),
+  );
+}
+
 LoadingBouncingGrid getIndicator(BuildContext context) =>
     Provider.of<LoadingBouncingGrid>(context, listen: false);
 
 PageTransitionType getAppropriateAnimation(BuildContext context) =>
     BlocProvider.of<LanguageCubit>(context).appropriateAnimation();
 
-ThemeModel getCurrentThemeModel(BuildContext context) =>
-    BlocProvider.of<ThemeCubit>(context, listen: true).currentModel;
-
 AussieUser getCurrentUser(BuildContext context) =>
     Provider.of<AussieUser>(context, listen: false);
 
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
-AussieColorData getColorData(BuildContext context) =>
-    Provider.of<AussieColorData>(context, listen: false);
 
 SignupBloc getSignupBloc(BuildContext context) =>
     BlocProvider.of<SignupBloc>(context);

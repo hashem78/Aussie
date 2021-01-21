@@ -126,7 +126,7 @@ class SingupScreen extends StatelessWidget {
                             child: BlocProvider(
                               create: (context) =>
                                   UserManagementCubit()..getUserData(),
-                              child: FeedScreen(),
+                              child: const FeedScreen(),
                             ),
                             type: getAppropriateAnimation(context),
                           ),

@@ -1,104 +1,88 @@
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/info/teritory/teritory.dart';
 import 'package:aussie/models/themes/color_data.dart';
-import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
-import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
+
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 
 class TeritoriesScreen extends StatelessWidget {
-  static final data = AussieScreenData(
-    thumbnailRoute: "teritory_images",
-    navPath: "/main/info/teritories",
-    svgName: "australia.svg",
-    tTitle: "teritoriesTitle",
-    themeAttribute: "teritoriesScreenColor",
-    dark: AussieColorData(
-      swatchColor: Colors.brown.shade800,
-      backgroundColor: Colors.brown.shade700,
-    ),
-    light: AussieColorData(
-      swatchColor: Colors.brown.shade500,
-      backgroundColor: Colors.brown.shade400,
-    ),
-  );
-
-  final PaginatedCubit<TeritoryModel> cubit = PaginatedCubit("teritories");
+  const TeritoriesScreen();
   @override
   Widget build(BuildContext context) {
-    final _currentTheme = getCurrentThemeModel(context).teritoriesScreenColor;
-
-    return Provider.value(
-      value: _currentTheme,
-      child: SearchablePaginatedScreen(
-        title: getTranslation(context, TeritoriesScreen.data.tTitle),
-        thumbnailCubitRoute: TeritoriesScreen.data.thumbnailRoute,
-        cubit: cubit,
-        filterFor: "title",
-        itemBuilder: (context, item, index) {
-          final _casted = item as TeritoryModel;
-          return PaginatedScreenTile(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => AussieGMapScreen(
-                  model: AussieGMapModel(
-                    latitude: _casted.lat,
-                    longitude: _casted.lng,
-                    title: _casted.city,
+    return AussieThemeBuilder(
+      dark: AussieScreenColorData.territoreisDark,
+      light: AussieScreenColorData.territoriesLight,
+      builder: (context, swatchColor, backgroundColor) {
+        return SearchablePaginatedScreen<TeritoryModel>(
+          title: getTranslation(context, AussieScreenData.territoriesTitle),
+          thumbnailCubitRoute: AussieScreenData.territoriesThumbnailRoute,
+          filterFor: "title",
+          itemBuilder: (context, item, index) {
+            final _casted = item as TeritoryModel;
+            return PaginatedScreenTile(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AussieGMapScreen(
+                    model: AussieGMapModel(
+                      latitude: _casted.lat,
+                      longitude: _casted.lng,
+                      title: _casted.city,
+                    ),
                   ),
                 ),
               ),
-            ),
-            title: Text(
-              _casted.city,
-              style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
-            ),
-            subtitle: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: buildChip(
-                          _currentTheme.swatchColor,
-                          getTranslation(context, "population"),
-                          _casted.population,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: buildChip(
-                          _currentTheme.swatchColor,
-                          getTranslation(context, "longitude"),
-                          _casted.lng,
-                        ),
-                      ),
-                      Expanded(
-                        child: buildChip(
-                          _currentTheme.swatchColor,
-                          getTranslation(context, "latitude"),
-                          _casted.lat,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              title: Text(
+                _casted.city,
+                style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
               ),
-            ),
-          );
-        },
-      ),
+              subtitle: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: buildChip(
+                            swatchColor,
+                            getTranslation(context, "population"),
+                            _casted.population,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: buildChip(
+                            swatchColor,
+                            getTranslation(context, "longitude"),
+                            _casted.lng,
+                          ),
+                        ),
+                        Expanded(
+                          child: buildChip(
+                            swatchColor,
+                            getTranslation(context, "latitude"),
+                            _casted.lat,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 

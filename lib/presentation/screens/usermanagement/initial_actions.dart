@@ -36,6 +36,9 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         FocusManager.instance.primaryFocus.unfocus();
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Aussie"),
+        ),
         key: sstate,
         body: SafeArea(
           child: BlocListener<UserManagementCubit, UserManagementState>(

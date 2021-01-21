@@ -1,6 +1,7 @@
 import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BrightnessSwitch extends StatefulWidget {
@@ -14,7 +15,7 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
   @override
   void initState() {
     super.initState();
-    _isDark = BlocProvider.of<ThemeCubit>(context).currentModel.brightness ==
+    _isDark = BlocProvider.of<BrightnessCubit>(context).currentBrightness ==
         Brightness.dark;
   }
 
@@ -25,13 +26,21 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
       child: ListTile(
         contentPadding: const EdgeInsets.all(5.0),
         leading: Text(getTranslation(context, "darkmodeText")),
-        trailing: BlocBuilder<ThemeCubit, ThemeState>(
+        trailing: BlocBuilder<BrightnessCubit, Brightness>(
           builder: (context, state) {
             return Switch(
               value: _isDark,
               onChanged: (val) {
                 _isDark = val;
-                BlocProvider.of<ThemeCubit>(context).toggleBrightness();
+                BlocProvider.of<BrightnessCubit>(context).toggleBrightness();
+                SystemChrome.setSystemUIOverlayStyle(
+                  SystemUiOverlayStyle(
+                    statusBarBrightness:
+                        !_isDark ? Brightness.light : Brightness.dark,
+                    statusBarColor:
+                        !_isDark ? Colors.blue : Colors.grey.shade900,
+                  ),
+                );
               },
             );
           },

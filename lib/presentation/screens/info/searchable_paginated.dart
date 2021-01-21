@@ -1,4 +1,5 @@
 import 'package:aussie/interfaces/paginated_data.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
@@ -8,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-class SearchablePaginatedScreen extends StatefulWidget {
-  final PaginatedCubit cubit;
+class SearchablePaginatedScreen<T extends IPaginatedData>
+    extends StatefulWidget {
   final String thumbnailCubitRoute;
   final String title;
   final String filterFor;
@@ -17,18 +18,18 @@ class SearchablePaginatedScreen extends StatefulWidget {
   final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
   const SearchablePaginatedScreen({
-    @required this.cubit,
     @required this.thumbnailCubitRoute,
     @required this.itemBuilder,
     @required this.title,
     @required this.filterFor,
   });
   @override
-  _SearchablePaginatedScreenState createState() =>
-      _SearchablePaginatedScreenState();
+  _SearchablePaginatedScreenState<T> createState() =>
+      _SearchablePaginatedScreenState<T>();
 }
 
-class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
+class _SearchablePaginatedScreenState<T extends IPaginatedData>
+    extends State<SearchablePaginatedScreen<T>> {
   static const int _pageSize = 10;
   ThumbnailCubit thumbnailCubit;
   PagingController<int, IPaginatedData> _controller =
@@ -44,60 +45,72 @@ class _SearchablePaginatedScreenState extends State<SearchablePaginatedScreen> {
   }
 
   String searchQuery = "";
-  @override
-  void initState() {
-    _controller.addPageRequestListener((pageKey) {
-      if (searchQuery.isNotEmpty && searchQuery != null) {
-        widget.cubit.filter(widget.filterFor, searchQuery);
-      } else {
-        widget.cubit.loadMoreAsync(
-          page: pageKey,
-          amount: _pageSize,
-        );
-      }
-    });
 
-    super.initState();
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _controller.addPageRequestListener(
+      (pageKey) {
+        if (searchQuery.isNotEmpty && searchQuery != null) {
+          context
+              .read<PaginatedCubit<T>>()
+              .filter(widget.filterFor, searchQuery);
+        } else {
+          context.read<PaginatedCubit<T>>().loadMoreAsync(
+                page: pageKey,
+                amount: _pageSize,
+              );
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        backgroundColor: getColorData(context).backgroundColor,
-        body: CustomScrollView(
-          slivers: [
-            BlocProvider(
-              create: (context) =>
-                  ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
-              child: AussieThumbnailedAppBar(
-                title: widget.title,
+    setStatusbarColor();
+    return WillPopScope(
+      onWillPop: () async {
+        resetStatusbarColor(context);
+        return true;
+      },
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          backgroundColor:
+              AussieThemeProvider.of(context).color.backgroundColor,
+          body: CustomScrollView(
+            slivers: [
+              BlocProvider(
+                create: (context) =>
+                    ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
+                child: AussieThumbnailedAppBar(
+                  title: widget.title,
+                ),
               ),
-            ),
-            PaginatedSearchBar(
-              onSubmitted: (val) {
-                searchQuery = val;
-                _controller.refresh();
-              },
-            ),
-            BlocListener<PaginatedCubit, PaginatedState>(
-              cubit: widget.cubit,
-              listener: (context, state) {
-                if (state is PaginatedInitialLoaded) {
-                  _controller.appendPage(state.models, _pageSize);
-                } else if (state is PaginatedDataChanged) {
-                  final nextKey = _controller.nextPageKey + state.models.length;
-                  _controller.appendPage(state.models, nextKey);
-                } else if (state is PaginatedEnd) {
-                  _controller.appendLastPage(state.models);
-                } else if (state is PaginatedFiltered) {
-                  _controller.appendLastPage(state.models);
-                }
-              },
-              child: buildSliverList(),
-            ),
-          ],
+              PaginatedSearchBar(
+                onSubmitted: (val) {
+                  searchQuery = val;
+                  _controller.refresh();
+                },
+              ),
+              BlocListener<PaginatedCubit<T>, PaginatedState>(
+                listener: (context, state) {
+                  if (state is PaginatedInitialLoaded) {
+                    _controller.appendPage(state.models, _pageSize);
+                  } else if (state is PaginatedDataChanged) {
+                    final nextKey =
+                        _controller.nextPageKey + state.models.length;
+                    _controller.appendPage(state.models, nextKey);
+                  } else if (state is PaginatedEnd) {
+                    _controller.appendLastPage(state.models);
+                  } else if (state is PaginatedFiltered) {
+                    _controller.appendLastPage(state.models);
+                  }
+                },
+                child: buildSliverList(),
+              ),
+            ],
+          ),
         ),
       ),
     );

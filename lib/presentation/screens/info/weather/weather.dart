@@ -1,6 +1,6 @@
 import 'package:aussie/models/themes/color_data.dart';
-import 'package:aussie/models/themes/screen_data.dart';
 import 'package:aussie/models/weather/weather.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/screens/info/weather/weather_tile.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
@@ -16,22 +16,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class WeatherScreen extends StatefulWidget {
-  static final data = AussieScreenData(
-    thumbnailRoute: "teritory_images",
-    navPath: "/main/info/weather",
-    svgName: "weather.svg",
-    tTitle: "weatherTitle",
-    themeAttribute: "weatherScreenColor",
-    dark: AussieColorData(
-      swatchColor: Colors.lightBlue.shade700,
-      backgroundColor: Colors.lightBlue.shade600,
-    ),
-    light: AussieColorData(
-      swatchColor: Colors.lightBlue.shade400,
-      backgroundColor: Colors.lightBlue.shade300,
-    ),
-  );
-
+  const WeatherScreen();
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
 }
@@ -70,69 +55,79 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _currentTheme = getCurrentThemeModel(context).weatherScreenColor;
-    return Provider.value(
-      value: _currentTheme,
-      child: Scaffold(
-        backgroundColor: _currentTheme.backgroundColor,
-        body: BlocProvider(
-          create: (context) =>
-              ThumbnailCubit(WeatherScreen.data.thumbnailRoute)..fetch(),
-          child: Builder(
-            builder: (context) => CustomScrollView(
-              slivers: [
-                AussieThumbnailedAppBar(
-                  title: getTranslation(context, "weatherTitle"),
-                ),
-                SliverToBoxAdapter(
-                  child: BlocBuilder<WeatherCubit, WeatherState>(
-                    builder: (context, state) {
-                      Widget child;
-                      if (state is WeatherLoading) {
-                        child =
-                            Text(getTranslation(context, "weatherFetching"));
-                      } else if (state is WeatherError) {
-                        child = Text(getTranslation(context, "weatherError"));
-                      } else {
-                        final String formattedTime =
-                            DateFormat("dd-MM-YY hh:mm").format(DateTime.now());
-                        child = Text("Data as of $formattedTime local time");
-                      }
-                      return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child: child,
-                      );
-                    },
+    setStatusbarColor();
+    return WillPopScope(
+      onWillPop: () async {
+        resetStatusbarColor(context);
+        return true;
+      },
+      child: BlocProvider(
+        create: (context) =>
+            ThumbnailCubit(AussieScreenData.weatherThumbnailRoute),
+        child: AussieThemeBuilder(
+          builder:
+              (BuildContext context, Color swatchColor, Color backgroundColor) {
+            return Scaffold(
+              backgroundColor: backgroundColor,
+              body: CustomScrollView(
+                slivers: [
+                  AussieThumbnailedAppBar(
+                    title: getTranslation(context, "weatherTitle"),
                   ),
-                ),
-                BlocListener<WeatherCubit, WeatherState>(
-                  listener: (context, state) {
-                    if (state is WeatherLoaded) {
-                      if (_pagingController.nextPageKey + 1 < _coords.length) {
-                        _pagingController.appendPage(
-                          [state.model],
-                          _pagingController.nextPageKey + 1,
-                        );
-                      } else {
-                        _pagingController.appendLastPage([state.model]);
-                      }
-                    }
-                  },
-                  child: PagedSliverList<int, WeatherModel>(
-                    pagingController: _pagingController,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder: (context, item, index) {
-                        return WeatherTile(
-                          model: item,
-                          showTitle: true,
+                  SliverToBoxAdapter(
+                    child: BlocBuilder<WeatherCubit, WeatherState>(
+                      builder: (context, state) {
+                        Widget child;
+                        if (state is WeatherLoading) {
+                          child =
+                              Text(getTranslation(context, "weatherFetching"));
+                        } else if (state is WeatherError) {
+                          child = Text(getTranslation(context, "weatherError"));
+                        } else {
+                          final String formattedTime =
+                              DateFormat("dd-MM-YY hh:mm")
+                                  .format(DateTime.now());
+                          child = Text("Data as of $formattedTime local time");
+                        }
+                        return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: child,
                         );
                       },
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  BlocListener<WeatherCubit, WeatherState>(
+                    listener: (context, state) {
+                      if (state is WeatherLoaded) {
+                        if (_pagingController.nextPageKey + 1 <
+                            _coords.length) {
+                          _pagingController.appendPage(
+                            [state.model],
+                            _pagingController.nextPageKey + 1,
+                          );
+                        } else {
+                          _pagingController.appendLastPage([state.model]);
+                        }
+                      }
+                    },
+                    child: PagedSliverList<int, WeatherModel>(
+                      pagingController: _pagingController,
+                      builderDelegate: PagedChildBuilderDelegate(
+                        itemBuilder: (context, item, index) {
+                          return WeatherTile(
+                            model: item,
+                            showTitle: true,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+          dark: AussieScreenColorData.weatherDark,
+          light: AussieScreenColorData.weatherLight,
         ),
       ),
     );

@@ -15,36 +15,43 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (context, state) {
-          if (state is UserMangementHasUserData) {
-            return Provider.value(
-              value: state.user,
-              child: CustomScrollView(
-                slivers: [
-                  SliverAppBar(
-                    expandedHeight: .4.sh,
-                    //collapsedHeight: .4.sh,
-                    pinned: true,
-                    flexibleSpace: BannerImage(
-                      colorFilter: ColorFilter.mode(
-                        Colors.white.withAlpha(70),
-                        BlendMode.lighten,
+    setStatusbarColor();
+    return WillPopScope(
+      onWillPop: () async {
+        resetStatusbarColor(context);
+        return true;
+      },
+      child: Scaffold(
+        body: BlocBuilder<UserManagementCubit, UserManagementState>(
+          builder: (context, state) {
+            if (state is UserMangementHasUserData) {
+              return Provider.value(
+                value: state.user,
+                child: CustomScrollView(
+                  slivers: [
+                    SliverAppBar(
+                      expandedHeight: .4.sh,
+                      //collapsedHeight: .4.sh,
+                      pinned: true,
+                      flexibleSpace: BannerImage(
+                        colorFilter: ColorFilter.mode(
+                          Colors.white.withAlpha(70),
+                          BlendMode.lighten,
+                        ),
                       ),
                     ),
-                  ),
-                  const SliverToBoxAdapter(child: ProfileCard()),
-                  const ProfileEvents(),
-                ],
-              ),
-            );
-          } else {
-            return Center(
-              child: getIndicator(context),
-            );
-          }
-        },
+                    const SliverToBoxAdapter(child: ProfileCard()),
+                    const ProfileEvents(),
+                  ],
+                ),
+              );
+            } else {
+              return Center(
+                child: getIndicator(context),
+              );
+            }
+          },
+        ),
       ),
     );
   }

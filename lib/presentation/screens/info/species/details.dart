@@ -1,4 +1,5 @@
 import 'package:aussie/models/info/species/species.dart';
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -18,11 +19,11 @@ class SpeciesDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: getColorData(context).backgroundColor,
+      backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            backgroundColor: getColorData(context).swatchColor,
+            backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
             elevation: 0,
             expandedHeight: .5.sh,
             flexibleSpace: FlexibleSpaceBar(

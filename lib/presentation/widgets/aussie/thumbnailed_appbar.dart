@@ -1,3 +1,4 @@
+import 'package:aussie/models/themes/color_data.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -11,12 +12,12 @@ class AussieThumbnailedAppBar extends StatelessWidget {
   AussieThumbnailedAppBar({
     @required this.title,
     double height,
-  }) : height = height ?? .5.sh;
+  }) : height = height ?? .35.sh;
 
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: getColorData(context).swatchColor,
+      backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
       pinned: true,
       expandedHeight: height,
       flexibleSpace: FlexibleSpaceBar(
