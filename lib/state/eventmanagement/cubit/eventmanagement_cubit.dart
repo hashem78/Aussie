@@ -1,6 +1,6 @@
 import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/usermanagement/eventmanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/repositories/eventmanagement.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

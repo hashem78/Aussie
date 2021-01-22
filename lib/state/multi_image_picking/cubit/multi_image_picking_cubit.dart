@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/util/asize.dart';
 import 'package:aussie/util/jpeg_decoder.dart';
 import 'package:bloc/bloc.dart';

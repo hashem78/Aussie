@@ -1,4 +1,4 @@
-import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/state/event_creation/form_bloc.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';

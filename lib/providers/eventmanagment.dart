@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/eventmanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/events/creation/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
