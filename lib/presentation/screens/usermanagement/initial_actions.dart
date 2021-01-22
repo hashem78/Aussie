@@ -80,7 +80,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                         Widget child;
 
                         if (state is UserManagementPerformingAction) {
-                          child = getIndicator(context);
+                          child = const CircularProgressIndicator();
                         } else {
                           if (state is UserManagementError) {
                             child = Text(

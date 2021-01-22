@@ -46,8 +46,8 @@ class UserProfileScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return Center(
-                child: getIndicator(context),
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             }
           },

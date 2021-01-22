@@ -14,23 +14,27 @@ class EventBannerPicker extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(
-          builder: (context, state) {
-            if (state is SingleImagePickingDone) {
-              return Ink.image(
-                image: MemoryImage(
-                  state.data.byteData.buffer.asUint8List(),
-                ),
-                fit: BoxFit.cover,
-              );
-            } else if (state is SingleImagePickingInitial) {
-              return Container();
-            } else {
-              return Center(
-                child: getIndicator(context),
-              );
-            }
-          },
-        ),
+            builder: (context, state) {
+          Widget child;
+          if (state is SingleImagePickingDone) {
+            child = Ink.image(
+              image: MemoryImage(
+                state.data.byteData.buffer.asUint8List(),
+              ),
+              fit: BoxFit.cover,
+            );
+          } else if (state is SingleImagePickingInitial) {
+            child = const SizedBox();
+          } else {
+            child = const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            child: child,
+          );
+        }),
         IconButton(
           tooltip: getTranslation(context, "eventCreationAddBannerTip"),
           icon: const Icon(Icons.add),

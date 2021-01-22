@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animations/loading_animations.dart';
+
 import 'package:paginate_firestore/bloc/pagination_listeners.dart';
 import 'package:paginate_firestore/paginate_firestore.dart';
 
@@ -34,7 +34,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
         refreshChangeListener.refreshed = true;
       },
       child: PaginateFirestore(
-        initialLoader: Center(child: getIndicator(context)),
+        initialLoader: const Center(child: CircularProgressIndicator()),
         emptyDisplay: Center(
           child: Column(
             children: [
@@ -49,12 +49,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
             ],
           ),
         ),
-        bottomLoader: Center(
-          child: LoadingBouncingGrid.square(
-            backgroundColor: Colors.blue,
-            size: 15,
-          ),
-        ),
+        bottomLoader: const Center(child: CircularProgressIndicator()),
         header: SizedBox(
           height: .1.sh,
           child: Align(

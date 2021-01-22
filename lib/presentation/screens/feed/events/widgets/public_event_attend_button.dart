@@ -17,35 +17,49 @@ class PublicAttendButton extends StatelessWidget {
 
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
+        Widget child;
         if (state is UserManagementInitial) {
-          return TextButton(
+          child = TextButton(
             onPressed: () {
               context
                   .read<UserManagementCubit>()
                   .makeUserWithIdAttendEvent(currentUser, e.eventId);
             },
-            child: Text(getTranslation(context, "attendButtonTextNormal")),
+            child: Text(
+              getTranslation(context, "attendButtonTextNormal"),
+            ),
           );
         } else if (state is UserManagementPerformingAction) {
-          return TextButton(
+          child = TextButton(
             onPressed: null,
             child: Row(
               children: [
-                Center(child: getIndicator(context)),
-                Text(getTranslation(context, "attendButtonTextAttempting")),
+                const Center(child: CircularProgressIndicator()),
+                Text(
+                  getTranslation(context, "attendButtonTextAttempting"),
+                ),
               ],
             ),
           );
         } else if (state is UserManagementAttended) {
-          return TextButton(
+          child = TextButton(
             onPressed: null,
-            child: Text(getTranslation(context, "attendButtonTextAttending")),
+            child: Text(
+              getTranslation(context, "attendButtonTextAttending"),
+            ),
           );
         } else {
-          return TextButton(
-              onPressed: null,
-              child: Text(getTranslation(context, "attendButtonTextError")));
+          child = TextButton(
+            onPressed: null,
+            child: Text(
+              getTranslation(context, "attendButtonTextError"),
+            ),
+          );
         }
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: child,
+        );
       },
     );
   }

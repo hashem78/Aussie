@@ -139,7 +139,7 @@ class SingupScreen extends StatelessWidget {
                   Widget child;
 
                   if (state is UserManagementPerformingAction) {
-                    child = getIndicator(context);
+                    child = const CircularProgressIndicator();
                   } else if (state is UserManagementError) {
                     child = Text(
                       state.notification.message,

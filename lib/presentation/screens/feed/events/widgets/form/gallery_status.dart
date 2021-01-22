@@ -12,10 +12,11 @@ class EventImageGalleryStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MultiImagePickingCubit, MultiImagePickingState>(
       builder: (context, state) {
+        Widget child;
         if (state is MultiImageMultiPickingLoading) {
-          return Center(child: getIndicator(context));
+          child = const Center(child: CircularProgressIndicator());
         } else if (state is MultiImagePickingError) {
-          return Row(
+          child = Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
@@ -26,7 +27,7 @@ class EventImageGalleryStatus extends StatelessWidget {
             ],
           );
         } else if (state is MultiImagePickingDone) {
-          return Row(
+          child = Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(
@@ -37,8 +38,13 @@ class EventImageGalleryStatus extends StatelessWidget {
                   .replaceFirst(" ", " ${state.assets.length} ")),
             ],
           );
+        } else {
+          child = const SizedBox();
         }
-        return Container();
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: child,
+        );
       },
     );
   }

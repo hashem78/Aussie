@@ -1,7 +1,6 @@
 import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/presentation/screens/usermanagement/initial_actions.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,9 +32,9 @@ class InitialScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        return Material(
+        return const Material(
           child: Center(
-            child: getIndicator(context),
+            child: CircularProgressIndicator(),
           ),
         );
       },

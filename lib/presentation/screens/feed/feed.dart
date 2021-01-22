@@ -100,8 +100,8 @@ class FeedScreen extends StatelessWidget {
               );
             }
 
-            return Center(
-              child: getIndicator(context),
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           },
         ),

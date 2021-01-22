@@ -27,7 +27,9 @@ class AussieThumbnailedAppBar extends StatelessWidget {
           builder: (context, state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
-                items: [Center(child: getIndicator(context))],
+                items: const [
+                  Center(child: CircularProgressIndicator()),
+                ],
                 options: CarouselOptions(
                   height: height,
                   viewportFraction: 1,

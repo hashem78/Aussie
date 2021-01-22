@@ -49,7 +49,7 @@ class EventCreationScreen extends StatelessWidget {
                   BlocBuilder<EventManagementCubit, EventManagementState>(
                     builder: (context, state) {
                       if (state is EventManagementPerformingAction) {
-                        return Center(child: getIndicator(context));
+                        return const Center(child: CircularProgressIndicator());
                       }
                       return Container();
                     },

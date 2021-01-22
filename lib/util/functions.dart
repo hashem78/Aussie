@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loading_animations/loading_animations.dart';
+
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
@@ -54,8 +54,8 @@ Widget buildImage(
       placeholder: showPlaceHolder
           ? (context, url) => Container(
                 color: Colors.lightBlueAccent,
-                child: Center(
-                  child: getIndicator(context),
+                child: const Center(
+                  child: CircularProgressIndicator(),
                 ),
               )
           : null,
@@ -87,9 +87,6 @@ void resetStatusbarColor(BuildContext context) {
     SystemUiOverlayStyle(statusBarColor: color),
   );
 }
-
-LoadingBouncingGrid getIndicator(BuildContext context) =>
-    Provider.of<LoadingBouncingGrid>(context, listen: false);
 
 PageTransitionType getAppropriateAnimation(BuildContext context) =>
     BlocProvider.of<LanguageCubit>(context).appropriateAnimation();

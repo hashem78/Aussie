@@ -17,8 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animations/loading_animations.dart';
-import 'package:provider/provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/localizations.dart';
@@ -78,93 +77,87 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider.value(
-      value: LoadingBouncingGrid.circle(
-        backgroundColor: Colors.blue,
-      ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => BrightnessCubit(brightness)),
-          BlocProvider(create: (context) => LanguageCubit(locale)),
-          BlocProvider(create: (context) => SignupBloc()),
-          BlocProvider(create: (context) => UserManagementCubit()),
-          BlocProvider(create: (context) => MultiImagePickingCubit()),
-          BlocProvider(create: (context) => SingleImagePickingCubit()),
-          BlocProvider(
-            create: (context) =>
-                PaginatedCubit<NaturalParkModel>("naturalParks"),
-          ),
-          BlocProvider(
-            create: (context) => PaginatedCubit<TeritoryModel>("teritories"),
-          ),
-          BlocProvider(create: (context) => WeatherCubit()),
-          BlocProvider(
-            create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
-          ),
-          BlocProvider(
-            create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
-            child: FloraScreen(),
-          ),
-        ],
-        child: BlocBuilder<LanguageCubit, LanguageState>(
-          builder: (context, languageState) {
-            return BlocBuilder<BrightnessCubit, Brightness>(
-              builder: (context, state) {
-                return OrientationBuilder(
-                  builder: (context, orientation) {
-                    Size size;
-                    if (orientation == Orientation.portrait) {
-                      size = const Size(1920, 1080);
-                    } else {
-                      size = const Size(1080, 1920);
-                    }
-                    return ScreenUtilInit(
-                      designSize: size,
-                      child: MaterialApp(
-                        locale: languageState.currentLocale,
-                        debugShowCheckedModeBanner: false,
-                        localizationsDelegates: const [
-                          GlobalMaterialLocalizations.delegate,
-                          GlobalWidgetsLocalizations.delegate,
-                          GlobalCupertinoLocalizations.delegate,
-                          AussieLocalizations.delegate,
-                        ],
-                        supportedLocales: const [
-                          Locale('en', ''),
-                          Locale('ar', ''),
-                        ],
-                        localeResolutionCallback: (locale, supportedLocales) {
-                          if (supportedLocales.contains(locale)) return locale;
-                          return supportedLocales.first;
-                        },
-                        home: BlocProvider(
-                          create: (context) =>
-                              UserManagementCubit()..isUserSignedIn(),
-                          child: InitialScreen(),
-                        ),
-                        theme: ThemeData(
-                          brightness: state,
-                          outlinedButtonTheme: OutlinedButtonThemeData(
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.all(15.0),
-                              shape: const RoundedRectangleBorder(),
-                            ),
-                          ),
-                          textButtonTheme: TextButtonThemeData(
-                            style: TextButton.styleFrom(
-                              shape: const RoundedRectangleBorder(),
-                            ),
-                          ),
-                        ),
-                        routes: routes,
-                      ),
-                    );
-                  },
-                );
-              },
-            );
-          },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => BrightnessCubit(brightness)),
+        BlocProvider(create: (context) => LanguageCubit(locale)),
+        BlocProvider(create: (context) => SignupBloc()),
+        BlocProvider(create: (context) => UserManagementCubit()),
+        BlocProvider(create: (context) => MultiImagePickingCubit()),
+        BlocProvider(create: (context) => SingleImagePickingCubit()),
+        BlocProvider(
+          create: (context) => PaginatedCubit<NaturalParkModel>("naturalParks"),
         ),
+        BlocProvider(
+          create: (context) => PaginatedCubit<TeritoryModel>("teritories"),
+        ),
+        BlocProvider(create: (context) => WeatherCubit()),
+        BlocProvider(
+          create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
+        ),
+        BlocProvider(
+          create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
+          child: FloraScreen(),
+        ),
+      ],
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, languageState) {
+          return BlocBuilder<BrightnessCubit, Brightness>(
+            builder: (context, state) {
+              return OrientationBuilder(
+                builder: (context, orientation) {
+                  Size size;
+                  if (orientation == Orientation.portrait) {
+                    size = const Size(1920, 1080);
+                  } else {
+                    size = const Size(1080, 1920);
+                  }
+                  return ScreenUtilInit(
+                    designSize: size,
+                    child: MaterialApp(
+                      locale: languageState.currentLocale,
+                      debugShowCheckedModeBanner: false,
+                      localizationsDelegates: const [
+                        GlobalMaterialLocalizations.delegate,
+                        GlobalWidgetsLocalizations.delegate,
+                        GlobalCupertinoLocalizations.delegate,
+                        AussieLocalizations.delegate,
+                      ],
+                      supportedLocales: const [
+                        Locale('en', ''),
+                        Locale('ar', ''),
+                      ],
+                      localeResolutionCallback: (locale, supportedLocales) {
+                        if (supportedLocales.contains(locale)) return locale;
+                        return supportedLocales.first;
+                      },
+                      home: BlocProvider(
+                        create: (context) =>
+                            UserManagementCubit()..isUserSignedIn(),
+                        child: InitialScreen(),
+                      ),
+                      theme: ThemeData(
+                        brightness: state,
+                        outlinedButtonTheme: OutlinedButtonThemeData(
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.all(15.0),
+                            shape: const RoundedRectangleBorder(),
+                          ),
+                        ),
+                        textButtonTheme: TextButtonThemeData(
+                          style: TextButton.styleFrom(
+                            shape: const RoundedRectangleBorder(),
+                          ),
+                        ),
+                      ),
+                      routes: routes,
+                    ),
+                  );
+                },
+              );
+            },
+          );
+        },
       ),
     );
   }
