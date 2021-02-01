@@ -32,7 +32,7 @@ class SpeciesDetails extends StatelessWidget {
                   ? buildImage(model.titleImageUrl)
                   : CarouselSlider.builder(
                       itemCount: model.imageUrls.length,
-                      itemBuilder: (context, index) => buildImage(
+                      itemBuilder: (context, index, realIndex) => buildImage(
                         model.imageUrls[index],
                         showPlaceHolder: false,
                         fadeIn: Duration.zero,

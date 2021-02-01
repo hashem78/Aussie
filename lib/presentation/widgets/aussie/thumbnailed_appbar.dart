@@ -39,7 +39,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
             } else if (state is ThumbnailLoaded) {
               return CarouselSlider.builder(
                 itemCount: state.imageUrls.length,
-                itemBuilder: (context, index) => buildImage(
+                itemBuilder: (context, index, realIndex) => buildImage(
                   state.imageUrls[index],
                   showPlaceHolder: false,
                   fadeIn: Duration.zero,
