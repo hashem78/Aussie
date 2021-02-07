@@ -74,7 +74,6 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                           "   $sectionText",
                           style: TextStyle(fontSize: 45.sp),
                           maxLines: 5,
-                          expandOnGesture: false,
                         ),
                       ],
                     ),

@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_screenutil/screenutil_init.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -114,44 +114,46 @@ class MyApp extends StatelessWidget {
                   }
                   return ScreenUtilInit(
                     designSize: size,
-                    child: MaterialApp(
-                      locale: languageState.currentLocale,
-                      debugShowCheckedModeBanner: false,
-                      localizationsDelegates: const [
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                        AussieLocalizations.delegate,
-                      ],
-                      supportedLocales: const [
-                        Locale('en', ''),
-                        Locale('ar', ''),
-                      ],
-                      localeResolutionCallback: (locale, supportedLocales) {
-                        if (supportedLocales.contains(locale)) return locale;
-                        return supportedLocales.first;
-                      },
-                      home: BlocProvider(
-                        create: (context) =>
-                            UserManagementCubit()..isUserSignedIn(),
-                        child: InitialScreen(),
-                      ),
-                      theme: ThemeData(
-                        brightness: state,
-                        outlinedButtonTheme: OutlinedButtonThemeData(
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.all(15.0),
-                            shape: const RoundedRectangleBorder(),
+                    builder: () {
+                      return MaterialApp(
+                        locale: languageState.currentLocale,
+                        debugShowCheckedModeBanner: false,
+                        localizationsDelegates: const [
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
+                          GlobalCupertinoLocalizations.delegate,
+                          AussieLocalizations.delegate,
+                        ],
+                        supportedLocales: const [
+                          Locale('en', ''),
+                          Locale('ar', ''),
+                        ],
+                        localeResolutionCallback: (locale, supportedLocales) {
+                          if (supportedLocales.contains(locale)) return locale;
+                          return supportedLocales.first;
+                        },
+                        home: BlocProvider(
+                          create: (context) =>
+                              UserManagementCubit()..isUserSignedIn(),
+                          child: InitialScreen(),
+                        ),
+                        theme: ThemeData(
+                          brightness: state,
+                          outlinedButtonTheme: OutlinedButtonThemeData(
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.all(15.0),
+                              shape: const RoundedRectangleBorder(),
+                            ),
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              shape: const RoundedRectangleBorder(),
+                            ),
                           ),
                         ),
-                        textButtonTheme: TextButtonThemeData(
-                          style: TextButton.styleFrom(
-                            shape: const RoundedRectangleBorder(),
-                          ),
-                        ),
-                      ),
-                      routes: routes,
-                    ),
+                        routes: routes,
+                      );
+                    },
                   );
                 },
               );

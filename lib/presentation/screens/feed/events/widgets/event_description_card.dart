@@ -17,7 +17,6 @@ class EventDetailsDescriptionCard extends StatelessWidget {
       child: ExpandText(
         e.description,
         textAlign: TextAlign.center,
-        expandOnGesture: false,
       ),
     );
   }

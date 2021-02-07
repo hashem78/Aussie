@@ -72,7 +72,6 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
                     ),
                     ExpandText(
                       widget.text,
-                      expandOnGesture: false,
                       overflow: widget.overflow,
                       style: TextStyle(
                         fontSize: 15,

@@ -52,7 +52,6 @@ class NaturalParksTile extends StatelessWidget {
               child: ExpandText(
                 model.summary,
                 maxLines: 4,
-                expandOnGesture: false,
               ),
             ),
           ),
