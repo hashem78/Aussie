@@ -26,7 +26,6 @@ class AussieThumbnailedAppBar extends StatelessWidget {
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
           builder: (context, state) {
-            print(state);
             if (state is ThumbnailLoading) {
               return CarouselSlider(
                 items: const [

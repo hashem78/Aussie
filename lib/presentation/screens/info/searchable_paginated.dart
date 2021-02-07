@@ -67,50 +67,41 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
 
   @override
   Widget build(BuildContext context) {
-    setStatusbarColor();
-    return WillPopScope(
-      onWillPop: () async {
-        resetStatusbarColor(context);
-        return true;
-      },
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          backgroundColor:
-              AussieThemeProvider.of(context).color.backgroundColor,
-          body: CustomScrollView(
-            slivers: [
-              BlocProvider(
-                create: (context) =>
-                    ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
-                child: AussieThumbnailedAppBar(
-                  title: widget.title,
-                ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        body: CustomScrollView(
+          slivers: [
+            BlocProvider(
+              create: (context) =>
+                  ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
+              child: AussieThumbnailedAppBar(
+                title: widget.title,
               ),
-              PaginatedSearchBar(
-                onSubmitted: (val) {
-                  searchQuery = val;
-                  _controller.refresh();
-                },
-              ),
-              BlocListener<PaginatedCubit<T>, PaginatedState>(
-                listener: (context, state) {
-                  if (state is PaginatedInitialLoaded) {
-                    _controller.appendPage(state.models, _pageSize);
-                  } else if (state is PaginatedDataChanged) {
-                    final nextKey =
-                        _controller.nextPageKey + state.models.length;
-                    _controller.appendPage(state.models, nextKey);
-                  } else if (state is PaginatedEnd) {
-                    _controller.appendLastPage(state.models);
-                  } else if (state is PaginatedFiltered) {
-                    _controller.appendLastPage(state.models);
-                  }
-                },
-                child: buildSliverList(),
-              ),
-            ],
-          ),
+            ),
+            PaginatedSearchBar(
+              onSubmitted: (val) {
+                searchQuery = val;
+                _controller.refresh();
+              },
+            ),
+            BlocListener<PaginatedCubit<T>, PaginatedState>(
+              listener: (context, state) {
+                if (state is PaginatedInitialLoaded) {
+                  _controller.appendPage(state.models, _pageSize);
+                } else if (state is PaginatedDataChanged) {
+                  final nextKey = _controller.nextPageKey + state.models.length;
+                  _controller.appendPage(state.models, nextKey);
+                } else if (state is PaginatedEnd) {
+                  _controller.appendLastPage(state.models);
+                } else if (state is PaginatedFiltered) {
+                  _controller.appendLastPage(state.models);
+                }
+              },
+              child: buildSliverList(),
+            ),
+          ],
         ),
       ),
     );

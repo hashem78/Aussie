@@ -7,11 +7,10 @@ import 'package:aussie/models/event/event.dart';
 import 'package:aussie/models/usermanagement/user/user.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -64,28 +63,6 @@ Widget buildImage(
   } else {
     return null;
   }
-}
-
-void setStatusbarColor({Color color = Colors.transparent}) {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: color),
-  );
-}
-
-void resetStatusbarColor(BuildContext context) {
-  final Brightness brightness =
-      context.read<BrightnessCubit>().currentBrightness;
-
-  Color color;
-  if (brightness == Brightness.light) {
-    color = Colors.blue;
-  } else {
-    color = Colors.grey.shade900;
-  }
-
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: color),
-  );
 }
 
 PageTransitionType getAppropriateAnimation(BuildContext context) =>

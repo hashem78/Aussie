@@ -49,15 +49,7 @@ Future<void> main() async {
   final bool isLight = brightnessString == 'light';
   brightness = isLight ? Brightness.light : Brightness.dark;
 
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarBrightness: brightness,
-      statusBarColor: isLight ? Colors.blue : Colors.grey.shade900,
-    ),
-  );
-  SystemChrome.setEnabledSystemUIOverlays([
-    SystemUiOverlay.top,
-  ]);
+  SystemChrome.setEnabledSystemUIOverlays([]);
   Locale locale;
   if (_perfs.containsKey("lang")) {
     locale = Locale(_perfs.getString("lang"), '');
@@ -135,7 +127,9 @@ class MyApp extends StatelessWidget {
                         home: BlocProvider(
                           create: (context) =>
                               UserManagementCubit()..isUserSignedIn(),
-                          child: InitialScreen(),
+                          child: SafeArea(
+                            child: InitialScreen(),
+                          ),
                         ),
                         theme: ThemeData(
                           brightness: state,

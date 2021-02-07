@@ -33,14 +33,6 @@ class _BrightnessSwitchState extends State<BrightnessSwitch> {
               onChanged: (val) {
                 _isDark = val;
                 BlocProvider.of<BrightnessCubit>(context).toggleBrightness();
-                SystemChrome.setSystemUIOverlayStyle(
-                  SystemUiOverlayStyle(
-                    statusBarBrightness:
-                        !_isDark ? Brightness.light : Brightness.dark,
-                    statusBarColor:
-                        !_isDark ? Colors.blue : Colors.grey.shade900,
-                  ),
-                );
               },
             );
           },
