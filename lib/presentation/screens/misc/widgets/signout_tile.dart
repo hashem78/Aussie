@@ -1,3 +1,4 @@
+import 'package:aussie/presentation/screens/usermanagement/initial.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,14 @@ class SignoutTile extends StatelessWidget {
     return BlocListener<UserManagementCubit, UserManagementState>(
       listener: (context, state) {
         if (state is UserManagementSignOut) {
-          //context.read<UserManagementCubit>().emitNeedsAction();
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) {
+                return InitialScreen();
+              },
+            ),
+            (route) => route.isFirst,
+          );
 
           Navigator.of(context).popUntil((route) => route.isFirst);
         }

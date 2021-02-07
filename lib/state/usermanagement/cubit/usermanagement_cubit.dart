@@ -29,15 +29,9 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     );
   }
 
-  void signout() {
-    FirebaseAuth.instance.signOut();
-    FirebaseAuth.instance.authStateChanges().listen(
-      (event) {
-        if (event == null) {
-          emit(const UserManagementSignOut());
-        }
-      },
-    );
+  Future<void> signout() async {
+    await FirebaseAuth.instance.signOut();
+    emit(const UserManagementSignOut());
   }
 
   void singin(SigninModel model) {

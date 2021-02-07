@@ -106,12 +106,10 @@ class WeatherModel extends Equatable {
 
   factory WeatherModel.fromMapWithFourDays(Map<String, dynamic> map) {
     if (map == null) return null;
-    final Map<String, dynamic> fourDays =
-        map['fourDayModels'] as Map<String, dynamic>;
+    final List<dynamic> fourDays = map['fourDayModels'] as List<dynamic>;
     final List<WeatherModel> weatherModels = [];
-    for (final model in fourDays.entries) {
-      weatherModels
-          .add(WeatherModel.fromMap(model.value as Map<String, dynamic>));
+    for (final model in fourDays) {
+      weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
     }
     return WeatherModel.withFourDays(
       day: map['day'] as String,

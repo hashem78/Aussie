@@ -54,14 +54,6 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                     type: getAppropriateAnimation(context),
                   ),
                 );
-              } else if (state is UserManagementSignOut) {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return InitialUserActionScreen();
-                    },
-                  ),
-                );
               }
             },
             child: Center(

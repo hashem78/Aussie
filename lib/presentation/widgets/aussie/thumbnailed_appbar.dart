@@ -16,6 +16,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<ThumbnailCubit>().fetch();
     return SliverAppBar(
       backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
       pinned: true,
@@ -25,6 +26,7 @@ class AussieThumbnailedAppBar extends StatelessWidget {
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
           builder: (context, state) {
+            print(state);
             if (state is ThumbnailLoading) {
               return CarouselSlider(
                 items: const [
