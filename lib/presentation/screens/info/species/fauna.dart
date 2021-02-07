@@ -14,7 +14,7 @@ class FaunaScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.faunaDark,
       light: AussieScreenColorData.faunaLight,
-      builder: (context, swatchColor, backgroundColor) {
+      builder: (context, color) {
         return SearchablePaginatedScreen<SpeciesDetailsModel>(
           title: getTranslation(context, AussieScreenData.faunaTitle),
           filterFor: "commonName",
@@ -22,7 +22,10 @@ class FaunaScreen extends StatelessWidget {
           itemBuilder: (context, item, index) {
             final _casted = item as SpeciesDetailsModel;
             return PaginatedScreenTile(
-              titleImage: buildImage(_casted.titleImageUrl),
+              titleImage: buildImage(
+                _casted.titleImageUrl,
+                fit: BoxFit.cover,
+              ),
               title: Text(
                 _casted.commonName,
                 style:
@@ -31,7 +34,10 @@ class FaunaScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 PageTransition(
-                  child: SpeciesDetails(model: item as SpeciesDetailsModel),
+                  child: AussieThemeProvider(
+                    color: color,
+                    child: SpeciesDetails(model: item as SpeciesDetailsModel),
+                  ),
                   type: getAppropriateAnimation(context),
                 ),
               ),

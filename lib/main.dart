@@ -84,13 +84,6 @@ class MyApp extends StatelessWidget {
           create: (context) => PaginatedCubit<TeritoryModel>("teritories"),
         ),
         BlocProvider(create: (context) => WeatherCubit()),
-        BlocProvider(
-          create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
-        ),
-        BlocProvider(
-          create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
-          child: FloraScreen(),
-        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
@@ -165,8 +158,14 @@ class MyApp extends StatelessWidget {
         const WeatherScreen(),
     AussieScreenData.territoriesNavPath: (BuildContext context) =>
         const TeritoriesScreen(),
-    AussieScreenData.faunaNavPath: (BuildContext context) => FaunaScreen(),
-    AussieScreenData.floraNavPath: (BuildContext context) => FloraScreen(),
+    AussieScreenData.faunaNavPath: (BuildContext context) => BlocProvider(
+          create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
+          child: FaunaScreen(),
+        ),
+    AussieScreenData.floraNavPath: (BuildContext context) => BlocProvider(
+          create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
+          child: FloraScreen(),
+        ),
     AussieScreenData.settingsNavPath: (BuildContext context) =>
         SettingsScreen(),
   };

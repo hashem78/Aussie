@@ -17,7 +17,7 @@ class NaturalParksScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.naturalParksDark,
       light: AussieScreenColorData.naturalParksLight,
-      builder: (context, swatchColor, backgroundColor) {
+      builder: (context, color) {
         return SearchablePaginatedScreen<NaturalParkModel>(
           title: getTranslation(context, AussieScreenData.naturalParksTitle),
           filterFor: "park_name",

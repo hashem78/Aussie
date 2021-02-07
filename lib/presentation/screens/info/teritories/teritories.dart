@@ -19,7 +19,7 @@ class TeritoriesScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.territoreisDark,
       light: AussieScreenColorData.territoriesLight,
-      builder: (context, swatchColor, backgroundColor) {
+      builder: (context, color) {
         return SearchablePaginatedScreen<TeritoryModel>(
           title: getTranslation(context, AussieScreenData.territoriesTitle),
           thumbnailCubitRoute: AussieScreenData.territoriesThumbnailRoute,
@@ -50,7 +50,7 @@ class TeritoriesScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: buildChip(
-                            swatchColor,
+                            color.swatchColor,
                             getTranslation(context, "population"),
                             _casted.population,
                           ),
@@ -62,14 +62,14 @@ class TeritoriesScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: buildChip(
-                            swatchColor,
+                            color.swatchColor,
                             getTranslation(context, "longitude"),
                             _casted.lng,
                           ),
                         ),
                         Expanded(
                           child: buildChip(
-                            swatchColor,
+                            color.swatchColor,
                             getTranslation(context, "latitude"),
                             _casted.lat,
                           ),

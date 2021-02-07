@@ -11,7 +11,7 @@ import 'package:flutter/foundation.dart';
 class PaginatedRepositoy<T extends IPaginatedData> {
   final PaginatedOnlineDataProvider _onlineDataProvider;
   PaginatedRepositoy({
-    String route,
+    @required String route,
   }) : _onlineDataProvider = PaginatedOnlineDataProvider(route);
   Future<List<IPaginatedData>> fetch(int page,
       {@required int fetchAmount}) async {

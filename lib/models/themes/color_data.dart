@@ -87,8 +87,7 @@ class AussieThemeBuilder extends StatelessWidget {
   final AussieColor light;
   final Widget Function(
     BuildContext context,
-    Color swatchColor,
-    Color backgroundColor,
+    AussieColor color,
   ) builder;
 
   const AussieThemeBuilder({
@@ -106,11 +105,7 @@ class AussieThemeBuilder extends StatelessWidget {
             color: light,
             child: Builder(
               builder: (context) {
-                return builder(
-                  context,
-                  light.swatchColor,
-                  light.backgroundColor,
-                );
+                return builder(context, light);
               },
             ),
           );
@@ -119,11 +114,7 @@ class AussieThemeBuilder extends StatelessWidget {
             color: dark,
             child: Builder(
               builder: (context) {
-                return builder(
-                  context,
-                  dark.swatchColor,
-                  dark.backgroundColor,
-                );
+                return builder(context, dark);
               },
             ),
           );

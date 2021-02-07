@@ -14,10 +14,10 @@ class FloraScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.floraDark,
       light: AussieScreenColorData.floraLight,
-      builder: (context, swatchColor, backgroundColor) {
+      builder: (context, color) {
         return SearchablePaginatedScreen<SpeciesDetailsModel>(
           title: getTranslation(context, AussieScreenData.floraTitle),
-          thumbnailCubitRoute: "flora_images",
+          thumbnailCubitRoute: AussieScreenData.floraThumbnailRoute,
           filterFor: "commonName",
           itemBuilder: (context, item, index) {
             final _casted = item as SpeciesDetailsModel;
@@ -34,7 +34,10 @@ class FloraScreen extends StatelessWidget {
               onTap: () => Navigator.push(
                 context,
                 PageTransition(
-                  child: SpeciesDetails(model: item as SpeciesDetailsModel),
+                  child: AussieThemeProvider(
+                    color: color,
+                    child: SpeciesDetails(model: item as SpeciesDetailsModel),
+                  ),
                   type: getAppropriateAnimation(context),
                 ),
               ),

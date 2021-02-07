@@ -59,10 +59,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
       create: (context) =>
           ThumbnailCubit(AussieScreenData.weatherThumbnailRoute),
       child: AussieThemeBuilder(
-        builder:
-            (BuildContext context, Color swatchColor, Color backgroundColor) {
+        builder: (BuildContext context, color) {
           return Scaffold(
-            backgroundColor: backgroundColor,
+            backgroundColor: color.backgroundColor,
             body: CustomScrollView(
               slivers: [
                 AussieThumbnailedAppBar(
