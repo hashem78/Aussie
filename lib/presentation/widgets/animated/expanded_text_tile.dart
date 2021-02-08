@@ -12,7 +12,7 @@ class ExpandingTextTile extends StatefulWidget {
   final int maxLines;
   final TextOverflow overflow;
   final Color expandedTextColor;
-  ExpandingTextTile({
+  const ExpandingTextTile({
     Color color,
     @required this.title,
     @required this.text,
@@ -21,7 +21,7 @@ class ExpandingTextTile extends StatefulWidget {
     TextStyle titleStyle,
     this.overflow = TextOverflow.fade,
     this.expandedTextColor = Colors.white,
-  })  : color = color ?? Colors.purple.shade700,
+  })  : color = color ?? const Color(0xFF7B1FA2),
         titleStyle = titleStyle ??
             const TextStyle(
               fontSize: 40,

@@ -15,6 +15,8 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
   final String title;
   final String filterFor;
 
+  final bool _isList;
+
   final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
   const SearchablePaginatedScreen({
@@ -22,7 +24,13 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
     @required this.itemBuilder,
     @required this.title,
     @required this.filterFor,
-  });
+  }) : _isList = false;
+  const SearchablePaginatedScreen.list({
+    @required this.thumbnailCubitRoute,
+    @required this.itemBuilder,
+    @required this.title,
+    @required this.filterFor,
+  }) : _isList = true;
   @override
   _SearchablePaginatedScreenState<T> createState() =>
       _SearchablePaginatedScreenState<T>();
@@ -99,9 +107,28 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
                   _controller.appendLastPage(state.models);
                 }
               },
-              child: buildSliverList(),
+              child: widget._isList ? buildSliverList() : buildSliverGrid(),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildSliverGrid() {
+    return PagedSliverGrid<int, IPaginatedData>(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      pagingController: _controller,
+      builderDelegate: PagedChildBuilderDelegate<IPaginatedData>(
+        itemBuilder: widget.itemBuilder,
+        noItemsFoundIndicatorBuilder: (_) => SizedBox(
+          height: 100,
+          child: Center(
+            child: Text(
+                getTranslation(context, "searchablePaginatedNoItemsFound")),
+          ),
         ),
       ),
     );
@@ -117,14 +144,6 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
           child: Center(
             child: Text(
                 getTranslation(context, "searchablePaginatedNoItemsFound")),
-          ),
-        ),
-        noMoreItemsIndicatorBuilder: (_) => const SizedBox(
-          height: 50,
-          child: Center(
-            child: Text(
-              "No more items to show",
-            ),
           ),
         ),
       ),

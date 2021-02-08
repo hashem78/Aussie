@@ -1,10 +1,8 @@
 import 'package:aussie/models/info/species/species.dart';
 import 'package:aussie/models/themes/color_data.dart';
-import 'package:aussie/presentation/widgets/animated/expanded_text_tile.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
@@ -18,50 +16,83 @@ class SpeciesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
-            elevation: 0,
-            expandedHeight: .5.sh,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(model.commonName),
-              background: model.titleImageUrl != null && model.imageUrls == null
-                  ? buildImage(model.titleImageUrl)
-                  : CarouselSlider.builder(
-                      itemCount: model.imageUrls.length,
-                      itemBuilder: (context, index, realIndex) => buildImage(
-                        model.imageUrls[index],
-                        showPlaceHolder: false,
-                        fadeIn: Duration.zero,
-                        fit: BoxFit.cover,
-                      ),
-                      options: CarouselOptions(
-                        height: .5.sh,
-                        viewportFraction: 1,
-                        pageSnapping: false,
-                        autoPlay: true,
-                        enableInfiniteScroll:
-                            model.imageUrls.length == 1 ? false : true,
-                        autoPlayInterval: const Duration(seconds: 10),
-                      ),
-                    ),
-            ),
+    final bool condition =
+        model.titleImageUrl != null && model.imageUrls == null;
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
+          elevation: 0,
+          title: Text(model.commonName),
+          bottom: const TabBar(
+            tabs: [
+              Icon(Icons.info),
+              Icon(Icons.image),
+            ],
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildDataTable(),
-                ExpandingTextTile(
-                  text: model.description,
-                  title: "Info",
-                )
+        ),
+        body: TabBarView(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  buildDataTable(),
+                  Text(
+                    model.description.trim(),
+                    textAlign: TextAlign.justify,
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (!condition && model.imageUrls.isEmpty)
+                  const Expanded(
+                    child: Center(
+                      child: Text('There are no images available'),
+                    ),
+                  ),
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
+                    itemCount: !condition ? model.imageUrls.length : 1,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) {
+                              return AussiePhotoView(
+                                url: !condition
+                                    ? model.imageUrls[index]
+                                    : model.titleImageUrl,
+                              );
+                            },
+                          ));
+                        },
+                        child: Ink.image(
+                          padding: EdgeInsets.zero,
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            !condition
+                                ? model.imageUrls[index]
+                                : model.titleImageUrl,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

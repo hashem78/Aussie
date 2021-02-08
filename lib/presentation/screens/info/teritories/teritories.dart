@@ -20,7 +20,7 @@ class TeritoriesScreen extends StatelessWidget {
       dark: AussieScreenColorData.territoreisDark,
       light: AussieScreenColorData.territoriesLight,
       builder: (context, color) {
-        return SearchablePaginatedScreen<TeritoryModel>(
+        return SearchablePaginatedScreen<TeritoryModel>.list(
           title: getTranslation(context, AussieScreenData.territoriesTitle),
           thumbnailCubitRoute: AussieScreenData.territoriesThumbnailRoute,
           filterFor: "title",

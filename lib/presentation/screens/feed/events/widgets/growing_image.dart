@@ -1,8 +1,8 @@
 import 'package:aussie/models/event_image/event_image.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:photo_view/photo_view.dart';
+
 import 'package:provider/provider.dart';
 
 import 'package:aussie/util/functions.dart';
@@ -47,7 +47,7 @@ class _GrowingImageState extends State<GrowingImage>
       onTap: () {
         Navigator.of(context).push(
           PageTransition(
-            child: EventGalleryPhotoView(
+            child: AussiePhotoView(
               url: Provider.of<EventImageModel>(context, listen: false)
                   .imageLink,
             ),
@@ -73,30 +73,6 @@ class _GrowingImageState extends State<GrowingImage>
         child: buildImage(
             Provider.of<EventImageModel>(context, listen: false).imageLink,
             fit: BoxFit.fitHeight),
-      ),
-    );
-  }
-}
-
-class EventGalleryPhotoView extends StatelessWidget {
-  final String url;
-  const EventGalleryPhotoView({
-    Key key,
-    this.url,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      bottomNavigationBar: const BottomAppBar(),
-      body: PhotoView(
-        minScale: PhotoViewComputedScale.contained,
-        maxScale: 1.0,
-        imageProvider: CachedNetworkImageProvider(url),
       ),
     );
   }

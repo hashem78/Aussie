@@ -18,7 +18,7 @@ class NaturalParksScreen extends StatelessWidget {
       dark: AussieScreenColorData.naturalParksDark,
       light: AussieScreenColorData.naturalParksLight,
       builder: (context, color) {
-        return SearchablePaginatedScreen<NaturalParkModel>(
+        return SearchablePaginatedScreen<NaturalParkModel>.list(
           title: getTranslation(context, AussieScreenData.naturalParksTitle),
           filterFor: "park_name",
           thumbnailCubitRoute: AussieScreenData.naturalParksThumbnailRoute,
@@ -30,13 +30,12 @@ class NaturalParksScreen extends StatelessWidget {
               model: _casted,
               onTap: () => Navigator.of(context).push(
                 PageTransition(
-                  child: NaturalParksDetailsScreen(
-                    heroTag: _key.toString(),
-                    model: _casted,
-                    swatchColor:
-                        AussieThemeProvider.of(context).color.swatchColor,
-                    backgroundColor:
-                        AussieThemeProvider.of(context).color.backgroundColor,
+                  child: AussieThemeProvider(
+                    color: color,
+                    child: NaturalParksDetailsScreen(
+                      heroTag: _key.toString(),
+                      model: _casted,
+                    ),
                   ),
                   type: getAppropriateAnimation(context),
                 ),
