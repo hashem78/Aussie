@@ -18,23 +18,33 @@ class EventDetailsGallery extends StatelessWidget {
         return AspectRatio(
           aspectRatio: 16 / 9,
           child: InkWell(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return AussiePhotoView(
-                      url: e.galleryImages[index].imageLink,
-                    );
-                  },
-                ),
-              );
-            },
-            child: Ink.image(
-              image: CachedNetworkImageProvider(
-                e.galleryImages[index].imageLink,
-              ),
-            ),
-          ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return AussiePhotoView(
+                        url: e.galleryImages[index].imageLink,
+                      );
+                    },
+                  ),
+                );
+              },
+              child: CachedNetworkImage(
+                imageUrl: e.galleryImages[index].imageLink,
+                fadeOutDuration: Duration.zero,
+                progressIndicatorBuilder: (context, url, progress) {
+                  print(progress.progress);
+                  return Center(
+                    child: CircularProgressIndicator(value: progress.progress),
+                  );
+                },
+                imageBuilder: (context, imageProvider) {
+                  return Ink.image(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  );
+                },
+              )),
         );
       },
     );
