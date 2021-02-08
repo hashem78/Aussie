@@ -14,7 +14,7 @@ import 'package:path_provider/path_provider.dart';
 part 'single_image_picking_state.dart';
 
 class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
-  SingleImagePickingCubit() : super(SingleImagePickingInitial());
+  SingleImagePickingCubit() : super(const SingleImagePickingInitial());
   Future<void> pickImage({
     int maxWidth,
     int maxHeight,
@@ -78,6 +78,6 @@ class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
   }
 
   void emitInitial() {
-    emit(SingleImagePickingInitial());
+    emit(const SingleImagePickingInitial());
   }
 }

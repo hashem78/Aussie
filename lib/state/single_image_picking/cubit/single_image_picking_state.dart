@@ -7,7 +7,9 @@ abstract class SingleImagePickingState extends Equatable {
   List<Object> get props => [];
 }
 
-class SingleImagePickingInitial extends SingleImagePickingState {}
+class SingleImagePickingInitial extends SingleImagePickingState {
+  const SingleImagePickingInitial();
+}
 
 class SingleImagePickingDone extends SingleImagePickingState {
   final AussieByteData data;

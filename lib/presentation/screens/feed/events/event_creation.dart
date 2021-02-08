@@ -31,9 +31,11 @@ class EventCreationScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          flexibleSpace: FlexibleSpaceBar(
-            title: Text(getTranslation(context, "eventCreationTitle")),
-            background: const EventBannerPicker(),
+          title: Text(getTranslation(context, "eventCreationTitle")),
+          toolbarHeight: 100,
+          flexibleSpace: const AspectRatio(
+            aspectRatio: 16 / 9,
+            child: EventBannerPicker(),
           ),
           actions: [
             BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(

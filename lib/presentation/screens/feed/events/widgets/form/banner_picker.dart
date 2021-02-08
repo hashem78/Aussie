@@ -9,7 +9,23 @@ class EventBannerPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(
+    return BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
+      listener: (context, state) {
+        if (state is SingleImagePickingError) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(
+                const SnackBar(
+                  content: Text('No banner selected'),
+                ),
+              )
+              .closed
+              .whenComplete(
+            () {
+              context.read<SingleImagePickingCubit>().emitInitial();
+            },
+          );
+        }
+      },
       builder: (context, state) {
         Widget child;
         if (state is SingleImagePickingDone) {
@@ -21,10 +37,6 @@ class EventBannerPicker extends StatelessWidget {
           );
         } else if (state is SingleImagePickingInitial) {
           child = const SizedBox();
-        } else {
-          child = const Center(
-            child: CircularProgressIndicator(),
-          );
         }
         return AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
