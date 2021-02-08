@@ -20,7 +20,8 @@ class DescriptionFormField extends StatelessWidget {
         prefixIcon: const Icon(Icons.person_pin),
         border: InputBorder.none,
         filled: true,
-        hintText: getTranslation(context, "eventCreationDescriptionTitle"),
+        labelText: getTranslation(context, "eventCreationDescriptionTitle"),
+        hintText: getTranslation(context, "eventCreationDescriptionHint"),
       ),
     );
   }

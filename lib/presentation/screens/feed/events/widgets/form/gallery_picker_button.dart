@@ -10,7 +10,7 @@ class EventImageGalleryPickerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
+    return TextButton(
       onPressed: () {
         context.read<MultiImagePickingCubit>().pickImages();
       },

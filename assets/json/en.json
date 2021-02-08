@@ -33,6 +33,7 @@
     "tapbackToClose": "Tap back again to close app.",
     "feedScreenTitle": "Feed",
     "eventCreationDescriptionTitle": "Description",
+    "eventCreationDescriptionHint":"What's the fuss about?",
     "eventCreationEndDateTitle": "End Date",
     "eventCreationEndDateHint": "The date the event ends",
     "eventCreationEndingTimeTitle": "Ending Time",

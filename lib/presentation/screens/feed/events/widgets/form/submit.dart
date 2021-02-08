@@ -27,7 +27,7 @@ class EventCreationSubmitButton extends StatelessWidget {
       );
     }
 
-    return OutlinedButton(
+    return TextButton(
       onPressed: enabled
           ? () {
               // ignore: close_sinks

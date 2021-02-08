@@ -33,6 +33,7 @@
     "tapbackToClose": "قم بضغط زر الرجوع مرة اخرى لانهاء التطبيق",
     "feedScreenTitle": "احداث",
     "eventCreationDescriptionTitle": "الوصف",
+    "eventCreationDescriptionHint":"ما المذهل في هذا الحدث؟!",
     "eventCreationEndDateTitle": "تاريخ الانتهاء",
     "eventCreationEndDateHint": "تاريخ انتهاء الحدث",
     "eventCreationEndingTimeTitle": "وقت النهاية",
