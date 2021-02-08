@@ -16,35 +16,7 @@ class LanguageTile extends StatelessWidget {
             state.currentLocale.languageCode == "ar" ? "العربية" : "English",
           ),
           onTap: () {
-            if (_currentLanguage == "ar") {
-              BlocProvider.of<LanguageCubit>(context)
-                  .changeLocale(
-                    const Locale("en", ""),
-                  )
-                  .whenComplete(
-                    () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          getTranslation(context, "languageChangedText"),
-                        ),
-                      ),
-                    ),
-                  );
-            } else {
-              BlocProvider.of<LanguageCubit>(context)
-                  .changeLocale(
-                    const Locale("ar", ""),
-                  )
-                  .whenComplete(
-                    () => ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          getTranslation(context, "languageChangedText"),
-                        ),
-                      ),
-                    ),
-                  );
-            }
+            toggleLanguage(context, _currentLanguage);
           },
         );
       },

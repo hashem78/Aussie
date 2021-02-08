@@ -20,13 +20,14 @@ class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
     int maxHeight,
     CropStyle cropStyle,
     CropAspectRatio aspectRatio,
+    int quality = 60,
   }) async {
     try {
       final List<Asset> assets = await MultiImagePicker.pickImages(
         maxImages: 1,
         enableCamera: true,
       );
-      final ByteData data = await assets.first.getByteData(quality: 60);
+      final ByteData data = await assets.first.getByteData(quality: quality);
       final Directory docDir = await getApplicationDocumentsDirectory();
       final String docPath = docDir.path;
       final ByteBuffer buffer = data.buffer;

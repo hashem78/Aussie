@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BrightnessSwitch extends StatefulWidget {
-  const BrightnessSwitch();
+class BrightnessTile extends StatefulWidget {
+  const BrightnessTile();
   @override
-  _BrightnessSwitchState createState() => _BrightnessSwitchState();
+  _BrightnessTileState createState() => _BrightnessTileState();
 }
 
-class _BrightnessSwitchState extends State<BrightnessSwitch> {
+class _BrightnessTileState extends State<BrightnessTile> {
   bool _isDark = false;
   @override
   void initState() {

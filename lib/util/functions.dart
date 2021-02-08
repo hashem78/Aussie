@@ -79,3 +79,35 @@ SignupBloc getSignupBloc(BuildContext context) =>
 
 EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
+
+void toggleLanguage(BuildContext context, String currentLanguage) {
+  if (currentLanguage == "ar") {
+    BlocProvider.of<LanguageCubit>(context)
+        .changeLocale(
+          const Locale("en", ""),
+        )
+        .whenComplete(
+          () => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                getTranslation(context, "languageChangedText"),
+              ),
+            ),
+          ),
+        );
+  } else {
+    BlocProvider.of<LanguageCubit>(context)
+        .changeLocale(
+          const Locale("ar", ""),
+        )
+        .whenComplete(
+          () => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                getTranslation(context, "languageChangedText"),
+              ),
+            ),
+          ),
+        );
+  }
+}

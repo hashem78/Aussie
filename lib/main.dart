@@ -126,12 +126,6 @@ class MyApp extends StatelessWidget {
                         ),
                         theme: ThemeData(
                           brightness: state,
-                          outlinedButtonTheme: OutlinedButtonThemeData(
-                            style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.all(15.0),
-                              shape: const RoundedRectangleBorder(),
-                            ),
-                          ),
                           textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
                               shape: const RoundedRectangleBorder(),

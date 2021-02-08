@@ -72,57 +72,54 @@ class EventCreationScreen extends StatelessWidget {
         body: LayoutBuilder(
           builder: (context, constraint) {
             return SingleChildScrollView(
-              padding: EdgeInsets.zero,
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const EventCreationFormFields(),
-                      const EventLocationPicker(),
-                      const EventImageGalleryStatus(),
-                      const Expanded(child: EventImageGalleryPickerButton()),
-                      BlocBuilder<EventManagementCubit, EventManagementState>(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const EventCreationFormFields(),
+                    const EventLocationPicker(),
+                    const EventImageGalleryStatus(),
+                    const Expanded(child: EventImageGalleryPickerButton()),
+                    BlocBuilder<EventManagementCubit, EventManagementState>(
+                      builder: (context, state) {
+                        if (state is EventManagementPerformingAction) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        return Container();
+                      },
+                    ),
+                    Expanded(
+                      child: BlocConsumer<EventManagementCubit,
+                          EventManagementState>(
+                        listener: (context, state) {
+                          if (state is EventManagementCreated) {
+                            _sn("Event created");
+                            Future.delayed(const Duration(seconds: 2))
+                                .whenComplete(
+                                    () => Navigator.of(context).pop());
+                          } else if (state is EventManagementError) {
+                            _sn("Failed to create Event");
+                          }
+                        },
                         builder: (context, state) {
                           if (state is EventManagementPerformingAction) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          return Container();
-                        },
-                      ),
-                      Expanded(
-                        child: BlocConsumer<EventManagementCubit,
-                            EventManagementState>(
-                          listener: (context, state) {
+                            return const EventCreationSubmitButton(
+                                enabled: false);
+                          } else {
                             if (state is EventManagementCreated) {
-                              _sn("Event created");
-                              Future.delayed(const Duration(seconds: 2))
-                                  .whenComplete(
-                                      () => Navigator.of(context).pop());
-                            } else if (state is EventManagementError) {
-                              _sn("Failed to create Event");
-                            }
-                          },
-                          builder: (context, state) {
-                            if (state is EventManagementPerformingAction) {
                               return const EventCreationSubmitButton(
                                   enabled: false);
                             } else {
-                              if (state is EventManagementCreated) {
-                                return const EventCreationSubmitButton(
-                                    enabled: false);
-                              } else {
-                                return const EventCreationSubmitButton(
-                                    enabled: true);
-                              }
+                              return const EventCreationSubmitButton(
+                                  enabled: true);
                             }
-                          },
-                        ),
+                          }
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             );

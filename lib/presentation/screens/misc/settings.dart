@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 const <Widget>[
-                  BrightnessSwitch(),
+                  BrightnessTile(),
                   AboutAussieTile(),
                   LanguageTile(),
                   SignoutTile(),
