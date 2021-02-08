@@ -37,7 +37,8 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
 }
 
 class _SearchablePaginatedScreenState<T extends IPaginatedData>
-    extends State<SearchablePaginatedScreen<T>> {
+    extends State<SearchablePaginatedScreen<T>>
+    with AutomaticKeepAliveClientMixin {
   static const int _pageSize = 10;
   ThumbnailCubit thumbnailCubit;
   PagingController<int, IPaginatedData> _controller =
@@ -75,6 +76,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -149,4 +151,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

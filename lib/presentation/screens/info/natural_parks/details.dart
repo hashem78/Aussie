@@ -18,40 +18,38 @@ class NaturalParksDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
-            elevation: 0,
-            pinned: true,
-            expandedHeight: .4.sh,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(model.park_name),
-              background: model.image_link != ""
-                  ? Hero(
-                      tag: heroTag,
-                      child: buildImage(model.image_link),
-                    )
-                  : Container(),
-            ),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        appBar: AppBar(
+          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
+          elevation: 0,
+          title: Text(model.park_name),
+          flexibleSpace: model.image_link != ""
+              ? Hero(
+                  tag: heroTag,
+                  child: buildImage(model.image_link, fit: BoxFit.cover),
+                )
+              : null,
+          bottom: const TabBar(
+            tabs: [
+              Icon(Icons.info),
+              Icon(Icons.map),
+            ],
           ),
-          SliverToBoxAdapter(
-            child: AussieGMap(
-              size: Size(double.infinity, .4.sh),
-              model: AussieGMapModel(
-                latitude: model.latitude,
-                longitude: model.longitude,
-                title: model.park_name,
-              ),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                final sectionTitle = model.sections[index]["title"];
-                final sectionText = model.sections[index]["text"];
+        ),
+        body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            ListView.builder(
+              itemCount: model.sections.length,
+              itemBuilder: (context, index) {
+                final sectionTitle = model.sections[index]["title"].trim();
+                final sectionText = model.sections[index]["text"].trim();
+                if (sectionText == '') {
+                  return const SizedBox();
+                }
                 return Card(
                   color: Colors.cyan,
                   shape: const RoundedRectangleBorder(),
@@ -63,13 +61,12 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                         Text(
                           sectionTitle,
                           style: TextStyle(
-                            fontSize: 75.sp,
+                            fontSize: 100.ssp,
                             fontWeight: FontWeight.w900,
                           ),
                         ),
                         ExpandText(
                           "   $sectionText",
-                          style: TextStyle(fontSize: 45.sp),
                           maxLines: 5,
                         ),
                       ],
@@ -77,10 +74,17 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                   ),
                 );
               },
-              childCount: model.sections.length,
             ),
-          ),
-        ],
+            AussieGMap(
+              size: Size(double.infinity, .4.sh),
+              model: AussieGMapModel(
+                latitude: model.latitude,
+                longitude: model.longitude,
+                title: model.park_name,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

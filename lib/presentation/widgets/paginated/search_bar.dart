@@ -18,12 +18,12 @@ class PaginatedSearchBar extends StatelessWidget {
             flex: 8,
             child: TextField(
               onSubmitted: onSubmitted,
-              style: TextStyle(fontSize: 40.sp, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 70.ssp, fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: getTranslation(context, "searchTitle"),
                 hintStyle: TextStyle(
-                  fontSize: 40.sp,
+                  fontSize: 70.ssp,
                   fontWeight: FontWeight.w600,
                   color: Colors.grey.withOpacity(.7),
                 ),

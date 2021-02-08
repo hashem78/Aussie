@@ -25,7 +25,7 @@ class NaturalParksTile extends StatelessWidget {
         child: AutoSizeText(
           model.park_name,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 100.ssp, fontWeight: FontWeight.w800),
         ),
       ),
       subtitle: Column(
@@ -89,7 +89,7 @@ class NaturalParksTile extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 65.sp,
+                  fontSize: 80.ssp,
                   fontWeight: FontWeight.w900,
                 ),
               ),
