@@ -24,65 +24,68 @@ class EventLocationPicker extends StatelessWidget {
           hintText = state.result.formattedAddress;
           locale = AussieLocalizations.of(context).locale;
         }
-        return TextField(
-          readOnly: true,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.map),
-            suffixIcon: IconButton(
-              onPressed: () async {
-                final _k = await Navigator.of(context).push(
-                  MaterialPageRoute<LocationResult>(
-                    builder: (context) {
-                      return PlacePicker(
-                        PlacePickingConfiguration(
-                          "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
-                          initialLat: -33.8688,
-                          initialLng: 151.2093,
-                          countries: const ["AU"],
-                          localizationItem: LocalizationItem(
-                            languageCode: locale?.languageCode,
-                            searchTitle: getTranslation(
-                              context,
-                              "locationSearchTitle",
-                            ),
-                            nearBy: getTranslation(
-                              context,
-                              "locationNearby",
-                            ),
-                            findingPlace: getTranslation(
-                              context,
-                              "locationFindingPlace",
-                            ),
-                            unnamedLocation: getTranslation(
-                              context,
-                              "locationUnamedLocation",
-                            ),
-                            noResultsFound: getTranslation(
-                              context,
-                              "locationNoResultsFound",
-                            ),
-                            tapToSelectLocation: getTranslation(
-                              context,
-                              "locationTapToSelect",
+        return Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: TextField(
+            readOnly: true,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.map),
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  final _k = await Navigator.of(context).push(
+                    MaterialPageRoute<LocationResult>(
+                      builder: (context) {
+                        return PlacePicker(
+                          PlacePickingConfiguration(
+                            "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
+                            initialLat: -33.8688,
+                            initialLng: 151.2093,
+                            countries: const ["AU"],
+                            localizationItem: LocalizationItem(
+                              languageCode: locale?.languageCode,
+                              searchTitle: getTranslation(
+                                context,
+                                "locationSearchTitle",
+                              ),
+                              nearBy: getTranslation(
+                                context,
+                                "locationNearby",
+                              ),
+                              findingPlace: getTranslation(
+                                context,
+                                "locationFindingPlace",
+                              ),
+                              unnamedLocation: getTranslation(
+                                context,
+                                "locationUnamedLocation",
+                              ),
+                              noResultsFound: getTranslation(
+                                context,
+                                "locationNoResultsFound",
+                              ),
+                              tapToSelectLocation: getTranslation(
+                                context,
+                                "locationTapToSelect",
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-                final _locCubit = context.read<LocationPickingCubit>();
-                _locCubit.pickLoc(_k);
-              },
-              icon: const Icon(
-                Icons.location_pin,
-                color: Colors.red,
+                        );
+                      },
+                    ),
+                  );
+                  final _locCubit = context.read<LocationPickingCubit>();
+                  _locCubit.pickLoc(_k);
+                },
+                icon: const Icon(
+                  Icons.location_pin,
+                  color: Colors.red,
+                ),
               ),
+              border: InputBorder.none,
+              filled: true,
+              hintText: hintText,
+              labelText: getTranslation(context, 'locationStateInitial'),
             ),
-            border: InputBorder.none,
-            filled: true,
-            hintText: hintText,
-            labelText: getTranslation(context, 'locationStateInitial'),
           ),
         );
       },

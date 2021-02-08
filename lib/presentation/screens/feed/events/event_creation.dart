@@ -72,12 +72,12 @@ class EventCreationScreen extends StatelessWidget {
         body: LayoutBuilder(
           builder: (context, constraint) {
             return SingleChildScrollView(
+              padding: EdgeInsets.zero,
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: IntrinsicHeight(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const EventCreationFormFields(),
                       const EventLocationPicker(),
