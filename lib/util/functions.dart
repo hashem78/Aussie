@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 Color getRandomColor() {
@@ -64,9 +63,6 @@ Widget buildImage(
     return null;
   }
 }
-
-PageTransitionType getAppropriateAnimation(BuildContext context) =>
-    BlocProvider.of<LanguageCubit>(context).appropriateAnimation();
 
 AussieUser getCurrentUser(BuildContext context) =>
     Provider.of<AussieUser>(context, listen: false);

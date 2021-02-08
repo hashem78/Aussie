@@ -126,6 +126,12 @@ class MyApp extends StatelessWidget {
                         ),
                         theme: ThemeData(
                           brightness: state,
+                          pageTransitionsTheme: const PageTransitionsTheme(
+                            builders: <TargetPlatform, PageTransitionsBuilder>{
+                              TargetPlatform.android:
+                                  ZoomPageTransitionsBuilder(),
+                            },
+                          ),
                           textButtonTheme: TextButtonThemeData(
                             style: TextButton.styleFrom(
                               shape: const RoundedRectangleBorder(),

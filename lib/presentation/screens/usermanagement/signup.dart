@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SignupBloc extends FormBloc<String, String> {
   final fullName = TextFieldBloc(validators: [FieldBlocValidators.required]);
@@ -131,14 +130,13 @@ class SingupScreen extends StatelessWidget {
                                     .whenComplete(
                                   () {
                                     Navigator.of(context).pushReplacement(
-                                      PageTransition(
-                                        child: BlocProvider(
+                                      MaterialPageRoute(
+                                        builder: (context) => BlocProvider(
                                           create: (context) =>
                                               UserManagementCubit()
                                                 ..getUserData(),
                                           child: const FeedScreen(),
                                         ),
-                                        type: getAppropriateAnimation(context),
                                       ),
                                     );
                                   },

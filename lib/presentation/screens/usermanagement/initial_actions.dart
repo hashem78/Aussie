@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
 
 class InitialUserActionScreen extends StatefulWidget {
   @override
@@ -58,12 +57,11 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
             if (state is UserManagementSignin) {
               Navigator.push(
                 context,
-                PageTransition(
-                  child: BlocProvider(
+                MaterialPageRoute(
+                  builder: (context) => BlocProvider(
                     create: (context) => UserManagementCubit()..getUserData(),
                     child: const FeedScreen(),
                   ),
-                  type: getAppropriateAnimation(context),
                 ),
               );
             }
@@ -154,12 +152,9 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
       ),
       onPressed: () {
         Navigator.of(context)
-            .push(
-              PageTransition(
-                child: SingupScreen(),
-                type: getAppropriateAnimation(context),
-              ),
-            )
+            .push(MaterialPageRoute(
+              builder: (context) => SingupScreen(),
+            ))
             .whenComplete(
               () => context.read<SingleImagePickingCubit>().emitInitial(),
             );

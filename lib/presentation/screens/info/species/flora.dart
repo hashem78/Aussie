@@ -7,7 +7,6 @@ import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class FloraScreen extends StatelessWidget {
   @override
@@ -37,13 +36,12 @@ class FloraScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    PageTransition(
-                      child: AussieThemeProvider(
+                    MaterialPageRoute(
+                      builder: (context) => AussieThemeProvider(
                         color: color,
                         child:
                             SpeciesDetails(model: item as SpeciesDetailsModel),
                       ),
-                      type: getAppropriateAnimation(context),
                     ),
                   );
                 },

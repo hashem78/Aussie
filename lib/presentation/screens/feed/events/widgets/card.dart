@@ -9,7 +9,7 @@ import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:page_transition/page_transition.dart';
+
 import 'package:provider/provider.dart';
 
 class EventCard extends StatefulWidget {
@@ -33,15 +33,14 @@ class _EventCardState extends State<EventCard>
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          PageTransition(
-            child: MultiProvider(
+          MaterialPageRoute(
+            builder: (context) => MultiProvider(
               providers: [
                 Provider.value(value: e),
                 Provider.value(value: u),
               ],
               child: EventDetails(),
             ),
-            type: getAppropriateAnimation(context),
           ),
         ),
         child: Padding(
@@ -86,8 +85,8 @@ class _PublicEventCardState extends State<PublicEventCard>
         onTap: () {
           Navigator.push(
             context,
-            PageTransition(
-              child: MultiProvider(
+            MaterialPageRoute(
+              builder: (context) => MultiProvider(
                 providers: [
                   Provider.value(
                     value: e,
@@ -96,7 +95,6 @@ class _PublicEventCardState extends State<PublicEventCard>
                 ],
                 child: EventDetails(),
               ),
-              type: getAppropriateAnimation(context),
             ),
           );
         },

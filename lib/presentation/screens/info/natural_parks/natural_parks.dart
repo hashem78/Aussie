@@ -8,7 +8,6 @@ import 'package:aussie/presentation/widgets/paginated/natural_parks_tile.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class NaturalParksScreen extends StatelessWidget {
   const NaturalParksScreen();
@@ -29,15 +28,14 @@ class NaturalParksScreen extends StatelessWidget {
               heroTag: _key.toString(),
               model: _casted,
               onTap: () => Navigator.of(context).push(
-                PageTransition(
-                  child: AussieThemeProvider(
+                MaterialPageRoute(
+                  builder: (context) => AussieThemeProvider(
                     color: color,
                     child: NaturalParksDetailsScreen(
                       heroTag: _key.toString(),
                       model: _casted,
                     ),
                   ),
-                  type: getAppropriateAnimation(context),
                 ),
               ),
             );
