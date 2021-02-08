@@ -50,16 +50,6 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
           ),
         ),
         bottomLoader: const Center(child: CircularProgressIndicator()),
-        header: SizedBox(
-          height: .1.sh,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              getTranslation(context, "attendees"),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ),
-        ),
         itemBuilder: (index, context, snapshot) {
           final data = snapshot.data();
           return BlocProvider(
