@@ -33,7 +33,6 @@ class EventDetailsGallery extends StatelessWidget {
                 imageUrl: e.galleryImages[index].imageLink,
                 fadeOutDuration: Duration.zero,
                 progressIndicatorBuilder: (context, url, progress) {
-                  print(progress.progress);
                   return Center(
                     child: CircularProgressIndicator(value: progress.progress),
                   );
