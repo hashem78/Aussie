@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/usermanagement/initial.dart';
+import 'package:aussie/presentation/screens/usermanagement/initial_actions.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -17,13 +17,11 @@ class SignoutTile extends StatelessWidget {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) {
-                return InitialScreen();
+                return InitialUserActionScreen();
               },
             ),
-            (route) => route.isFirst,
+            (route) => false,
           );
-
-          Navigator.of(context).popUntil((route) => route.isFirst);
         }
       },
       child: ListTile(
