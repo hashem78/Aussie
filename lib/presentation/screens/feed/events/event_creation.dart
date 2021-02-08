@@ -12,6 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class EventCreationScreen extends StatelessWidget {
+  final Function closeAction;
+
+  const EventCreationScreen({Key key, this.closeAction}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     void _sn(String text) {
@@ -27,7 +30,8 @@ class EventCreationScreen extends StatelessWidget {
         context.read<SingleImagePickingCubit>().emitInitial();
 
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        return true;
+        closeAction();
+        return false;
       },
       child: Scaffold(
         appBar: AppBar(

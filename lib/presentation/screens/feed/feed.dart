@@ -6,7 +6,7 @@ import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/state/event_creation/form_bloc.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
-import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
+import 'package:aussie/state/themes/cubit/theme_cubit.dart';
 
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:animations/animations.dart';
 import 'package:provider/provider.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -32,35 +32,54 @@ class FeedScreen extends StatelessWidget {
                 child: Provider.value(
                   value: state.user,
                   child: AussieScaffold(
-                    floatingActionButton: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(
-                            child: MultiBlocProvider(
-                              providers: [
-                                BlocProvider(
-                                    create: (_) => EventCreationBlocForm()),
-                                BlocProvider(
-                                    create: (_) => EventManagementCubit()),
-                                BlocProvider(
-                                    create: (_) => LocationPickingCubit()),
+                    floatingActionButton: OpenContainer(
+                      transitionDuration: const Duration(seconds: 1),
+                      closedShape: const RoundedRectangleBorder(),
+                      closedColor:
+                          context.watch<BrightnessCubit>().currentBrightness ==
+                                  Brightness.dark
+                              ? Colors.white
+                              : Colors.blue,
+                      openElevation: 0,
+                      openShape: const RoundedRectangleBorder(),
+                      closedBuilder: (context, action) {
+                        return SizedBox(
+                          width: 130,
+                          child: FloatingActionButton(
+                            onPressed: action,
+                            elevation: 0,
+                            shape: const RoundedRectangleBorder(),
+                            backgroundColor: context
+                                        .watch<BrightnessCubit>()
+                                        .currentBrightness ==
+                                    Brightness.dark
+                                ? Colors.white
+                                : Colors.blue,
+                            child: Center(
+                                child: Row(
+                              children: const [
+                                Expanded(child: Icon(Icons.add, size: 20)),
+                                Expanded(flex: 3, child: Text('New event')),
                               ],
-                              child: EventCreationScreen(),
-                            ),
-                            type: getAppropriateAnimation(context),
+                            )),
                           ),
-                        ).whenComplete(
-                          () {
-                            context
-                                .read<MultiImagePickingCubit>()
-                                .emitInitial();
-                          },
                         );
                       },
-                      child: const Center(child: Icon(Icons.add, size: 20)),
+                      openBuilder: (context, action) {
+                        return MultiBlocProvider(
+                          providers: [
+                            BlocProvider(
+                                create: (_) => EventCreationBlocForm()),
+                            BlocProvider(create: (_) => EventManagementCubit()),
+                            BlocProvider(create: (_) => LocationPickingCubit()),
+                          ],
+                          child: EventCreationScreen(
+                            closeAction: action,
+                          ),
+                        );
+                      },
                     ),
-                    drawer: AussieAppDrawer(),
+                    drawer: const AussieAppDrawer(),
                     body: NestedScrollView(
                       headerSliverBuilder: (context, innerBoxIsScrolled) => [
                         SliverAppBar(

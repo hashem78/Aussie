@@ -66,6 +66,7 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
+  const AussieAppDrawer();
   static const List<_DrawerItemModel> infoModels = [
     _DrawerItemModel(
       navPath: AussieScreenData.faunaNavPath,
