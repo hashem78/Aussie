@@ -55,7 +55,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
           return BlocProvider(
             create: (context) => UserManagementCubit()
               ..getUserDataFromUid(data["uid"] as String),
-            child: const PublicCardOwner(),
+            child: const CardOwner(),
           );
         },
         listeners: [

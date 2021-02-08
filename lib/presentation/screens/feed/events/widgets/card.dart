@@ -107,7 +107,7 @@ class _PublicEventCardState extends State<PublicEventCard>
             children: [
               Row(
                 children: [
-                  const Expanded(child: PublicCardOwner()),
+                  const Expanded(child: CardOwner()),
                   BlocProvider(
                     create: (context) => UserManagementCubit()
                       ..isUserAttending(getCurrentUser(context), e),
