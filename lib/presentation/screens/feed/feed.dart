@@ -31,88 +31,10 @@ class FeedScreen extends StatelessWidget {
                 length: 2,
                 child: Provider.value(
                   value: state.user,
-                  child: AussieScaffold(
-                    floatingActionButton: OpenContainer(
-                      closedShape: const RoundedRectangleBorder(),
-                      closedColor:
-                          context.watch<BrightnessCubit>().currentBrightness ==
-                                  Brightness.dark
-                              ? Colors.white
-                              : Colors.blue,
-                      openElevation: 0,
-                      openShape: const RoundedRectangleBorder(),
-                      closedBuilder: (context, action) {
-                        return SizedBox(
-                          width: 130,
-                          child: FloatingActionButton(
-                            onPressed: action,
-                            elevation: 0,
-                            shape: const RoundedRectangleBorder(),
-                            backgroundColor: context
-                                        .watch<BrightnessCubit>()
-                                        .currentBrightness ==
-                                    Brightness.dark
-                                ? Colors.white
-                                : Colors.blue,
-                            child: Center(
-                                child: Row(
-                              children: const [
-                                Expanded(child: Icon(Icons.add, size: 20)),
-                                Expanded(flex: 3, child: Text('New event')),
-                              ],
-                            )),
-                          ),
-                        );
-                      },
-                      openBuilder: (context, action) {
-                        return MultiBlocProvider(
-                          providers: [
-                            BlocProvider(
-                                create: (_) => EventCreationBlocForm()),
-                            BlocProvider(create: (_) => EventManagementCubit()),
-                            BlocProvider(create: (_) => LocationPickingCubit()),
-                          ],
-                          child: EventCreationScreen(
-                            closeAction: action,
-                          ),
-                        );
-                      },
-                    ),
-                    drawer: const AussieAppDrawer(),
-                    body: NestedScrollView(
-                      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                        SliverAppBar(
-                          pinned: true,
-                          centerTitle: true,
-                          title: AutoSizeText(
-                            getTranslation(context, "feedScreenTitle"),
-                            style: TextStyle(
-                              fontSize: 100.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          elevation: 0,
-                          bottom: const TabBar(
-                            tabs: [
-                              Icon(Icons.home),
-                              Icon(Icons.public),
-                            ],
-                          ),
-                        ),
-                      ],
-                      body: TabBarView(
-                        children: [
-                          BlocProvider(
-                            create: (context) => EventManagementCubit(),
-                            child: HomeEventsTab(),
-                          ),
-                          BlocProvider(
-                            create: (context) => EventManagementCubit(),
-                            child: PublicEventsTab(),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: const AussieScaffold(
+                    floatingActionButton: _FeedAnimatedFAB(),
+                    drawer: AussieAppDrawer(),
+                    body: _FeedScrollView(),
                   ),
                 ),
               );
@@ -123,6 +45,126 @@ class FeedScreen extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _FeedScrollView extends StatelessWidget {
+  const _FeedScrollView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return NestedScrollView(
+      headerSliverBuilder: (context, innerBoxIsScrolled) => [
+        SliverAppBar(
+          pinned: true,
+          centerTitle: true,
+          title: AutoSizeText(
+            getTranslation(context, "feedScreenTitle"),
+            style: TextStyle(
+              fontSize: 100.sp,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          elevation: 0,
+          bottom: const TabBar(
+            tabs: [
+              Icon(Icons.home),
+              Icon(Icons.public),
+            ],
+          ),
+        ),
+      ],
+      body: TabBarView(
+        children: [
+          BlocProvider(
+            create: (context) => EventManagementCubit(),
+            child: HomeEventsTab(),
+          ),
+          BlocProvider(
+            create: (context) => EventManagementCubit(),
+            child: PublicEventsTab(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeedAnimatedFAB extends StatelessWidget {
+  const _FeedAnimatedFAB({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color =
+        context.watch<BrightnessCubit>().currentBrightness == Brightness.dark
+            ? Colors.white
+            : Colors.blue;
+    return OpenContainer(
+      closedShape: const RoundedRectangleBorder(),
+      closedColor: color,
+      openElevation: 0,
+      openShape: const RoundedRectangleBorder(),
+      closedBuilder: (context, action) {
+        return _FeedFAB(color: color, action: action);
+      },
+      openBuilder: (context, action) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (_) => EventCreationBlocForm()),
+            BlocProvider(create: (_) => EventManagementCubit()),
+            BlocProvider(create: (_) => LocationPickingCubit()),
+          ],
+          child: EventCreationScreen(
+            closeAction: action,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _FeedFAB extends StatelessWidget {
+  final void Function() action;
+  const _FeedFAB({
+    Key key,
+    @required this.color,
+    @required this.action,
+  }) : super(key: key);
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 130,
+      child: FloatingActionButton(
+        onPressed: action,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(),
+        backgroundColor: color,
+        child: Center(
+            child: Row(
+          children: [
+            const Expanded(
+              child: Icon(Icons.add, size: 20),
+            ),
+            Expanded(
+              flex: 3,
+              child: Text(
+                getTranslation(
+                  context,
+                  "eventCreationFabTitle",
+                ),
+              ),
+            ),
+          ],
+        )),
       ),
     );
   }

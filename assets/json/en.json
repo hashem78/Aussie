@@ -32,6 +32,7 @@
     "signinButtonText": "Sign in",
     "tapbackToClose": "Tap back again to close app.",
     "feedScreenTitle": "Feed",
+    "eventCreationFabTitle":"New Event",
     "eventCreationDescriptionTitle": "Description",
     "eventCreationDescriptionHint":"What's the fuss about?",
     "eventCreationEndDateTitle": "End Date",
