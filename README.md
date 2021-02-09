@@ -38,14 +38,30 @@ Since this is a pet project I am using it as a basis to learn and close gaps in 
 - Persistent state is handeled with SharedPrefrences.
 
 # Screenshots
-[Actions Screen (English)](screenshots/actions_english.jpg)
-[Actions Screen (Arabic)](screenshots/actions_arabic.jpg)
 
-This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
+## This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
+| Actions Screen (English)                                     | Actions Screen (Arabic)                                    |
+| :----------------------------------------------------------- | :--------------------------------------------------------- |
+| ![Actions Screen (English)](screenshots/actions_english.jpg) | ![Actions Screen (Arabic)](screenshots/actions_arabic.jpg) |
 
-![Signup](screenshots/signup.jpg)
-![Signup validation](screenshots/signup_validation.jpg)
+## These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
+| Signup                            | Signup validation                                       |
+| :-------------------------------- | :------------------------------------------------------ |
+| ![Signup](screenshots/signup.jpg) | ![Signup validation](screenshots/signup_validation.jpg) |
 
-These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
+
+## These show the feed, which hosts the events the users creates/pledges to attend.
+| Home Feed Empty                                   | Home Feed Populated                               |
+| :------------------------------------------------ | :------------------------------------------------ |
+| ![Feed home](screenshots/feed_home_empty.jpg.jpg) | ![Home feed](screenshots/feed_home_popualted.jpg) |
+
+| Public Feed                                       |
+| :------------------------------------------------ |
+| ![Feed home](screenshots/feed_home_empty.jpg.jpg) |
+
+
+
+
+
 
 
