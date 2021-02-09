@@ -43,8 +43,8 @@ Since this is a pet project I am using it as a basis to learn and close gaps in 
 
 This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
 
-[Signup](screenshots/signup.jpg)
-[Signup validation](screenshots/signup_validation.jpg)
+![Signup](screenshots/signup.jpg)
+![Signup validation](screenshots/signup_validation.jpg)
 
 These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
 
