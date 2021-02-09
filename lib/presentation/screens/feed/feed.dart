@@ -33,7 +33,6 @@ class FeedScreen extends StatelessWidget {
                   value: state.user,
                   child: AussieScaffold(
                     floatingActionButton: OpenContainer(
-                      transitionDuration: const Duration(seconds: 1),
                       closedShape: const RoundedRectangleBorder(),
                       closedColor:
                           context.watch<BrightnessCubit>().currentBrightness ==
