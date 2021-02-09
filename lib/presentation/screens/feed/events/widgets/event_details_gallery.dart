@@ -3,13 +3,20 @@ import 'package:aussie/util/functions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class EventDetailsGallery extends StatelessWidget {
+class EventDetailsGallery extends StatefulWidget {
   const EventDetailsGallery({
     Key key,
   }) : super(key: key);
 
   @override
+  _EventDetailsGalleryState createState() => _EventDetailsGalleryState();
+}
+
+class _EventDetailsGalleryState extends State<EventDetailsGallery>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     final e = getEventModel(context);
 
     return ListView.builder(
@@ -48,4 +55,7 @@ class EventDetailsGallery extends StatelessWidget {
       },
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
