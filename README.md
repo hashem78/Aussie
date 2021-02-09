@@ -39,29 +39,63 @@ Since this is a pet project I am using it as a basis to learn and close gaps in 
 
 # Screenshots
 
-## This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
+###### This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
 | Actions Screen (English)                                     | Actions Screen (Arabic)                                    |
 | :----------------------------------------------------------- | :--------------------------------------------------------- |
 | ![Actions Screen (English)](screenshots/actions_english.jpg) | ![Actions Screen (Arabic)](screenshots/actions_arabic.jpg) |
 
-## These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
+###### These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
 | Signup                            | Signup validation                                       |
 | :-------------------------------- | :------------------------------------------------------ |
 | ![Signup](screenshots/signup.jpg) | ![Signup validation](screenshots/signup_validation.jpg) |
 
 
-## These show the feed, which hosts the events the users creates/pledges to attend.
-| Home Feed Empty                                   | Home Feed Populated                               |
-| :------------------------------------------------ | :------------------------------------------------ |
-| ![Feed home](screenshots/feed_home_empty.jpg.jpg) | ![Home feed](screenshots/feed_home_popualted.jpg) |
+###### These show the feed, which hosts the events the users creates/pledges to attend.
+| Home Feed Empty                               | Home Feed Populated                               |
+| :-------------------------------------------- | :------------------------------------------------ |
+| ![Feed home](screenshots/feed_home_empty.jpg) | ![Home feed](screenshots/feed_home_popualted.jpg) |
 
-| Public Feed                                       |
-| :------------------------------------------------ |
-| ![Feed home](screenshots/feed_home_empty.jpg.jpg) |
+| Public Feed                                   |
+| :-------------------------------------------- |
+| ![Feed home](screenshots/feed_home_empty.jpg) |
+
+| Event reation Empty                                | Event Creation Banner Picked                               |
+| :------------------------------------------------- | :--------------------------------------------------------- |
+| ![Event creation](screenshots/new_event_empty.jpg) | ![Event creation](screenshots/new_event_banner_picked.jpg) |
+
+| Event Details Main                         | Event Details Gallery                         | Event Details Main                      |
+| :----------------------------------------- | :-------------------------------------------- | :-------------------------------------- |
+| ![evn](screenshots/event_details_main.jpg) | ![evn](screenshots/event_details_gallery.jpg) | ![evn](screenshots/event_attendees.jpg) |
 
 
+###### Fauna
+| Fauna                           | Fauna details gallery                           | Fauna details main                           |
+| :------------------------------ | :---------------------------------------------- | :------------------------------------------- |
+| ![Fauna](screenshots/fauna.jpg) | ![Fauna](screenshots/fauna_details_gallery.jpg) | ![Fauna](screenshots/fauna_details_main.jpg) |
+
+###### Flora
+| Flora                           | Flora details gallery                           | Flora details main                           |
+| :------------------------------ | :---------------------------------------------- | :------------------------------------------- |
+| ![Flora](screenshots/flora.jpg) | ![Flora](screenshots/flora_details_gallery.jpg) | ![Flora](screenshots/flora_details_main.jpg) |
+
+###### NaturalParks
+| Natural Parks                                   | More Natural Parks                               | Natural Park details                                         |
+| :---------------------------------------------- | :----------------------------------------------- | :----------------------------------------------------------- |
+| ![Natural Parks](screenshots/natural_parks.jpg) | ![Flora](screenshots/natural_parks_scrolled.jpg) | ![Natural Parks](screenshots/natural_parks_details_main.jpg) |
 
 
+###### Weather/Settings
+| Weather                             | Settings                              |
+| :---------------------------------- | :------------------------------------ |
+| ![Weather](screenshots/weather.jpg) | ![settings](screenshots/settings.jpg) |
+
+###### Nav drawer
+| Navdrawer (light)                  | Navdrawer (dark)                  | Navdrawer (arabic)             |
+| :--------------------------------- | :-------------------------------- | :----------------------------- |
+| ![nvd](screenshots/nav_drawer.jpg) | ![nvd](screenshots/dark_mode.jpg) | ![nvd](screenshots/arabic.jpg) |
 
 
-
+###### About
+| About                           |
+| :------------------------------ |
+| ![About](screenshots/about.jpg) |
