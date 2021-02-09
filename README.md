@@ -2,7 +2,8 @@
 - [Contents](#contents)
 - [Aussie](#aussie)
 - [The Idea](#the-idea)
-- [Features](#features)
+- [Technical Details](#technical-details)
+- [Screenshots](#screenshots)
 
 # Aussie
 
@@ -15,11 +16,36 @@ You see... often times things like travel and tourisim are thought to be luxurie
 
 I started Aussie with the end goal being, that is if I win the competition, the ease of travel to Australia,  so easy that your 90 yo granny would have to only do a couple of taps.
 
-# Features
-The list of features is quite good IMO, I'll try to list the ones that are on the top of my head, I hope I don't forget any major ones...
+# Technical Details
+Since this is a pet project I am using it as a basis to learn and close gaps in my programming knowledge.
+
 - Cross platform
-  - Through dart/Flutter this app will support various different user platforms, for now Android and IOS though and even the latter is still in early dev cycle.
-- Ease of Use.
-- Support for Arabic/English loclizations.
+  - Through dart/Flutter this app will support various different user platforms, for now Android and IOS though and even the latter is still in early dev cycle..
+- Mostly Follows clean code guidelines
+  - State is handeled by cubits that interact with repositories, which are middleware that converts raw data to something that can be consumed, and providers, which interface with the outside world apis.
+  - Strict linting through the linter package.
+- The backend is handeled by FireBase
+  - Uses Cloud Firestore as a DB to store the catalouge of fauna, flora, natural park, and teritory features.
+  - Cloud Firestore is used to manage user account data.
+  - Firebase Auth is used to authinticate users/sign them up.
+  - Firebase Storage is used to store media.
+- Support for Arabic/English localizations.
 - Support for dark mode. 
+- Caching and Paging for app data.
+- State management with Cubits.
+- Forms by FormBloc (Used for signing in/up and event creation).
+- Animations using the animations package.
+- Persistent state is handeled with SharedPrefrences.
+
+# Screenshots
+[Actions Screen (English)](screenshots/actions_english.jpg)
+[Actions Screen (Arabic)](screenshots/actions_arabic.jpg)
+
+This is first screen the users sees/interacts with if they're using it for the first time or if they've signed out of the app.
+
+[Signup](screenshots/signup.jpg)
+[Signup validation](screenshots/signup_validation.jpg)
+
+These show the signup procedure, notably the validation of the fields, planning on adding more options to this.
+
 
