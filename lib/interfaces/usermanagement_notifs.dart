@@ -1,4 +1,4 @@
-import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
 
 abstract class UserManagementNotification {
   static const Map<String, UserManagementNotification> firebaseAuthErrorCodes =

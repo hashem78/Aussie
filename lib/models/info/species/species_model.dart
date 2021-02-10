@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'species.g.dart';
+part 'species_model.g.dart';
 
 @JsonSerializable(
   createFactory: true,

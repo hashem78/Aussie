@@ -1,4 +1,4 @@
-import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:flutter/material.dart';
 
 class PaginatedScreenTile extends StatelessWidget {

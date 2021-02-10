@@ -1,5 +1,5 @@
-import 'package:aussie/models/info/natural_parks/natural_parks.dart';
-import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
+import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';

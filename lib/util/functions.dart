@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:aussie/localizations.dart';
 
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 
-import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
 

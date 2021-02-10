@@ -1,4 +1,4 @@
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_description_card.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_card_stack.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_gallery.dart';

@@ -1,4 +1,4 @@
-import 'package:aussie/models/usermanagement/eventmanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/repositories/attendees_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

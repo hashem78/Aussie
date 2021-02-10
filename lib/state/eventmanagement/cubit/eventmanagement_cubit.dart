@@ -1,7 +1,7 @@
-import 'package:aussie/models/event/event.dart';
-import 'package:aussie/models/usermanagement/eventmanagement_notifs.dart';
+import 'package:aussie/models/event/event_model.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
-import 'package:aussie/repositories/eventmanagement.dart';
+import 'package:aussie/repositories/eventmanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';

@@ -1,9 +1,9 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
-import 'package:aussie/models/usermanagement/user/user.dart';
-import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
+import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
 import 'package:aussie/repositories/usermanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

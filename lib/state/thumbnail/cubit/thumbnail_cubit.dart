@@ -1,4 +1,4 @@
-import 'package:aussie/repositories/thumbnail.dart';
+import 'package:aussie/repositories/thumbnail_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

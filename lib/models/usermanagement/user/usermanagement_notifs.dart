@@ -1,5 +1,5 @@
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
 
 class WrongNameNotification implements UserManagementNotification {
   @override

@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'dart:io';
 
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/usermanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';

@@ -1,5 +1,5 @@
-import 'package:aussie/models/weather/weather.dart';
-import 'package:aussie/repositories/weather.dart';
+import 'package:aussie/models/weather/weather_model.dart';
+import 'package:aussie/repositories/weather_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';

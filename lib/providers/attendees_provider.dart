@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:aussie/interfaces/eventmanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/eventmanagement_notifs.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

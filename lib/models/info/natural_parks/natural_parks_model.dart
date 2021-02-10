@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'natural_parks.g.dart';
+part 'natural_parks_model.g.dart';
 
 @JsonSerializable(
   createFactory: true,

@@ -1,5 +1,5 @@
-import 'package:aussie/models/event/event.dart';
-import 'package:aussie/models/usermanagement/user/user.dart';
+import 'package:aussie/models/event/event_model.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:aussie/presentation/screens/feed/events/event_details.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card_details.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/public_event_attend_button.dart';

@@ -1,4 +1,4 @@
-import 'package:aussie/models/weather/card.dart';
+import 'package:aussie/models/weather/card_model.dart';
 import 'package:aussie/presentation/screens/info/weather/weather_card_child.dart';
 
 import 'package:flutter/material.dart';

@@ -1,9 +1,9 @@
-import 'package:aussie/models/event_image/event_image.dart';
+import 'package:aussie/models/event_image/event_image_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'event.g.dart';
+part 'event_model.g.dart';
 
 // Every event model is going to have a collection containing attendees and a collection containing post uids
 @JsonSerializable(

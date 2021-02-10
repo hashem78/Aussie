@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:aussie/models/weather/weather.dart';
-import 'package:aussie/providers/weather.dart';
+import 'package:aussie/models/weather/weather_model.dart';
+import 'package:aussie/providers/weather_provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class OnlineWeatherRepository {

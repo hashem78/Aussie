@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'event_image.g.dart';
+part 'event_image_model.g.dart';
 
 @JsonSerializable(
   checked: true,

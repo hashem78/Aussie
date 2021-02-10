@@ -1,4 +1,4 @@
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

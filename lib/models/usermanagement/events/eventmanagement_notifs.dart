@@ -1,5 +1,5 @@
 import 'package:aussie/interfaces/eventmanagement_notifs.dart';
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SuccessNotification extends EventManagementNotification {

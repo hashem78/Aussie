@@ -1,6 +1,6 @@
 import 'package:aussie/models/gmap.dart';
-import 'package:aussie/models/info/natural_parks/natural_parks.dart';
-import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
+import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:expand_widget/expand_widget.dart';

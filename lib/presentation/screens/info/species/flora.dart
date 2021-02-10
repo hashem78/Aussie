@@ -1,5 +1,5 @@
-import 'package:aussie/models/info/species/species.dart';
-import 'package:aussie/models/themes/color_data.dart';
+import 'package:aussie/models/info/species/species_model.dart';
+import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/screens/info/species/details.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';

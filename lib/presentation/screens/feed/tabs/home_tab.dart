@@ -1,4 +1,4 @@
-import 'package:aussie/models/event/event.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';

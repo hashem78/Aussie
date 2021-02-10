@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:aussie/providers/thumbnail.dart';
+import 'package:aussie/providers/thumbnail_provider.dart';
 
 class ThumbnailRepository {
   final ThumbnailOnlineProivder _repo;

@@ -1,5 +1,5 @@
-import 'package:aussie/models/weather/card.dart';
-import 'package:aussie/models/weather/weather.dart';
+import 'package:aussie/models/weather/card_model.dart';
+import 'package:aussie/models/weather/weather_model.dart';
 
 import 'package:aussie/presentation/screens/info/weather/weather_card.dart';
 import 'package:aussie/presentation/screens/info/weather/weather_tile.dart';

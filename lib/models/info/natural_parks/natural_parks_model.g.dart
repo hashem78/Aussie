@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'natural_parks.dart';
+part of 'natural_parks_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
