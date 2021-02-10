@@ -1,33 +1,4 @@
-import 'package:aussie/localizations.dart';
-import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
-import 'package:aussie/models/info/teritory/teritory.dart';
-import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
-import 'package:aussie/presentation/screens/info/species/fauna.dart';
-import 'package:aussie/presentation/screens/info/species/flora.dart';
-import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
-import 'package:aussie/presentation/screens/info/weather/weather.dart';
-import 'package:aussie/presentation/screens/misc/settings.dart';
-import 'package:aussie/presentation/screens/screen_data.dart';
-import 'package:aussie/presentation/screens/usermanagement/initial.dart';
-import 'package:aussie/presentation/screens/usermanagement/signup.dart';
-import 'package:aussie/state/attendees/cubit/attendees_cubit.dart';
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
-import 'package:aussie/state/paginated_searchable/cubit/paginated_cubit.dart';
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/state/weather/cubit/weather_cubit.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/screenutil_init.dart';
-
-import 'models/info/species/species_model.dart';
-import 'util/functions.dart';
+import 'aussie_imports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

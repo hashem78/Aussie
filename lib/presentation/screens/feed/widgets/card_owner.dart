@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/presentation/screens/profile/profile.dart';
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';

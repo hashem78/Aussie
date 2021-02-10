@@ -2,7 +2,7 @@ import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/models/weather/weather_model.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
-import 'package:aussie/presentation/screens/info/weather/weather_tile.dart';
+import 'package:aussie/presentation/screens/info/weather/widgets/weather_tile.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
 import 'package:aussie/util/functions.dart';

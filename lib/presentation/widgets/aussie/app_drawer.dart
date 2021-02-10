@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/presentation/screens/profile/profile_screen.dart';
+import 'package:aussie/presentation/screens/profile/profile.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';
 
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
