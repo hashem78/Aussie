@@ -678,15 +678,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.3"
-  paginate_firestore:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "4c62a3d63cc896b5da1a00539f737810e1ff809c"
-      url: "https://github.com/hashem78/paginate_firestore"
-    source: git
-    version: "0.2.4"
   path:
     dependency: transitive
     description:

@@ -98,11 +98,11 @@ class EventManagementProvider {
       await dlBannerCallback(model.bannerData);
       batch.commit();
     } on FirebaseAuthException {
-      return EventManagementErrorNotification();
+      return const ErrorNotification();
     } on FirebaseException {
-      return EventManagementErrorNotification();
+      return const ErrorNotification();
     }
-    return EventManagementSuccessNotification();
+    return const SuccessNotification();
   }
 
   Future<EventManagementNotification> fetchUserEvents(
@@ -116,7 +116,7 @@ class EventManagementProvider {
               .collection("users/$uid/events")
               .orderBy("eventId")
               .startAfterDocument(documentSnapshot)
-              .limit(5)
+              .limit(10)
               .get();
           final _docs = _data.docs;
 
@@ -126,10 +126,10 @@ class EventManagementProvider {
               _internalList.add(element.data());
             },
           );
-          if (_docs.length < 5) {
-            return EventModelsContainingEndNotification(_internalList);
+          if (_docs.length < 10) {
+            return EventsEndNotification(_internalList);
           }
-          return EventModelsContainingNotification(
+          return EventModelsNotification(
             eventModels: UnmodifiableListView(_internalList),
             prevsnap: _docs.last,
           );
@@ -137,7 +137,7 @@ class EventManagementProvider {
           final _data = await _firestore
               .collection("users/$uid/events")
               .orderBy("eventId")
-              .limit(5)
+              .limit(10)
               .get();
           final _docs = _data.docs;
 
@@ -147,19 +147,19 @@ class EventManagementProvider {
               _internalList.add(element.data());
             },
           );
-          if (_docs.length < 5) {
-            return EventModelsContainingEndNotification(_internalList);
+          if (_docs.length < 10) {
+            return EventsEndNotification(_internalList);
           }
 
-          return EventModelsContainingNotification(
+          return EventModelsNotification(
             eventModels: UnmodifiableListView(_internalList),
             prevsnap: _docs.last,
           );
         }
       }
-      return EventModelsContainingNotification();
+      return const EventModelsNotification();
     } catch (e) {
-      return EventManagementErrorNotification();
+      return const ErrorNotification();
     }
   }
 
@@ -171,7 +171,7 @@ class EventManagementProvider {
         final _data = await _firestore
             .collectionGroup("events")
             .startAfterDocument(documentSnapshot)
-            .limit(5)
+            .limit(10)
             .get();
         final _docs = _data.docs;
 
@@ -181,15 +181,16 @@ class EventManagementProvider {
             _internalList.add(element.data());
           },
         );
-        if (_docs.length < 5) {
-          return EventModelsContainingEndNotification(_internalList);
+        if (_docs.length < 10) {
+          return EventsEndNotification(_internalList);
         }
-        return EventModelsContainingNotification(
+        return EventModelsNotification(
           eventModels: UnmodifiableListView(_internalList),
           prevsnap: _docs.last,
         );
       } else {
-        final _data = await _firestore.collectionGroup("events").limit(5).get();
+        final _data =
+            await _firestore.collectionGroup("events").limit(10).get();
         final _docs = _data.docs;
 
         final List<Map<String, dynamic>> _internalList = [];
@@ -199,17 +200,17 @@ class EventManagementProvider {
           },
         );
 
-        if (_docs.length < 5) {
-          return EventModelsContainingEndNotification(_internalList);
+        if (_docs.length < 10) {
+          return EventsEndNotification(_internalList);
         }
 
-        return EventModelsContainingNotification(
+        return EventModelsNotification(
           eventModels: UnmodifiableListView(_internalList),
           prevsnap: _docs.last,
         );
       }
     } catch (e) {
-      return EventManagementErrorNotification();
+      return const ErrorNotification();
     }
   }
 }

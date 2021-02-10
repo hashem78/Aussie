@@ -22,7 +22,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     emit(EventManagementPerformingAction());
     _repository.addUserEvent(model).then(
       (value) {
-        if (value is EventManagementSuccessNotification) {
+        if (value is SuccessNotification) {
           emit(EventManagementCreated());
         } else {
           emit(const EventManagementError());
@@ -34,10 +34,10 @@ class EventManagementCubit extends Cubit<EventManagementState> {
   void fetchUserEvents({DocumentSnapshot lastdoc}) {
     _repository.fetchUserEvents(lastdoc).then(
       (value) {
-        if (value is EventModelsContainingActualNotification) {
+        if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
           emit(EventManagementEventsFetched(value.models));
-        } else if (value is EventModelsContainingActualEndNotification) {
+        } else if (value is EventsActualEndNotification) {
           emit(EventManagementEndEventsFetched(value.models));
         }
       },
@@ -47,10 +47,10 @@ class EventManagementCubit extends Cubit<EventManagementState> {
   void fetchPublicEvents({DocumentSnapshot lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
       (value) {
-        if (value is EventModelsContainingActualNotification) {
+        if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
           emit(EventManagementEventsFetched(value.models));
-        } else if (value is EventModelsContainingActualEndNotification) {
+        } else if (value is EventsActualEndNotification) {
           emit(EventManagementEndEventsFetched(value.models));
         }
       },

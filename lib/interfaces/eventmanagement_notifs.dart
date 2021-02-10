@@ -1,1 +1,3 @@
-abstract class EventManagementNotification {}
+abstract class EventManagementNotification {
+  const EventManagementNotification();
+}

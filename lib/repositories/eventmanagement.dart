@@ -16,25 +16,25 @@ class EventManagementRepository {
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchUserEvents(prevSnap);
-    if (notification is EventModelsContainingNotification) {
+    if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },
       );
-      return EventModelsContainingActualNotification(
+      return EventsActualNotification(
         models,
         notification.prevsnap,
       );
-    } else if (notification is EventModelsContainingEndNotification) {
+    } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },
       );
-      return EventModelsContainingActualEndNotification(models);
+      return EventsActualEndNotification(models);
     } else {
       return notification;
     }
@@ -45,25 +45,25 @@ class EventManagementRepository {
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchPublicEvents(prevSnap);
-    if (notification is EventModelsContainingNotification) {
+    if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },
       );
-      return EventModelsContainingActualNotification(
+      return EventsActualNotification(
         models,
         notification.prevsnap,
       );
-    } else if (notification is EventModelsContainingEndNotification) {
+    } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
       notification.eventModels.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },
       );
-      return EventModelsContainingActualEndNotification(models);
+      return EventsActualEndNotification(models);
     } else {
       return notification;
     }

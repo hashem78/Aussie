@@ -3,6 +3,7 @@ import 'package:aussie/models/info/teritory/teritory.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/screens/usermanagement/initial.dart';
 import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/attendees/cubit/attendees_cubit.dart';
 import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
 import 'package:aussie/state/paginated/cubit/paginated_cubit.dart';
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
@@ -71,19 +72,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => BrightnessCubit(brightness)),
-        BlocProvider(create: (context) => LanguageCubit(locale)),
-        BlocProvider(create: (context) => SignupBloc()),
-        BlocProvider(create: (context) => UserManagementCubit()),
-        BlocProvider(create: (context) => MultiImagePickingCubit()),
-        BlocProvider(create: (context) => SingleImagePickingCubit()),
+        BlocProvider(create: (_) => BrightnessCubit(brightness)),
+        BlocProvider(create: (_) => LanguageCubit(locale)),
+        BlocProvider(create: (_) => SignupBloc()),
+        BlocProvider(create: (_) => UserManagementCubit()),
+        BlocProvider(create: (_) => MultiImagePickingCubit()),
+        BlocProvider(create: (_) => SingleImagePickingCubit()),
+        BlocProvider(create: (_) => WeatherCubit()),
+        BlocProvider(create: (_) => AttendeesCubit()),
         BlocProvider(
-          create: (context) => PaginatedCubit<NaturalParkModel>("naturalParks"),
+          create: (_) => PaginatedCubit<NaturalParkModel>("naturalParks"),
         ),
         BlocProvider(
-          create: (context) => PaginatedCubit<TeritoryModel>("teritories"),
+          create: (_) => PaginatedCubit<TeritoryModel>("teritories"),
         ),
-        BlocProvider(create: (context) => WeatherCubit()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {

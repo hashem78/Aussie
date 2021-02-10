@@ -25,9 +25,6 @@ dependencies:
   multi_image_picker:
     git:
       url: https://github.com/Sh1d0w/multi_image_picker
-  paginate_firestore:
-    git:
-      url: https://github.com/hashem78/paginate_firestore
   animations: ^1.1.2
   auto_size_text: ^2.1.0
   cached_network_image: ^2.5.0

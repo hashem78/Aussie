@@ -2,37 +2,51 @@ import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/event/event.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EventManagementSuccessNotification extends EventManagementNotification {}
+class SuccessNotification extends EventManagementNotification {
+  const SuccessNotification();
+}
 
-class EventManagementErrorNotification extends EventManagementNotification {}
+class ErrorNotification extends EventManagementNotification {
+  const ErrorNotification();
+}
 
-class EventModelsContainingNotification extends EventManagementNotification {
+class EventModelsNotification extends EventManagementNotification {
   final DocumentSnapshot prevsnap;
   final List<Map<String, dynamic>> eventModels;
 
-  EventModelsContainingNotification({
+  const EventModelsNotification({
     this.prevsnap,
     this.eventModels,
   });
 }
 
-class EventModelsContainingEndNotification extends EventManagementNotification {
-  final List<Map<String, dynamic>> eventModels;
+class AttendeesNotification extends EventManagementNotification {
+  final DocumentSnapshot prevsnap;
+  final List<String> uuids;
 
-  EventModelsContainingEndNotification(this.eventModels);
+  const AttendeesNotification(this.prevsnap, this.uuids);
 }
 
-class EventModelsContainingActualNotification
-    extends EventManagementNotification {
+class EventsEndNotification extends EventManagementNotification {
+  final List<Map<String, dynamic>> eventModels;
+
+  const EventsEndNotification(this.eventModels);
+}
+
+class AttendeesEndNotification extends EventManagementNotification {
+  final List<String> uuids;
+  const AttendeesEndNotification(this.uuids);
+}
+
+class EventsActualNotification extends EventManagementNotification {
   final List<EventModel> models;
   final DocumentSnapshot prevSnap;
 
-  EventModelsContainingActualNotification(this.models, this.prevSnap);
+  const EventsActualNotification(this.models, this.prevSnap);
 }
 
-class EventModelsContainingActualEndNotification
-    extends EventManagementNotification {
+class EventsActualEndNotification extends EventManagementNotification {
   final List<EventModel> models;
 
-  EventModelsContainingActualEndNotification(this.models);
+  const EventsActualEndNotification(this.models);
 }

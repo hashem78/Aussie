@@ -6,13 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CardOwner extends StatelessWidget {
+class CardOwner extends StatefulWidget {
   const CardOwner({
     Key key,
   }) : super(key: key);
 
   @override
+  _CardOwnerState createState() => _CardOwnerState();
+}
+
+class _CardOwnerState extends State<CardOwner>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: BlocBuilder<UserManagementCubit, UserManagementState>(
@@ -64,4 +71,7 @@ class CardOwner extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
