@@ -72,19 +72,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => BrightnessCubit(brightness)),
-        BlocProvider(create: (_) => LanguageCubit(locale)),
-        BlocProvider(create: (_) => SignupBloc()),
-        BlocProvider(create: (_) => UserManagementCubit()),
-        BlocProvider(create: (_) => MultiImagePickingCubit()),
-        BlocProvider(create: (_) => SingleImagePickingCubit()),
-        BlocProvider(create: (_) => WeatherCubit()),
-        BlocProvider(create: (_) => AttendeesCubit()),
         BlocProvider(
-          create: (_) => PaginatedCubit<NaturalParkModel>("naturalParks"),
+            create: (BuildContext context) => BrightnessCubit(brightness)),
+        BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
+        BlocProvider(create: (BuildContext context) => SignupBloc()),
+        BlocProvider(create: (BuildContext context) => UserManagementCubit()),
+        BlocProvider(
+            create: (BuildContext context) => MultiImagePickingCubit()),
+        BlocProvider(
+            create: (BuildContext context) => SingleImagePickingCubit()),
+        BlocProvider(create: (BuildContext context) => WeatherCubit()),
+        BlocProvider(create: (BuildContext context) => AttendeesCubit()),
+        BlocProvider(
+          create: (BuildContext context) =>
+              PaginatedCubit<NaturalParkModel>("naturalParks"),
         ),
         BlocProvider(
-          create: (_) => PaginatedCubit<TeritoryModel>("teritories"),
+          create: (BuildContext context) =>
+              PaginatedCubit<TeritoryModel>("teritories"),
         ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
