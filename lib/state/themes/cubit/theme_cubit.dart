@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'theme_state.dart';
 
 class BrightnessCubit extends Cubit<Brightness> {
-  BrightnessCubit(Brightness brightness) : super(brightness);
+  BrightnessCubit(this.currentBrightness) : super(currentBrightness);
 
   Brightness currentBrightness = Brightness.light;
 
