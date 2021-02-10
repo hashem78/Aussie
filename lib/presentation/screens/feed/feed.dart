@@ -6,12 +6,13 @@ import 'package:aussie/presentation/widgets/aussie/scaffold.dart';
 import 'package:aussie/state/event_creation/form_bloc.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
 import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
-import 'package:aussie/state/themes/cubit/theme_cubit.dart';
+import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 
 import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -101,28 +102,42 @@ class _FeedAnimatedFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color color =
-        context.watch<BrightnessCubit>().currentBrightness == Brightness.dark
-            ? Colors.white
-            : Colors.blue;
-    return OpenContainer(
-      closedShape: const RoundedRectangleBorder(),
-      closedColor: color,
-      openElevation: 0,
-      openShape: const RoundedRectangleBorder(),
-      closedBuilder: (context, action) {
-        return _FeedFAB(color: color, action: action);
-      },
-      openBuilder: (context, action) {
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (_) => EventCreationBlocForm()),
-            BlocProvider(create: (_) => EventManagementCubit()),
-            BlocProvider(create: (_) => LocationPickingCubit()),
-          ],
-          child: EventCreationScreen(
-            closeAction: action,
-          ),
+    final AussieBrightness b =
+        context.watch<BrightnessCubit>().currentBrightness;
+    Color color;
+    if (b is AussieBrightnessSystem) {
+      color =
+          SchedulerBinding.instance.window.platformBrightness == Brightness.dark
+              ? Colors.white
+              : Colors.blue;
+    } else if (b is AussieBrightnessLight) {
+      color = Colors.blue;
+    } else if (b is AussieBrightnessDark) {
+      color = Colors.white;
+    }
+
+    return BlocBuilder<BrightnessCubit, AussieBrightness>(
+      builder: (context, state) {
+        return OpenContainer(
+          closedShape: const RoundedRectangleBorder(),
+          closedColor: color,
+          openElevation: 0,
+          openShape: const RoundedRectangleBorder(),
+          closedBuilder: (context, action) {
+            return _FeedFAB(color: color, action: action);
+          },
+          openBuilder: (context, action) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => EventCreationBlocForm()),
+                BlocProvider(create: (_) => EventManagementCubit()),
+                BlocProvider(create: (_) => LocationPickingCubit()),
+              ],
+              child: EventCreationScreen(
+                closeAction: action,
+              ),
+            );
+          },
         );
       },
     );

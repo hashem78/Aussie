@@ -1,80 +1,63 @@
+import 'package:aussie/localizations.dart';
 import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
 import 'package:aussie/models/info/teritory/teritory.dart';
-import 'package:aussie/presentation/screens/screen_data.dart';
-import 'package:aussie/presentation/screens/usermanagement/initial.dart';
-import 'package:aussie/presentation/screens/usermanagement/signup.dart';
-import 'package:aussie/state/attendees/cubit/attendees_cubit.dart';
-import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
-import 'package:aussie/state/paginated_searchable/cubit/paginated_cubit.dart';
-
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-import 'package:aussie/state/themes/cubit/theme_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/state/weather/cubit/weather_cubit.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/screenutil_init.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:aussie/localizations.dart';
-
 import 'package:aussie/presentation/screens/info/natural_parks/natural_parks.dart';
 import 'package:aussie/presentation/screens/info/species/fauna.dart';
 import 'package:aussie/presentation/screens/info/species/flora.dart';
 import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
 import 'package:aussie/presentation/screens/info/weather/weather.dart';
 import 'package:aussie/presentation/screens/misc/settings.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
+import 'package:aussie/presentation/screens/usermanagement/initial.dart';
+import 'package:aussie/presentation/screens/usermanagement/signup.dart';
+import 'package:aussie/state/attendees/cubit/attendees_cubit.dart';
 import 'package:aussie/state/language/cubit/language_cubit.dart';
+import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
+import 'package:aussie/state/paginated_searchable/cubit/paginated_cubit.dart';
+import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
+import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
+import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/state/weather/cubit/weather_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/screenutil_init.dart';
 
 import 'models/info/species/species_model.dart';
+import 'util/functions.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  //await FirebaseFirestore.instance.disableNetwork();
-  final _perfs = await SharedPreferences.getInstance();
-  String brightnessString;
-  Brightness brightness;
-  if (_perfs.containsKey("brightness")) {
-    brightnessString = _perfs.get("brightness") as String;
-  } else {
-    brightnessString = "light";
-    _perfs.setString("brightness", brightnessString);
-  }
-  final bool isLight = brightnessString == 'light';
-  brightness = isLight ? Brightness.light : Brightness.dark;
 
   SystemChrome.setEnabledSystemUIOverlays([]);
-  Locale locale;
-  if (_perfs.containsKey("lang")) {
-    locale = Locale(_perfs.getString("lang"), '');
-  } else {
-    _perfs.setString("lang", "en");
-    locale = const Locale('en', '');
-  }
-  runApp(MyApp(brightness, locale));
+
+  runApp(MyApp(await onStartupBrightness(), await onStartupLocale()));
 }
 
 class MyApp extends StatelessWidget {
-  final Brightness brightness;
+  final AussieBrightness brightness;
+
   final Locale locale;
 
   const MyApp(this.brightness, this.locale)
-      : assert(brightness != null && locale != null);
+      : assert(
+          brightness != null && locale != null,
+        );
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) => BrightnessCubit(brightness)),
+          create: (BuildContext context) => BrightnessCubit(
+            brightness,
+          ),
+        ),
         BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
         BlocProvider(create: (BuildContext context) => SignupBloc()),
         BlocProvider(create: (BuildContext context) => UserManagementCubit()),
@@ -95,7 +78,7 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
-          return BlocBuilder<BrightnessCubit, Brightness>(
+          return BlocBuilder<BrightnessCubit, AussieBrightness>(
             builder: (context, state) {
               return OrientationBuilder(
                 builder: (context, orientation) {
@@ -133,7 +116,7 @@ class MyApp extends StatelessWidget {
                           ),
                         ),
                         theme: ThemeData(
-                          brightness: state,
+                          brightness: state.asMaterialBrightness,
                           pageTransitionsTheme: const PageTransitionsTheme(
                             builders: <TargetPlatform, PageTransitionsBuilder>{
                               TargetPlatform.android:

@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:aussie/localizations.dart';
+import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:aussie/models/event/event_model.dart';
 
@@ -10,6 +12,7 @@ import 'package:aussie/state/language/cubit/language_cubit.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -75,6 +78,44 @@ SignupBloc getSignupBloc(BuildContext context) =>
 
 EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
+
+AussieBrightness getPlatformBrightness() {
+  return SchedulerBinding.instance.window.platformBrightness == Brightness.dark
+      ? const AussieBrightnessDark()
+      : const AussieBrightnessLight();
+}
+
+Future<AussieBrightness> onStartupBrightness() async {
+  final _perfs = await SharedPreferences.getInstance();
+  String brightnessString;
+  AussieBrightness brightness;
+  if (_perfs.containsKey("brightness")) {
+    brightnessString = _perfs.getString("brightness");
+  } else {
+    brightnessString = "system";
+    _perfs.setString("brightness", brightnessString);
+  }
+  if (brightnessString == 'system') {
+    brightness = const AussieBrightnessSystem();
+  } else if (brightnessString == 'light') {
+    brightness = const AussieBrightnessLight();
+  } else {
+    brightness = const AussieBrightnessDark();
+  }
+  return brightness;
+}
+
+Future<Locale> onStartupLocale() async {
+  final _perfs = await SharedPreferences.getInstance();
+  Locale locale;
+  if (_perfs.containsKey("lang")) {
+    locale = Locale(_perfs.getString("lang"), '');
+  } else {
+    _perfs.setString("lang", "en");
+    locale = const Locale('en', '');
+  }
+  return locale;
+}
 
 void toggleLanguage(BuildContext context, String currentLanguage) {
   if (currentLanguage == "ar") {

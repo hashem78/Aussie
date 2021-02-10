@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
-import 'package:aussie/state/themes/cubit/theme_cubit.dart';
+import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 
 class AussieScreenColorData {
   static const AussieColor faunaDark = DarkAussieColor(
@@ -98,9 +98,9 @@ class AussieThemeBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BrightnessCubit, Brightness>(
+    return BlocBuilder<BrightnessCubit, AussieBrightness>(
       builder: (context, state) {
-        if (state == Brightness.light) {
+        if (state.asMaterialBrightness == Brightness.light) {
           return AussieThemeProvider(
             color: light,
             child: Builder(
