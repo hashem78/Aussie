@@ -38,14 +38,6 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => SingleImagePickingCubit()),
         BlocProvider(create: (BuildContext context) => WeatherCubit()),
         BlocProvider(create: (BuildContext context) => AttendeesCubit()),
-        BlocProvider(
-          create: (BuildContext context) =>
-              PaginatedCubit<NaturalParkModel>("natural_parks"),
-        ),
-        BlocProvider(
-          create: (BuildContext context) =>
-              PaginatedCubit<TeritoryModel>("teritories"),
-        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
@@ -114,20 +106,36 @@ class MyApp extends StatelessWidget {
   }
 
   static final Map<String, Widget Function(BuildContext)> routes = {
-    AussieScreenData.naturalParksNavPath: (BuildContext context) =>
-        const NaturalParksScreen(),
+    AussieScreenData.naturalParksNavPath: (BuildContext context) {
+      return BlocProvider(
+        create: (BuildContext context) {
+          return PaginatedCubit<NaturalParkModel>("natural_parks");
+        },
+        child: const NaturalParksScreen(),
+      );
+    },
     AussieScreenData.weatherNavPath: (BuildContext context) =>
         const WeatherScreen(),
-    AussieScreenData.territoriesNavPath: (BuildContext context) =>
-        const TeritoriesScreen(),
-    AussieScreenData.faunaNavPath: (BuildContext context) => BlocProvider(
-          create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
-          child: FaunaScreen(),
-        ),
-    AussieScreenData.floraNavPath: (BuildContext context) => BlocProvider(
-          create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
-          child: FloraScreen(),
-        ),
+    AussieScreenData.territoriesNavPath: (BuildContext context) {
+      return BlocProvider(
+        create: (BuildContext context) {
+          return PaginatedCubit<TeritoryModel>("teritories");
+        },
+        child: const TeritoriesScreen(),
+      );
+    },
+    AussieScreenData.faunaNavPath: (BuildContext context) {
+      return BlocProvider(
+        create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
+        child: FaunaScreen(),
+      );
+    },
+    AussieScreenData.floraNavPath: (BuildContext context) {
+      return BlocProvider(
+        create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
+        child: FloraScreen(),
+      );
+    },
     AussieScreenData.settingsNavPath: (BuildContext context) =>
         SettingsScreen(),
   };
