@@ -6,7 +6,6 @@ import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/paginated/natural_parks_tile.dart';
 
 import 'package:aussie/util/functions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NaturalParksScreen extends StatelessWidget {

@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => AttendeesCubit()),
         BlocProvider(
           create: (BuildContext context) =>
-              PaginatedCubit<NaturalParkModel>("naturalParks"),
+              PaginatedCubit<NaturalParkModel>("natural_parks"),
         ),
         BlocProvider(
           create: (BuildContext context) =>

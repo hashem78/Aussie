@@ -7,6 +7,8 @@ export 'package:flutter/services.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:flutter_localizations/flutter_localizations.dart';
 export 'package:flutter_screenutil/screenutil_init.dart';
+export 'package:provider/provider.dart';
+export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 export 'localizations.dart';
 export 'models/models.dart';

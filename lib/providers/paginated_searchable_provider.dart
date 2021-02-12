@@ -8,11 +8,12 @@ class PaginatedOnlineDataProvider {
   final String route; // Api route for online and box name for local
 
   const PaginatedOnlineDataProvider(this.route);
-  Future<Map<String, dynamic>> fetch(int page, {int fetchAmount = 10}) async {
+  Future<Map<String, dynamic>> fetch(String language, int page,
+      {int fetchAmount = 10}) async {
     final _internalMap = <String, dynamic>{};
 
     final queries = await FirebaseFirestore.instance
-        .collection(route)
+        .collection('${route}_$language')
         .orderBy('idx')
         .where(
           'idx',
@@ -28,7 +29,8 @@ class PaginatedOnlineDataProvider {
     return UnmodifiableMapView(_internalMap);
   }
 
-  Future<Map<String, dynamic>> filter(String field, String value) async {
+  Future<Map<String, dynamic>> filter(
+      String language, String field, String value) async {
     final _internalMap = <String, dynamic>{};
 
     //  final _split = filed.s
@@ -43,7 +45,7 @@ class PaginatedOnlineDataProvider {
       searchQuery = searchQuery.toUpperCase();
     }
     final queries = await FirebaseFirestore.instance
-        .collection(route)
+        .collection('${route}_$language')
         .where(
           field,
           isGreaterThanOrEqualTo: searchQuery,

@@ -12,17 +12,18 @@ class PaginatedCubit<T extends IPaginatedData> extends Cubit<PaginatedState> {
       : repositoy = PaginatedRepositoy(route: repositoryRoute),
         super(const PaginatedInitial());
   final PaginatedRepositoy<T> repositoy;
-  Future<void> filter(String filterFor, String searchValue) async {
+  Future<void> filter(
+      String filterFor, String searchValue, String language) async {
     try {
-      final models = await repositoy.filter(filterFor, searchValue);
+      final models = await repositoy.filter(language, filterFor, searchValue);
       emit(PaginatedFiltered(UnmodifiableListView(models)));
     } catch (e) {
       emit(PaginatedFiltered(UnmodifiableListView([])));
     }
   }
 
-  Future<void> loadMoreAsync({int page, int amount}) async {
-    final _avail = await repositoy.fetch(page, fetchAmount: amount);
+  Future<void> loadMoreAsync(String language, {int page, int amount}) async {
+    final _avail = await repositoy.fetch(language, page, fetchAmount: amount);
     if (_avail.isEmpty) {
       emit(
         PaginatedEnd(UnmodifiableListView([])),
@@ -31,5 +32,9 @@ class PaginatedCubit<T extends IPaginatedData> extends Cubit<PaginatedState> {
     }
 
     emit(PaginatedDataChanged(UnmodifiableListView(_avail)));
+  }
+
+  void emitInital() {
+    emit(const PaginatedInitial());
   }
 }

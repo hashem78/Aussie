@@ -13,22 +13,23 @@ class PaginatedRepositoy<T extends IPaginatedData> {
   PaginatedRepositoy({
     @required String route,
   }) : _onlineDataProvider = PaginatedOnlineDataProvider(route);
-  Future<List<IPaginatedData>> fetch(int page,
+  Future<List<IPaginatedData>> fetch(String language, int page,
       {@required int fetchAmount}) async {
     assert(fetchAmount != null, "Fetch Amount is null");
     Map<String, dynamic> _repResponse;
 
-    _repResponse =
-        await _onlineDataProvider.fetch(page, fetchAmount: fetchAmount);
+    _repResponse = await _onlineDataProvider.fetch(language, page,
+        fetchAmount: fetchAmount);
 
     return UnmodifiableListView(_toData(_repResponse));
   }
 
-  Future<List<IPaginatedData>> filter(String field, String value) async {
+  Future<List<IPaginatedData>> filter(
+      String language, String field, String value) async {
     assert(field != null && value != null);
     Map<String, dynamic> _repResponse;
 
-    _repResponse = await _onlineDataProvider.filter(field, value);
+    _repResponse = await _onlineDataProvider.filter(language, field, value);
     return UnmodifiableListView(_toData(_repResponse));
   }
 

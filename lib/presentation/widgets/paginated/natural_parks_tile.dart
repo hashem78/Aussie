@@ -42,19 +42,20 @@ class NaturalParksTile extends StatelessWidget {
               ),
             ],
           ),
-          Card(
-            elevation: 2,
-            color: Colors.cyan,
-            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-            shape: const RoundedRectangleBorder(),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ExpandText(
-                model.summary,
-                maxLines: 4,
+          if (model.summary.trim().isNotEmpty)
+            Card(
+              elevation: 2,
+              color: Colors.cyan,
+              margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              shape: const RoundedRectangleBorder(),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ExpandText(
+                  model.summary.trim(),
+                  maxLines: 4,
+                ),
               ),
             ),
-          ),
         ],
       ),
       titleImage: model.image_link != "" && heroTag != null

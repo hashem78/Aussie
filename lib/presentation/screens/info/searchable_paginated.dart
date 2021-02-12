@@ -2,6 +2,7 @@ import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
 import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
+import 'package:aussie/state/language/cubit/language_cubit.dart';
 import 'package:aussie/state/paginated_searchable/cubit/paginated_cubit.dart';
 
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
@@ -62,11 +63,13 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
     _controller.addPageRequestListener(
       (pageKey) {
         if (searchQuery.isNotEmpty && searchQuery != null) {
-          context
-              .read<PaginatedCubit<T>>()
-              .filter(widget.filterFor, searchQuery);
+          context.read<PaginatedCubit<T>>().filter(
+              context.read<LanguageCubit>().locale.languageCode,
+              widget.filterFor,
+              searchQuery);
         } else {
           context.read<PaginatedCubit<T>>().loadMoreAsync(
+                context.read<LanguageCubit>().locale.languageCode,
                 page: pageKey,
                 amount: _pageSize,
               );
