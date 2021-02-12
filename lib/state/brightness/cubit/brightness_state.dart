@@ -33,11 +33,11 @@ extension AussieBrightnessExtension on AussieBrightness {
   String get string {
     String brightness;
     if (this is AussieBrightnessSystem) {
-      brightness = 'System';
+      brightness = 'brightnessSystemTitle';
     } else if (this is AussieBrightnessLight) {
-      brightness = 'Light';
+      brightness = 'brightnessLightTitle';
     } else {
-      brightness = 'Dark';
+      brightness = 'brightnessDarkTitle';
     }
 
     return brightness;

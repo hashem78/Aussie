@@ -13,7 +13,10 @@ class BrightnessTile extends StatelessWidget {
       child: ListTile(
         title: Text(getTranslation(context, 'brightnessTitle')),
         subtitle: Text(
-          context.watch<BrightnessCubit>().currentBrightnessString,
+          getTranslation(
+            context,
+            context.watch<BrightnessCubit>().currentBrightnessString,
+          ),
         ),
         contentPadding: const EdgeInsets.all(5.0),
         onTap: () {
