@@ -1,3 +1,4 @@
+import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/info/species/species_model.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
@@ -39,7 +40,7 @@ class SpeciesDetails extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  buildDataTable(),
+                  buildDataTable(context),
                   Text(
                     model.description.trim(),
                     textAlign: TextAlign.justify,
@@ -97,7 +98,7 @@ class SpeciesDetails extends StatelessWidget {
     );
   }
 
-  DataTable buildDataTable() => DataTable(
+  DataTable buildDataTable(BuildContext context) => DataTable(
         dataTextStyle: const TextStyle(fontWeight: FontWeight.bold),
         columnSpacing: 3,
         headingRowHeight: 0,
@@ -110,10 +111,10 @@ class SpeciesDetails extends StatelessWidget {
           if (model.commonName != null && model.commonName != "")
             DataRow(
               cells: [
-                const DataCell(
+                DataCell(
                   Text(
-                    "Common name",
-                    style: TextStyle(
+                    getTranslation(context, 'speciesCommonName'),
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
@@ -123,10 +124,10 @@ class SpeciesDetails extends StatelessWidget {
             ),
           DataRow(
             cells: [
-              const DataCell(
+              DataCell(
                 Text(
-                  "Scientific name",
-                  style: TextStyle(
+                  getTranslation(context, 'speciesScientificName'),
+                  style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),
@@ -137,10 +138,10 @@ class SpeciesDetails extends StatelessWidget {
           if (model.type != null)
             DataRow(
               cells: [
-                const DataCell(
+                DataCell(
                   Text(
-                    "Type",
-                    style: TextStyle(
+                    getTranslation(context, 'speciesType'),
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
@@ -151,10 +152,10 @@ class SpeciesDetails extends StatelessWidget {
           if (model.conservationStatus != null)
             DataRow(
               cells: [
-                const DataCell(
+                DataCell(
                   Text(
-                    "Conservation status",
-                    style: TextStyle(
+                    getTranslation(context, 'speciesConStat'),
+                    style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),

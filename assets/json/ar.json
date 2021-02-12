@@ -1,6 +1,10 @@
 {
     "infoSectionTitle": "معلومات",
     "miscSectionTitle": "اخرى",
+    "speciesCommonName":"الاسم الدارج",
+    "speciesScientificName":"الاسم العلمي",
+    "speciesType":"النوع",
+    "speciesConStat":"الخطر",
     "faunaTitle": "الغطاء الحياواني",
     "floraTitle": "الغطاء النباتي",
     "weatherTitle": "الطقس",

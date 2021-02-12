@@ -1,6 +1,10 @@
 {
     "infoSectionTitle": "Info",
     "miscSectionTitle": "Misc",
+    "speciesCommonName":"Common Name",
+    "speciesScientificName":"Scientific name",
+    "speciesType":"Type",
+    "speciesConStat":"Conservation status",
     "faunaTitle": "Fauna",
     "floraTitle": "Flora",
     "weatherTitle": "Weather",
