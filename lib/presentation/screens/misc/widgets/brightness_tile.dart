@@ -1,3 +1,4 @@
+import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class BrightnessTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
-        title: const Text('Theme'),
+        title: Text(getTranslation(context, 'brightnessTitle')),
         subtitle: Text(
           context.watch<BrightnessCubit>().currentBrightnessString,
         ),
@@ -29,7 +30,8 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<AussieBrightness>(
                       value: const AussieBrightnessSystem(),
                       groupValue: currentSetting,
-                      title: const Text('System'),
+                      title: Text(
+                          getTranslation(context, 'brightnessSystemTitle')),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToSystem();
                       },
@@ -37,7 +39,8 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<AussieBrightness>(
                       value: const AussieBrightnessLight(),
                       groupValue: currentSetting,
-                      title: const Text('Light'),
+                      title:
+                          Text(getTranslation(context, 'brightnessLightTitle')),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToLight();
                       },
@@ -45,7 +48,8 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<AussieBrightness>(
                       value: const AussieBrightnessDark(),
                       groupValue: currentSetting,
-                      title: const Text('Dark'),
+                      title:
+                          Text(getTranslation(context, 'brightnessDarkTitle')),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToDark();
                       },
