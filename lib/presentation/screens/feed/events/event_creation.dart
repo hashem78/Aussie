@@ -5,6 +5,7 @@ import 'package:aussie/presentation/screens/feed/events/widgets/form/gallery_sta
 import 'package:aussie/presentation/screens/feed/events/widgets/form/location_picker.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/form/submit.dart';
 import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
+import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
 import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class EventCreationScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         context.read<SingleImagePickingCubit>().emitInitial();
+        context.read<MultiImagePickingCubit>().emitInitial();
 
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         closeAction();

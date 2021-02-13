@@ -32,10 +32,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
         BlocProvider(create: (BuildContext context) => SignupBloc()),
         BlocProvider(create: (BuildContext context) => UserManagementCubit()),
-        BlocProvider(
-            create: (BuildContext context) => MultiImagePickingCubit()),
-        BlocProvider(
-            create: (BuildContext context) => SingleImagePickingCubit()),
         BlocProvider(create: (BuildContext context) => WeatherCubit()),
         BlocProvider(create: (BuildContext context) => AttendeesCubit()),
       ],
@@ -126,13 +122,15 @@ class MyApp extends StatelessWidget {
     },
     AussieScreenData.faunaNavPath: (BuildContext context) {
       return BlocProvider(
-        create: (context) => PaginatedCubit<SpeciesDetailsModel>("fauna"),
+        create: (BuildContext context) =>
+            PaginatedCubit<SpeciesDetailsModel>("fauna"),
         child: FaunaScreen(),
       );
     },
     AussieScreenData.floraNavPath: (BuildContext context) {
       return BlocProvider(
-        create: (context) => PaginatedCubit<SpeciesDetailsModel>("flora"),
+        create: (BuildContext context) =>
+            PaginatedCubit<SpeciesDetailsModel>("flora"),
         child: FloraScreen(),
       );
     },

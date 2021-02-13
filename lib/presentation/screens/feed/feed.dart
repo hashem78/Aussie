@@ -1,19 +1,4 @@
-import 'package:aussie/presentation/presentation.dart';
-import 'package:aussie/state/event_creation/form_bloc.dart';
-import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
-import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
-import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
-
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:animations/animations.dart';
-import 'package:provider/provider.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen();
@@ -125,9 +110,17 @@ class _FeedAnimatedFAB extends StatelessWidget {
           openBuilder: (context, action) {
             return MultiBlocProvider(
               providers: [
-                BlocProvider(create: (_) => EventCreationBlocForm()),
-                BlocProvider(create: (_) => EventManagementCubit()),
-                BlocProvider(create: (_) => LocationPickingCubit()),
+                BlocProvider(
+                    create: (BuildContext context) => EventCreationBlocForm()),
+                BlocProvider(
+                    create: (BuildContext context) => EventManagementCubit()),
+                BlocProvider(
+                    create: (BuildContext context) => LocationPickingCubit()),
+                BlocProvider(
+                    create: (BuildContext context) =>
+                        SingleImagePickingCubit()),
+                BlocProvider(
+                    create: (BuildContext context) => MultiImagePickingCubit()),
               ],
               child: EventCreationScreen(
                 closeAction: action,

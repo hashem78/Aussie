@@ -151,13 +151,16 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         shape: const RoundedRectangleBorder(),
       ),
       onPressed: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(
-              builder: (context) => SingupScreen(),
-            ))
-            .whenComplete(
-              () => context.read<SingleImagePickingCubit>().emitInitial(),
-            );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return BlocProvider(
+                create: (context) => SingleImagePickingCubit(),
+                child: SingupScreen(),
+              );
+            },
+          ),
+        );
       },
       child: Text(
         getTranslation(context, "signupButtonText"),
