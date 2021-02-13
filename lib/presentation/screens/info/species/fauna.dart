@@ -15,7 +15,7 @@ class FaunaScreen extends StatelessWidget {
       light: AussieScreenColorData.faunaLight,
       builder: (context, color) {
         return SearchablePaginatedScreen<SpeciesDetailsModel>(
-          title: getTranslation(context, AussieScreenData.floraTitle),
+          title: getTranslation(context, AussieScreenData.faunaTitle),
           thumbnailCubitRoute: AussieScreenData.faunaThumbnailRoute,
           filterFor: "commonName",
           itemBuilder: (context, item, index) {

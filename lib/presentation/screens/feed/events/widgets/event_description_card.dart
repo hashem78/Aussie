@@ -16,7 +16,7 @@ class EventDetailsDescriptionCard extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: ExpandText(
         e.description,
-        textAlign: TextAlign.center,
+        maxLines: 20,
       ),
     );
   }
