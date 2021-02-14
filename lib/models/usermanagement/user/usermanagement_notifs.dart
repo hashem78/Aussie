@@ -55,8 +55,7 @@ class UserManagementErrorNotification implements UserManagementNotification {
   const UserManagementErrorNotification();
 
   @override
-  String get message =>
-      "There is no user record corresponding to this identifier. the user may have been deleted.";
+  String get message => "An unknown error occured, try again later!";
 }
 
 class EmailAlreadyInUseNotification implements UserManagementNotification {

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
@@ -72,6 +73,10 @@ class UserManagementProvider {
   }
 
   Future<UserManagementNotification> signin(Map<String, dynamic> map) async {
+    if (await DataConnectionChecker().connectionStatus ==
+        DataConnectionStatus.disconnected) {
+      return const UserManagementErrorNotification();
+    }
     if (map["email"] == "") {
       return const InvalidEmailNotification();
     } else if (map["password"] == "") {
