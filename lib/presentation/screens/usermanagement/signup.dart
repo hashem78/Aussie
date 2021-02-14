@@ -52,7 +52,6 @@ class SingupScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         context.read<SignupBloc>().clear();
-        context.read<UserManagementCubit>().emitInitial();
         return true;
       },
       child: Scaffold(

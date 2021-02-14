@@ -154,8 +154,15 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) {
-              return BlocProvider(
-                create: (context) => SingleImagePickingCubit(),
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (context) => SingleImagePickingCubit(),
+                  ),
+                  BlocProvider(
+                    create: (context) => UserManagementCubit(),
+                  )
+                ],
                 child: SingupScreen(),
               );
             },
