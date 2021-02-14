@@ -56,9 +56,7 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  final bool _noMisc;
-  const AussieAppDrawer() : _noMisc = true;
-  const AussieAppDrawer.noSettings() : _noMisc = false;
+  const AussieAppDrawer();
 
   static const List<_DrawerItemModel> infoModels = [
     _DrawerItemModel(
@@ -100,7 +98,7 @@ class AussieAppDrawer extends StatelessWidget {
       iconColor: Colors.grey,
     ),
   ];
-  static const List<_DrawerSection> sections = [
+  static const List<_DrawerSection> _sections = [
     _DrawerSection(
       sectionIcon: Icons.info,
       tSectionTitle: "infoSectionTitle",
@@ -114,7 +112,7 @@ class AussieAppDrawer extends StatelessWidget {
       models: miscModels,
     ),
   ];
-  static const List<_DrawerSection> sectionsNoMisc = [
+  static const List<_DrawerSection> _sectionsNoMisc = [
     _DrawerSection(
       sectionIcon: Icons.info,
       tSectionTitle: "infoSectionTitle",
@@ -131,32 +129,40 @@ class AussieAppDrawer extends StatelessWidget {
             const SliverToBoxAdapter(
               child: _DrawerHeader(),
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  final int itemIndex = index ~/ 2;
-                  if (index.isEven) {
-                    return !_noMisc
-                        ? sections[itemIndex]
-                        : sectionsNoMisc[itemIndex];
-                  }
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 2,
-                    ),
-                  );
-                },
-                childCount: math.max(
-                  0,
-                  !_noMisc
-                      ? sections.length * 2 - 1
-                      : sectionsNoMisc.length * 2 - 1,
-                ),
-              ),
-            ),
+            BlocBuilder<UserManagementCubit, UserManagementState>(
+              builder: (context, state) {
+                if (state is UserMangementHasUserData) {
+                  return buildSliverList(_sections);
+                } else {
+                  return buildSliverList(_sectionsNoMisc);
+                }
+              },
+            )
           ],
+        ),
+      ),
+    );
+  }
+
+  SliverList buildSliverList(List<_DrawerSection> sections) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          final int itemIndex = index ~/ 2;
+          if (index.isEven) {
+            return sections[itemIndex];
+          }
+          return const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Divider(
+              color: Colors.grey,
+              thickness: 2,
+            ),
+          );
+        },
+        childCount: math.max(
+          0,
+          sections.length * 2 - 1,
         ),
       ),
     );
@@ -277,7 +283,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Icon(iconData, size: 150.ssp),
+          Icon(iconData, size: 120.ssp),
           const SizedBox(
             width: 10,
           ),
@@ -285,7 +291,7 @@ class _DrawerSectionTitle extends StatelessWidget {
             flex: 5,
             child: Text(
               title,
-              style: TextStyle(fontSize: 150.ssp),
+              style: TextStyle(fontSize: 120.ssp),
             ),
           ),
         ],
