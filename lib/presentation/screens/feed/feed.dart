@@ -4,73 +4,49 @@ class FeedScreen extends StatelessWidget {
   const FeedScreen();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<UserManagementCubit, UserManagementState>(
-          builder: (context, state) {
-            if (state is UserMangementHasUserData) {
-              return DefaultTabController(
-                length: 2,
-                child: Provider.value(
-                  value: state.user,
-                  child: const AussieScaffold(
-                    floatingActionButton: _FeedAnimatedFAB(),
-                    drawer: AussieAppDrawer(),
-                    body: _FeedScrollView(),
-                  ),
+    return DefaultTabController(
+      length: 2,
+      child: BlocBuilder<UserManagementCubit, UserManagementState>(
+        builder: (context, state) {
+          return AussieScaffold(
+            drawer: const AussieAppDrawer(),
+            floatingActionButton: const _FeedAnimatedFAB(),
+            appBar: AppBar(
+              centerTitle: true,
+              title: AutoSizeText(
+                getTranslation(context, "feedScreenTitle"),
+                style: TextStyle(
+                  fontSize: 100.sp,
+                  fontWeight: FontWeight.w400,
                 ),
-              );
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _FeedScrollView extends StatelessWidget {
-  const _FeedScrollView({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (context, innerBoxIsScrolled) => [
-        SliverAppBar(
-          pinned: true,
-          centerTitle: true,
-          title: AutoSizeText(
-            getTranslation(context, "feedScreenTitle"),
-            style: TextStyle(
-              fontSize: 100.sp,
-              fontWeight: FontWeight.w400,
+              ),
+              elevation: 0,
+              bottom: const TabBar(
+                tabs: [
+                  Icon(Icons.home),
+                  Icon(Icons.public),
+                ],
+              ),
             ),
-          ),
-          elevation: 0,
-          bottom: const TabBar(
-            tabs: [
-              Icon(Icons.home),
-              Icon(Icons.public),
-            ],
-          ),
-        ),
-      ],
-      body: TabBarView(
-        children: [
-          BlocProvider(
-            create: (context) => EventManagementCubit(),
-            child: HomeEventsTab(),
-          ),
-          BlocProvider(
-            create: (context) => EventManagementCubit(),
-            child: PublicEventsTab(),
-          ),
-        ],
+            body: state is UserMangementHasUserData
+                ? Provider.value(
+                    value: state.user,
+                    child: TabBarView(
+                      children: [
+                        BlocProvider(
+                          create: (context) => EventManagementCubit(),
+                          child: HomeEventsTab(),
+                        ),
+                        BlocProvider(
+                          create: (context) => EventManagementCubit(),
+                          child: PublicEventsTab(),
+                        ),
+                      ],
+                    ),
+                  )
+                : const Center(child: CircularProgressIndicator()),
+          );
+        },
       ),
     );
   }

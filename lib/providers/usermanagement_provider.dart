@@ -16,6 +16,10 @@ class UserManagementProvider {
   static final _storageInstance = FirebaseStorage.instance;
   static final _firestoreInstance = FirebaseFirestore.instance;
   Future<UserManagementNotification> signup(Map<String, dynamic> map) async {
+    if (await DataConnectionChecker().connectionStatus ==
+        DataConnectionStatus.disconnected) {
+      return const UserManagementErrorNotification();
+    }
     if (map["email"] == "") {
       return const InvalidEmailNotification();
     } else if (map["password"] == "") {

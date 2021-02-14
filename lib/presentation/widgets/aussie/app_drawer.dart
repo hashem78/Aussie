@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shimmer/shimmer.dart';
 
 @immutable
 class _DrawerItemModel extends Equatable {
@@ -162,49 +163,65 @@ class _DrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AussieUser user = getCurrentUser(context);
-    return Material(
-      color: Theme.of(context).backgroundColor,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (context) => UserManagementCubit()..getUserData(),
-                child: const UserProfileScreen(),
-              ),
-            ),
-          );
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: CachedNetworkImage(
-                  imageUrl: user.profilePictureLink,
-                  imageBuilder: (context, imageProvider) {
-                    return Ink.image(image: imageProvider);
-                  },
+    return BlocBuilder<UserManagementCubit, UserManagementState>(
+      builder: (context, state) {
+        final AussieUser user =
+            state is UserMangementHasUserData ? state.user : null;
+        return Material(
+          color: Theme.of(context).backgroundColor,
+          child: InkWell(
+            onTap: user != null
+                ? () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) =>
+                              UserManagementCubit()..getUserData(),
+                          child: const UserProfileScreen(),
+                        ),
+                      ),
+                    );
+                  }
+                : null,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: user != null
+                        ? CachedNetworkImage(
+                            imageUrl: user.profilePictureLink,
+                            imageBuilder: (context, imageProvider) {
+                              return Ink.image(image: imageProvider);
+                            },
+                          )
+                        : Shimmer.fromColors(
+                            baseColor: Colors.red,
+                            highlightColor: Colors.yellow,
+                            child: const ColoredBox(
+                              color: Colors.green,
+                            ),
+                          ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: AutoSizeText(
+                    user?.username ?? "Hi",
+                    maxLines: 1,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(fontSize: 150.ssp),
+                  ),
+                )
+              ],
             ),
-            Expanded(
-              child: AutoSizeText(
-                user.username,
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(fontSize: 150.ssp),
-              ),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
