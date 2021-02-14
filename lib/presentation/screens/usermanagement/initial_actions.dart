@@ -1,14 +1,5 @@
-import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
-import 'package:aussie/presentation/screens/usermanagement/signup.dart';
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InitialUserActionScreen extends StatefulWidget {
   @override
@@ -37,6 +28,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         FocusManager.instance.primaryFocus.unfocus();
       },
       child: Scaffold(
+        drawer: const AussieAppDrawer(),
         appBar: AppBar(
           title: const Text("Aussie"),
           actions: [

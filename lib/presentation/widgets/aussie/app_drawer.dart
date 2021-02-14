@@ -1,19 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/presentation/screens/profile/profile.dart';
-import 'package:aussie/presentation/screens/screen_data.dart';
+import 'package:aussie/aussie_imports.dart';
 
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shimmer/shimmer.dart';
 
 @immutable
 class _DrawerItemModel extends Equatable {
@@ -67,7 +56,10 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  const AussieAppDrawer();
+  final bool _noMisc;
+  const AussieAppDrawer() : _noMisc = true;
+  const AussieAppDrawer.noSettings() : _noMisc = false;
+
   static const List<_DrawerItemModel> infoModels = [
     _DrawerItemModel(
       navPath: AussieScreenData.faunaNavPath,
@@ -122,6 +114,14 @@ class AussieAppDrawer extends StatelessWidget {
       models: miscModels,
     ),
   ];
+  static const List<_DrawerSection> sectionsNoMisc = [
+    _DrawerSection(
+      sectionIcon: Icons.info,
+      tSectionTitle: "infoSectionTitle",
+      tilesColor: Colors.blue,
+      models: infoModels,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -136,7 +136,9 @@ class AussieAppDrawer extends StatelessWidget {
                 (BuildContext context, int index) {
                   final int itemIndex = index ~/ 2;
                   if (index.isEven) {
-                    return sections[itemIndex];
+                    return !_noMisc
+                        ? sections[itemIndex]
+                        : sectionsNoMisc[itemIndex];
                   }
                   return const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -146,7 +148,12 @@ class AussieAppDrawer extends StatelessWidget {
                     ),
                   );
                 },
-                childCount: math.max(0, sections.length * 2 - 1),
+                childCount: math.max(
+                  0,
+                  !_noMisc
+                      ? sections.length * 2 - 1
+                      : sectionsNoMisc.length * 2 - 1,
+                ),
               ),
             ),
           ],
@@ -165,62 +172,52 @@ class _DrawerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
       builder: (context, state) {
-        final AussieUser user =
-            state is UserMangementHasUserData ? state.user : null;
-        return Material(
-          color: Theme.of(context).backgroundColor,
-          child: InkWell(
-            onTap: user != null
-                ? () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) =>
-                              UserManagementCubit()..getUserData(),
-                          child: const UserProfileScreen(),
-                        ),
+        if (state is UserMangementHasUserData) {
+          return Material(
+            color: Theme.of(context).backgroundColor,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => UserManagementCubit()..getUserData(),
+                      child: const UserProfileScreen(),
+                    ),
+                  ),
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: CachedNetworkImage(
+                        imageUrl: state.user.profilePictureLink,
+                        imageBuilder: (context, imageProvider) {
+                          return Ink.image(image: imageProvider);
+                        },
                       ),
-                    );
-                  }
-                : null,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: user != null
-                        ? CachedNetworkImage(
-                            imageUrl: user.profilePictureLink,
-                            imageBuilder: (context, imageProvider) {
-                              return Ink.image(image: imageProvider);
-                            },
-                          )
-                        : Shimmer.fromColors(
-                            baseColor: Colors.red,
-                            highlightColor: Colors.yellow,
-                            child: const ColoredBox(
-                              color: Colors.green,
-                            ),
-                          ),
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: AutoSizeText(
-                    user?.username ?? "Hi",
-                    maxLines: 1,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        .copyWith(fontSize: 150.ssp),
-                  ),
-                )
-              ],
+                  Expanded(
+                    child: AutoSizeText(
+                      state.user.username,
+                      maxLines: 1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          .copyWith(fontSize: 150.ssp),
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        }
+        return const SizedBox();
       },
     );
   }
@@ -280,7 +277,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Icon(iconData, size: 80.ssp),
+          Icon(iconData, size: 150.ssp),
           const SizedBox(
             width: 10,
           ),
@@ -288,7 +285,7 @@ class _DrawerSectionTitle extends StatelessWidget {
             flex: 5,
             child: Text(
               title,
-              style: TextStyle(fontSize: 80.ssp),
+              style: TextStyle(fontSize: 150.ssp),
             ),
           ),
         ],

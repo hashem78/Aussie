@@ -12,7 +12,10 @@ export 'package:flutter_localizations/flutter_localizations.dart';
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter_screenutil/screenutil_init.dart';
 export 'package:provider/provider.dart';
+export 'package:equatable/equatable.dart';
 
+export 'package:shimmer/shimmer.dart';
+export 'package:flutter_svg/flutter_svg.dart';
 export 'localizations.dart';
 export 'models/models.dart';
 export 'presentation/presentation.dart';
