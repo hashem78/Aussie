@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
-        BlocProvider(create: (BuildContext context) => SignupBloc()),
         BlocProvider(create: (BuildContext context) => UserManagementCubit()),
         BlocProvider(create: (BuildContext context) => WeatherCubit()),
         BlocProvider(create: (BuildContext context) => AttendeesCubit()),
