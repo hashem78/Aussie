@@ -51,15 +51,14 @@ Widget buildImage(
           ),
         ),
       ),
-      fadeInDuration: Duration.zero,
-      placeholder: showPlaceHolder
-          ? (context, url) => Container(
-                color: Colors.lightBlueAccent,
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
-          : null,
+      placeholderFadeInDuration: Duration.zero,
+      progressIndicatorBuilder: (context, url, progress) {
+        return Center(
+          child: CircularProgressIndicator(
+            value: progress.progress,
+          ),
+        );
+      },
       errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   } else {
