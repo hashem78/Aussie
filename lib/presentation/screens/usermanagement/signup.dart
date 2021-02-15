@@ -1,48 +1,5 @@
-import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_cropper/image_cropper.dart';
-
-class SignupBloc extends FormBloc<String, String> {
-  final fullName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  final userName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  final email = TextFieldBloc(
-    validators: [FieldBlocValidators.required, FieldBlocValidators.email],
-  );
-  final password = TextFieldBloc(validators: [
-    FieldBlocValidators.required,
-    FieldBlocValidators.passwordMin6Chars
-  ]);
-
-  SignupBloc() {
-    addFieldBlocs(fieldBlocs: [
-      fullName,
-      userName,
-      email,
-      password,
-    ]);
-  }
-  String profileImagePath;
-
-  @override
-  Future<void> onSubmitting() async {}
-
-  @override
-  Future<void> onCancelingSubmission() async {}
-
-  @override
-  Future<void> onDeleting() async {}
-
-  @override
-  Future<void> onLoading() async {}
-}
 
 class SingupScreen extends StatelessWidget {
   final ValueNotifier<String> profileImage = ValueNotifier("");
@@ -50,9 +7,21 @@ class SingupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(getTranslation(context, "signup2ButtonText")),
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, kToolbarHeight),
+        child: BlocBuilder<NetworkingCubit, NetworkingState>(
+          builder: (context, state) {
+            Color color;
+            if (state is NetworkingUnavailable) {
+              color = Colors.red;
+            }
+            return AppBar(
+              elevation: 0,
+              backgroundColor: color,
+              title: Text(getTranslation(context, "signup2ButtonText")),
+            );
+          },
+        ),
       ),
       body: FormBlocListener<SignupBloc, String, String>(
         child: LayoutBuilder(
@@ -159,27 +128,35 @@ class SingupScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        TextButton(
-                          onPressed: () {
-                            // ignore: close_sinks
-                            final signupBloc = getSignupBloc(context);
-                            FocusManager.instance.primaryFocus.unfocus();
-                            signupBloc.submit();
-                            BlocProvider.of<UserManagementCubit>(context)
-                                .signup(
-                              SignupModel(
-                                email: signupBloc.email.value,
-                                password: signupBloc.password.value,
-                                profileImagePath: profileImage.value,
-                                username: signupBloc.userName.value,
-                                fullname: signupBloc.fullName.value,
+                        BlocBuilder<NetworkingCubit, NetworkingState>(
+                          builder: (context, state) {
+                            void Function() callback = () {
+                              // ignore: close_sinks
+                              final signupBloc = getSignupBloc(context);
+                              FocusManager.instance.primaryFocus.unfocus();
+                              signupBloc.submit();
+                              BlocProvider.of<UserManagementCubit>(context)
+                                  .signup(
+                                SignupModel(
+                                  email: signupBloc.email.value,
+                                  password: signupBloc.password.value,
+                                  profileImagePath: profileImage.value,
+                                  username: signupBloc.userName.value,
+                                  fullname: signupBloc.fullName.value,
+                                ),
+                              );
+                            };
+                            if (state is NetworkingUnavailable) {
+                              callback = null;
+                            }
+                            return TextButton(
+                              onPressed: callback,
+                              child: AutoSizeText(
+                                getTranslation(context, "signup2ButtonText"),
+                                style: TextStyle(fontSize: 85.ssp),
                               ),
                             );
                           },
-                          child: AutoSizeText(
-                            getTranslation(context, "signup2ButtonText"),
-                            style: TextStyle(fontSize: 85.ssp),
-                          ),
                         ),
                       ],
                     ),

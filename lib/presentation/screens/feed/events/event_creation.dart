@@ -87,7 +87,8 @@ class EventCreationScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is EventManagementPerformingAction) {
                           return const Center(
-                              child: CircularProgressIndicator());
+                            child: CircularProgressIndicator(),
+                          );
                         }
                         return Container();
                       },
@@ -105,14 +106,17 @@ class EventCreationScreen extends StatelessWidget {
                       builder: (context, state) {
                         if (state is EventManagementPerformingAction) {
                           return const EventCreationSubmitButton(
-                              enabled: false);
+                            enabled: false,
+                          );
                         } else {
                           if (state is EventManagementCreated) {
                             return const EventCreationSubmitButton(
-                                enabled: false);
+                              enabled: false,
+                            );
                           } else {
                             return const EventCreationSubmitButton(
-                                enabled: true);
+                              enabled: true,
+                            );
                           }
                         }
                       },

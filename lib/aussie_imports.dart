@@ -13,8 +13,9 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:flutter_screenutil/screenutil_init.dart';
 export 'package:provider/provider.dart';
 export 'package:equatable/equatable.dart';
-
-export 'package:shimmer/shimmer.dart';
+export 'package:flutter_form_bloc/flutter_form_bloc.dart';
+export 'package:shared_preferences/shared_preferences.dart';
+export 'package:image_cropper/image_cropper.dart';
 export 'package:flutter_svg/flutter_svg.dart';
 export 'localizations.dart';
 export 'models/models.dart';

@@ -29,19 +29,33 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
       },
       child: Scaffold(
         drawer: const AussieAppDrawer(),
-        appBar: AppBar(
-          title: const Text("Aussie"),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.translate),
-              onPressed: () {
-                toggleLanguage(
-                  context,
-                  context.read<LanguageCubit>().locale.languageCode,
-                );
-              },
-            ),
-          ],
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: BlocBuilder<NetworkingCubit, NetworkingState>(
+            builder: (context, state) {
+              Color color;
+
+              if (state is NetworkingUnavailable) {
+                color = Colors.red;
+              }
+
+              return AppBar(
+                backgroundColor: color,
+                title: const Text("Aussie"),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.translate),
+                    onPressed: () {
+                      toggleLanguage(
+                        context,
+                        context.read<LanguageCubit>().locale.languageCode,
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
         ),
         key: sstate,
         body: BlocListener<UserManagementCubit, UserManagementState>(
@@ -149,10 +163,13 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
               return MultiBlocProvider(
                 providers: [
                   BlocProvider(
-                    create: (context) => SingleImagePickingCubit(),
+                    create: (BuildContext context) => SingleImagePickingCubit(),
                   ),
                   BlocProvider(
-                    create: (context) => UserManagementCubit(),
+                    create: (BuildContext context) => UserManagementCubit(),
+                  ),
+                  BlocProvider(
+                    create: (BuildContext context) => SignupBloc(),
                   )
                 ],
                 child: SingupScreen(),

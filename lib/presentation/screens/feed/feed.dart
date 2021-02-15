@@ -8,24 +8,40 @@ class FeedScreen extends StatelessWidget {
       length: 2,
       child: BlocBuilder<UserManagementCubit, UserManagementState>(
         builder: (context, state) {
+          const TabBar tabBar = TabBar(
+            tabs: [
+              Icon(Icons.home),
+              Icon(Icons.public),
+            ],
+          );
           return AussieScaffold(
             drawer: const AussieAppDrawer(),
             floatingActionButton: const _FeedAnimatedFAB(),
-            appBar: AppBar(
-              centerTitle: true,
-              title: AutoSizeText(
-                getTranslation(context, "feedScreenTitle"),
-                style: TextStyle(
-                  fontSize: 100.sp,
-                  fontWeight: FontWeight.w400,
-                ),
+            appBar: PreferredSize(
+              preferredSize: Size(
+                double.infinity,
+                tabBar.preferredSize.height + kToolbarHeight,
               ),
-              elevation: 0,
-              bottom: const TabBar(
-                tabs: [
-                  Icon(Icons.home),
-                  Icon(Icons.public),
-                ],
+              child: BlocBuilder<NetworkingCubit, NetworkingState>(
+                builder: (context, state) {
+                  Color color;
+                  if (state is NetworkingUnavailable) {
+                    color = Colors.red;
+                  }
+                  return AppBar(
+                    backgroundColor: color,
+                    centerTitle: true,
+                    title: AutoSizeText(
+                      getTranslation(context, "feedScreenTitle"),
+                      style: TextStyle(
+                        fontSize: 100.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    elevation: 0,
+                    bottom: tabBar,
+                  );
+                },
               ),
             ),
             body: state is UserMangementHasUserData
@@ -129,22 +145,23 @@ class _FeedFAB extends StatelessWidget {
         shape: const RoundedRectangleBorder(),
         backgroundColor: color,
         child: Center(
-            child: Row(
-          children: [
-            const Expanded(
-              child: Icon(Icons.add, size: 20),
-            ),
-            Expanded(
-              flex: 3,
-              child: Text(
-                getTranslation(
-                  context,
-                  "eventCreationFabTitle",
+          child: Row(
+            children: [
+              const Expanded(
+                child: Icon(Icons.add, size: 20),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  getTranslation(
+                    context,
+                    "eventCreationFabTitle",
+                  ),
                 ),
               ),
-            ),
-          ],
-        )),
+            ],
+          ),
+        ),
       ),
     );
   }

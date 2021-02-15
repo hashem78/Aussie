@@ -1,23 +1,7 @@
 import 'dart:math';
-
-import 'package:aussie/localizations.dart';
-import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'package:aussie/models/event/event_model.dart';
-
+import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/presentation/screens/usermanagement/signup.dart';
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-
-import 'package:provider/provider.dart';
 
 Color getRandomColor() {
   final _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
