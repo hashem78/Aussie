@@ -1,12 +1,5 @@
-import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
-import 'package:aussie/state/attendees/cubit/attendees_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class PaginatedAtendees extends StatefulWidget {
   const PaginatedAtendees({

@@ -1,7 +1,5 @@
-import 'package:aussie/state/multi_image_picking/cubit/multi_image_picking_cubit.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class EventImageGalleryStatus extends StatelessWidget {
   const EventImageGalleryStatus({

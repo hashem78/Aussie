@@ -1,5 +1,4 @@
 import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,8 +41,8 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<AussieBrightness>(
                       value: const AussieBrightnessLight(),
                       groupValue: currentSetting,
-                      title:
-                          Text(getTranslation(context, 'brightnessLightTitle')!),
+                      title: Text(
+                          getTranslation(context, 'brightnessLightTitle')!),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToLight();
                       },

@@ -1,7 +1,4 @@
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class LanguageTile extends StatelessWidget {
   const LanguageTile();

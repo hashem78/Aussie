@@ -1,4 +1,5 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:flutter/scheduler.dart';
 
 class FeedScreen extends StatelessWidget {
   const FeedScreen();
@@ -79,10 +80,10 @@ class _FeedAnimatedFAB extends StatelessWidget {
         context.watch<BrightnessCubit>().currentBrightness;
     Color? color;
     if (b is AussieBrightnessSystem) {
-      color =
-          SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
-              ? Colors.white
-              : Colors.blue;
+      color = SchedulerBinding.instance!.window.platformBrightness ==
+              Brightness.dark
+          ? Colors.white
+          : Colors.blue;
     } else if (b is AussieBrightnessLight) {
       color = Colors.blue;
     } else if (b is AussieBrightnessDark) {

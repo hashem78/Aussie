@@ -1,10 +1,5 @@
-import 'package:aussie/presentation/screens/profile/profile.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardOwner extends StatefulWidget {
   const CardOwner({

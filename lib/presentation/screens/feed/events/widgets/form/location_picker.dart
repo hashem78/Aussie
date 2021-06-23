@@ -1,10 +1,6 @@
-import 'package:aussie/localizations.dart';
-import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:place_picker/entities/localization_item.dart';
-import 'package:place_picker/place_picker.dart';
 
 class EventLocationPicker extends StatelessWidget {
   const EventLocationPicker({

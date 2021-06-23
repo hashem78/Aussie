@@ -1,5 +1,5 @@
 import 'package:aussie/presentation/screens/usermanagement/initial_actions.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
+import 'package:aussie/state/usermanagement_cubit/usermanagement_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

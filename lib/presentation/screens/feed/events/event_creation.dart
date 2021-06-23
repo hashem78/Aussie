@@ -1,15 +1,4 @@
-import 'package:aussie/presentation/screens/feed/events/widgets/event_creation_form_fields.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/form/banner_picker.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/form/gallery_picker_button.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/form/gallery_status.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/form/location_picker.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/form/submit.dart';
-import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
-import 'package:aussie/state/single_image_picking/cubit/single_image_picking_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class EventCreationScreen extends StatelessWidget {
   final Function? closeAction;

@@ -1,15 +1,4 @@
-import 'package:aussie/interfaces/paginated_data.dart';
-import 'package:aussie/models/themes/color_data_model.dart';
-import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
-import 'package:aussie/presentation/widgets/paginated/search_bar.dart';
-import 'package:aussie/state/language/cubit/language_cubit.dart';
-import 'package:aussie/state/paginated_searchable/cubit/paginated_cubit.dart';
-
-import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class SearchablePaginatedScreen<T extends IPaginatedData>
     extends StatefulWidget {

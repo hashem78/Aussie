@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/scheduler.dart';
 
 Color getRandomColor() {
   final _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];

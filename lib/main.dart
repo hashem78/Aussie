@@ -1,5 +1,3 @@
-import 'package:aussie/state/networking/cubit/networking_cubit.dart';
-
 import 'aussie_imports.dart';
 
 Future<void> main() async {

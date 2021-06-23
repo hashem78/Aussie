@@ -1,5 +1,5 @@
 import 'package:aussie/models/themes/color_data_model.dart';
-import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
+import 'package:aussie/state/thumbnail_cubit/thumbnail_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';

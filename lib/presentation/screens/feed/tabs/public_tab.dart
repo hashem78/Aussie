@@ -1,12 +1,5 @@
-import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
-import 'package:aussie/state/eventmanagement/cubit/eventmanagement_cubit.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:provider/provider.dart';
 
 class PublicEventsTab extends StatefulWidget {
   @override

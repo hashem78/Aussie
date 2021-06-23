@@ -1,9 +1,5 @@
-import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/state/usermanagement/cubit/usermanagement_cubit.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PublicAttendButton extends StatelessWidget {
   const PublicAttendButton({
