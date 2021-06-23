@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class EventDetailsDescriptionCard extends StatelessWidget {
   const EventDetailsDescriptionCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class EventDetailsDescriptionCard extends StatelessWidget {
       shape: const RoundedRectangleBorder(),
       margin: EdgeInsets.zero,
       child: ExpandText(
-        e.description,
+        e.description!,
         maxLines: 20,
       ),
     );

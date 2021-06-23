@@ -29,7 +29,7 @@ class EventCreationBlocForm extends FormBloc<String, String> {
   final subtitle = TextFieldBloc(
     validators: [FieldBlocValidators.required],
   );
-  List<FieldBloc> _blocs;
+  late List<FieldBloc> _blocs;
   EventCreationBlocForm() {
     _blocs = [
       dateAndTime1,
@@ -42,7 +42,7 @@ class EventCreationBlocForm extends FormBloc<String, String> {
     ];
     addFieldBlocs(fieldBlocs: _blocs);
   }
-  String profileImagePath;
+  String? profileImagePath;
 
   @override
   Future<void> onSubmitting() async {

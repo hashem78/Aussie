@@ -28,35 +28,34 @@ class EventModel extends Equatable {
     this.galleryImages,
     this.address,
   });
-  final String eventId;
-  final String uid;
-  @JsonKey(nullable: false)
-  final EventImageModel bannerImage;
+  final String? eventId;
+  final String? uid;
+  final EventImageModel? bannerImage;
   @JsonKey(defaultValue: "")
-  final String title;
+  final String? title;
   @JsonKey(defaultValue: "")
-  final String subtitle;
+  final String? subtitle;
   @JsonKey(defaultValue: 0)
-  final int startingTimeStamp;
+  final int? startingTimeStamp;
   @JsonKey(defaultValue: 0)
-  final int endingTimeStamp;
+  final int? endingTimeStamp;
   @JsonKey(defaultValue: 0)
-  final double lat;
+  final double? lat;
   @JsonKey(defaultValue: 0)
-  final double lng;
+  final double? lng;
   @JsonKey(defaultValue: "")
-  final String description;
+  final String? description;
   @JsonKey(defaultValue: "")
-  final String address;
+  final String? address;
   @JsonKey(defaultValue: [])
-  final List<EventImageModel> galleryImages;
+  final List<EventImageModel>? galleryImages;
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
       _$EventModelFromJson(json);
   Map<String, dynamic> toJson() => _$EventModelToJson(this);
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       eventId,
       uid,

@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardOwner extends StatefulWidget {
   const CardOwner({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _CardOwnerState extends State<CardOwner>
                 child: Row(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: state.user.profilePictureLink,
+                      imageUrl: state.user.profilePictureLink!,
                       imageBuilder: (context, imageProvider) {
                         return SizedBox(
                           width: 50,
@@ -53,7 +53,7 @@ class _CardOwnerState extends State<CardOwner>
                     ),
                     SizedBox(width: .05.sw),
                     Text(
-                      state.user.username,
+                      state.user.username!,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ],

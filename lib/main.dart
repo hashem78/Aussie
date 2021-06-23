@@ -1,5 +1,4 @@
 import 'package:aussie/state/networking/cubit/networking_cubit.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 
 import 'aussie_imports.dart';
 
@@ -11,15 +10,15 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIOverlays([]);
 
   final NetworkingCubit networkingCubit = NetworkingCubit();
-  DataConnectionChecker().onStatusChange.listen(
-    (DataConnectionStatus event) {
-      if (event == DataConnectionStatus.connected) {
-        networkingCubit.emitAvail();
-      } else {
-        networkingCubit.emitUnavail();
-      }
-    },
-  );
+  // DataConnectionChecker().onStatusChange.listen(
+  //   (DataConnectionStatus event) {
+  //     if (event == DataConnectionStatus.connected) {
+  //       networkingCubit.emitAvail();
+  //     } else {
+  //       networkingCubit.emitUnavail();
+  //     }
+  //   },
+  // );
   runApp(
     BlocProvider.value(
       value: networkingCubit,
@@ -36,10 +35,7 @@ class MyApp extends StatelessWidget {
 
   final Locale locale;
 
-  const MyApp(this.brightness, this.locale)
-      : assert(
-          brightness != null && locale != null,
-        );
+  const MyApp(this.brightness, this.locale);
 
   @override
   Widget build(BuildContext context) {

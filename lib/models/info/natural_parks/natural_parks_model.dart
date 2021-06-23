@@ -1,7 +1,6 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'natural_parks_model.g.dart';
@@ -14,13 +13,13 @@ part 'natural_parks_model.g.dart';
 @immutable
 class NaturalParkModel extends Equatable implements IPaginatedData {
   // ignore: non_constant_identifier_names
-  final String park_name;
-  final String summary;
+  final String? park_name;
+  final String? summary;
   // ignore: non_constant_identifier_names
-  final String image_link;
-  final String longitude;
-  final String latitude;
-  final List<Map<String, String>> sections;
+  final String? image_link;
+  final String? longitude;
+  final String? latitude;
+  final List<Map<String, String>>? sections;
 
   const NaturalParkModel({
     // ignore: non_constant_identifier_names
@@ -34,7 +33,7 @@ class NaturalParkModel extends Equatable implements IPaginatedData {
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       park_name,
       summary,

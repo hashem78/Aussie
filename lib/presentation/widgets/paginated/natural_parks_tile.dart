@@ -9,10 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class NaturalParksTile extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
-  final void Function() onTap;
+  final void Function()? onTap;
   const NaturalParksTile({
-    @required this.model,
-    @required this.heroTag,
+    required this.model,
+    required this.heroTag,
     this.onTap,
   });
 
@@ -23,9 +23,9 @@ class NaturalParksTile extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(bottom: 7.5),
         child: AutoSizeText(
-          model.park_name,
+          model.park_name!,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 100.ssp, fontWeight: FontWeight.w800),
+          style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w800),
         ),
       ),
       subtitle: Column(
@@ -34,15 +34,15 @@ class NaturalParksTile extends StatelessWidget {
             children: [
               Expanded(
                 child: buildChip(
-                    getTranslation(context, "longitude"), model.longitude),
+                    getTranslation(context, "longitude")!, model.longitude!),
               ),
               Expanded(
                 child: buildChip(
-                    getTranslation(context, "latitude"), model.latitude),
+                    getTranslation(context, "latitude")!, model.latitude!),
               ),
             ],
           ),
-          if (model.summary.trim().isNotEmpty)
+          if (model.summary!.trim().isNotEmpty)
             Card(
               elevation: 2,
               color: Colors.cyan,
@@ -51,21 +51,21 @@ class NaturalParksTile extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ExpandText(
-                  model.summary.trim(),
+                  model.summary!.trim(),
                   maxLines: 4,
                 ),
               ),
             ),
         ],
       ),
-      titleImage: model.image_link != "" && heroTag != null
+      titleImage: model.image_link != ""
           ? Hero(
               tag: heroTag,
               child: buildImage(
                 model.image_link,
                 fit: BoxFit.cover,
                 fadeIn: Duration.zero,
-              ),
+              )!,
             )
           : buildImage(
               model.image_link,
@@ -90,7 +90,7 @@ class NaturalParksTile extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                  fontSize: 80.ssp,
+                  fontSize: 80.sp,
                   fontWeight: FontWeight.w900,
                 ),
               ),

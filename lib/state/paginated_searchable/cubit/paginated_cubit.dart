@@ -22,7 +22,7 @@ class PaginatedCubit<T extends IPaginatedData> extends Cubit<PaginatedState> {
     }
   }
 
-  Future<void> loadMoreAsync(String language, {int page, int amount}) async {
+  Future<void> loadMoreAsync(String language, {required int page, required int amount}) async {
     final _avail = await repositoy.fetch(language, page, fetchAmount: amount);
     if (_avail.isEmpty) {
       emit(

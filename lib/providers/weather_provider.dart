@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:aussie/constants.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,7 +33,7 @@ class WeatherProvider {
 
     final String query =
         "https://api.openweathermap.org/data/2.5/forecast?lat=${coord.latitude}&lon=${coord.longitude}&units=metric&appid=5017190165cca808a48d1eff54927701";
-    final _response = await http.get(query);
+    final _response = await http.get(Uri.dataFromString(query));
 
     if (_response.statusCode == 200) {
       final _decoded = await jsonDecode(_response.body);
@@ -50,7 +49,7 @@ class WeatherProvider {
           final _currentWeather = element["weather"][0];
           final _status = _currentWeather["main"];
           final _description = _currentWeather["description"];
-          final String _icon = _currentWeather["icon"] as String;
+          final String? _icon = _currentWeather["icon"] as String?;
           final int _statusId = _currentWeather["id"] as int;
           final int _dt = element["dt"] * 1000 as int;
 
@@ -88,38 +87,35 @@ class WeatherProvider {
 
   Map<String, dynamic> get error => {"-1": "An error occured"};
   Future<bool> get isConnectedToTheInternet async {
-    final _status = await DataConnectionChecker().connectionStatus;
-    if (_status == DataConnectionStatus.connected) return true;
+    // final _status = await DataConnectionChecker().connectionStatus;
+    // if (_status == DataConnectionStatus.connected) return true;
     return false;
   }
 
-  String iconIDToWeatherString(int id, [String status]) {
+  String? iconIDToWeatherString(int id, [String? status]) {
     if (id >= 800) {
       assert(status != null, "A status with id greater than 800 can't be null");
       switch (id) {
         case 800:
-          if (status.endsWith("d")) {
+          if (status!.endsWith("d")) {
             return "wi-day-sunny";
           } else {
             return "wi-night-clear";
           }
-          break;
         case 801:
-          if (status.endsWith("d")) {
+          if (status!.endsWith("d")) {
             return "wi-day-cloudy";
           } else {
             return "wi-night-cloudy";
           }
-          break;
         case 802:
           return "wi-cloud";
-          break;
         case 803:
         case 804:
           return "wi-night-cloudy";
       }
     }
-    String ans;
+    String? ans;
     _icns.forEach(
       (key, value) {
         for (final x in value) {

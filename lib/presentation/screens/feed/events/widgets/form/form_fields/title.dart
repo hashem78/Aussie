@@ -5,7 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class TitleFormField extends StatelessWidget {
   const TitleFormField({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

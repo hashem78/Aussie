@@ -6,7 +6,7 @@ import 'card_header.dart';
 
 class EventCardDetails extends StatelessWidget {
   const EventCardDetails({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

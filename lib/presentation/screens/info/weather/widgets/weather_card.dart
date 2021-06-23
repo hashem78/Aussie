@@ -7,7 +7,7 @@ class WeatherCard extends StatelessWidget {
   final WeatherCardChildModel day;
 
   const WeatherCard({
-    @required this.day,
+    required this.day,
   });
 
   @override

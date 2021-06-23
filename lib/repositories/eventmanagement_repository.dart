@@ -1,7 +1,7 @@
 import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/providers/eventmanagment_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,13 +12,13 @@ class EventManagementRepository {
   }
 
   Future<EventManagementNotification> fetchUserEvents(
-    DocumentSnapshot prevSnap,
+    DocumentSnapshot? prevSnap,
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchUserEvents(prevSnap);
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
-      notification.eventModels.forEach(
+      notification.eventModels!.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },
@@ -41,13 +41,13 @@ class EventManagementRepository {
   }
 
   Future<EventManagementNotification> fetchPublicEvents(
-    DocumentSnapshot prevSnap,
+    DocumentSnapshot? prevSnap,
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchPublicEvents(prevSnap);
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
-      notification.eventModels.forEach(
+      notification.eventModels!.forEach(
         (element) {
           models.add(EventModel.fromJson(element));
         },

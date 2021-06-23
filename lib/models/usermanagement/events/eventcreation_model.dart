@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:uuid/uuid.dart';
 
 class AussieByteData {
-  final ByteData byteData;
-  final int width;
-  final int height;
+  final ByteData? byteData;
+  final int? width;
+  final int? height;
 
   AussieByteData({
     this.byteData,
@@ -17,19 +17,19 @@ class AussieByteData {
 
 @immutable
 class EventCreationModel extends Equatable {
-  final int startingTimeStamp;
-  final int endingTimeStamp;
-  final String description;
-  final String title;
-  final String subtitle;
-  final String address;
+  final int? startingTimeStamp;
+  final int? endingTimeStamp;
+  final String? description;
+  final String? title;
+  final String? subtitle;
+  final String? address;
 
-  final String eventId = Uuid().v4();
-  final double lat;
-  final double lng;
+  final String eventId = const Uuid().v4();
+  final double? lat;
+  final double? lng;
 
-  final List<AussieByteData> imageData;
-  final AussieByteData bannerData;
+  final List<AussieByteData>? imageData;
+  final AussieByteData? bannerData;
 
   EventCreationModel({
     this.startingTimeStamp,
@@ -45,7 +45,7 @@ class EventCreationModel extends Equatable {
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       startingTimeStamp,
       endingTimeStamp,

@@ -39,7 +39,7 @@ class TeritoriesScreen extends StatelessWidget {
                 ),
               ),
               title: Text(
-                _casted.city,
+                _casted.city!,
                 style: TextStyle(fontSize: 100.sp, fontWeight: FontWeight.w700),
               ),
               subtitle: Padding(
@@ -51,8 +51,8 @@ class TeritoriesScreen extends StatelessWidget {
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "population"),
-                            _casted.population,
+                            getTranslation(context, "population")!,
+                            _casted.population!,
                           ),
                         ),
                       ],
@@ -63,15 +63,15 @@ class TeritoriesScreen extends StatelessWidget {
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "longitude"),
-                            _casted.lng,
+                            getTranslation(context, "longitude")!,
+                            _casted.lng!,
                           ),
                         ),
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "latitude"),
-                            _casted.lat,
+                            getTranslation(context, "latitude")!,
+                            _casted.lat!,
                           ),
                         ),
                       ],
@@ -118,7 +118,7 @@ class TeritoriesScreen extends StatelessWidget {
 }
 
 class AussieGMapScreen extends StatelessWidget {
-  final AussieGMapModel model;
+  final AussieGMapModel? model;
   const AussieGMapScreen({
     this.model,
   });
@@ -131,14 +131,14 @@ class AussieGMapScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
         title: Text(
-          model.title,
+          model!.title!,
           style: TextStyle(fontWeight: FontWeight.w900, fontSize: 40.sp),
         ),
         centerTitle: true,
       ),
       body: AussieGMap(
         size: const Size(double.infinity, double.infinity),
-        model: model,
+        model: model!,
       ),
     );
   }

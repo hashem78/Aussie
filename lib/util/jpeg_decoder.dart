@@ -9,7 +9,7 @@ class JpegDecoder {
 
   JpegDecoder(this.data);
 
-  int convertRadix16ToInt(List<int> list, {bool reverse = false}) {
+  int? convertRadix16ToInt(List<int> list, {bool reverse = false}) {
     final sb = StringBuffer();
 
     if (reverse) {
@@ -27,9 +27,9 @@ class JpegDecoder {
     return int.tryParse(numString, radix: 16);
   }
 
-  ASize get size {
+  ASize? get size {
     int start = 2;
-    BlockEntity block;
+    BlockEntity? block;
 
     while (true) {
       block = getBlockInfo(start);
@@ -49,7 +49,7 @@ class JpegDecoder {
     }
   }
 
-  int getIntFromRange(List<int> list, int start, int end) {
+  int? getIntFromRange(List<int> list, int start, int end) {
     final rangeInt = list.getRange(start, end);
     final sb = StringBuffer();
     for (final i in rangeInt) {
@@ -58,7 +58,7 @@ class JpegDecoder {
     return int.tryParse(sb.toString(), radix: 16);
   }
 
-  BlockEntity getBlockInfo(int blackStart) {
+  BlockEntity? getBlockInfo(int blackStart) {
     try {
       final blockInfoList = data.getRange(blackStart, blackStart + 4).toList();
 
@@ -67,7 +67,7 @@ class JpegDecoder {
       }
 
       final radix16List = data.getRange(blackStart + 2, blackStart + 4);
-      final blockLength = convertRadix16ToInt(radix16List.toList()) + 2;
+      final blockLength = convertRadix16ToInt(radix16List.toList())! + 2;
       final typeInt = blockInfoList[1];
 
       return BlockEntity(typeInt, blockLength);

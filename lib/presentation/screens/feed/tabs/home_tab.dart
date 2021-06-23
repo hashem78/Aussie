@@ -17,7 +17,7 @@ class _HomeEventsTabState extends State<HomeEventsTab>
   final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
 
-  EventManagementCubit cubit;
+  EventManagementCubit? cubit;
 
   @override
   void initState() {
@@ -25,10 +25,10 @@ class _HomeEventsTabState extends State<HomeEventsTab>
 
     _controller.addPageRequestListener(
       (pageKey) {
-        if (cubit.prevSnap == null) {
-          cubit.fetchUserEvents();
+        if (cubit!.prevSnap == null) {
+          cubit!.fetchUserEvents();
         } else {
-          cubit.fetchUserEvents(lastdoc: cubit.prevSnap);
+          cubit!.fetchUserEvents(lastdoc: cubit!.prevSnap);
         }
       },
     );
@@ -45,12 +45,12 @@ class _HomeEventsTabState extends State<HomeEventsTab>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocListener<EventManagementCubit, EventManagementState>(
-      cubit: cubit,
+      bloc: cubit,
       listener: (context, state) {
         if (state is EventManagementEventsFetched) {
           _controller.appendPage(
             state.models,
-            _controller.nextPageKey + state.models.length,
+            _controller.nextPageKey! + state.models.length,
           );
         } else if (state is EventManagementEndEventsFetched) {
           _controller.appendLastPage(state.models);
@@ -58,7 +58,7 @@ class _HomeEventsTabState extends State<HomeEventsTab>
       },
       child: RefreshIndicator(
         onRefresh: () async {
-          cubit.refresh();
+          cubit!.refresh();
           _controller.refresh();
         },
         child: PagedListView<int, EventModel>(
@@ -76,7 +76,7 @@ class _HomeEventsTabState extends State<HomeEventsTab>
             },
             noItemsFoundIndicatorBuilder: (context) {
               return Center(
-                child: Text(getTranslation(context, "eventsNoHome")),
+                child: Text(getTranslation(context, "eventsNoHome")!),
               );
             },
           ),

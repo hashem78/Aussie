@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class ASize {
-  final int width;
-  final int height;
+  final int? width;
+  final int? height;
 
   const ASize(
     this.width,

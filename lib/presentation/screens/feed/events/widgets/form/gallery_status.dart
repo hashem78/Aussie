@@ -5,7 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class EventImageGalleryStatus extends StatelessWidget {
   const EventImageGalleryStatus({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class EventImageGalleryStatus extends StatelessWidget {
                 Icons.close,
                 color: Colors.red,
               ),
-              Text(getTranslation(context, "eventCreationMultiImageError")),
+              Text(getTranslation(context, "eventCreationMultiImageError")!),
             ],
           );
         } else if (state is MultiImagePickingDone) {
@@ -34,7 +34,7 @@ class EventImageGalleryStatus extends StatelessWidget {
                 Icons.check,
                 color: Colors.green,
               ),
-              Text(getTranslation(context, "eventCreationMultiImagesAdded")
+              Text(getTranslation(context, "eventCreationMultiImagesAdded")!
                   .replaceFirst(" ", " ${state.assets.length} ")),
             ],
           );

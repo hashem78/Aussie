@@ -2,9 +2,9 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class BannerImage extends StatelessWidget {
-  final ColorFilter colorFilter;
+  final ColorFilter? colorFilter;
   const BannerImage({
-    Key key,
+    Key? key,
     this.colorFilter,
   }) : super(key: key);
   @override
@@ -14,6 +14,6 @@ class BannerImage extends StatelessWidget {
       banner,
       fit: BoxFit.cover,
       colorFilter: colorFilter,
-    );
+    )!;
   }
 }

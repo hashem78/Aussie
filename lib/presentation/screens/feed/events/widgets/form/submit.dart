@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 class EventCreationSubmitButton extends StatelessWidget {
   final bool enabled;
   const EventCreationSubmitButton({
-    Key key,
-    @required this.enabled,
+    Key? key,
+    required this.enabled,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class EventCreationSubmitButton extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            getTranslation(context, tid),
+            getTranslation(context, tid)!,
           ),
         ),
       );
@@ -67,26 +67,26 @@ class EventCreationSubmitButton extends StatelessWidget {
                 _sn("eventCreationErrorGallery");
               } else {
                 final _combined1 = DateTime(
-                  _start.year,
+                  _start!.year,
                   _start.month,
                   _start.day,
-                  _startTime.hour,
+                  _startTime!.hour,
                   _startTime.minute,
                 );
                 final _combined2 = DateTime(
-                  _end.year,
+                  _end!.year,
                   _end.month,
                   _end.day,
-                  _endTime.hour,
+                  _endTime!.hour,
                   _endTime.minute,
                 );
                 _evmCubit.addEvent(
                   EventCreationModel(
                     startingTimeStamp: _combined1.millisecondsSinceEpoch,
                     endingTimeStamp: _combined2.millisecondsSinceEpoch,
-                    lat: _locCubit.value.lat,
-                    lng: _locCubit.value.lng,
-                    address: _locCubit.value.formattedAddress,
+                    lat: _locCubit.value!.latLng!.latitude,
+                    lng: _locCubit.value!.latLng!.longitude,
+                    address: _locCubit.value!.formattedAddress,
                     title: _title.value,
                     subtitle: _subtitle.value,
                     description: _formBloc.description.value,
@@ -98,7 +98,7 @@ class EventCreationSubmitButton extends StatelessWidget {
             }
           : null,
       child:
-          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")),
+          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")!),
     );
   }
 }

@@ -24,7 +24,7 @@ class FeedScreen extends StatelessWidget {
               ),
               child: BlocBuilder<NetworkingCubit, NetworkingState>(
                 builder: (context, state) {
-                  Color color;
+                  Color? color;
                   if (state is NetworkingUnavailable) {
                     color = Colors.red;
                   }
@@ -32,7 +32,7 @@ class FeedScreen extends StatelessWidget {
                     backgroundColor: color,
                     centerTitle: true,
                     title: AutoSizeText(
-                      getTranslation(context, "feedScreenTitle"),
+                      getTranslation(context, "feedScreenTitle")!,
                       style: TextStyle(
                         fontSize: 100.sp,
                         fontWeight: FontWeight.w400,
@@ -70,17 +70,17 @@ class FeedScreen extends StatelessWidget {
 
 class _FeedAnimatedFAB extends StatelessWidget {
   const _FeedAnimatedFAB({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final AussieBrightness b =
         context.watch<BrightnessCubit>().currentBrightness;
-    Color color;
+    Color? color;
     if (b is AussieBrightnessSystem) {
       color =
-          SchedulerBinding.instance.window.platformBrightness == Brightness.dark
+          SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
               ? Colors.white
               : Colors.blue;
     } else if (b is AussieBrightnessLight) {
@@ -93,7 +93,7 @@ class _FeedAnimatedFAB extends StatelessWidget {
       builder: (context, state) {
         return OpenContainer(
           closedShape: const RoundedRectangleBorder(),
-          closedColor: color,
+          closedColor: color!,
           openElevation: 0,
           openShape: const RoundedRectangleBorder(),
           closedBuilder: (context, action) {
@@ -128,12 +128,12 @@ class _FeedAnimatedFAB extends StatelessWidget {
 class _FeedFAB extends StatelessWidget {
   final void Function() action;
   const _FeedFAB({
-    Key key,
-    @required this.color,
-    @required this.action,
+    Key? key,
+    required this.color,
+    required this.action,
   }) : super(key: key);
 
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +156,7 @@ class _FeedFAB extends StatelessWidget {
                   getTranslation(
                     context,
                     "eventCreationFabTitle",
-                  ),
+                  )!,
                 ),
               ),
             ],

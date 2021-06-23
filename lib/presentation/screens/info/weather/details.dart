@@ -1,18 +1,15 @@
+import 'package:aussie/constants.dart';
 import 'package:aussie/models/weather/card_model.dart';
 import 'package:aussie/models/weather/weather_model.dart';
-
 import 'package:aussie/presentation/screens/info/weather/widgets/weather_card.dart';
 import 'package:aussie/presentation/screens/info/weather/widgets/weather_tile.dart';
-
+import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/constants.dart';
-import 'package:aussie/util/functions.dart';
-
 class WeatherDetails extends StatelessWidget {
   final WeatherModel model;
-  const WeatherDetails({@required this.model});
+  const WeatherDetails({required this.model});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +21,7 @@ class WeatherDetails extends StatelessWidget {
             forceElevated: true,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(model.title),
+              title: Text(model.title!),
               centerTitle: true,
               background: buildImage(kurl),
             ),
@@ -46,10 +43,10 @@ class WeatherDetails extends StatelessWidget {
                       crossAxisCount: 2,
                     ),
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: model.fourDayModels.length,
+                    itemCount: model.fourDayModels!.length,
                     itemBuilder: (BuildContext context, int index) {
                       return AbsorbPointer(
-                        child: WeatherTile(model: model.fourDayModels[index]),
+                        child: WeatherTile(model: model.fourDayModels![index]),
                       );
                     },
                   ),

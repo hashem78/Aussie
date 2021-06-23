@@ -9,7 +9,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'multi_image_picking_state.dart';
@@ -35,7 +35,7 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
             byteData.lengthInBytes,
           ),
         );
-        final File croppedFile = await ImageCropper.cropImage(
+        final File? croppedFile = await ImageCropper.cropImage(
           sourcePath: filePath,
           aspectRatio: const CropAspectRatio(ratioX: 16, ratioY: 9),
           maxHeight: 1444,
@@ -45,18 +45,20 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
             hideBottomControls: true,
           ),
         );
-        final Uint8List bytes = croppedFile.readAsBytesSync();
-        final JpegDecoder decoder = JpegDecoder(bytes);
-        final ASize size = decoder.size;
-        data.add(
-          AussieByteData(
-            byteData: ByteData.view(bytes.buffer),
-            height: size.height,
-            width: size.width,
-          ),
-        );
+        if (croppedFile != null) {
+          final Uint8List bytes = croppedFile.readAsBytesSync();
+          final JpegDecoder decoder = JpegDecoder(bytes);
+          final ASize size = decoder.size!;
+          data.add(
+            AussieByteData(
+              byteData: ByteData.view(bytes.buffer),
+              height: size.height,
+              width: size.width,
+            ),
+          );
+        }
+        emit(MultiImagePickingDone(data));
       }
-      emit(MultiImagePickingDone(data));
     } on Exception catch (e) {
       if (e is PlatformException) {
         if (e.code == "Exif error") {}
@@ -66,8 +68,8 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
     }
   }
 
-  List<AussieByteData> get values {
-    final _currentState = state;
+  List<AussieByteData>? get values {
+    final MultiImagePickingState _currentState = state;
 
     if (_currentState is MultiImagePickingDone) {
       return _currentState.assets;

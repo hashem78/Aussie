@@ -24,28 +24,28 @@ class AussieUser {
     this.profileBannerLink,
     this.fullname,
   });
-  final String displayName;
-  final String email;
-  final bool emailVerified;
-  final String username;
-  final String fullname;
+  final String? displayName;
+  final String? email;
+  final bool? emailVerified;
+  final String? username;
+  final String? fullname;
 
   @JsonKey()
-  final String uid;
+  final String? uid;
 
   @JsonKey(defaultValue: [])
-  final List<String> attends;
+  final List<String>? attends;
   @JsonKey(defaultValue: 0)
-  final int numberOfFollowers;
+  final int? numberOfFollowers;
   @JsonKey(defaultValue: 0)
-  final int numberOfFollowing;
+  final int? numberOfFollowing;
   @JsonKey(defaultValue: 0)
-  final int numberOfPosts;
+  final int? numberOfPosts;
 
   @JsonKey(defaultValue: "")
-  final String profilePictureLink;
+  final String? profilePictureLink;
   @JsonKey(defaultValue: "")
-  final String profileBannerLink;
+  final String? profileBannerLink;
   factory AussieUser.fromJson(Map<String, dynamic> json) =>
       _$AussieUserFromJson(json);
   Map<String, dynamic> toJson() => _$AussieUserToJson(this);

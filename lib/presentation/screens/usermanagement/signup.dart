@@ -11,14 +11,14 @@ class SingupScreen extends StatelessWidget {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: BlocBuilder<NetworkingCubit, NetworkingState>(
           builder: (context, state) {
-            Color color;
+            Color? color;
             if (state is NetworkingUnavailable) {
               color = Colors.red;
             }
             return AppBar(
               elevation: 0,
               backgroundColor: color,
-              title: Text(getTranslation(context, "signup2ButtonText")),
+              title: Text(getTranslation(context, "signup2ButtonText")!),
             );
           },
         ),
@@ -66,7 +66,7 @@ class SingupScreen extends StatelessWidget {
                             prefixIcon: const Icon(Icons.email),
                             border: InputBorder.none,
                             filled: true,
-                            hintStyle: TextStyle(fontSize: 60.ssp),
+                            hintStyle: TextStyle(fontSize: 60.sp),
                             hintText: getTranslation(
                                 context, "signupScreenEmailTitle"),
                           ),
@@ -79,7 +79,7 @@ class SingupScreen extends StatelessWidget {
                             prefixIcon: const Icon(Icons.lock),
                             border: InputBorder.none,
                             filled: true,
-                            hintStyle: TextStyle(fontSize: 60.ssp),
+                            hintStyle: TextStyle(fontSize: 60.sp),
                             hintText: getTranslation(
                                 context, "signupScreenPasswordTitle"),
                           ),
@@ -106,13 +106,13 @@ class SingupScreen extends StatelessWidget {
                             }
                           },
                           builder: (context, state) {
-                            Widget child;
+                            Widget? child;
 
                             if (state is UserManagementPerformingAction) {
                               child = const CircularProgressIndicator();
                             } else if (state is UserManagementError) {
                               child = Text(
-                                state.notification.message,
+                                state.notification!.message,
                                 style: const TextStyle(color: Colors.red),
                               );
                             } else if (state is UserManagementSignup) {
@@ -130,10 +130,10 @@ class SingupScreen extends StatelessWidget {
                         ),
                         BlocBuilder<NetworkingCubit, NetworkingState>(
                           builder: (context, state) {
-                            void Function() callback = () {
+                            void Function()? callback = () {
                               // ignore: close_sinks
                               final signupBloc = getSignupBloc(context);
-                              FocusManager.instance.primaryFocus.unfocus();
+                              FocusManager.instance.primaryFocus!.unfocus();
                               signupBloc.submit();
                               BlocProvider.of<UserManagementCubit>(context)
                                   .signup(
@@ -152,8 +152,8 @@ class SingupScreen extends StatelessWidget {
                             return TextButton(
                               onPressed: callback,
                               child: AutoSizeText(
-                                getTranslation(context, "signup2ButtonText"),
-                                style: TextStyle(fontSize: 85.ssp),
+                                getTranslation(context, "signup2ButtonText")!,
+                                style: TextStyle(fontSize: 85.sp),
                               ),
                             );
                           },
@@ -172,9 +172,9 @@ class SingupScreen extends StatelessWidget {
 }
 
 class _SignupProfileImage extends StatelessWidget {
-  final ValueNotifier<String> profileImage;
+  final ValueNotifier<String?>? profileImage;
 
-  const _SignupProfileImage({Key key, this.profileImage}) : super(key: key);
+  const _SignupProfileImage({Key? key, this.profileImage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +191,7 @@ class _SignupProfileImage extends StatelessWidget {
       child: BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
         listener: (context, state) {
           if (state is SingleImagePickingDone) {
-            profileImage.value = state.path;
+            profileImage!.value = state.path;
           }
         },
         builder: (context, state) {
@@ -199,7 +199,7 @@ class _SignupProfileImage extends StatelessWidget {
               state is SingleImagePickingError) {
             return Icon(
               Icons.person,
-              size: 600.ssp,
+              size: 600.sp,
             );
           } else if (state is SingleImagePickingDone) {
             return Padding(
@@ -210,7 +210,7 @@ class _SignupProfileImage extends StatelessWidget {
                 child: Ink.image(
                   fit: BoxFit.cover,
                   image: MemoryImage(
-                    state.data.byteData.buffer.asUint8List(),
+                    state.data!.byteData!.buffer.asUint8List(),
                   ),
                 ),
               ),

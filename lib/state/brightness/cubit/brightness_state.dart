@@ -20,7 +20,7 @@ extension AussieBrightnessExtension on AussieBrightness {
   Brightness get asMaterialBrightness {
     Brightness brightness;
     if (this is AussieBrightnessSystem) {
-      brightness = SchedulerBinding.instance.window.platformBrightness;
+      brightness = SchedulerBinding.instance!.window.platformBrightness;
     } else if (this is AussieBrightnessLight) {
       brightness = Brightness.light;
     } else {

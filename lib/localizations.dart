@@ -10,11 +10,11 @@ class AussieLocalizations {
 
   final Locale locale;
 
-  static AussieLocalizations of(BuildContext context) {
+  static AussieLocalizations? of(BuildContext context) {
     return Localizations.of<AussieLocalizations>(context, AussieLocalizations);
   }
 
-  Map<String, String> _localizedStrings;
+  late Map<String, String> _localizedStrings;
 
   Future<void> load(Locale locale) async {
     final _assetData =
@@ -24,8 +24,8 @@ class AussieLocalizations {
     _localizedStrings = Map<String, String>.from(_map);
   }
 
-  String translate(String key) {
-    return _localizedStrings[key];
+  String? translate(String? key) {
+    return _localizedStrings[key!];
   }
 }
 

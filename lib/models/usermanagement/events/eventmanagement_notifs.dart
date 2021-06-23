@@ -11,8 +11,8 @@ class ErrorNotification extends EventManagementNotification {
 }
 
 class EventModelsNotification extends EventManagementNotification {
-  final DocumentSnapshot prevsnap;
-  final List<Map<String, dynamic>> eventModels;
+  final DocumentSnapshot? prevsnap;
+  final List<Map<String, dynamic>>? eventModels;
 
   const EventModelsNotification({
     this.prevsnap,
@@ -40,7 +40,7 @@ class AttendeesEndNotification extends EventManagementNotification {
 
 class EventsActualNotification extends EventManagementNotification {
   final List<EventModel> models;
-  final DocumentSnapshot prevSnap;
+  final DocumentSnapshot? prevSnap;
 
   const EventsActualNotification(this.models, this.prevSnap);
 }

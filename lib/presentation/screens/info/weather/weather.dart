@@ -1,14 +1,12 @@
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/models/weather/weather_model.dart';
+import 'package:aussie/presentation/screens/info/weather/widgets/weather_tile.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/aussie/thumbnailed_appbar.dart';
-import 'package:aussie/presentation/screens/info/weather/widgets/weather_tile.dart';
 import 'package:aussie/state/thumbnail/cubit/thumbnail_cubit.dart';
 import 'package:aussie/state/weather/cubit/weather_cubit.dart';
 import 'package:aussie/util/functions.dart';
-
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -73,9 +71,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       Widget child;
                       if (state is WeatherLoading) {
                         child =
-                            Text(getTranslation(context, "weatherFetching"));
+                            Text(getTranslation(context, "weatherFetching")!);
                       } else if (state is WeatherError) {
-                        child = Text(getTranslation(context, "weatherError"));
+                        child = Text(getTranslation(context, "weatherError")!);
                       } else {
                         final String formattedTime =
                             DateFormat("dd-MM-YY hh:mm").format(DateTime.now());
@@ -91,10 +89,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 BlocListener<WeatherCubit, WeatherState>(
                   listener: (context, state) {
                     if (state is WeatherLoaded) {
-                      if (_pagingController.nextPageKey + 1 < _coords.length) {
+                      if (_pagingController.nextPageKey! + 1 < _coords.length) {
                         _pagingController.appendPage(
                           [state.model],
-                          _pagingController.nextPageKey + 1,
+                          _pagingController.nextPageKey! + 1,
                         );
                       } else {
                         _pagingController.appendLastPage([state.model]);

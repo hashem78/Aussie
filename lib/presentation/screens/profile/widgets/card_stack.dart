@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

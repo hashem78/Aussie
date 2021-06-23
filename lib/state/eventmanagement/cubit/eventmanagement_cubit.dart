@@ -1,6 +1,6 @@
 import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/repositories/eventmanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +17,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     emit(EventmanagementInitial());
   }
 
-  DocumentSnapshot prevSnap;
+  DocumentSnapshot? prevSnap;
   void addEvent(EventCreationModel model) {
     emit(EventManagementPerformingAction());
     _repository.addUserEvent(model).then(
@@ -31,7 +31,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
-  void fetchUserEvents({DocumentSnapshot lastdoc}) {
+  void fetchUserEvents({DocumentSnapshot? lastdoc}) {
     _repository.fetchUserEvents(lastdoc).then(
       (value) {
         if (value is EventsActualNotification) {
@@ -44,7 +44,7 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
-  void fetchPublicEvents({DocumentSnapshot lastdoc}) {
+  void fetchPublicEvents({DocumentSnapshot? lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
       (value) {
         if (value is EventsActualNotification) {

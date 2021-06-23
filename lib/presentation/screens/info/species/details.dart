@@ -9,11 +9,8 @@ class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
 
   const SpeciesDetails({
-    @required this.model,
-  }) : assert(
-          model != null,
-          "A Species descriptions' model cannot be null",
-        );
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +19,11 @@ class SpeciesDetails extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        backgroundColor: AussieThemeProvider.of(context)!.color.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
+          backgroundColor: AussieThemeProvider.of(context)!.color.swatchColor,
           elevation: 0,
-          title: Text(model.commonName),
+          title: Text(model.commonName!),
           bottom: const TabBar(
             tabs: [
               Icon(Icons.info),
@@ -42,7 +39,7 @@ class SpeciesDetails extends StatelessWidget {
                 children: [
                   buildDataTable(context),
                   Text(
-                    model.description.trim(),
+                    model.description!.trim(),
                     textAlign: TextAlign.justify,
                   ),
                 ],
@@ -51,7 +48,7 @@ class SpeciesDetails extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (!condition && model.imageUrls.isEmpty)
+                if (!condition && model.imageUrls!.isEmpty)
                   const Expanded(
                     child: Center(
                       child: Text('There are no images available'),
@@ -63,7 +60,7 @@ class SpeciesDetails extends StatelessWidget {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                     ),
-                    itemCount: !condition ? model.imageUrls.length : 1,
+                    itemCount: !condition ? model.imageUrls!.length : 1,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -71,7 +68,7 @@ class SpeciesDetails extends StatelessWidget {
                             builder: (context) {
                               return AussiePhotoView(
                                 url: !condition
-                                    ? model.imageUrls[index]
+                                    ? model.imageUrls![index]
                                     : model.titleImageUrl,
                               );
                             },
@@ -82,8 +79,8 @@ class SpeciesDetails extends StatelessWidget {
                           fit: BoxFit.cover,
                           image: CachedNetworkImageProvider(
                             !condition
-                                ? model.imageUrls[index]
-                                : model.titleImageUrl,
+                                ? model.imageUrls![index]
+                                : model.titleImageUrl!,
                           ),
                         ),
                       );
@@ -113,26 +110,26 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesCommonName'),
+                    getTranslation(context, 'speciesCommonName')!,
                     style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
                 ),
-                DataCell(Text(model.commonName)),
+                DataCell(Text(model.commonName!)),
               ],
             ),
           DataRow(
             cells: [
               DataCell(
                 Text(
-                  getTranslation(context, 'speciesScientificName'),
+                  getTranslation(context, 'speciesScientificName')!,
                   style: const TextStyle(
                     color: Colors.black,
                   ),
                 ),
               ),
-              DataCell(Text(model.scientificName)),
+              DataCell(Text(model.scientificName!)),
             ],
           ),
           if (model.type != null)
@@ -140,13 +137,13 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesType'),
+                    getTranslation(context, 'speciesType')!,
                     style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
                 ),
-                DataCell(Text(model.type)),
+                DataCell(Text(model.type!)),
               ],
             ),
           if (model.conservationStatus != null)
@@ -154,13 +151,13 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesConStat'),
+                    getTranslation(context, 'speciesConStat')!,
                     style: const TextStyle(
                       color: Colors.black,
                     ),
                   ),
                 ),
-                DataCell(Text(model.conservationStatus)),
+                DataCell(Text(model.conservationStatus!)),
               ],
             ),
         ],

@@ -11,24 +11,24 @@ part 'signup_model.g.dart';
 )
 @immutable
 class SignupModel extends Equatable {
-  final String email;
-  final String password;
-  final String profileImagePath;
-  final String username;
-  final String fullname;
+  final String? email;
+  final String? password;
+  final String? profileImagePath;
+  final String? username;
+  final String? fullname;
   const SignupModel({
-    @required this.email,
-    @required this.password,
-    @required this.profileImagePath,
-    @required this.username,
-    @required this.fullname,
+    required this.email,
+    required this.password,
+    required this.profileImagePath,
+    required this.username,
+    required this.fullname,
   });
   factory SignupModel.fromJson(Map<String, dynamic> json) =>
       _$SignupModelFromJson(json);
   Map<String, dynamic> toJson() => _$SignupModelToJson(this);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         email,
         password,
         profileImagePath,

@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PublicAttendButton extends StatelessWidget {
   const PublicAttendButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class PublicAttendButton extends StatelessWidget {
                   .makeUserWithIdAttendEvent(currentUser, e.eventId);
             },
             child: Text(
-              getTranslation(context, "attendButtonTextNormal"),
+              getTranslation(context, "attendButtonTextNormal")!,
             ),
           );
         } else if (state is UserManagementPerformingAction) {
@@ -36,7 +36,7 @@ class PublicAttendButton extends StatelessWidget {
               children: [
                 const Center(child: CircularProgressIndicator()),
                 Text(
-                  getTranslation(context, "attendButtonTextAttempting"),
+                  getTranslation(context, "attendButtonTextAttempting")!,
                 ),
               ],
             ),
@@ -45,14 +45,14 @@ class PublicAttendButton extends StatelessWidget {
           child = TextButton(
             onPressed: null,
             child: Text(
-              getTranslation(context, "attendButtonTextAttending"),
+              getTranslation(context, "attendButtonTextAttending")!,
             ),
           );
         } else {
           child = TextButton(
             onPressed: null,
             child: Text(
-              getTranslation(context, "attendButtonTextError"),
+              getTranslation(context, "attendButtonTextError")!,
             ),
           );
         }

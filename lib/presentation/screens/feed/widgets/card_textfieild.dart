@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedCardTextField extends StatelessWidget {
   const FeedCardTextField({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

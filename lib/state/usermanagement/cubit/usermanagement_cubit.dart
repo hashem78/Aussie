@@ -73,7 +73,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     );
   }
 
-  void getUserDataFromUid(String uid) {
+  void getUserDataFromUid(String? uid) {
     repository.getUserDataFromUid(uid).then(
       (value) {
         if (value is UserModelContainingActualNotification) {
@@ -85,7 +85,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     );
   }
 
-  void makeUserWithIdAttendEvent(AussieUser user, String eventUuid) {
+  void makeUserWithIdAttendEvent(AussieUser user, String? eventUuid) {
     emit(UserManagementPerformingAction());
 
     repository
@@ -105,7 +105,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
   }
 
   void isUserAttending(AussieUser user, EventModel eventModel) {
-    if (user.attends.contains(eventModel.eventId)) {
+    if (user.attends!.contains(eventModel.eventId)) {
       emit(const UserManagementAttended());
     }
   }

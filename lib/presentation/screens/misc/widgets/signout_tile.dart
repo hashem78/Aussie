@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignoutTile extends StatelessWidget {
   const SignoutTile({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -29,7 +29,7 @@ class SignoutTile extends StatelessWidget {
           context.read<UserManagementCubit>().signout();
         },
         leading: const Icon(Icons.unsubscribe),
-        title: Text(getTranslation(context, "signoutTileTitle")),
+        title: Text(getTranslation(context, "signoutTileTitle")!),
       ),
     );
   }

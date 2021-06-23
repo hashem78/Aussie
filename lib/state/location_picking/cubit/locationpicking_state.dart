@@ -2,10 +2,10 @@ part of 'locationpicking_cubit.dart';
 
 abstract class LocationPickingState extends Equatable {
   const LocationPickingState(this.message);
-  final String message;
+  final String? message;
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 class LocationPicked extends LocationPickingState {

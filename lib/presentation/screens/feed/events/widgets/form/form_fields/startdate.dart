@@ -5,7 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class StartDateFormField extends StatelessWidget {
   const StartDateFormField({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

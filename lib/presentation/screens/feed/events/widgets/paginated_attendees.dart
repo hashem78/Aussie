@@ -10,7 +10,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class PaginatedAtendees extends StatefulWidget {
   const PaginatedAtendees({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -53,7 +53,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
         if (state is AttendeesActual) {
           pagingController.appendPage(
             state.uuids,
-            pagingController.nextPageKey + 1,
+            pagingController.nextPageKey! + 1,
           );
         } else if (state is AttendeesActualEnd) {
           pagingController.appendLastPage(state.uuids);

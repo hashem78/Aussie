@@ -5,7 +5,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SubtitleFormField extends StatelessWidget {
   const SubtitleFormField({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -9,15 +9,15 @@ import 'package:intl/intl.dart';
 
 class EventCardStack extends StatelessWidget {
   const EventCardStack({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);
     final DateTime begin =
-        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp);
-    final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp);
+        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp!);
+    final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
     final formattedBeginDate = DateFormat("dd/MM/yyyy").format(begin);
     final formattedEndDate = DateFormat("dd/MM/yyyy").format(end);
     final formattedBeginTime = DateFormat("hh:mm:ss").format(begin);
@@ -30,15 +30,15 @@ class EventCardStack extends StatelessWidget {
         children: [
           Align(
             child: AutoSizeText(
-              e.title,
+              e.title!,
               style: Theme.of(context)
                   .textTheme
-                  .headline5
+                  .headline5!
                   .copyWith(color: Colors.black),
             ),
           ),
           AutoSizeText(
-            e.subtitle,
+            e.subtitle!,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline4,
           ),
@@ -52,7 +52,7 @@ class EventCardStack extends StatelessWidget {
                     formattedBeginDate,
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .headline6!
                         .copyWith(color: Colors.green),
                   ),
                   Padding(
@@ -71,7 +71,7 @@ class EventCardStack extends StatelessWidget {
                     formattedEndDate,
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .headline6!
                         .copyWith(color: Colors.red),
                   ),
                   Padding(
@@ -114,7 +114,7 @@ class EventCardStack extends StatelessWidget {
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          e.address,
+                          e.address!,
                           maxLines: 1,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6,

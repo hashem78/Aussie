@@ -13,12 +13,12 @@ class ExpandingTextTile extends StatefulWidget {
   final TextOverflow overflow;
   final Color expandedTextColor;
   const ExpandingTextTile({
-    Color color,
-    @required this.title,
-    @required this.text,
+    Color? color,
+    required this.title,
+    required this.text,
     this.showShadow = true,
     this.maxLines = 8,
-    TextStyle titleStyle,
+    TextStyle? titleStyle,
     this.overflow = TextOverflow.fade,
     this.expandedTextColor = Colors.white,
   })  : color = color ?? const Color(0xFF7B1FA2),
@@ -35,8 +35,8 @@ class ExpandingTextTile extends StatefulWidget {
 
 class _ExpandingTextTileState extends State<ExpandingTextTile>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
-  AnimationController _controller;
-  Animation<Offset> _animation;
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
 
   @override
   void initState() {

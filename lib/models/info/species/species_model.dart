@@ -1,7 +1,6 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'species_model.g.dart';
@@ -13,19 +12,19 @@ part 'species_model.g.dart';
 )
 @immutable
 class SpeciesDetailsModel extends Equatable implements IPaginatedData {
-  final String commonName;
-  final String scientificName;
-  final String type;
-  final String conservationStatus;
-  final String description;
-  final String titleImageUrl;
-  final List<String> imageUrls;
+  final String? commonName;
+  final String? scientificName;
+  final String? type;
+  final String? conservationStatus;
+  final String? description;
+  final String? titleImageUrl;
+  final List<String>? imageUrls;
   const SpeciesDetailsModel({
-    @required String commonName,
-    @required this.scientificName,
+    required String? commonName,
+    required this.scientificName,
     this.type,
     this.conservationStatus,
-    @required this.description,
+    required this.description,
     this.titleImageUrl,
     this.imageUrls,
   })  : commonName = commonName == "" ? scientificName : commonName,
@@ -34,7 +33,7 @@ class SpeciesDetailsModel extends Equatable implements IPaginatedData {
         );
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       commonName,
       scientificName,

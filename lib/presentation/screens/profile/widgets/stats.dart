@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ProfileScreenCardStats extends StatelessWidget {
   const ProfileScreenCardStats({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

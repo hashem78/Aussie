@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PaginatedSearchBar extends StatelessWidget {
   final void Function(String) onSubmitted;
-  const PaginatedSearchBar({@required this.onSubmitted});
+  const PaginatedSearchBar({required this.onSubmitted});
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -18,12 +18,12 @@ class PaginatedSearchBar extends StatelessWidget {
             flex: 8,
             child: TextField(
               onSubmitted: onSubmitted,
-              style: TextStyle(fontSize: 70.ssp, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: getTranslation(context, "searchTitle"),
                 hintStyle: TextStyle(
-                  fontSize: 70.ssp,
+                  fontSize: 70.sp,
                   fontWeight: FontWeight.w600,
                   color: Colors.grey.withOpacity(.7),
                 ),

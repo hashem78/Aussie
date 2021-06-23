@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 class EventCardDetailsHeader extends StatelessWidget {
   const EventCardDetailsHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -13,8 +13,8 @@ class EventCardDetailsHeader extends StatelessWidget {
     final EventModel e = getEventModel(context);
 
     final DateTime begin =
-        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp);
-    final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp);
+        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp!);
+    final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
     final formattedBeginDate = DateFormat("dd/MM/yyyy").format(begin);
     final formattedEndDate = DateFormat("dd/MM/yyyy").format(end);
     final formattedBeginTime = DateFormat("hh:mm:ss").format(begin);
@@ -30,7 +30,7 @@ class EventCardDetailsHeader extends StatelessWidget {
               "Starts on $formattedBeginDate",
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .caption!
                   .copyWith(color: Colors.green),
             ),
             Padding(
@@ -49,7 +49,7 @@ class EventCardDetailsHeader extends StatelessWidget {
               "Ends on $formattedEndDate",
               style: Theme.of(context)
                   .textTheme
-                  .caption
+                  .caption!
                   .copyWith(color: Colors.red),
             ),
             Padding(

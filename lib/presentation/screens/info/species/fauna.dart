@@ -28,14 +28,14 @@ class FaunaScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => AussieThemeProvider(
                       color: color,
-                      child: SpeciesDetails(model: item as SpeciesDetailsModel),
+                      child: SpeciesDetails(model: item),
                     ),
                   ),
                 );
               },
               child: Ink.image(
                 image: CachedNetworkImageProvider(
-                  _casted.titleImageUrl,
+                  _casted.titleImageUrl!,
                 ),
                 fit: BoxFit.cover,
               ),

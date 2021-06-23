@@ -4,7 +4,7 @@ abstract class UserManagementState extends Equatable {
   const UserManagementState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UserManagementInitial extends UserManagementState {
@@ -32,11 +32,11 @@ class UserManagementSignin extends UserManagementState {
 }
 
 class UserManagementError extends UserManagementState {
-  final UserManagementNotification notification;
+  final UserManagementNotification? notification;
 
   const UserManagementError(this.notification);
   @override
-  List<Object> get props => [notification];
+  List<Object?> get props => [notification];
 }
 
 class UserManagementNeedsAction extends UserManagementState {}

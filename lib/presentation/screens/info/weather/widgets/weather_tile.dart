@@ -11,7 +11,7 @@ class WeatherTile extends StatelessWidget {
   final WeatherModel model;
   final bool showTitle;
 
-  const WeatherTile({@required this.model, this.showTitle = false});
+  const WeatherTile({required this.model, this.showTitle = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class WeatherTile extends StatelessWidget {
             child: Column(
               children: [
                 AutoSizeText(
-                  showTitle ? model.title : model.day,
+                  showTitle ? model.title! : model.day!,
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 100.sp,
@@ -36,7 +36,7 @@ class WeatherTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: BoxedIcon(
-                    WeatherIcons.fromString(model.iconString),
+                    WeatherIcons.fromString(model.iconString!),
                     size: 150.sp,
                     color: Colors.amber,
                   ),

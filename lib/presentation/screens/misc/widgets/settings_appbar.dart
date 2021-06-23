@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsAppbar extends StatelessWidget {
-  final String tTitle;
+  final String? tTitle;
   const SettingsAppbar({
     this.tTitle,
   });
@@ -20,7 +20,7 @@ class SettingsAppbar extends StatelessWidget {
           children: [
             Center(
               child: AutoSizeText(
-                getTranslation(context, tTitle),
+                getTranslation(context, tTitle)!,
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 style: TextStyle(

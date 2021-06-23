@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class EventImageGalleryPickerButton extends StatelessWidget {
   const EventImageGalleryPickerButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -14,7 +14,7 @@ class EventImageGalleryPickerButton extends StatelessWidget {
       onPressed: () {
         context.read<MultiImagePickingCubit>().pickImages();
       },
-      child: Text(getTranslation(context, "eventCreationPickerButtonText")),
+      child: Text(getTranslation(context, "eventCreationPickerButtonText")!),
     );
   }
 }

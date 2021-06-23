@@ -14,7 +14,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 class SearchablePaginatedScreen<T extends IPaginatedData>
     extends StatefulWidget {
   final String thumbnailCubitRoute;
-  final String title;
+  final String? title;
   final String filterFor;
 
   final bool _isList;
@@ -22,16 +22,16 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
   final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
   const SearchablePaginatedScreen({
-    @required this.thumbnailCubitRoute,
-    @required this.itemBuilder,
-    @required this.title,
-    @required this.filterFor,
+    required this.thumbnailCubitRoute,
+    required this.itemBuilder,
+    required this.title,
+    required this.filterFor,
   }) : _isList = false;
   const SearchablePaginatedScreen.list({
-    @required this.thumbnailCubitRoute,
-    @required this.itemBuilder,
-    @required this.title,
-    @required this.filterFor,
+    required this.thumbnailCubitRoute,
+    required this.itemBuilder,
+    required this.title,
+    required this.filterFor,
   }) : _isList = true;
   @override
   _SearchablePaginatedScreenState<T> createState() =>
@@ -42,15 +42,15 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
     extends State<SearchablePaginatedScreen<T>>
     with AutomaticKeepAliveClientMixin {
   static const int _pageSize = 10;
-  ThumbnailCubit thumbnailCubit;
-  PagingController<int, IPaginatedData> _controller =
+  ThumbnailCubit? thumbnailCubit;
+  PagingController<int, IPaginatedData>? _controller =
       PagingController<int, IPaginatedData>(firstPageKey: 0);
 
   _SearchablePaginatedScreenState();
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     _controller = null;
     super.dispose();
   }
@@ -60,9 +60,9 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _controller.addPageRequestListener(
+    _controller!.addPageRequestListener(
       (pageKey) {
-        if (searchQuery.isNotEmpty && searchQuery != null) {
+        if (searchQuery.isNotEmpty) {
           context.read<PaginatedCubit<T>>().filter(
               context.read<LanguageCubit>().locale.languageCode,
               widget.filterFor,
@@ -84,7 +84,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        backgroundColor: AussieThemeProvider.of(context)!.color.backgroundColor,
         body: CustomScrollView(
           slivers: [
             BlocProvider(
@@ -97,20 +97,21 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
             PaginatedSearchBar(
               onSubmitted: (val) {
                 searchQuery = val;
-                _controller.refresh();
+                _controller!.refresh();
               },
             ),
             BlocListener<PaginatedCubit<T>, PaginatedState>(
               listener: (context, state) {
                 if (state is PaginatedInitialLoaded) {
-                  _controller.appendPage(state.models, _pageSize);
+                  _controller!.appendPage(state.models, _pageSize);
                 } else if (state is PaginatedDataChanged) {
-                  final nextKey = _controller.nextPageKey + state.models.length;
-                  _controller.appendPage(state.models, nextKey);
+                  final nextKey =
+                      _controller!.nextPageKey! + state.models.length;
+                  _controller!.appendPage(state.models, nextKey);
                 } else if (state is PaginatedEnd) {
-                  _controller.appendLastPage(state.models);
+                  _controller!.appendLastPage(state.models);
                 } else if (state is PaginatedFiltered) {
-                  _controller.appendLastPage(state.models);
+                  _controller!.appendLastPage(state.models);
                 }
               },
               child: widget._isList ? buildSliverList() : buildSliverGrid(),
@@ -126,14 +127,14 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      pagingController: _controller,
+      pagingController: _controller!,
       builderDelegate: PagedChildBuilderDelegate<IPaginatedData>(
         itemBuilder: widget.itemBuilder,
         noItemsFoundIndicatorBuilder: (_) => SizedBox(
           height: 100,
           child: Center(
             child: Text(
-                getTranslation(context, "searchablePaginatedNoItemsFound")),
+                getTranslation(context, "searchablePaginatedNoItemsFound")!),
           ),
         ),
       ),
@@ -142,14 +143,14 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
 
   Widget buildSliverList() {
     return PagedSliverList<int, IPaginatedData>(
-      pagingController: _controller,
+      pagingController: _controller!,
       builderDelegate: PagedChildBuilderDelegate<IPaginatedData>(
         itemBuilder: widget.itemBuilder,
         noItemsFoundIndicatorBuilder: (_) => SizedBox(
           height: 100,
           child: Center(
             child: Text(
-                getTranslation(context, "searchablePaginatedNoItemsFound")),
+                getTranslation(context, "searchablePaginatedNoItemsFound")!),
           ),
         ),
       ),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ProfileScreenCardDetails extends StatelessWidget {
   const ProfileScreenCardDetails({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,12 +15,12 @@ class ProfileScreenCardDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          user.fullname,
+          user.fullname!,
           maxLines: 1,
           style: Theme.of(context).textTheme.headline5,
         ),
         AutoSizeText(
-          user.username,
+          user.username!,
           style: Theme.of(context).textTheme.caption,
         ),
       ],

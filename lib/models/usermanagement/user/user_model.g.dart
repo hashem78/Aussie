@@ -9,25 +9,26 @@ part of 'user_model.dart';
 AussieUser _$AussieUserFromJson(Map<String, dynamic> json) {
   return $checkedNew('AussieUser', json, () {
     final val = AussieUser(
-      uid: $checkedConvert(json, 'uid', (v) => v as String),
+      uid: $checkedConvert(json, 'uid', (v) => v as String?),
       attends: $checkedConvert(json, 'attends',
-              (v) => (v as List)?.map((e) => e as String)?.toList()) ??
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()) ??
           [],
-      displayName: $checkedConvert(json, 'displayName', (v) => v as String),
-      email: $checkedConvert(json, 'email', (v) => v as String),
-      emailVerified: $checkedConvert(json, 'emailVerified', (v) => v as bool),
-      username: $checkedConvert(json, 'username', (v) => v as String),
+      displayName: $checkedConvert(json, 'displayName', (v) => v as String?),
+      email: $checkedConvert(json, 'email', (v) => v as String?),
+      emailVerified: $checkedConvert(json, 'emailVerified', (v) => v as bool?),
+      username: $checkedConvert(json, 'username', (v) => v as String?),
       numberOfFollowers:
-          $checkedConvert(json, 'numberOfFollowers', (v) => v as int) ?? 0,
+          $checkedConvert(json, 'numberOfFollowers', (v) => v as int?) ?? 0,
       numberOfFollowing:
-          $checkedConvert(json, 'numberOfFollowing', (v) => v as int) ?? 0,
+          $checkedConvert(json, 'numberOfFollowing', (v) => v as int?) ?? 0,
       numberOfPosts:
-          $checkedConvert(json, 'numberOfPosts', (v) => v as int) ?? 0,
+          $checkedConvert(json, 'numberOfPosts', (v) => v as int?) ?? 0,
       profilePictureLink:
-          $checkedConvert(json, 'profilePictureLink', (v) => v as String) ?? '',
+          $checkedConvert(json, 'profilePictureLink', (v) => v as String?) ??
+              '',
       profileBannerLink:
-          $checkedConvert(json, 'profileBannerLink', (v) => v as String) ?? '',
-      fullname: $checkedConvert(json, 'fullname', (v) => v as String),
+          $checkedConvert(json, 'profileBannerLink', (v) => v as String?) ?? '',
+      fullname: $checkedConvert(json, 'fullname', (v) => v as String?),
     );
     return val;
   });

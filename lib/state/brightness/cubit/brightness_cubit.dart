@@ -10,7 +10,7 @@ part 'brightness_state.dart';
 
 class BrightnessCubit extends Cubit<AussieBrightness> {
   BrightnessCubit(this.currentBrightness) : super(currentBrightness) {
-    final SingletonFlutterWindow window = SchedulerBinding.instance.window;
+    final SingletonFlutterWindow window = SchedulerBinding.instance!.window;
     window.onPlatformBrightnessChanged = () {
       if (currentBrightness == const AussieBrightnessSystem()) {
         final Brightness brightness = window.platformBrightness;

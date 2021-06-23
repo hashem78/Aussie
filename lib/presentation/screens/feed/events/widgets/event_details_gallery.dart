@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class EventDetailsGallery extends StatefulWidget {
   const EventDetailsGallery({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -20,7 +20,7 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
     final e = getEventModel(context);
 
     return ListView.builder(
-      itemCount: e.galleryImages.length,
+      itemCount: e.galleryImages!.length,
       itemBuilder: (context, index) {
         return AspectRatio(
           aspectRatio: 16 / 9,
@@ -30,14 +30,14 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
                   MaterialPageRoute(
                     builder: (context) {
                       return AussiePhotoView(
-                        url: e.galleryImages[index].imageLink,
+                        url: e.galleryImages![index].imageLink,
                       );
                     },
                   ),
                 );
               },
               child: CachedNetworkImage(
-                imageUrl: e.galleryImages[index].imageLink,
+                imageUrl: e.galleryImages![index].imageLink!,
                 fadeOutDuration: Duration.zero,
                 progressIndicatorBuilder: (context, url, progress) {
                   return Center(

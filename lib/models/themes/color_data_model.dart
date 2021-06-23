@@ -1,7 +1,6 @@
+import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-
-import 'package:aussie/state/brightness/cubit/brightness_cubit.dart';
 
 class AussieScreenColorData {
   static const AussieColor faunaDark = DarkAussieColor(
@@ -51,9 +50,9 @@ abstract class AussieColor {
   final Color backgroundColor;
 
   const AussieColor({
-    @required this.swatchColor,
-    @required this.backgroundColor,
-  }) : assert(swatchColor != null && backgroundColor != null);
+    required this.swatchColor,
+    required this.backgroundColor,
+  });
 
   @override
   bool operator ==(Object o) {
@@ -91,9 +90,9 @@ class AussieThemeBuilder extends StatelessWidget {
   ) builder;
 
   const AussieThemeBuilder({
-    @required this.dark,
-    @required this.light,
-    @required this.builder,
+    required this.dark,
+    required this.light,
+    required this.builder,
   });
 
   @override
@@ -127,13 +126,13 @@ class AussieThemeBuilder extends StatelessWidget {
 class AussieThemeProvider extends InheritedWidget {
   final AussieColor color;
 
-  const AussieThemeProvider({@required Widget child, @required this.color})
+  const AussieThemeProvider({required Widget child, required this.color})
       : super(child: child);
 
   @override
   bool updateShouldNotify(covariant AussieThemeProvider oldWidget) =>
       color == oldWidget.color;
 
-  static AussieThemeProvider of(BuildContext context) =>
+  static AussieThemeProvider? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AussieThemeProvider>();
 }

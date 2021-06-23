@@ -9,12 +9,12 @@ part of 'signup_model.dart';
 SignupModel _$SignupModelFromJson(Map<String, dynamic> json) {
   return $checkedNew('SignupModel', json, () {
     final val = SignupModel(
-      email: $checkedConvert(json, 'email', (v) => v as String),
-      password: $checkedConvert(json, 'password', (v) => v as String),
+      email: $checkedConvert(json, 'email', (v) => v as String?),
+      password: $checkedConvert(json, 'password', (v) => v as String?),
       profileImagePath:
-          $checkedConvert(json, 'profileImagePath', (v) => v as String),
-      username: $checkedConvert(json, 'username', (v) => v as String),
-      fullname: $checkedConvert(json, 'fullname', (v) => v as String),
+          $checkedConvert(json, 'profileImagePath', (v) => v as String?),
+      username: $checkedConvert(json, 'username', (v) => v as String?),
+      fullname: $checkedConvert(json, 'fullname', (v) => v as String?),
     );
     return val;
   });

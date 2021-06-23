@@ -7,17 +7,17 @@ import 'package:aussie/providers/usermanagement_provider.dart';
 
 class UserManagementRepository {
   final UserManagementProvider _provider = UserManagementProvider();
-  Future<UserManagementNotification> signup(SignupModel model) async =>
+  Future<UserManagementNotification?> signup(SignupModel model) async =>
       _provider.signup(model.toJson());
 
-  Future<UserManagementNotification> signin(SigninModel model) async =>
+  Future<UserManagementNotification?> signin(SigninModel model) async =>
       _provider.signin(model.toJson());
 
   Future<UserManagementNotification> isSignedin() async =>
       _provider.isSignedin();
 
-  Future<UserManagementNotification> getUserData() async {
-    final UserManagementNotification notification =
+  Future<UserManagementNotification?> getUserData() async {
+    final UserManagementNotification? notification =
         await _provider.getUserData();
     if (notification is UserModelContainingNotification) {
       return UserModelContainingActualNotification(
@@ -28,7 +28,7 @@ class UserManagementRepository {
     }
   }
 
-  Future<UserManagementNotification> getUserDataFromUid(String uid) async {
+  Future<UserManagementNotification> getUserDataFromUid(String? uid) async {
     final UserManagementNotification notification =
         await _provider.getUserDataFromUid(uid);
     if (notification is UserModelContainingNotification) {
@@ -41,7 +41,7 @@ class UserManagementRepository {
   }
 
   Future<UserManagementNotification> makeUserWithIdAttendEvent(
-      String uid, String eventUuid) async {
+      String? uid, String? eventUuid) async {
     return _provider.makeUserWithIdAttendEvent(uid, eventUuid);
   }
 }

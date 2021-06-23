@@ -8,8 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AttendeesProvider {
   static final _firestore = FirebaseFirestore.instance;
   Future<EventManagementNotification> fetchAttendees(
-    String eventId,
-    DocumentSnapshot startAfter,
+    String? eventId,
+    DocumentSnapshot? startAfter,
   ) async {
     Query query;
     if (startAfter == null) {
@@ -32,7 +32,7 @@ class AttendeesProvider {
     final List<String> uuids = List<String>.from(
       querySnapshot.docs
           .map(
-            (e) => e.get('uid') as String,
+            (e) => e.get('uid') as String?,
           )
           .toList(),
     );

@@ -9,8 +9,8 @@ part of 'signin_model.dart';
 SigninModel _$SigninModelFromJson(Map<String, dynamic> json) {
   return $checkedNew('SigninModel', json, () {
     final val = SigninModel(
-      $checkedConvert(json, 'email', (v) => v as String),
-      $checkedConvert(json, 'password', (v) => v as String),
+      $checkedConvert(json, 'email', (v) => v as String?),
+      $checkedConvert(json, 'password', (v) => v as String?),
     );
     return val;
   });

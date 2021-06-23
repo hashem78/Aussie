@@ -11,11 +11,10 @@ import 'package:flutter/foundation.dart';
 class PaginatedRepositoy<T extends IPaginatedData> {
   final PaginatedOnlineDataProvider _onlineDataProvider;
   PaginatedRepositoy({
-    @required String route,
+    required String route,
   }) : _onlineDataProvider = PaginatedOnlineDataProvider(route);
   Future<List<IPaginatedData>> fetch(String language, int page,
-      {@required int fetchAmount}) async {
-    assert(fetchAmount != null, "Fetch Amount is null");
+      {required int fetchAmount}) async {
     Map<String, dynamic> _repResponse;
 
     _repResponse = await _onlineDataProvider.fetch(language, page,
@@ -26,7 +25,6 @@ class PaginatedRepositoy<T extends IPaginatedData> {
 
   Future<List<IPaginatedData>> filter(
       String language, String field, String value) async {
-    assert(field != null && value != null);
     Map<String, dynamic> _repResponse;
 
     _repResponse = await _onlineDataProvider.filter(language, field, value);
@@ -35,7 +33,7 @@ class PaginatedRepositoy<T extends IPaginatedData> {
 
   List<IPaginatedData> _toData(Map<String, dynamic> response) {
     if (response.containsKey('error')) {
-      throw response['error'];
+      throw response['error'] as Object;
     } else {
       final List<IPaginatedData> _q = [];
       if (T == NaturalParkModel) {

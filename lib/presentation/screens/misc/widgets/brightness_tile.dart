@@ -11,12 +11,12 @@ class BrightnessTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
-        title: Text(getTranslation(context, 'brightnessTitle')),
+        title: Text(getTranslation(context, 'brightnessTitle')!),
         subtitle: Text(
           getTranslation(
             context,
             context.watch<BrightnessCubit>().currentBrightnessString,
-          ),
+          )!,
         ),
         contentPadding: const EdgeInsets.all(5.0),
         onTap: () {
@@ -34,7 +34,7 @@ class BrightnessTile extends StatelessWidget {
                       value: const AussieBrightnessSystem(),
                       groupValue: currentSetting,
                       title: Text(
-                          getTranslation(context, 'brightnessSystemTitle')),
+                          getTranslation(context, 'brightnessSystemTitle')!),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToSystem();
                       },
@@ -43,7 +43,7 @@ class BrightnessTile extends StatelessWidget {
                       value: const AussieBrightnessLight(),
                       groupValue: currentSetting,
                       title:
-                          Text(getTranslation(context, 'brightnessLightTitle')),
+                          Text(getTranslation(context, 'brightnessLightTitle')!),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToLight();
                       },
@@ -52,7 +52,7 @@ class BrightnessTile extends StatelessWidget {
                       value: const AussieBrightnessDark(),
                       groupValue: currentSetting,
                       title:
-                          Text(getTranslation(context, 'brightnessDarkTitle')),
+                          Text(getTranslation(context, 'brightnessDarkTitle')!),
                       onChanged: (val) {
                         context.read<BrightnessCubit>().changeToDark();
                       },

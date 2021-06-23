@@ -17,7 +17,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
     with AutomaticKeepAliveClientMixin {
   final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
-  EventManagementCubit cubit;
+  late EventManagementCubit cubit;
   @override
   void initState() {
     super.initState();
@@ -47,7 +47,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
         if (state is EventManagementEventsFetched) {
           _controller.appendPage(
             state.models,
-            _controller.nextPageKey + state.models.length,
+            _controller.nextPageKey! + state.models.length,
           );
         } else if (state is EventManagementEndEventsFetched) {
           _controller.appendLastPage(state.models);
@@ -79,7 +79,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
             noItemsFoundIndicatorBuilder: (context) {
               return Center(
                 child: Text(
-                  getTranslation(context, "eventsNoPublic"),
+                  getTranslation(context, "eventsNoPublic")!,
                 ),
               );
             },

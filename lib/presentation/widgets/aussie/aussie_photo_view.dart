@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
 class AussiePhotoView extends StatelessWidget {
-  final String url;
+  final String? url;
   const AussiePhotoView({
-    Key key,
+    Key? key,
     this.url,
   }) : super(key: key);
   @override
@@ -20,7 +20,7 @@ class AussiePhotoView extends StatelessWidget {
       body: PhotoView(
         minScale: PhotoViewComputedScale.contained,
         maxScale: 1.0,
-        imageProvider: CachedNetworkImageProvider(url),
+        imageProvider: CachedNetworkImageProvider(url!),
       ),
     );
   }

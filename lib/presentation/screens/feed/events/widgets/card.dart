@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class EventCard extends StatefulWidget {
   const EventCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class _EventCardState extends State<EventCard>
 
 class PublicEventCard extends StatefulWidget {
   const PublicEventCard({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

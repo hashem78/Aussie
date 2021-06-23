@@ -2,7 +2,7 @@ import 'package:aussie/aussie_imports.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

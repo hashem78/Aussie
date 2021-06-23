@@ -1,12 +1,11 @@
 import 'dart:collection';
 
 import 'package:aussie/interfaces/eventmanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
+import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import 'package:uuid/uuid.dart';
 
 class EventManagementProvider {
@@ -16,7 +15,7 @@ class EventManagementProvider {
 
   Future<EventManagementNotification> addEvent(EventCreationModel model) async {
     try {
-      final String uid = _auth.currentUser.uid;
+      final String uid = _auth.currentUser!.uid;
 
       final String path = "users/$uid/events/${model.eventId}";
       final WriteBatch batch = _firestore.batch();
@@ -59,12 +58,10 @@ class EventManagementProvider {
       };
 
       final dlGalleryCallback = (AussieByteData element) async {
-        if (element == null) return;
-
-        final _refG = _storage.ref(path).child(Uuid().v4());
+        final _refG = _storage.ref(path).child(const Uuid().v4());
 
         final _gUploadTask = await _refG.putData(
-          element.byteData.buffer.asUint8List(),
+          element.byteData!.buffer.asUint8List(),
         );
         final downloadUrl = await _gUploadTask.ref.getDownloadURL();
         updateGalleryLinksCallback(downloadUrl, element);
@@ -83,16 +80,16 @@ class EventManagementProvider {
         );
       };
 
-      final dlBannerCallback = (AussieByteData element) async {
+      final dlBannerCallback = (AussieByteData? element) async {
         if (element == null) return;
-        final _refB = _storage.ref(path).child(Uuid().v4());
+        final _refB = _storage.ref(path).child(const Uuid().v4());
         final _bUploadTask = await _refB.putData(
-          element.byteData.buffer.asUint8List(),
+          element.byteData!.buffer.asUint8List(),
         );
         final downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl, element);
       };
-      for (final data in model.imageData) {
+      for (final data in model.imageData!) {
         await dlGalleryCallback(data);
       }
       await dlBannerCallback(model.bannerData);
@@ -106,11 +103,11 @@ class EventManagementProvider {
   }
 
   Future<EventManagementNotification> fetchUserEvents(
-    DocumentSnapshot documentSnapshot,
+    DocumentSnapshot? documentSnapshot,
   ) async {
     try {
       if (_auth.currentUser != null) {
-        final String uid = _auth.currentUser.uid;
+        final String uid = _auth.currentUser!.uid;
         if (documentSnapshot != null) {
           final _data = await _firestore
               .collection("users/$uid/events")
@@ -164,7 +161,7 @@ class EventManagementProvider {
   }
 
   Future<EventManagementNotification> fetchPublicEvents(
-    DocumentSnapshot documentSnapshot,
+    DocumentSnapshot? documentSnapshot,
   ) async {
     try {
       if (documentSnapshot != null) {

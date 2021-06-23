@@ -12,24 +12,24 @@ class NaturalParksDetailsScreen extends StatelessWidget {
   final String heroTag;
 
   const NaturalParksDetailsScreen({
-    @required this.model,
-    @required this.heroTag,
-  }) : assert(model != null && heroTag != null);
+    required this.model,
+    required this.heroTag,
+  });
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        backgroundColor: AussieThemeProvider.of(context)!.color.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
+          backgroundColor: AussieThemeProvider.of(context)!.color.swatchColor,
           elevation: 0,
-          title: Text(model.park_name),
+          title: Text(model.park_name!),
           flexibleSpace: model.image_link != ""
               ? Hero(
                   tag: heroTag,
-                  child: buildImage(model.image_link, fit: BoxFit.cover),
+                  child: buildImage(model.image_link, fit: BoxFit.cover)!,
                 )
               : null,
           bottom: const TabBar(
@@ -43,10 +43,10 @@ class NaturalParksDetailsScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             ListView.builder(
-              itemCount: model.sections.length,
+              itemCount: model.sections!.length,
               itemBuilder: (context, index) {
-                final sectionTitle = model.sections[index]["title"].trim();
-                final sectionText = model.sections[index]["text"].trim();
+                final sectionTitle = model.sections![index]["title"]!.trim();
+                final sectionText = model.sections![index]["text"]!.trim();
                 if (sectionText == '') {
                   return const SizedBox();
                 }
@@ -61,7 +61,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
                         Text(
                           sectionTitle,
                           style: TextStyle(
-                            fontSize: 100.ssp,
+                            fontSize: 100.sp,
                             fontWeight: FontWeight.w900,
                           ),
                         ),

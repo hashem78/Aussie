@@ -19,7 +19,7 @@ class SignupBloc extends FormBloc<String, String> {
       password,
     ]);
   }
-  String profileImagePath;
+  String? profileImagePath;
 
   @override
   Future<void> onSubmitting() async {}

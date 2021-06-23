@@ -6,11 +6,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_icons/weather_icons.dart';
 
 class WeatherCardChild extends StatelessWidget {
-  final Color color;
+  final Color? color;
   final WeatherCardChildModel model;
   const WeatherCardChild({
     this.color,
-    @required this.model,
+    required this.model,
   });
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class WeatherCardChild extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            _weatherModel.day,
+            _weatherModel.day!,
             style: TextStyle(
               fontSize: 150.sp,
               fontWeight: FontWeight.w900,
@@ -29,7 +29,7 @@ class WeatherCardChild extends StatelessWidget {
           Row(
             children: [
               BoxedIcon(
-                WeatherIcons.fromString(_weatherModel.iconString),
+                WeatherIcons.fromString(_weatherModel.iconString!),
                 size: 200.sp,
                 color: Colors.teal,
               ),
@@ -57,7 +57,7 @@ class WeatherCardChild extends StatelessWidget {
             ],
           ),
           Text(
-            model.title,
+            model.title!,
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 40),
           ),

@@ -12,9 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class EventCreationScreen extends StatelessWidget {
-  final Function closeAction;
+  final Function? closeAction;
 
-  const EventCreationScreen({Key key, this.closeAction}) : super(key: key);
+  const EventCreationScreen({Key? key, this.closeAction}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     void _sn(String text) {
@@ -28,12 +28,12 @@ class EventCreationScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        closeAction();
+        closeAction!();
         return false;
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(getTranslation(context, "eventCreationTitle")),
+          title: Text(getTranslation(context, "eventCreationTitle")!),
           toolbarHeight: 100,
           flexibleSpace: const AspectRatio(
             aspectRatio: 16 / 9,
@@ -42,7 +42,7 @@ class EventCreationScreen extends StatelessWidget {
           actions: [
             BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(
               builder: (context, state) {
-                Widget child;
+                Widget? child;
                 if (state is SingleImagePickingDone) {
                   child = IconButton(
                     icon: const Icon(Icons.close),
@@ -59,6 +59,7 @@ class EventCreationScreen extends StatelessWidget {
                       context.read<SingleImagePickingCubit>().pickImage(
                             aspectRatio:
                                 const CropAspectRatio(ratioX: 16, ratioY: 9),
+                            cropStyle: CropStyle.rectangle,
                           );
                     },
                   );

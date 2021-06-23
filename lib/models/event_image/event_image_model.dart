@@ -8,12 +8,11 @@ part 'event_image_model.g.dart';
   createToJson: true,
   createFactory: true,
   explicitToJson: true,
-  nullable: false,
 )
 class EventImageModel extends Equatable {
-  final String imageLink;
-  final int width;
-  final int height;
+  final String? imageLink;
+  final int? width;
+  final int? height;
 
   const EventImageModel({
     this.imageLink,
@@ -26,7 +25,7 @@ class EventImageModel extends Equatable {
   Map<String, dynamic> toJson() => _$EventImageModelToJson(this);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         imageLink,
         width,
         height,

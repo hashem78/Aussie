@@ -1,4 +1,4 @@
-package com.hashem.aussie.aussie
+package com.hashem.aussie.Aussie
 
 import io.flutter.embedding.android.FlutterActivity
 

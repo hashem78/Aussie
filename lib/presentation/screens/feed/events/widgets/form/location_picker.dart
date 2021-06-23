@@ -3,26 +3,26 @@ import 'package:aussie/state/location_picking/cubit/locationpicking_cubit.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
-import 'package:place_picker/entities/localization_item/localization_item.dart';
+import 'package:place_picker/entities/localization_item.dart';
 import 'package:place_picker/place_picker.dart';
 
 class EventLocationPicker extends StatelessWidget {
   const EventLocationPicker({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationPickingCubit, LocationPickingState>(
       builder: (context, state) {
-        String hintText;
-        Locale locale = const Locale("en");
+        String? hintText;
+        Locale? locale = const Locale("en");
         if (state is LocationNotPicked) {
           hintText = getTranslation(context, state.message);
           locale = null;
         } else if (state is LocationPicked) {
           hintText = state.result.formattedAddress;
-          locale = AussieLocalizations.of(context).locale;
+          locale = AussieLocalizations.of(context)!.locale;
         }
         return Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -36,38 +36,30 @@ class EventLocationPicker extends StatelessWidget {
                     MaterialPageRoute<LocationResult>(
                       builder: (context) {
                         return PlacePicker(
-                          PlacePickingConfiguration(
-                            "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
-                            initialLat: -33.8688,
-                            initialLng: 151.2093,
-                            countries: const ["AU"],
-                            localizationItem: LocalizationItem(
-                              languageCode: locale?.languageCode,
-                              searchTitle: getTranslation(
-                                context,
-                                "locationSearchTitle",
-                              ),
-                              nearBy: getTranslation(
-                                context,
-                                "locationNearby",
-                              ),
-                              findingPlace: getTranslation(
-                                context,
-                                "locationFindingPlace",
-                              ),
-                              unnamedLocation: getTranslation(
-                                context,
-                                "locationUnamedLocation",
-                              ),
-                              noResultsFound: getTranslation(
-                                context,
-                                "locationNoResultsFound",
-                              ),
-                              tapToSelectLocation: getTranslation(
-                                context,
-                                "locationTapToSelect",
-                              ),
-                            ),
+                          "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
+                          displayLocation: const LatLng(-33.8688, 151.2093),
+                          localizationItem: LocalizationItem(
+                            languageCode: locale!.languageCode,
+                            nearBy: getTranslation(
+                              context,
+                              "locationNearby",
+                            )!,
+                            findingPlace: getTranslation(
+                              context,
+                              "locationFindingPlace",
+                            )!,
+                            unnamedLocation: getTranslation(
+                              context,
+                              "locationUnamedLocation",
+                            )!,
+                            noResultsFound: getTranslation(
+                              context,
+                              "locationNoResultsFound",
+                            )!,
+                            tapToSelectLocation: getTranslation(
+                              context,
+                              "locationTapToSelect",
+                            )!,
                           ),
                         );
                       },

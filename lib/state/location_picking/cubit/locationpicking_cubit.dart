@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:place_picker/entities/location_result/location_result.dart';
+import 'package:place_picker/entities/location_result.dart';
 
 part 'locationpicking_state.dart';
 
 class LocationPickingCubit extends Cubit<LocationPickingState> {
   LocationPickingCubit() : super(const LocationNotPicked());
 
-  void pickLoc(LocationResult result) {
+  void pickLoc(LocationResult? result) {
     if (result == null) {
       emit(const LocationNotPicked());
     } else {
@@ -15,8 +15,8 @@ class LocationPickingCubit extends Cubit<LocationPickingState> {
     }
   }
 
-  LocationResult get value {
-    final _currentState = state;
+  LocationResult? get value {
+    final LocationPickingState _currentState = state;
     if (_currentState is LocationPicked) {
       return _currentState.result;
     } else {

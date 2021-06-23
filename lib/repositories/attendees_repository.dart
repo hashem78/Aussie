@@ -5,8 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AttendeesRepository {
   final AttendeesProvider _provider = AttendeesProvider();
   Future<EventManagementNotification> fetchAttendees(
-    String eventId,
-    DocumentSnapshot prevsnap,
+    String? eventId,
+    DocumentSnapshot? prevsnap,
   ) async {
     return _provider.fetchAttendees(eventId, prevsnap);
   }

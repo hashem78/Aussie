@@ -4,7 +4,7 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class EventBannerPicker extends StatelessWidget {
   const EventBannerPicker({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -27,11 +27,11 @@ class EventBannerPicker extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        Widget child;
+        Widget? child;
         if (state is SingleImagePickingDone) {
           child = Ink.image(
             image: MemoryImage(
-              state.data.byteData.buffer.asUint8List(),
+              state.data!.byteData!.buffer.asUint8List(),
             ),
             fit: BoxFit.cover,
           );

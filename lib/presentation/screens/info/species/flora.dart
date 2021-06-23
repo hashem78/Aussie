@@ -22,15 +22,13 @@ class FloraScreen extends StatelessWidget {
           itemBuilder: (context, item, index) {
             final _casted = item as SpeciesDetailsModel;
             Widget child;
-            if (_casted.imageUrls.isNotEmpty) {
+            if (_casted.imageUrls!.isNotEmpty) {
               child = Ink.image(
-                image: CachedNetworkImageProvider(
-                  _casted.imageUrls.firstWhere((element) => element != null),
-                ),
+                image: CachedNetworkImageProvider(_casted.imageUrls![0]),
                 fit: BoxFit.cover,
               );
             } else {
-              child = Center(child: Text(_casted.commonName));
+              child = Center(child: Text(_casted.commonName!));
             }
             return InkWell(
                 onTap: () {
@@ -39,8 +37,7 @@ class FloraScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => AussieThemeProvider(
                         color: color,
-                        child:
-                            SpeciesDetails(model: item as SpeciesDetailsModel),
+                        child: SpeciesDetails(model: item),
                       ),
                     ),
                   );

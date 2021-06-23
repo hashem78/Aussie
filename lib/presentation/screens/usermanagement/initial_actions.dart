@@ -25,7 +25,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusManager.instance.primaryFocus.unfocus();
+        FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Scaffold(
         drawer: const AussieAppDrawer(),
@@ -33,7 +33,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
           preferredSize: const Size(double.infinity, kToolbarHeight),
           child: BlocBuilder<NetworkingCubit, NetworkingState>(
             builder: (context, state) {
-              Color color;
+              Color? color;
 
               if (state is NetworkingUnavailable) {
                 color = Colors.red;
@@ -116,14 +116,14 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                           ),
                           BlocBuilder<UserManagementCubit, UserManagementState>(
                             builder: (context, state) {
-                              Widget child;
+                              Widget? child;
 
                               if (state is UserManagementPerformingAction) {
                                 child = const CircularProgressIndicator();
                               } else {
                                 if (state is UserManagementError) {
                                   child = Text(
-                                    state.notification.message,
+                                    state.notification!.message,
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(color: Colors.red),
                                   );
@@ -131,7 +131,6 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                               }
                               return AnimatedSize(
                                 duration: const Duration(milliseconds: 500),
-                                vsync: this,
                                 child: Center(child: child),
                               );
                             },
@@ -179,8 +178,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         );
       },
       child: Text(
-        getTranslation(context, "signupButtonText"),
-        style: TextStyle(fontSize: 85.ssp),
+        getTranslation(context, "signupButtonText")!,
+        style: TextStyle(fontSize: 85.sp),
       ),
     );
   }
@@ -196,11 +195,11 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         );
         // _emailEditingController.clear();
         _passwordEditingController.clear();
-        FocusManager.instance.primaryFocus.unfocus();
+        FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Text(
-        getTranslation(context, "signinButtonText"),
-        style: TextStyle(fontSize: 85.ssp),
+        getTranslation(context, "signinButtonText")!,
+        style: TextStyle(fontSize: 85.sp),
       ),
     );
   }

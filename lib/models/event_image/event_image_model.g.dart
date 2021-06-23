@@ -9,9 +9,9 @@ part of 'event_image_model.dart';
 EventImageModel _$EventImageModelFromJson(Map<String, dynamic> json) {
   return $checkedNew('EventImageModel', json, () {
     final val = EventImageModel(
-      imageLink: $checkedConvert(json, 'imageLink', (v) => v as String),
-      width: $checkedConvert(json, 'width', (v) => v as int),
-      height: $checkedConvert(json, 'height', (v) => v as int),
+      imageLink: $checkedConvert(json, 'imageLink', (v) => v as String?),
+      width: $checkedConvert(json, 'width', (v) => v as int?),
+      height: $checkedConvert(json, 'height', (v) => v as int?),
     );
     return val;
   });

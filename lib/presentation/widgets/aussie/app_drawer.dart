@@ -12,24 +12,22 @@ class _DrawerItemModel extends Equatable {
   final Color iconColor;
 
   const _DrawerItemModel({
-    @required this.navPath,
-    @required this.svgName,
-    @required this.tTitle,
+    required this.navPath,
+    required this.svgName,
+    required this.tTitle,
     this.iconColor = Colors.black,
-  }) : assert(
-          navPath != null && svgName != null && tTitle != null,
-        );
+  });
 
   @override
   List<Object> get props => [navPath, svgName];
 }
 
 class _DrawerSection extends StatelessWidget {
-  final List<_DrawerItemModel> models;
-  final IconData sectionIcon;
-  final String tSectionTitle;
+  final List<_DrawerItemModel>? models;
+  final IconData? sectionIcon;
+  final String? tSectionTitle;
 
-  final Color tilesColor;
+  final Color? tilesColor;
   const _DrawerSection({
     this.models,
     this.sectionIcon,
@@ -45,7 +43,7 @@ class _DrawerSection extends StatelessWidget {
           iconData: sectionIcon,
           title: getTranslation(context, tSectionTitle),
         ),
-        ...models
+        ...models!
             .map(
               (e) => _DrawerItem(e, color: tilesColor),
             )
@@ -171,7 +169,7 @@ class AussieAppDrawer extends StatelessWidget {
 
 class _DrawerHeader extends StatelessWidget {
   const _DrawerHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -201,7 +199,7 @@ class _DrawerHeader extends StatelessWidget {
                       width: 100,
                       height: 100,
                       child: CachedNetworkImage(
-                        imageUrl: state.user.profilePictureLink,
+                        imageUrl: state.user.profilePictureLink!,
                         imageBuilder: (context, imageProvider) {
                           return Ink.image(image: imageProvider);
                         },
@@ -210,12 +208,12 @@ class _DrawerHeader extends StatelessWidget {
                   ),
                   Expanded(
                     child: AutoSizeText(
-                      state.user.username,
+                      state.user.username!,
                       maxLines: 1,
                       style: Theme.of(context)
                           .textTheme
-                          .headline5
-                          .copyWith(fontSize: 150.ssp),
+                          .headline5!
+                          .copyWith(fontSize: 150.sp),
                     ),
                   )
                 ],
@@ -232,7 +230,7 @@ class _DrawerHeader extends StatelessWidget {
 class _DrawerItem extends StatelessWidget {
   final _DrawerItemModel model;
 
-  final Color color;
+  final Color? color;
 
   const _DrawerItem(
     this.model, {
@@ -255,8 +253,8 @@ class _DrawerItem extends StatelessWidget {
               color: model.iconColor,
             ),
             title: Text(
-              getTranslation(context, model.tTitle),
-              style: TextStyle(fontSize: 70.ssp),
+              getTranslation(context, model.tTitle)!,
+              style: TextStyle(fontSize: 70.sp),
             ),
           ),
         ],
@@ -266,12 +264,12 @@ class _DrawerItem extends StatelessWidget {
 }
 
 class _DrawerSectionTitle extends StatelessWidget {
-  final IconData iconData;
+  final IconData? iconData;
 
-  final String title;
+  final String? title;
   const _DrawerSectionTitle({
-    @required this.iconData,
-    @required this.title,
+    required this.iconData,
+    required this.title,
   }) : assert(iconData != null && title != null);
 
   @override
@@ -283,15 +281,15 @@ class _DrawerSectionTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Icon(iconData, size: 120.ssp),
+          Icon(iconData, size: 120.sp),
           const SizedBox(
             width: 10,
           ),
           Expanded(
             flex: 5,
             child: Text(
-              title,
-              style: TextStyle(fontSize: 120.ssp),
+              title!,
+              style: TextStyle(fontSize: 120.sp),
             ),
           ),
         ],

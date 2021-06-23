@@ -6,22 +6,22 @@ import 'package:flutter/material.dart';
 
 @immutable
 class WeatherModel extends Equatable {
-  final String day;
-  final String state;
-  final String iconString;
-  final String title;
-  final String imageUrl;
-  final double highTemp;
-  final double lowTemp;
-  final double pressure;
-  final double humidity;
-  final String description;
-  final List<WeatherModel> fourDayModels;
+  final String? day;
+  final String? state;
+  final String? iconString;
+  final String? title;
+  final String? imageUrl;
+  final double? highTemp;
+  final double? lowTemp;
+  final double? pressure;
+  final double? humidity;
+  final String? description;
+  final List<WeatherModel>? fourDayModels;
   const WeatherModel({
     this.day,
     this.state,
-    @required this.iconString,
-    @required this.title,
+    required this.iconString,
+    required this.title,
     this.imageUrl,
     this.highTemp,
     this.lowTemp,
@@ -33,9 +33,9 @@ class WeatherModel extends Equatable {
   const WeatherModel.withFourDays({
     this.day,
     this.state,
-    @required this.iconString,
-    @required this.title,
-    @required this.fourDayModels,
+    required this.iconString,
+    required this.title,
+    required this.fourDayModels,
     this.imageUrl,
     this.highTemp,
     this.lowTemp,
@@ -45,7 +45,7 @@ class WeatherModel extends Equatable {
   }) : assert(title != null && iconString != null);
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       day,
       state,
@@ -62,17 +62,17 @@ class WeatherModel extends Equatable {
   }
 
   WeatherModel copyWith({
-    String day,
-    String state,
-    String description,
-    String iconString,
-    String title,
-    String imageUrl,
-    double highTemp,
-    double lowTemp,
-    double pressure,
-    double humidity,
-    List<WeatherModel> fourDayModels,
+    String? day,
+    String? state,
+    String? description,
+    String? iconString,
+    String? title,
+    String? imageUrl,
+    double? highTemp,
+    double? lowTemp,
+    double? pressure,
+    double? humidity,
+    List<WeatherModel>? fourDayModels,
   }) {
     return WeatherModel(
       day: day ?? this.day,
@@ -100,56 +100,53 @@ class WeatherModel extends Equatable {
       'pressure': pressure,
       'humidity': humidity,
       'description': description,
-      'fourDayModels': fourDayModels?.map((x) => x?.toMap())?.toList(),
+      'fourDayModels': fourDayModels!.map((x) => x.toMap()).toList(),
     };
   }
 
-  factory WeatherModel.fromMapWithFourDays(Map<String, dynamic> map) {
-    if (map == null) return null;
-    final List<dynamic> fourDays = map['fourDayModels'] as List<dynamic>;
+  factory WeatherModel.fromMapWithFourDays(Map<String, dynamic>? map) {
+    final List<dynamic> fourDays = map?['fourDayModels'] as List<dynamic>;
     final List<WeatherModel> weatherModels = [];
     for (final model in fourDays) {
       weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
     }
     return WeatherModel.withFourDays(
-      day: map['day'] as String,
-      state: map['state'] as String,
-      iconString: map['iconString'] as String,
-      title: map['title'] as String,
-      imageUrl: map['imageUrl'] as String,
-      highTemp: map['highTemp'] as double,
-      lowTemp: map['lowTemp'] as double,
-      pressure: map['pressure'] as double,
-      humidity: map['humidity'] as double,
-      description: map['description'] as String,
+      day: map?['day'] as String?,
+      state: map?['state'] as String?,
+      iconString: map?['iconString'] as String?,
+      title: map?['title'] as String?,
+      imageUrl: map?['imageUrl'] as String?,
+      highTemp: map?['highTemp'] as double?,
+      lowTemp: map?['lowTemp'] as double?,
+      pressure: map?['pressure'] as double?,
+      humidity: map?['humidity'] as double?,
+      description: map?['description'] as String?,
       fourDayModels: weatherModels,
     );
   }
-  factory WeatherModel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
+  factory WeatherModel.fromMap(Map<String, dynamic>? map) {
     return WeatherModel(
-      day: map['day'] as String,
-      state: map['state'] as String,
-      iconString: map['iconString'] as String,
-      title: map['title'] as String,
-      imageUrl: map['imageUrl'] as String,
-      highTemp: map['highTemp'] as double,
-      lowTemp: map['lowTemp'] as double,
-      pressure: map['pressure'] as double,
-      humidity: map['humidity'] as double,
-      description: map['description'] as String,
+      day: map?['day'] as String?,
+      state: map?['state'] as String?,
+      iconString: map?['iconString'] as String?,
+      title: map?['title'] as String?,
+      imageUrl: map?['imageUrl'] as String?,
+      highTemp: map?['highTemp'] as double?,
+      lowTemp: map?['lowTemp'] as double?,
+      pressure: map?['pressure'] as double?,
+      humidity: map?['humidity'] as double?,
+      description: map?['description'] as String?,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory WeatherModel.fromJson(String source) => WeatherModel.fromMap(
-        json.decode(source) as Map<String, dynamic>,
+        json.decode(source) as Map<String, dynamic>?,
       );
   factory WeatherModel.fromJsonWithFourDays(String source) =>
       WeatherModel.fromMapWithFourDays(
-        json.decode(source) as Map<String, dynamic>,
+        json.decode(source) as Map<String, dynamic>?,
       );
 
   @override

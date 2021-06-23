@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class ProfileScreenImage extends StatelessWidget {
   const ProfileScreenImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -10,12 +10,12 @@ Color getRandomColor() {
   return _col.shade700;
 }
 
-Widget buildImage(
-  String imageUrl, {
+Widget? buildImage(
+  String? imageUrl, {
   BoxFit fit = BoxFit.fill,
   bool showPlaceHolder = true,
   Duration fadeIn = const Duration(milliseconds: 500),
-  ColorFilter colorFilter,
+  ColorFilter? colorFilter,
 }) {
   if (imageUrl == null) return null;
   if (imageUrl.contains(".svg")) {
@@ -53,8 +53,8 @@ Widget buildImage(
 AussieUser getCurrentUser(BuildContext context) =>
     Provider.of<AussieUser>(context, listen: false);
 
-String getTranslation(BuildContext context, String key) =>
-    AussieLocalizations.of(context).translate(key);
+String? getTranslation(BuildContext context, String? key) =>
+    AussieLocalizations.of(context)!.translate(key);
 
 SignupBloc getSignupBloc(BuildContext context) =>
     BlocProvider.of<SignupBloc>(context);
@@ -63,14 +63,14 @@ EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
 
 AussieBrightness getPlatformBrightness() {
-  return SchedulerBinding.instance.window.platformBrightness == Brightness.dark
+  return SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
       ? const AussieBrightnessDark()
       : const AussieBrightnessLight();
 }
 
 Future<AussieBrightness> onStartupBrightness() async {
   final _perfs = await SharedPreferences.getInstance();
-  String brightnessString;
+  String? brightnessString;
   AussieBrightness brightness;
   if (_perfs.containsKey("brightness")) {
     brightnessString = _perfs.getString("brightness");
@@ -92,7 +92,7 @@ Future<Locale> onStartupLocale() async {
   final _perfs = await SharedPreferences.getInstance();
   Locale locale;
   if (_perfs.containsKey("lang")) {
-    locale = Locale(_perfs.getString("lang"), '');
+    locale = Locale(_perfs.getString("lang")!, '');
   } else {
     _perfs.setString("lang", "en");
     locale = const Locale('en', '');
@@ -110,7 +110,7 @@ void toggleLanguage(BuildContext context, String currentLanguage) {
           () => ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                getTranslation(context, "languageChangedText"),
+                getTranslation(context, "languageChangedText")!,
               ),
             ),
           ),
@@ -124,7 +124,7 @@ void toggleLanguage(BuildContext context, String currentLanguage) {
           () => ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                getTranslation(context, "languageChangedText"),
+                getTranslation(context, "languageChangedText")!,
               ),
             ),
           ),

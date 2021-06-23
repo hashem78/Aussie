@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class EventCardDescription extends StatelessWidget {
   const EventCardDescription({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -17,11 +17,11 @@ class EventCardDescription extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AutoSizeText(
-            e.title,
+            e.title!,
             style: Theme.of(context).textTheme.headline6,
           ),
           AutoSizeText(
-            e.address,
+            e.address!,
             style: Theme.of(context).textTheme.overline,
           ),
         ],

@@ -8,12 +8,12 @@ class AussieGMap extends StatefulWidget {
   final AussieGMapModel model;
   final Size size;
   AussieGMap({
-    @required this.model,
-    @required this.size,
+    required this.model,
+    required this.size,
   }) : _position = CameraPosition(
           target: LatLng(
-            double.parse(model.latitude),
-            double.parse(model.longitude),
+            double.parse(model.latitude!),
+            double.parse(model.longitude!),
           ),
           zoom: 14,
         );
@@ -40,8 +40,8 @@ class _AussieGMapState extends State<AussieGMap>
           Marker(
             markerId: MarkerId(UniqueKey().toString()),
             position: LatLng(
-              double.parse(widget.model.latitude),
-              double.parse(widget.model.longitude),
+              double.parse(widget.model.latitude!),
+              double.parse(widget.model.longitude!),
             ),
           ),
         },

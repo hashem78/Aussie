@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class EventCreationFormFields extends StatelessWidget {
   const EventCreationFormFields({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

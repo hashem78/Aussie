@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 @immutable
 class WeatherCardChildModel extends Equatable {
   final WeatherModel model;
-  final String title;
+  final String? title;
 
   const WeatherCardChildModel({
-    @required this.model,
+    required this.model,
     this.title,
   });
 
   @override
-  List<Object> get props => [model, title];
+  List<Object?> get props => [model, title];
 }

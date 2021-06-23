@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class EventCardImage extends StatelessWidget {
   const EventCardImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -15,7 +15,7 @@ class EventCardImage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: CachedNetworkImage(
-        imageUrl: e.bannerImage.imageLink,
+        imageUrl: e.bannerImage!.imageLink!,
         fit: BoxFit.fill,
         imageBuilder: (context, imageProvider) {
           return Ink.image(

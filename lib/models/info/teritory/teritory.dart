@@ -1,7 +1,6 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-
-import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'teritory.g.dart';
@@ -13,12 +12,12 @@ part 'teritory.g.dart';
 )
 @immutable
 class TeritoryModel extends Equatable implements IPaginatedData {
-  final String city;
-  final String lat;
-  final String lng;
-  final String population;
+  final String? city;
+  final String? lat;
+  final String? lng;
+  final String? population;
 
-  final String admin;
+  final String? admin;
   const TeritoryModel({
     this.city,
     this.lat,
@@ -28,7 +27,7 @@ class TeritoryModel extends Equatable implements IPaginatedData {
   });
 
   @override
-  List<Object> get props => [city, lat, lng, admin];
+  List<Object?> get props => [city, lat, lng, admin];
   factory TeritoryModel.fromJson(Map<String, dynamic> json) =>
       _$TeritoryModelFromJson(json);
 
