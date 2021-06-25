@@ -12,10 +12,9 @@ class EventLocationPicker extends StatelessWidget {
     return BlocBuilder<LocationPickingCubit, LocationPickingState>(
       builder: (context, state) {
         String? hintText;
-        Locale? locale = const Locale("en");
+        Locale locale = const Locale("en");
         if (state is LocationNotPicked) {
           hintText = getTranslation(context, state.message);
-          locale = null;
         } else if (state is LocationPicked) {
           hintText = state.result.formattedAddress;
           locale = AussieLocalizations.of(context)!.locale;
@@ -35,7 +34,7 @@ class EventLocationPicker extends StatelessWidget {
                           "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
                           displayLocation: const LatLng(-33.8688, 151.2093),
                           localizationItem: LocalizationItem(
-                            languageCode: locale!.languageCode,
+                            languageCode: locale.languageCode,
                             nearBy: getTranslation(
                               context,
                               "locationNearby",

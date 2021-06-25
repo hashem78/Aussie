@@ -51,6 +51,7 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
+          print(languageState);
           return BlocBuilder<BrightnessCubit, AussieBrightness>(
             builder: (context, state) {
               return OrientationBuilder(
