@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:aussie/constants.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class WeatherProvider {
   static const Map<String, List<int>> _icns = {
@@ -33,7 +34,7 @@ class WeatherProvider {
 
     final String query =
         "https://api.openweathermap.org/data/2.5/forecast?lat=${coord.latitude}&lon=${coord.longitude}&units=metric&appid=5017190165cca808a48d1eff54927701";
-    final _response = await http.get(Uri.dataFromString(query));
+    final _response = await http.get(Uri.tryParse(query)!);
 
     if (_response.statusCode == 200) {
       final _decoded = await jsonDecode(_response.body);
@@ -78,6 +79,7 @@ class WeatherProvider {
           _internalMap[3],
           _internalMap[4],
         ];
+
         return UnmodifiableMapView(_firstDay);
       }
       return error;
@@ -87,8 +89,8 @@ class WeatherProvider {
 
   Map<String, dynamic> get error => {"-1": "An error occured"};
   Future<bool> get isConnectedToTheInternet async {
-    // final _status = await DataConnectionChecker().connectionStatus;
-    // if (_status == DataConnectionStatus.connected) return true;
+    final _status = await InternetConnectionChecker().connectionStatus;
+    if (_status == InternetConnectionStatus.connected) return true;
     return false;
   }
 

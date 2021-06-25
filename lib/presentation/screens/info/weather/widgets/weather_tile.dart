@@ -27,7 +27,7 @@ class WeatherTile extends StatelessWidget {
             child: Column(
               children: [
                 AutoSizeText(
-                  showTitle ? model.title! : model.day!,
+                  showTitle ? model.title ?? "Title" : model.day!,
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 100.sp,
@@ -36,7 +36,7 @@ class WeatherTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: BoxedIcon(
-                    WeatherIcons.fromString(model.iconString!),
+                    WeatherIcons.fromString(model.iconString ?? "wi-day-sunny"),
                     size: 150.sp,
                     color: Colors.amber,
                   ),

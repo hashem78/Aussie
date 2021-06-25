@@ -23,8 +23,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
   int modelToBeLoadedIndex = 0;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _pagingController.addPageRequestListener(
       (index) {
         context.read<WeatherCubit>().fetch(_coords[index]);
@@ -56,10 +56,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   child: BlocBuilder<WeatherCubit, WeatherState>(
                     builder: (context, state) {
                       Widget child;
-                      if (state is WeatherLoading) {
-                        child =
-                            Text(getTranslation(context, "weatherFetching")!);
-                      } else if (state is WeatherError) {
+                      if (state is WeatherError) {
                         child = Text(getTranslation(context, "weatherError")!);
                       } else {
                         final String formattedTime =

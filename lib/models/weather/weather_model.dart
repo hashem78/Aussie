@@ -28,8 +28,7 @@ class WeatherModel extends Equatable {
     this.pressure,
     this.humidity,
     this.description,
-  })  : assert(title != null && iconString != null),
-        fourDayModels = null;
+  }) : fourDayModels = null;
   const WeatherModel.withFourDays({
     this.day,
     this.state,
@@ -42,7 +41,7 @@ class WeatherModel extends Equatable {
     this.pressure,
     this.description,
     this.humidity,
-  }) : assert(title != null && iconString != null);
+  });
 
   @override
   List<Object?> get props {
@@ -105,11 +104,15 @@ class WeatherModel extends Equatable {
   }
 
   factory WeatherModel.fromMapWithFourDays(Map<String, dynamic>? map) {
-    final List<dynamic> fourDays = map?['fourDayModels'] as List<dynamic>;
     final List<WeatherModel> weatherModels = [];
-    for (final model in fourDays) {
-      weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
+    if (map?['fourDayModels'] != null) {
+      final List<dynamic> fourDays = map!['fourDayModels'] as List<dynamic>;
+
+      for (final model in fourDays) {
+        weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
+      }
     }
+
     return WeatherModel.withFourDays(
       day: map?['day'] as String?,
       state: map?['state'] as String?,

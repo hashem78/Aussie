@@ -8,6 +8,7 @@ class OnlineWeatherRepository {
   final WeatherProvider _weatherProvider = WeatherProvider();
   Future<WeatherModel> fetch(LatLng coord) async {
     final _fetched = await _weatherProvider.fetch(coord);
+
     return WeatherModel.fromJsonWithFourDays(jsonEncode(_fetched));
   }
 }
