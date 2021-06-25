@@ -70,8 +70,8 @@ class EventLocationPicker extends StatelessWidget {
               ),
               border: InputBorder.none,
               filled: true,
-              hintText: hintText,
-              labelText: getTranslation(context, 'locationStateInitial'),
+              labelText: hintText,
+              hintText: getTranslation(context, 'locationStateInitial'),
             ),
           ),
         );
