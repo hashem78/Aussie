@@ -15,90 +15,87 @@ class WeatherCardChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _weatherModel = model.model;
-    return ColoredBox(
-      color: Colors.yellow,
-      child: Column(
-        children: [
-          Text(
-            _weatherModel.day!,
-            style: TextStyle(
-              fontSize: 150.sp,
-              fontWeight: FontWeight.w900,
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Text(
+          _weatherModel.day!,
+          style: TextStyle(
+            fontSize: 150.sp,
+            fontWeight: FontWeight.w900,
           ),
-          Row(
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            BoxedIcon(
+              WeatherIcons.fromString(_weatherModel.iconString!),
+              size: 200.sp,
+              color: Colors.teal,
+            ),
+            Column(
+              children: [
+                AutoSizeText(
+                  "H ${_weatherModel.highTemp}°C",
+                  maxLines: 1,
+                  style:
+                      TextStyle(fontSize: 120.sp, fontWeight: FontWeight.w600),
+                ),
+                AutoSizeText(
+                  "L ${_weatherModel.lowTemp}°C",
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 120.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        Text(
+          model.title!,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 40),
+        ),
+        Align(
+          alignment: FractionalOffset.bottomLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BoxedIcon(
-                WeatherIcons.fromString(_weatherModel.iconString!),
-                size: 200.sp,
-                color: Colors.teal,
-              ),
-              Expanded(
+              Padding(
+                padding: const EdgeInsets.all(5.0),
                 child: Column(
                   children: [
-                    AutoSizeText(
-                      "H ${_weatherModel.highTemp}°C",
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontSize: 120.sp, fontWeight: FontWeight.w600),
+                    SvgPicture.asset(
+                      'assets/images/humidity.svg',
+                      height: 30,
                     ),
-                    AutoSizeText(
-                      "L ${_weatherModel.lowTemp}°C",
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 120.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue,
-                      ),
+                    Text(
+                      _weatherModel.humidity.toString(),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/images/barometer.svg',
+                      height: 30,
+                    ),
+                    Text(
+                      _weatherModel.pressure.toString(),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          Text(
-            model.title!,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 40),
-          ),
-          Align(
-            alignment: FractionalOffset.bottomLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/humidity.svg',
-                        height: 30,
-                      ),
-                      Text(
-                        _weatherModel.humidity.toString(),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/barometer.svg',
-                        height: 30,
-                      ),
-                      Text(
-                        _weatherModel.pressure.toString(),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

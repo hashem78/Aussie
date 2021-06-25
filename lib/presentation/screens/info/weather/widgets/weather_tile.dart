@@ -17,56 +17,40 @@ class WeatherTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final _today = model;
 
-    return Container(
-      color: Colors.blue.shade700,
-      height: .3.sh,
-      margin: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-      child: Stack(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return WeatherDetails(model: _today);
+            },
+          ),
+        );
+      },
+      child: Column(
         children: [
-          Align(
-            child: Column(
-              children: [
-                AutoSizeText(
-                  showTitle ? model.title ?? "Title" : model.day!,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 100.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Expanded(
-                  child: BoxedIcon(
-                    WeatherIcons.fromString(model.iconString ?? "wi-day-sunny"),
-                    size: 150.sp,
-                    color: Colors.amber,
-                  ),
-                ),
-                AutoSizeText(
-                  "${model.highTemp}°C",
-                  softWrap: true,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 100.sp,
-                    color: Colors.yellow,
-                  ),
-                ),
-              ],
+          AutoSizeText(
+            showTitle ? model.title ?? "Title" : model.day!,
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 150.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return WeatherDetails(model: _today);
-                    },
-                  ),
-                );
-              },
+          BoxedIcon(
+            WeatherIcons.fromString(model.iconString ?? "wi-day-sunny"),
+            size: 250.sp,
+            color: Colors.amber,
+          ),
+          AutoSizeText(
+            "${model.highTemp}°C",
+            softWrap: true,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 150.sp,
+              color: Colors.yellow,
             ),
           ),
         ],

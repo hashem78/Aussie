@@ -13,47 +13,36 @@ class WeatherDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: .5.sh,
-            elevation: 5,
-            forceElevated: true,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(model.title!),
-              centerTitle: true,
-              background: buildImage(kurl),
+      backgroundColor: Colors.lightBlue,
+      appBar: AppBar(
+        elevation: 0,
+        title: Text(model.title!),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: WeatherCard(
+              day: WeatherCardChildModel(
+                model: model,
+                title: model.description,
+              ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                WeatherCard(
-                  day: WeatherCardChildModel(
-                    model: model,
-                    title: model.description,
-                  ),
-                ),
-                AspectRatio(
-                  aspectRatio: 1,
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                    ),
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: model.fourDayModels!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return AbsorbPointer(
-                        child: WeatherTile(model: model.fourDayModels![index]),
-                      );
-                    },
-                  ),
-                ),
-              ],
+          GridView.builder(
+            itemCount: 4,
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
             ),
-          ),
+            itemBuilder: (context, index) {
+              return AbsorbPointer(
+                child: WeatherTile(
+                  model: model.fourDayModels![index],
+                ),
+              );
+            },
+          )
         ],
       ),
     );

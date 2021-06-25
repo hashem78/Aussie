@@ -7,8 +7,9 @@ class WeatherCard extends StatelessWidget {
   final WeatherCardChildModel day;
 
   const WeatherCard({
+    Key? key,
     required this.day,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

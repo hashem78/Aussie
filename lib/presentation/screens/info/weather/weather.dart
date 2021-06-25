@@ -83,7 +83,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       }
                     }
                   },
-                  child: PagedSliverList<int, WeatherModel>(
+                  child: PagedSliverGrid<int, WeatherModel>(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                    ),
                     pagingController: _pagingController,
                     builderDelegate: PagedChildBuilderDelegate(
                       itemBuilder: (context, item, index) {
