@@ -11,17 +11,20 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
   final Widget Function(BuildContext, IPaginatedData, int) itemBuilder;
 
   const SearchablePaginatedScreen({
+    Key? key,
     required this.thumbnailCubitRoute,
     required this.itemBuilder,
     required this.title,
     required this.filterFor,
-  }) : _isList = false;
+  })  : _isList = false,
+        super(key: key);
   const SearchablePaginatedScreen.list({
+    Key? key,
     required this.thumbnailCubitRoute,
     required this.itemBuilder,
     required this.title,
     required this.filterFor,
-  }) : _isList = true;
+  }) : _isList = true,super(key: key);
   @override
   _SearchablePaginatedScreenState<T> createState() =>
       _SearchablePaginatedScreenState<T>();

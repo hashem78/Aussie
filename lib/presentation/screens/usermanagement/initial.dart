@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InitialScreen extends StatelessWidget {
+  const InitialScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserManagementCubit, UserManagementState>(
@@ -25,7 +27,7 @@ class InitialScreen extends StatelessWidget {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) {
-                return InitialUserActionScreen();
+                return const InitialUserActionScreen();
               },
             ),
           );

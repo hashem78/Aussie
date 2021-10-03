@@ -1,10 +1,14 @@
-import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:aussie/util/functions.dart';
+
 class PaginatedSearchBar extends StatelessWidget {
   final void Function(String) onSubmitted;
-  const PaginatedSearchBar({required this.onSubmitted});
+  const PaginatedSearchBar({
+    Key? key,
+    required this.onSubmitted,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(

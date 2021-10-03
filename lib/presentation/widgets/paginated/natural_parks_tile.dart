@@ -1,20 +1,22 @@
-import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
-import 'package:aussie/presentation/widgets/paginated/tile.dart';
-import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
+import 'package:aussie/presentation/widgets/paginated/tile.dart';
+import 'package:aussie/util/functions.dart';
 
 class NaturalParksTile extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
   final void Function()? onTap;
   const NaturalParksTile({
+    Key? key,
     required this.model,
     required this.heroTag,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

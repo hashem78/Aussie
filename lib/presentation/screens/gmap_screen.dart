@@ -7,7 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class AussieGMap extends StatefulWidget {
   final AussieGMapModel model;
   final Size size;
-  AussieGMap({
+  AussieGMap({Key? key, 
     required this.model,
     required this.size,
   }) : _position = CameraPosition(
@@ -16,7 +16,7 @@ class AussieGMap extends StatefulWidget {
             double.parse(model.longitude!),
           ),
           zoom: 14,
-        );
+        ), super(key: key);
 
   final CameraPosition _position;
 

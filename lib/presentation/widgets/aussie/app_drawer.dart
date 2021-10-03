@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:aussie/aussie_imports.dart';
 
-
 @immutable
 class _DrawerItemModel extends Equatable {
   final String navPath;
@@ -53,8 +52,6 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  const AussieAppDrawer();
-
   static const List<_DrawerItemModel> infoModels = [
     _DrawerItemModel(
       navPath: AussieScreenData.faunaNavPath,
@@ -117,6 +114,8 @@ class AussieAppDrawer extends StatelessWidget {
       models: infoModels,
     ),
   ];
+
+  const AussieAppDrawer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -44,8 +44,7 @@ class EventManagementProvider {
           "created": FieldValue.serverTimestamp(),
         },
       );
-      final updateGalleryLinksCallback =
-          (String value, AussieByteData byteData) {
+      updateGalleryLinksCallback(String value, AussieByteData byteData) {
         return batch.update(_firestore.doc(path), {
           "galleryImages": FieldValue.arrayUnion([
             {
@@ -55,9 +54,9 @@ class EventManagementProvider {
             }
           ])
         });
-      };
+      }
 
-      final dlGalleryCallback = (AussieByteData element) async {
+      dlGalleryCallback(AussieByteData element) async {
         final _refG = _storage.ref(path).child(const Uuid().v4());
 
         final _gUploadTask = await _refG.putData(
@@ -65,9 +64,9 @@ class EventManagementProvider {
         );
         final downloadUrl = await _gUploadTask.ref.getDownloadURL();
         updateGalleryLinksCallback(downloadUrl, element);
-      };
+      }
 
-      final updateBannerLinkCallback = (String link, AussieByteData byteData) {
+      updateBannerLinkCallback(String link, AussieByteData byteData) {
         return batch.update(
           _firestore.doc(path),
           {
@@ -78,9 +77,9 @@ class EventManagementProvider {
             }
           },
         );
-      };
+      }
 
-      final dlBannerCallback = (AussieByteData? element) async {
+      dlBannerCallback(AussieByteData? element) async {
         if (element == null) return;
         final _refB = _storage.ref(path).child(const Uuid().v4());
         final _bUploadTask = await _refB.putData(
@@ -88,7 +87,8 @@ class EventManagementProvider {
         );
         final downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl, element);
-      };
+      }
+
       for (final data in model.imageData!) {
         await dlGalleryCallback(data);
       }
@@ -118,11 +118,9 @@ class EventManagementProvider {
           final _docs = _data.docs;
 
           final List<Map<String, dynamic>> _internalList = [];
-          _docs.forEach(
-            (element) {
-              _internalList.add(element.data());
-            },
-          );
+          for (var element in _docs) {
+            _internalList.add(element.data());
+          }
           if (_docs.length < 10) {
             return EventsEndNotification(_internalList);
           }
@@ -139,11 +137,9 @@ class EventManagementProvider {
           final _docs = _data.docs;
 
           final List<Map<String, dynamic>> _internalList = [];
-          _docs.forEach(
-            (element) {
-              _internalList.add(element.data());
-            },
-          );
+          for (var element in _docs) {
+            _internalList.add(element.data());
+          }
           if (_docs.length < 10) {
             return EventsEndNotification(_internalList);
           }
@@ -173,11 +169,9 @@ class EventManagementProvider {
         final _docs = _data.docs;
 
         final List<Map<String, dynamic>> _internalList = [];
-        _docs.forEach(
-          (element) {
-            _internalList.add(element.data());
-          },
-        );
+        for (var element in _docs) {
+          _internalList.add(element.data());
+        }
         if (_docs.length < 10) {
           return EventsEndNotification(_internalList);
         }
@@ -191,11 +185,9 @@ class EventManagementProvider {
         final _docs = _data.docs;
 
         final List<Map<String, dynamic>> _internalList = [];
-        _docs.forEach(
-          (element) {
-            _internalList.add(element.data());
-          },
-        );
+        for (var element in _docs) {
+          _internalList.add(element.data());
+        }
 
         if (_docs.length < 10) {
           return EventsEndNotification(_internalList);

@@ -1,6 +1,7 @@
-import 'package:aussie/util/functions.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aussie/util/functions.dart';
 
 class AussieScaffold extends StatelessWidget {
   final Widget? body;
@@ -9,15 +10,17 @@ class AussieScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final GlobalKey<ScaffoldState>? state;
   final Widget? floatingActionButton;
-
   const AussieScaffold({
+    Key? key,
     this.body,
     this.backgroundColor,
     this.drawer,
     this.appBar,
     this.state,
     this.floatingActionButton,
-  });
+  }) : super(key: key);
+
+ 
 
   @override
   Widget build(BuildContext context) {

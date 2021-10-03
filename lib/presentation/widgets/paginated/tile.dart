@@ -1,5 +1,6 @@
-import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:flutter/material.dart';
+
+import 'package:aussie/models/themes/color_data_model.dart';
 
 class PaginatedScreenTile extends StatelessWidget {
   final Widget title;
@@ -7,14 +8,14 @@ class PaginatedScreenTile extends StatelessWidget {
   final Widget? titleImage;
   final void Function()? onTap;
   final double aspectRatio;
-
   const PaginatedScreenTile({
+    Key? key,
     required this.title,
     this.subtitle,
-    this.onTap,
     this.titleImage,
+    this.onTap,
     this.aspectRatio = 11 / 9,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

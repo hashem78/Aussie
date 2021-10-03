@@ -10,9 +10,11 @@ class AussieThumbnailedAppBar extends StatelessWidget {
   final String? title;
   final double height;
   AussieThumbnailedAppBar({
+    Key? key,
     required this.title,
     double? height,
-  }) : height = height ?? .35.sh;
+  })  : height = height ?? .35.sh,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -11,9 +11,9 @@ class ThumbnailOnlineProivder {
   Future<List<String>> fetch() async {
     final _list = await FirebaseFirestore.instance.collection(route!).get();
     final _internalList = <String?>[];
-    _list.docs.forEach(
-      (element) => _internalList.add(element.data()["image_link"] as String?),
-    );
+    for (var element in _list.docs) {
+      _internalList.add(element.data()["image_link"] as String?);
+    }
     _internalList.shuffle();
     return UnmodifiableListView(List<String>.from(_internalList));
   }

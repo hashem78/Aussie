@@ -2,10 +2,10 @@ import 'package:aussie/aussie_imports.dart';
 
 class SpeciesDetails extends StatelessWidget {
   final SpeciesDetailsModel model;
-
   const SpeciesDetails({
+    Key? key,
     required this.model,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

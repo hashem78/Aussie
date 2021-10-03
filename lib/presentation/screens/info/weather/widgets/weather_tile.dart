@@ -1,17 +1,19 @@
-import 'package:aussie/models/weather/weather_model.dart';
-import 'package:aussie/presentation/screens/info/weather/details.dart';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weather_icons/weather_icons.dart';
+
+import 'package:aussie/models/weather/weather_model.dart';
+import 'package:aussie/presentation/screens/info/weather/details.dart';
 
 class WeatherTile extends StatelessWidget {
   final WeatherModel model;
   final bool showTitle;
-
-  const WeatherTile({required this.model, this.showTitle = false});
+  const WeatherTile({
+    Key? key,
+    required this.model,
+    this.showTitle = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

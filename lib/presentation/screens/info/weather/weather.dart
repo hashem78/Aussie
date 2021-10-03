@@ -1,7 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 
 class WeatherScreen extends StatefulWidget {
-  const WeatherScreen();
+  const WeatherScreen({Key? key}) : super(key: key);
+
   @override
   _WeatherScreenState createState() => _WeatherScreenState();
 }

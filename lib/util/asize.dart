@@ -14,10 +14,10 @@ class ASize {
   String toString() => 'ASize(width: $width, height: $height)';
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is ASize && o.width == width && o.height == height;
+    return other is ASize && other.width == width && other.height == height;
   }
 
   @override

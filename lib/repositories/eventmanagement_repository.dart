@@ -18,22 +18,18 @@ class EventManagementRepository {
         await _provider.fetchUserEvents(prevSnap);
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
-      notification.eventModels!.forEach(
-        (element) {
+      for (var element in notification.eventModels!) {
           models.add(EventModel.fromJson(element));
-        },
-      );
+        }
       return EventsActualNotification(
         models,
         notification.prevsnap,
       );
     } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
-      notification.eventModels.forEach(
-        (element) {
+      for (var element in notification.eventModels) {
           models.add(EventModel.fromJson(element));
-        },
-      );
+        }
       return EventsActualEndNotification(models);
     } else {
       return notification;
@@ -47,22 +43,18 @@ class EventManagementRepository {
         await _provider.fetchPublicEvents(prevSnap);
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
-      notification.eventModels!.forEach(
-        (element) {
+      for (var element in notification.eventModels!) {
           models.add(EventModel.fromJson(element));
-        },
-      );
+        }
       return EventsActualNotification(
         models,
         notification.prevsnap,
       );
     } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
-      notification.eventModels.forEach(
-        (element) {
+      for (var element in notification.eventModels) {
           models.add(EventModel.fromJson(element));
-        },
-      );
+        }
       return EventsActualEndNotification(models);
     } else {
       return notification;

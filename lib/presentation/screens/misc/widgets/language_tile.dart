@@ -1,7 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 
 class LanguageTile extends StatelessWidget {
-  const LanguageTile();
+  const LanguageTile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(

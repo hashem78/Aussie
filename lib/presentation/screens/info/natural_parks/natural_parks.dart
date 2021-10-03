@@ -9,7 +9,8 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class NaturalParksScreen extends StatelessWidget {
-  const NaturalParksScreen();
+  const NaturalParksScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AussieThemeBuilder(

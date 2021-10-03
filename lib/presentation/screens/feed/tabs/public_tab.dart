@@ -1,6 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 
 class PublicEventsTab extends StatefulWidget {
+  const PublicEventsTab({Key? key}) : super(key: key);
+
   @override
   _PublicEventsTabState createState() => _PublicEventsTabState();
 }

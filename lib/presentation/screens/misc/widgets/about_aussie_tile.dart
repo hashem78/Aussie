@@ -2,7 +2,8 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class AboutAussieTile extends StatelessWidget {
-  const AboutAussieTile();
+  const AboutAussieTile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(

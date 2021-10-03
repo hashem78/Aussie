@@ -7,6 +7,8 @@ import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class EventDetails extends StatelessWidget {
+  const EventDetails({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);

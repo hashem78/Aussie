@@ -27,7 +27,7 @@ class _EventCardState extends State<EventCard>
                 Provider.value(value: e),
                 Provider.value(value: u),
               ],
-              child: EventDetails(),
+              child: const EventDetails(),
             ),
           ),
         ),
@@ -81,7 +81,7 @@ class _PublicEventCardState extends State<PublicEventCard>
                   ),
                   Provider.value(value: user),
                 ],
-                child: EventDetails(),
+                child: const EventDetails(),
               ),
             ),
           );

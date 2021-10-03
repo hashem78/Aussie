@@ -1,13 +1,15 @@
-import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:aussie/util/functions.dart';
+
 class SettingsAppbar extends StatelessWidget {
   final String? tTitle;
   const SettingsAppbar({
+    Key? key,
     this.tTitle,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

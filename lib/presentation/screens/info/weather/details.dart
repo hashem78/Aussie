@@ -1,12 +1,17 @@
+import 'package:flutter/material.dart';
+
 import 'package:aussie/models/weather/card_model.dart';
 import 'package:aussie/models/weather/weather_model.dart';
 import 'package:aussie/presentation/screens/info/weather/widgets/weather_card.dart';
 import 'package:aussie/presentation/screens/info/weather/widgets/weather_tile.dart';
-import 'package:flutter/material.dart';
 
 class WeatherDetails extends StatelessWidget {
   final WeatherModel model;
-  const WeatherDetails({required this.model});
+  const WeatherDetails({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

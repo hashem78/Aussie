@@ -1,8 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 
-
 class BrightnessTile extends StatelessWidget {
-  const BrightnessTile();
+  const BrightnessTile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(

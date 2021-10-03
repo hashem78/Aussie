@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/info/teritory/teritory.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
@@ -5,14 +8,11 @@ import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
 import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/widgets/paginated/tile.dart';
-
 import 'package:aussie/util/functions.dart';
-import 'package:flutter/material.dart';
-
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TeritoriesScreen extends StatelessWidget {
-  const TeritoriesScreen();
+  const TeritoriesScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AussieThemeBuilder(
@@ -119,8 +119,10 @@ class TeritoriesScreen extends StatelessWidget {
 class AussieGMapScreen extends StatelessWidget {
   final AussieGMapModel? model;
   const AussieGMapScreen({
+    Key? key,
     this.model,
-  });
+  }) : super(key: key);
+ 
 
   @override
   Widget build(BuildContext context) {

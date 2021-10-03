@@ -17,7 +17,7 @@ class SignoutTile extends StatelessWidget {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (context) {
-                return InitialUserActionScreen();
+                return const InitialUserActionScreen();
               },
             ),
             (route) => false,

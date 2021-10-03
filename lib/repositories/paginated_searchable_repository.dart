@@ -37,25 +37,25 @@ class PaginatedRepositoy<T extends IPaginatedData> {
     } else {
       final List<IPaginatedData> _q = [];
       if (T == NaturalParkModel) {
-        response.entries.forEach((element) {
+        for (var element in response.entries) {
           _q.add(
             NaturalParkModel.fromJson(element.value as Map<String, dynamic>),
           );
-        });
+        }
       } else if (T == TeritoryModel) {
-        response.entries.forEach((element) {
+        for (var element in response.entries) {
           _q.add(
             TeritoryModel.fromJson(element.value as Map<String, dynamic>),
           );
-        });
+        }
       } else if (T == SpeciesDetailsModel) {
-        response.entries.forEach((element) {
+        for (var element in response.entries) {
           _q.add(
             SpeciesDetailsModel.fromJson(
               element.value as Map<String, dynamic>,
             ),
           );
-        });
+        }
       }
       return _q;
     }

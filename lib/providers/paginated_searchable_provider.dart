@@ -22,10 +22,10 @@ class PaginatedOnlineDataProvider {
         )
         .get();
 
-    queries.docs.forEach((element) {
+    for (var element in queries.docs) {
       final mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
-    });
+    }
     return UnmodifiableMapView(_internalMap);
   }
 
@@ -52,10 +52,10 @@ class PaginatedOnlineDataProvider {
         )
         .get();
 
-    queries.docs.forEach((element) {
+    for (var element in queries.docs) {
       final mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
-    });
+    }
     return UnmodifiableMapView(_internalMap);
   }
 }

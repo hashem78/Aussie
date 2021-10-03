@@ -33,7 +33,11 @@ class MyApp extends StatelessWidget {
 
   final Locale locale;
 
-  const MyApp(this.brightness, this.locale);
+  const MyApp(
+    this.brightness,
+    this.locale, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +88,7 @@ class MyApp extends StatelessWidget {
                         home: BlocProvider(
                           create: (context) =>
                               UserManagementCubit()..isUserSignedIn(),
-                          child: SafeArea(
+                          child: const SafeArea(
                             child: InitialScreen(),
                           ),
                         ),
@@ -138,17 +142,17 @@ class MyApp extends StatelessWidget {
       return BlocProvider(
         create: (BuildContext context) =>
             PaginatedCubit<SpeciesDetailsModel>("fauna"),
-        child: FaunaScreen(),
+        child: const FaunaScreen(),
       );
     },
     AussieScreenData.floraNavPath: (BuildContext context) {
       return BlocProvider(
         create: (BuildContext context) =>
             PaginatedCubit<SpeciesDetailsModel>("flora"),
-        child: FloraScreen(),
+        child: const FloraScreen(),
       );
     },
     AussieScreenData.settingsNavPath: (BuildContext context) =>
-        SettingsScreen(),
+        const SettingsScreen(),
   };
 }

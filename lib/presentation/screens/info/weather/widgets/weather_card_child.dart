@@ -1,17 +1,20 @@
-import 'package:aussie/models/weather/card_model.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_icons/weather_icons.dart';
 
+import 'package:aussie/models/weather/card_model.dart';
+
 class WeatherCardChild extends StatelessWidget {
   final Color? color;
   final WeatherCardChildModel model;
   const WeatherCardChild({
+    Key? key,
     this.color,
     required this.model,
-  });
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _weatherModel = model.model;

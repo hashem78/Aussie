@@ -4,6 +4,8 @@ import 'package:aussie/presentation/screens/feed/feed.dart';
 class SingupScreen extends StatelessWidget {
   final ValueNotifier<String> profileImage = ValueNotifier("");
 
+  SingupScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

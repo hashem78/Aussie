@@ -53,12 +53,12 @@ abstract class AussieColor {
   });
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is AussieColor &&
-        o.swatchColor == swatchColor &&
-        o.backgroundColor == backgroundColor;
+    return other is AussieColor &&
+        other.swatchColor == swatchColor &&
+        other.backgroundColor == backgroundColor;
   }
 
   @override
@@ -88,10 +88,11 @@ class AussieThemeBuilder extends StatelessWidget {
   ) builder;
 
   const AussieThemeBuilder({
+    Key? key,
     required this.dark,
     required this.light,
     required this.builder,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +125,11 @@ class AussieThemeBuilder extends StatelessWidget {
 class AussieThemeProvider extends InheritedWidget {
   final AussieColor color;
 
-  const AussieThemeProvider({required Widget child, required this.color})
-      : super(child: child);
+  const AussieThemeProvider({
+    Key? key,
+    required Widget child,
+    required this.color,
+  }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(covariant AussieThemeProvider oldWidget) =>

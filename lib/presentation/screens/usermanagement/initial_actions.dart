@@ -2,6 +2,8 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 
 class InitialUserActionScreen extends StatefulWidget {
+  const InitialUserActionScreen({Key? key}) : super(key: key);
+
   @override
   _InitialUserActionScreenState createState() =>
       _InitialUserActionScreenState();

@@ -13,6 +13,7 @@ class ExpandingTextTile extends StatefulWidget {
   final TextOverflow overflow;
   final Color expandedTextColor;
   const ExpandingTextTile({
+    Key? key,
     Color? color,
     required this.title,
     required this.text,
@@ -27,7 +28,8 @@ class ExpandingTextTile extends StatefulWidget {
               fontSize: 40,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
-            );
+            ),
+        super(key: key);
 
   @override
   _ExpandingTextTileState createState() => _ExpandingTextTileState();

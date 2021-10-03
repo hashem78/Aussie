@@ -1,21 +1,23 @@
+import 'package:expand_widget/expand_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/util/functions.dart';
-import 'package:expand_widget/expand_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NaturalParksDetailsScreen extends StatelessWidget {
   final NaturalParkModel model;
   final String heroTag;
-
   const NaturalParksDetailsScreen({
+    Key? key,
     required this.model,
     required this.heroTag,
-  });
+  }) : super(key: key);
 
+ 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

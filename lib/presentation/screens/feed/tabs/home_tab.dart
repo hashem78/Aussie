@@ -1,6 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 
 class HomeEventsTab extends StatefulWidget {
+  const HomeEventsTab({Key? key}) : super(key: key);
+
   @override
   _HomeEventsTabState createState() => _HomeEventsTabState();
 }

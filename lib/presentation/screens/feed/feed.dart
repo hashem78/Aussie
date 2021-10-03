@@ -2,7 +2,8 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:flutter/scheduler.dart';
 
 class FeedScreen extends StatelessWidget {
-  const FeedScreen();
+  const FeedScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -52,11 +53,11 @@ class FeedScreen extends StatelessWidget {
                       children: [
                         BlocProvider(
                           create: (context) => EventManagementCubit(),
-                          child: HomeEventsTab(),
+                          child: const HomeEventsTab(),
                         ),
                         BlocProvider(
                           create: (context) => EventManagementCubit(),
-                          child: PublicEventsTab(),
+                          child: const PublicEventsTab(),
                         ),
                       ],
                     ),
