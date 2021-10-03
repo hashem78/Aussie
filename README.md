@@ -3,8 +3,8 @@
 - [Aussie](#aussie)
 - [The Idea](#the-idea)
 - [Technical Details](#technical-details)
+- [How to Build](#how-to-build)
 - [Screenshots](#screenshots)
-
 # Aussie
 
 Aussie originally started as a submission for a competition hosted by the Australian embassy in Jordan with partnership from the Jordan University of Science and Technology (JUST), now I plan to continue working on Aussie as a pet project to perhaps one day distribute it on platform app stores.
@@ -36,6 +36,15 @@ Since this is a pet project I am using it as a basis to learn and close gaps in 
 - Forms by FormBloc (Used for signing in/up and event creation).
 - Animations using the animations package.
 - Persistent state is handeled with SharedPrefrences.
+
+# How to Build
+```
+git clone https://github.com/hashem78/Aussie.git aussie
+cd aussie
+flutter pub get
+flutter pub run build_runner build --delete-conflicting-outputs
+flutter run
+```
 
 # Screenshots
 
