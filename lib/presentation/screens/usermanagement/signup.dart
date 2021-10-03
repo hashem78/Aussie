@@ -11,18 +11,9 @@ class SingupScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
-        child: BlocBuilder<NetworkingCubit, NetworkingState>(
-          builder: (context, state) {
-            Color? color;
-            if (state is NetworkingUnavailable) {
-              color = Colors.red;
-            }
-            return AppBar(
-              elevation: 0,
-              backgroundColor: color,
-              title: Text(getTranslation(context, "signup2ButtonText")!),
-            );
-          },
+        child: AppBar(
+          elevation: 0,
+          title: Text(getTranslation(context, "signup2ButtonText")!),
         ),
       ),
       body: FormBlocListener<SignupBloc, String, String>(
@@ -130,35 +121,27 @@ class SingupScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        BlocBuilder<NetworkingCubit, NetworkingState>(
-                          builder: (context, state) {
-                            void Function()? callback = () {
-                              // ignore: close_sinks
-                              final signupBloc = getSignupBloc(context);
-                              FocusManager.instance.primaryFocus!.unfocus();
-                              signupBloc.submit();
-                              BlocProvider.of<UserManagementCubit>(context)
-                                  .signup(
-                                SignupModel(
-                                  email: signupBloc.email.value,
-                                  password: signupBloc.password.value,
-                                  profileImagePath: profileImage.value,
-                                  username: signupBloc.userName.value,
-                                  fullname: signupBloc.fullName.value,
-                                ),
-                              );
-                            };
-                            if (state is NetworkingUnavailable) {
-                              callback = null;
-                            }
-                            return TextButton(
-                              onPressed: callback,
-                              child: AutoSizeText(
-                                getTranslation(context, "signup2ButtonText")!,
-                                style: TextStyle(fontSize: 85.sp),
+                        TextButton(
+                          onPressed: () {
+                            // ignore: close_sinks
+                            final signupBloc = getSignupBloc(context);
+                            FocusManager.instance.primaryFocus!.unfocus();
+                            signupBloc.submit();
+                            BlocProvider.of<UserManagementCubit>(context)
+                                .signup(
+                              SignupModel(
+                                email: signupBloc.email.value,
+                                password: signupBloc.password.value,
+                                profileImagePath: profileImage.value,
+                                username: signupBloc.userName.value,
+                                fullname: signupBloc.fullName.value,
                               ),
                             );
                           },
+                          child: AutoSizeText(
+                            getTranslation(context, "signup2ButtonText")!,
+                            style: TextStyle(fontSize: 85.sp),
+                          ),
                         ),
                       ],
                     ),

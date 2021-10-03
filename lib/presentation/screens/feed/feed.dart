@@ -24,26 +24,17 @@ class FeedScreen extends StatelessWidget {
                 double.infinity,
                 tabBar.preferredSize.height + kToolbarHeight,
               ),
-              child: BlocBuilder<NetworkingCubit, NetworkingState>(
-                builder: (context, state) {
-                  Color? color;
-                  if (state is NetworkingUnavailable) {
-                    color = Colors.red;
-                  }
-                  return AppBar(
-                    backgroundColor: color,
-                    centerTitle: true,
-                    title: AutoSizeText(
-                      getTranslation(context, "feedScreenTitle")!,
-                      style: TextStyle(
-                        fontSize: 100.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    elevation: 0,
-                    bottom: tabBar,
-                  );
-                },
+              child: AppBar(
+                centerTitle: true,
+                title: AutoSizeText(
+                  getTranslation(context, "feedScreenTitle")!,
+                  style: TextStyle(
+                    fontSize: 100.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                elevation: 0,
+                bottom: tabBar,
               ),
             ),
             body: state is UserMangementHasUserData

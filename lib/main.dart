@@ -7,23 +7,10 @@ Future<void> main() async {
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-  final NetworkingCubit networkingCubit = NetworkingCubit();
-  // DataConnectionChecker().onStatusChange.listen(
-  //   (DataConnectionStatus event) {
-  //     if (event == DataConnectionStatus.connected) {
-  //       networkingCubit.emitAvail();
-  //     } else {
-  //       networkingCubit.emitUnavail();
-  //     }
-  //   },
-  // );
   runApp(
-    BlocProvider.value(
-      value: networkingCubit,
-      child: MyApp(
-        await onStartupBrightness(),
-        await onStartupLocale(),
-      ),
+    MyApp(
+      await onStartupBrightness(),
+      await onStartupLocale(),
     ),
   );
 }
