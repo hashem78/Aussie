@@ -7,7 +7,6 @@ import 'package:aussie/util/jpeg_decoder.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';

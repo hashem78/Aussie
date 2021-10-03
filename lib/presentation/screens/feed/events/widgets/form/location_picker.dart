@@ -1,5 +1,4 @@
 import 'package:aussie/aussie_imports.dart';
-import 'package:flutter/material.dart';
 import 'package:place_picker/entities/localization_item.dart';
 
 class EventLocationPicker extends StatelessWidget {

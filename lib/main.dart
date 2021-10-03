@@ -5,7 +5,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
 
-  SystemChrome.setEnabledSystemUIOverlays([]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   final NetworkingCubit networkingCubit = NetworkingCubit();
   // DataConnectionChecker().onStatusChange.listen(

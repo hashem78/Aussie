@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:aussie/aussie_imports.dart';
 
-import 'package:cached_network_image/cached_network_image.dart';
 
 @immutable
 class _DrawerItemModel extends Equatable {

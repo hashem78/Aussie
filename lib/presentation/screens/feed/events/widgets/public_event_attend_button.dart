@@ -1,5 +1,4 @@
 import 'package:aussie/aussie_imports.dart';
-import 'package:flutter/material.dart';
 
 class PublicAttendButton extends StatelessWidget {
   const PublicAttendButton({
