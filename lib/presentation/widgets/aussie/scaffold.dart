@@ -20,8 +20,6 @@ class AussieScaffold extends StatelessWidget {
     this.floatingActionButton,
   }) : super(key: key);
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -68,21 +68,20 @@ class _FeedAnimatedFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AussieBrightness b =
-        context.watch<BrightnessCubit>().currentBrightness;
+    final ThemeMode b = context.watch<ThemeModeCubit>().state;
     Color? color;
-    if (b is AussieBrightnessSystem) {
+    if (b == ThemeMode.system) {
       color = SchedulerBinding.instance!.window.platformBrightness ==
               Brightness.dark
           ? Colors.white
           : Colors.blue;
-    } else if (b is AussieBrightnessLight) {
+    } else if (b == ThemeMode.light) {
       color = Colors.blue;
-    } else if (b is AussieBrightnessDark) {
+    } else if (b == ThemeMode.dark) {
       color = Colors.white;
     }
 
-    return BlocBuilder<BrightnessCubit, AussieBrightness>(
+    return BlocBuilder<ThemeModeCubit, ThemeMode>(
       builder: (context, state) {
         return OpenContainer(
           closedShape: const RoundedRectangleBorder(),

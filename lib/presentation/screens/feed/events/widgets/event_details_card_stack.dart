@@ -17,7 +17,8 @@ class EventCardStack extends StatelessWidget {
     final EventModel e = getEventModel(context);
     final DateTime begin =
         DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp!);
-    final DateTime end = DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
+    final DateTime end =
+        DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
     final formattedBeginDate = DateFormat("dd/MM/yyyy").format(begin);
     final formattedEndDate = DateFormat("dd/MM/yyyy").format(end);
     final formattedBeginTime = DateFormat("hh:mm:ss").format(begin);

@@ -17,7 +17,6 @@ class NaturalParksDetailsScreen extends StatelessWidget {
     required this.heroTag,
   }) : super(key: key);
 
- 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

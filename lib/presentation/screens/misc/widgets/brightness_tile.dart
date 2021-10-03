@@ -3,6 +3,16 @@ import 'package:aussie/aussie_imports.dart';
 class BrightnessTile extends StatelessWidget {
   const BrightnessTile({Key? key}) : super(key: key);
 
+  String getThemeModeAsString(ThemeMode themeMode) {
+    if (themeMode == ThemeMode.system) {
+      return 'brightnessSystemTitle';
+    } else if (themeMode == ThemeMode.dark) {
+      return 'brightnessDarkTitle';
+    } else {
+      return 'brightnessLightTitle';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -12,7 +22,7 @@ class BrightnessTile extends StatelessWidget {
         subtitle: Text(
           getTranslation(
             context,
-            context.watch<BrightnessCubit>().currentBrightnessString,
+            getThemeModeAsString(context.watch<ThemeModeCubit>().state),
           )!,
         ),
         contentPadding: const EdgeInsets.all(5.0),
@@ -20,38 +30,38 @@ class BrightnessTile extends StatelessWidget {
           showDialog(
             context: context,
             builder: (context) {
-              final AussieBrightness currentSetting =
-                  context.watch<BrightnessCubit>().currentBrightness;
+              final ThemeMode currentSetting =
+                  context.watch<ThemeModeCubit>().state;
               return Dialog(
                 child: ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    RadioListTile<AussieBrightness>(
-                      value: const AussieBrightnessSystem(),
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.system,
                       groupValue: currentSetting,
                       title: Text(
                           getTranslation(context, 'brightnessSystemTitle')!),
                       onChanged: (val) {
-                        context.read<BrightnessCubit>().changeToSystem();
+                        context.read<ThemeModeCubit>().changeToSystem();
                       },
                     ),
-                    RadioListTile<AussieBrightness>(
-                      value: const AussieBrightnessLight(),
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.light,
                       groupValue: currentSetting,
                       title: Text(
                           getTranslation(context, 'brightnessLightTitle')!),
                       onChanged: (val) {
-                        context.read<BrightnessCubit>().changeToLight();
+                        context.read<ThemeModeCubit>().changeToLight();
                       },
                     ),
-                    RadioListTile<AussieBrightness>(
-                      value: const AussieBrightnessDark(),
+                    RadioListTile<ThemeMode>(
+                      value: ThemeMode.dark,
                       groupValue: currentSetting,
                       title:
                           Text(getTranslation(context, 'brightnessDarkTitle')!),
                       onChanged: (val) {
-                        context.read<BrightnessCubit>().changeToDark();
+                        context.read<ThemeModeCubit>().changeToDark();
                       },
                     ),
                   ],

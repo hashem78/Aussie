@@ -19,8 +19,8 @@ class EventManagementRepository {
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
       for (var element in notification.eventModels!) {
-          models.add(EventModel.fromJson(element));
-        }
+        models.add(EventModel.fromJson(element));
+      }
       return EventsActualNotification(
         models,
         notification.prevsnap,
@@ -28,8 +28,8 @@ class EventManagementRepository {
     } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
       for (var element in notification.eventModels) {
-          models.add(EventModel.fromJson(element));
-        }
+        models.add(EventModel.fromJson(element));
+      }
       return EventsActualEndNotification(models);
     } else {
       return notification;
@@ -44,8 +44,8 @@ class EventManagementRepository {
     if (notification is EventModelsNotification) {
       final List<EventModel> models = [];
       for (var element in notification.eventModels!) {
-          models.add(EventModel.fromJson(element));
-        }
+        models.add(EventModel.fromJson(element));
+      }
       return EventsActualNotification(
         models,
         notification.prevsnap,
@@ -53,8 +53,8 @@ class EventManagementRepository {
     } else if (notification is EventsEndNotification) {
       final List<EventModel> models = [];
       for (var element in notification.eventModels) {
-          models.add(EventModel.fromJson(element));
-        }
+        models.add(EventModel.fromJson(element));
+      }
       return EventsActualEndNotification(models);
     } else {
       return notification;

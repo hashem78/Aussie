@@ -122,7 +122,6 @@ class AussieGMapScreen extends StatelessWidget {
     Key? key,
     this.model,
   }) : super(key: key);
- 
 
   @override
   Widget build(BuildContext context) {

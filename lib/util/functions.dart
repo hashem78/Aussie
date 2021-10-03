@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:aussie/aussie_imports.dart';
-import 'package:flutter/scheduler.dart';
 
 Color getRandomColor() {
   final _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
@@ -61,16 +60,10 @@ SignupBloc getSignupBloc(BuildContext context) =>
 EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
 
-AussieBrightness getPlatformBrightness() {
-  return SchedulerBinding.instance!.window.platformBrightness == Brightness.dark
-      ? const AussieBrightnessDark()
-      : const AussieBrightnessLight();
-}
-
-Future<AussieBrightness> onStartupBrightness() async {
+Future<ThemeMode> onStartupBrightness() async {
   final _perfs = await SharedPreferences.getInstance();
   String? brightnessString;
-  AussieBrightness brightness;
+  ThemeMode brightness;
   if (_perfs.containsKey("brightness")) {
     brightnessString = _perfs.getString("brightness");
   } else {
@@ -78,11 +71,11 @@ Future<AussieBrightness> onStartupBrightness() async {
     _perfs.setString("brightness", brightnessString);
   }
   if (brightnessString == 'system') {
-    brightness = const AussieBrightnessSystem();
+    brightness = ThemeMode.system;
   } else if (brightnessString == 'light') {
-    brightness = const AussieBrightnessLight();
+    brightness = ThemeMode.light;
   } else {
-    brightness = const AussieBrightnessDark();
+    brightness = ThemeMode.dark;
   }
   return brightness;
 }

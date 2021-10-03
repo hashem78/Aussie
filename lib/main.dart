@@ -16,7 +16,7 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final AussieBrightness brightness;
+  final ThemeMode brightness;
 
   final Locale locale;
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => BrightnessCubit(
+          create: (BuildContext context) => ThemeModeCubit(
             brightness,
           ),
         ),
@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, languageState) {
-          return BlocBuilder<BrightnessCubit, AussieBrightness>(
-            builder: (context, state) {
+          return BlocBuilder<ThemeModeCubit, ThemeMode>(
+            builder: (context, themeState) {
               return OrientationBuilder(
                 builder: (context, orientation) {
                   Size size;
@@ -79,8 +79,8 @@ class MyApp extends StatelessWidget {
                             child: InitialScreen(),
                           ),
                         ),
+                        themeMode: themeState,
                         theme: ThemeData(
-                          brightness: state.asMaterialBrightness,
                           pageTransitionsTheme: const PageTransitionsTheme(
                             builders: <TargetPlatform, PageTransitionsBuilder>{
                               TargetPlatform.android:

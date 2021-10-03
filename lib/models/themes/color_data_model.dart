@@ -96,9 +96,9 @@ class AussieThemeBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BrightnessCubit, AussieBrightness>(
+    return BlocBuilder<ThemeModeCubit, ThemeMode>(
       builder: (context, state) {
-        if (state.asMaterialBrightness == Brightness.light) {
+        if (state == ThemeMode.light) {
           return AussieThemeProvider(
             color: light,
             child: Builder(

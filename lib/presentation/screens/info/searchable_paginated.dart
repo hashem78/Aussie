@@ -24,7 +24,8 @@ class SearchablePaginatedScreen<T extends IPaginatedData>
     required this.itemBuilder,
     required this.title,
     required this.filterFor,
-  }) : _isList = true,super(key: key);
+  })  : _isList = true,
+        super(key: key);
   @override
   _SearchablePaginatedScreenState<T> createState() =>
       _SearchablePaginatedScreenState<T>();
