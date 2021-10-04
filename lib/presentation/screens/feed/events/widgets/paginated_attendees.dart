@@ -75,8 +75,9 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
               context.read<AttendeesCubit>().reset();
               pagingController.refresh();
             },
-            child: PagedListView(
+            child: PagedListView<int, String>(
               pagingController: pagingController,
+              padding: const EdgeInsets.all(16.0),
               builderDelegate: PagedChildBuilderDelegate<String>(
                 itemBuilder: (context, item, index) {
                   return BlocProvider(

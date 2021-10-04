@@ -183,7 +183,9 @@ class _DrawerHeader extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
                       create: (context) => UserManagementCubit()..getUserData(),
-                      child: const UserProfileScreen(),
+                      child: const UserProfileScreen(
+                        allowEventCreation: true,
+                      ),
                     ),
                   ),
                 );
@@ -237,26 +239,23 @@ class _DrawerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 5),
-      child: Stack(
-        children: [
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pushNamed(model.navPath);
-            },
-            leading: SvgPicture.asset(
-              "assets/images/${model.svgName}",
-              height: 25,
-              color: model.iconColor,
-            ),
-            title: Text(
-              getTranslation(context, model.tTitle)!,
-              style: TextStyle(fontSize: 70.sp),
-            ),
+    return Stack(
+      children: [
+        ListTile(
+          onTap: () {
+            Navigator.of(context).pushNamed(model.navPath);
+          },
+          leading: SvgPicture.asset(
+            "assets/images/${model.svgName}",
+            height: 30,
+            color: model.iconColor,
           ),
-        ],
-      ),
+          title: Text(
+            getTranslation(context, model.tTitle)!,
+            style: TextStyle(fontSize: 80.sp),
+          ),
+        ),
+      ],
     );
   }
 }

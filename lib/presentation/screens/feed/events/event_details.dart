@@ -49,14 +49,16 @@ class EventDetailsMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const EventCardStack(),
-        buildTitle(context, getTranslation(context, "description")!),
-        const EventDetailsDescriptionCard(),
-      ],
-    ));
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const EventCardStack(),
+          buildTitle(context, getTranslation(context, "description")!),
+          const EventDetailsDescriptionCard(),
+        ],
+      ),
+    );
   }
 
   Padding buildTitle(BuildContext context, String text) {

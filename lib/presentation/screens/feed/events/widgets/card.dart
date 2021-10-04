@@ -35,7 +35,6 @@ class _EventCardState extends State<EventCard>
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: const [
-              CardOwner(),
               EventCardImage(),
               EventCardDetails(),
             ],

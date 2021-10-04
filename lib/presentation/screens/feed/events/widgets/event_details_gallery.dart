@@ -21,6 +21,7 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
 
     return ListView.builder(
       itemCount: e.galleryImages!.length,
+      padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, index) {
         return AspectRatio(
           aspectRatio: 16 / 9,

@@ -36,6 +36,32 @@ class EventManagementRepository {
     }
   }
 
+  Future<EventManagementNotification> fetchEventsForUser(
+    String uid,
+    DocumentSnapshot? prevSnap,
+  ) async {
+    final EventManagementNotification notification =
+        await _provider.fetchEventsForUser(uid, prevSnap);
+    if (notification is EventModelsNotification) {
+      final List<EventModel> models = [];
+      for (var element in notification.eventModels!) {
+        models.add(EventModel.fromJson(element));
+      }
+      return EventsActualNotification(
+        models,
+        notification.prevsnap,
+      );
+    } else if (notification is EventsEndNotification) {
+      final List<EventModel> models = [];
+      for (var element in notification.eventModels) {
+        models.add(EventModel.fromJson(element));
+      }
+      return EventsActualEndNotification(models);
+    } else {
+      return notification;
+    }
+  }
+
   Future<EventManagementNotification> fetchPublicEvents(
     DocumentSnapshot? prevSnap,
   ) async {

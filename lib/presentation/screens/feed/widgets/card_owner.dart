@@ -27,7 +27,9 @@ class _CardOwnerState extends State<CardOwner>
                     builder: (context) => BlocProvider(
                       create: (context) => UserManagementCubit()
                         ..getUserDataFromUid(state.user.uid),
-                      child: const UserProfileScreen(),
+                      child: const UserProfileScreen(
+                        allowEventCreation: false,
+                      ),
                     ),
                   ),
                 );

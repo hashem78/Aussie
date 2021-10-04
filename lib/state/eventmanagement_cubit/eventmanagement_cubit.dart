@@ -44,6 +44,22 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
+  void fetchEventsForUser({
+    required String uid,
+    DocumentSnapshot? lastdoc,
+  }) {
+    _repository.fetchEventsForUser(uid, lastdoc).then(
+      (value) {
+        if (value is EventsActualNotification) {
+          prevSnap = value.prevSnap;
+          emit(EventManagementEventsFetched(value.models));
+        } else if (value is EventsActualEndNotification) {
+          emit(EventManagementEndEventsFetched(value.models));
+        }
+      },
+    );
+  }
+
   void fetchPublicEvents({DocumentSnapshot? lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
       (value) {
