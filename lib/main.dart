@@ -16,12 +16,12 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeMode brightness;
+  final ThemeMode themeMode;
 
   final Locale locale;
 
   const MyApp(
-    this.brightness,
+    this.themeMode,
     this.locale, {
     Key? key,
   }) : super(key: key);
@@ -31,9 +31,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => ThemeModeCubit(
-            brightness,
-          ),
+          create: (BuildContext context) => ThemeModeCubit(themeMode),
         ),
         BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
         BlocProvider(create: (BuildContext context) => UserManagementCubit()),
