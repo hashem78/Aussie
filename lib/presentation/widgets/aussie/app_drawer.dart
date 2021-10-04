@@ -278,7 +278,7 @@ class _DrawerSectionTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Icon(iconData, size: 120.sp),
+          Icon(iconData, size: 140.sp),
           const SizedBox(
             width: 10,
           ),
