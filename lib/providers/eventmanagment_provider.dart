@@ -102,66 +102,12 @@ class EventManagementProvider {
     return const SuccessNotification();
   }
 
-  Future<EventManagementNotification> fetchUserEvents(
-    DocumentSnapshot? documentSnapshot,
-  ) async {
-    try {
-      if (_auth.currentUser != null) {
-        final String uid = _auth.currentUser!.uid;
-        if (documentSnapshot != null) {
-          final _data = await _firestore
-              .collection("users/$uid/events")
-              .orderBy("eventId")
-              .startAfterDocument(documentSnapshot)
-              .limit(10)
-              .get();
-          final _docs = _data.docs;
-
-          final List<Map<String, dynamic>> _internalList = [];
-          for (var element in _docs) {
-            _internalList.add(element.data());
-          }
-          if (_docs.length < 10) {
-            return EventsEndNotification(_internalList);
-          }
-          return EventModelsNotification(
-            eventModels: UnmodifiableListView(_internalList),
-            prevsnap: _docs.last,
-          );
-        } else {
-          final _data = await _firestore
-              .collection("users/$uid/events")
-              .orderBy("eventId")
-              .limit(10)
-              .get();
-          final _docs = _data.docs;
-
-          final List<Map<String, dynamic>> _internalList = [];
-          for (var element in _docs) {
-            _internalList.add(element.data());
-          }
-          if (_docs.length < 10) {
-            return EventsEndNotification(_internalList);
-          }
-
-          return EventModelsNotification(
-            eventModels: UnmodifiableListView(_internalList),
-            prevsnap: _docs.last,
-          );
-        }
-      }
-      return const EventModelsNotification();
-    } catch (e) {
-      return const ErrorNotification();
-    }
-  }
-
   Future<EventManagementNotification> fetchEventsForUser(
     String uid,
     DocumentSnapshot? documentSnapshot,
   ) async {
     try {
-      if (documentSnapshot != null) {  
+      if (documentSnapshot != null) {
         final _data = await _firestore
             .collection("users/$uid/events")
             .orderBy("eventId")
@@ -202,7 +148,6 @@ class EventManagementProvider {
           prevsnap: _docs.last,
         );
       }
-
     } catch (e) {
       return const ErrorNotification();
     }
