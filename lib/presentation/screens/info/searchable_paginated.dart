@@ -127,7 +127,8 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
           height: 100,
           child: Center(
             child: Text(
-                getTranslation(context, "searchablePaginatedNoItemsFound")!),
+              getTranslation(context, "searchablePaginatedNoItemsFound"),
+            ),
           ),
         ),
       ),
@@ -143,7 +144,8 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
           height: 100,
           child: Center(
             child: Text(
-                getTranslation(context, "searchablePaginatedNoItemsFound")!),
+              getTranslation(context, "searchablePaginatedNoItemsFound"),
+            ),
           ),
         ),
       ),

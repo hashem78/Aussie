@@ -10,8 +10,8 @@ class AussieLocalizations {
 
   final Locale locale;
 
-  static AussieLocalizations? of(BuildContext context) {
-    return Localizations.of<AussieLocalizations>(context, AussieLocalizations);
+  static AussieLocalizations of(BuildContext context) {
+    return Localizations.of<AussieLocalizations>(context, AussieLocalizations)!;
   }
 
   late Map<String, String> _localizedStrings;
@@ -24,8 +24,8 @@ class AussieLocalizations {
     _localizedStrings = Map<String, String>.from(_map);
   }
 
-  String? translate(String? key) {
-    return _localizedStrings[key!];
+  String translate(String key) {
+    return _localizedStrings[key]!;
   }
 }
 

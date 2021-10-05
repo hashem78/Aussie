@@ -58,7 +58,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     builder: (context, state) {
                       Widget child;
                       if (state is WeatherError) {
-                        child = Text(getTranslation(context, "weatherError")!);
+                        child = Text(getTranslation(context, "weatherError"));
                       } else {
                         final String formattedTime =
                             DateFormat("dd-MM-YY hh:mm").format(DateTime.now());

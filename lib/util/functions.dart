@@ -51,8 +51,8 @@ Widget? buildImage(
 AussieUser getCurrentUser(BuildContext context) =>
     Provider.of<AussieUser>(context, listen: false);
 
-String? getTranslation(BuildContext context, String? key) =>
-    AussieLocalizations.of(context)!.translate(key);
+String getTranslation(BuildContext context, String key) =>
+    AussieLocalizations.of(context).translate(key);
 
 SignupBloc getSignupBloc(BuildContext context) =>
     BlocProvider.of<SignupBloc>(context);
@@ -102,7 +102,7 @@ void toggleLanguage(BuildContext context, String currentLanguage) {
           () => ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                getTranslation(context, "languageChangedText")!,
+                getTranslation(context, "languageChangedText"),
               ),
             ),
           ),
@@ -116,7 +116,7 @@ void toggleLanguage(BuildContext context, String currentLanguage) {
           () => ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
-                getTranslation(context, "languageChangedText")!,
+                getTranslation(context, "languageChangedText"),
               ),
             ),
           ),

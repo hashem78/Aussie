@@ -16,7 +16,7 @@ class EventLocationPicker extends StatelessWidget {
           hintText = getTranslation(context, state.message);
         } else if (state is LocationPicked) {
           hintText = state.result.formattedAddress;
-          locale = AussieLocalizations.of(context)!.locale;
+          locale = AussieLocalizations.of(context).locale;
         }
         return Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -37,23 +37,23 @@ class EventLocationPicker extends StatelessWidget {
                             nearBy: getTranslation(
                               context,
                               "locationNearby",
-                            )!,
+                            ),
                             findingPlace: getTranslation(
                               context,
                               "locationFindingPlace",
-                            )!,
+                            ),
                             unnamedLocation: getTranslation(
                               context,
                               "locationUnamedLocation",
-                            )!,
+                            ),
                             noResultsFound: getTranslation(
                               context,
                               "locationNoResultsFound",
-                            )!,
+                            ),
                             tapToSelectLocation: getTranslation(
                               context,
                               "locationTapToSelect",
-                            )!,
+                            ),
                           ),
                         );
                       },

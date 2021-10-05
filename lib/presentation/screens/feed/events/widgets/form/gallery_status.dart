@@ -20,7 +20,7 @@ class EventImageGalleryStatus extends StatelessWidget {
                 Icons.close,
                 color: Colors.red,
               ),
-              Text(getTranslation(context, "eventCreationMultiImageError")!),
+              Text(getTranslation(context, "eventCreationMultiImageError")),
             ],
           );
         } else if (state is MultiImagePickingDone) {
@@ -31,8 +31,10 @@ class EventImageGalleryStatus extends StatelessWidget {
                 Icons.check,
                 color: Colors.green,
               ),
-              Text(getTranslation(context, "eventCreationMultiImagesAdded")!
-                  .replaceFirst(" ", " ${state.assets.length} ")),
+              Text(
+                getTranslation(context, "eventCreationMultiImagesAdded")
+                    .replaceFirst(" ", " ${state.assets.length} "),
+              ),
             ],
           );
         } else {

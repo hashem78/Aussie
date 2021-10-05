@@ -18,7 +18,9 @@ class AboutAussieTile extends StatelessWidget {
             applicationLegalese: getTranslation(context, "legalese"),
           );
         },
-        leading: Text(getTranslation(context, "aboutAussieText")!),
+        leading: Text(
+          getTranslation(context, "aboutAussieText"),
+        ),
         trailing: const Padding(
           padding: EdgeInsets.only(right: 20.0),
           child: Icon(Icons.info),

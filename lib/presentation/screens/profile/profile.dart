@@ -136,7 +136,7 @@ class _FeedFAB extends StatelessWidget {
                   getTranslation(
                     context,
                     "eventCreationFabTitle",
-                  )!,
+                  ),
                 ),
               ),
             ],

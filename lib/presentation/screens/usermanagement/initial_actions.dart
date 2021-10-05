@@ -168,7 +168,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         );
       },
       child: Text(
-        getTranslation(context, "signupButtonText")!,
+        getTranslation(context, "signupButtonText"),
         style: TextStyle(fontSize: 85.sp),
       ),
     );
@@ -188,7 +188,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Text(
-        getTranslation(context, "signinButtonText")!,
+        getTranslation(context, "signinButtonText"),
         style: TextStyle(fontSize: 85.sp),
       ),
     );

@@ -18,12 +18,12 @@ class BrightnessTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
-        title: Text(getTranslation(context, 'brightnessTitle')!),
+        title: Text(getTranslation(context, 'brightnessTitle')),
         subtitle: Text(
           getTranslation(
             context,
             getThemeModeAsString(context.watch<ThemeModeCubit>().state),
-          )!,
+          ),
         ),
         contentPadding: const EdgeInsets.all(5.0),
         onTap: () {
@@ -41,7 +41,8 @@ class BrightnessTile extends StatelessWidget {
                       value: ThemeMode.system,
                       groupValue: currentSetting,
                       title: Text(
-                          getTranslation(context, 'brightnessSystemTitle')!),
+                        getTranslation(context, 'brightnessSystemTitle'),
+                      ),
                       onChanged: (val) {
                         context.read<ThemeModeCubit>().changeToSystem();
                       },
@@ -49,8 +50,8 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<ThemeMode>(
                       value: ThemeMode.light,
                       groupValue: currentSetting,
-                      title: Text(
-                          getTranslation(context, 'brightnessLightTitle')!),
+                      title:
+                          Text(getTranslation(context, 'brightnessLightTitle')),
                       onChanged: (val) {
                         context.read<ThemeModeCubit>().changeToLight();
                       },
@@ -58,8 +59,9 @@ class BrightnessTile extends StatelessWidget {
                     RadioListTile<ThemeMode>(
                       value: ThemeMode.dark,
                       groupValue: currentSetting,
-                      title:
-                          Text(getTranslation(context, 'brightnessDarkTitle')!),
+                      title: Text(
+                        getTranslation(context, 'brightnessDarkTitle'),
+                      ),
                       onChanged: (val) {
                         context.read<ThemeModeCubit>().changeToDark();
                       },

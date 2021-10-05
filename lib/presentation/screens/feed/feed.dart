@@ -14,7 +14,7 @@ class FeedScreen extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               title: AutoSizeText(
-                getTranslation(context, "feedScreenTitle")!,
+                getTranslation(context, "feedScreenTitle"),
                 style: TextStyle(
                   fontSize: 100.sp,
                   fontWeight: FontWeight.w400,

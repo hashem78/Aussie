@@ -105,7 +105,7 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesCommonName')!,
+                    getTranslation(context, 'speciesCommonName'),
                     style: const TextStyle(
                       color: Colors.black,
                     ),
@@ -118,7 +118,7 @@ class SpeciesDetails extends StatelessWidget {
             cells: [
               DataCell(
                 Text(
-                  getTranslation(context, 'speciesScientificName')!,
+                  getTranslation(context, 'speciesScientificName'),
                   style: const TextStyle(
                     color: Colors.black,
                   ),
@@ -132,7 +132,7 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesType')!,
+                    getTranslation(context, 'speciesType'),
                     style: const TextStyle(
                       color: Colors.black,
                     ),
@@ -146,7 +146,7 @@ class SpeciesDetails extends StatelessWidget {
               cells: [
                 DataCell(
                   Text(
-                    getTranslation(context, 'speciesConStat')!,
+                    getTranslation(context, 'speciesConStat'),
                     style: const TextStyle(
                       color: Colors.black,
                     ),

@@ -36,11 +36,15 @@ class NaturalParksTile extends StatelessWidget {
             children: [
               Expanded(
                 child: buildChip(
-                    getTranslation(context, "longitude")!, model.longitude!),
+                  getTranslation(context, "longitude"),
+                  model.longitude!,
+                ),
               ),
               Expanded(
                 child: buildChip(
-                    getTranslation(context, "latitude")!, model.latitude!),
+                  getTranslation(context, "latitude"),
+                  model.latitude!,
+                ),
               ),
             ],
           ),

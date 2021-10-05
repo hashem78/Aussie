@@ -12,7 +12,7 @@ class EventCreationSubmitButton extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            getTranslation(context, tid)!,
+            getTranslation(context, tid),
           ),
         ),
       );
@@ -89,7 +89,7 @@ class EventCreationSubmitButton extends StatelessWidget {
             }
           : null,
       child:
-          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")!),
+          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")),
     );
   }
 }

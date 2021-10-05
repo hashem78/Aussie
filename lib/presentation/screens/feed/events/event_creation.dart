@@ -22,7 +22,7 @@ class EventCreationScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(getTranslation(context, "eventCreationTitle")!),
+          title: Text(getTranslation(context, "eventCreationTitle")),
           toolbarHeight: 100,
           flexibleSpace: const AspectRatio(
             aspectRatio: 16 / 9,

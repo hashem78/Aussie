@@ -29,7 +29,9 @@ class SignoutTile extends StatelessWidget {
           context.read<UserManagementCubit>().signout();
         },
         leading: const Icon(Icons.unsubscribe),
-        title: Text(getTranslation(context, "signoutTileTitle")!),
+        title: Text(
+          getTranslation(context, "signoutTileTitle"),
+        ),
       ),
     );
   }

@@ -9,7 +9,9 @@ class LanguageTile extends StatelessWidget {
       builder: (context, state) {
         final _currentLanguage = state.currentLocale.languageCode;
         return ListTile(
-          title: Text(getTranslation(context, "languageTitle")!),
+          title: Text(
+            getTranslation(context, "languageTitle"),
+          ),
           subtitle: Text(
             state.currentLocale.languageCode == "ar" ? "العربية" : "English",
           ),

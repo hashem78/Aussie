@@ -13,7 +13,7 @@ class SingupScreen extends StatelessWidget {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: AppBar(
           elevation: 0,
-          title: Text(getTranslation(context, "signup2ButtonText")!),
+          title: Text(getTranslation(context, "signup2ButtonText")),
         ),
       ),
       body: FormBlocListener<SignupBloc, String, String>(
@@ -139,7 +139,7 @@ class SingupScreen extends StatelessWidget {
                             );
                           },
                           child: AutoSizeText(
-                            getTranslation(context, "signup2ButtonText")!,
+                            getTranslation(context, "signup2ButtonText"),
                             style: TextStyle(fontSize: 85.sp),
                           ),
                         ),

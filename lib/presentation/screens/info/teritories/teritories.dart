@@ -50,7 +50,7 @@ class TeritoriesScreen extends StatelessWidget {
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "population")!,
+                            getTranslation(context, "population"),
                             _casted.population!,
                           ),
                         ),
@@ -62,14 +62,14 @@ class TeritoriesScreen extends StatelessWidget {
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "longitude")!,
+                            getTranslation(context, "longitude"),
                             _casted.lng!,
                           ),
                         ),
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "latitude")!,
+                            getTranslation(context, "latitude"),
                             _casted.lat!,
                           ),
                         ),

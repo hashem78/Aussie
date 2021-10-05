@@ -75,7 +75,9 @@ class _UserEventsState extends State<UserEvents>
           },
           noItemsFoundIndicatorBuilder: (context) {
             return Center(
-              child: Text(getTranslation(context, "eventsNoHome")!),
+              child: Text(
+                getTranslation(context, "eventsNoHome"),
+              ),
             );
           },
         ),

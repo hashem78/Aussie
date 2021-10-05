@@ -73,7 +73,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
             noItemsFoundIndicatorBuilder: (context) {
               return Center(
                 child: Text(
-                  getTranslation(context, "eventsNoPublic")!,
+                  getTranslation(context, "eventsNoPublic"),
                 ),
               );
             },

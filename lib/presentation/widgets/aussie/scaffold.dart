@@ -29,8 +29,11 @@ class AussieScaffold extends StatelessWidget {
       appBar: appBar,
       floatingActionButton: floatingActionButton,
       body: DoubleBackToCloseApp(
-        snackBar:
-            SnackBar(content: Text(getTranslation(context, "tapbackToClose")!)),
+        snackBar: SnackBar(
+          content: Text(
+            getTranslation(context, "tapbackToClose"),
+          ),
+        ),
         child: body!,
       ),
     );

@@ -23,13 +23,13 @@ class _DrawerItemModel extends Equatable {
 class _DrawerSection extends StatelessWidget {
   final List<_DrawerItemModel>? models;
   final IconData? sectionIcon;
-  final String? tSectionTitle;
+  final String tSectionTitle;
 
   final Color? tilesColor;
   const _DrawerSection({
     this.models,
     this.sectionIcon,
-    this.tSectionTitle,
+    required this.tSectionTitle,
     this.tilesColor,
   });
 
@@ -251,7 +251,7 @@ class _DrawerItem extends StatelessWidget {
             color: model.iconColor,
           ),
           title: Text(
-            getTranslation(context, model.tTitle)!,
+            getTranslation(context, model.tTitle),
             style: TextStyle(fontSize: 80.sp),
           ),
         ),

@@ -20,7 +20,7 @@ class EventDetails extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: buildImage(e.bannerImage!.imageLink, fit: BoxFit.fitWidth),
           ),
-          title: Text(getTranslation(context, "eventDetailsTitle")!),
+          title: Text(getTranslation(context, "eventDetailsTitle")),
           bottom: const TabBar(
             tabs: [
               Icon(Icons.description),
@@ -54,7 +54,7 @@ class EventDetailsMain extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const EventCardStack(),
-          buildTitle(context, getTranslation(context, "description")!),
+          buildTitle(context, getTranslation(context, "description")),
           const EventDetailsDescriptionCard(),
         ],
       ),
