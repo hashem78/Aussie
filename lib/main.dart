@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => ThemeModeCubit(themeMode),
         ),
         BlocProvider<LanguageCubit>(
-            create: (BuildContext context) => LanguageCubit(locale)),
+          create: (BuildContext context) => LanguageCubit(locale),
+        ),
         BlocProvider<UserManagementCubit>(
           create: (BuildContext context) => UserManagementCubit(),
         ),
