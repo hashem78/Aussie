@@ -103,7 +103,8 @@ class SingupScreen extends StatelessWidget {
                               );
                             }
                           },
-                          builder: (BuildContext context, UserManagementState state) {
+                          builder: (BuildContext context,
+                              UserManagementState state) {
                             Widget? child;
 
                             if (state is UserManagementPerformingAction) {
@@ -129,7 +130,8 @@ class SingupScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             // ignore: close_sinks
-                            final SignupBloc signupBloc = getSignupBloc(context);
+                            final SignupBloc signupBloc =
+                                getSignupBloc(context);
                             FocusManager.instance.primaryFocus!.unfocus();
                             signupBloc.submit();
                             BlocProvider.of<UserManagementCubit>(context)

@@ -17,7 +17,7 @@ class ProfileCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
-            children: const<Widget> [
+            children: const <Widget>[
               ProfileScreenImage(),
               SizedBox(width: 10),
               Expanded(child: ProfileScreenCardDetails()),

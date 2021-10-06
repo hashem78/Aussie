@@ -38,8 +38,10 @@ class JpegDecoder {
       }
 
       if (block.type == 0xC0 || block.type == 0xC2) {
-        final List<int> widthList = data.getRange(start + 7, start + 9).toList();
-        final List<int> heightList = data.getRange(start + 5, start + 7).toList();
+        final List<int> widthList =
+            data.getRange(start + 7, start + 9).toList();
+        final List<int> heightList =
+            data.getRange(start + 5, start + 7).toList();
         final int? width = convertRadix16ToInt(widthList);
         final int? height = convertRadix16ToInt(heightList);
         return ASize(width, height);
@@ -60,13 +62,15 @@ class JpegDecoder {
 
   BlockEntity? getBlockInfo(int blackStart) {
     try {
-      final List<int> blockInfoList = data.getRange(blackStart, blackStart + 4).toList();
+      final List<int> blockInfoList =
+          data.getRange(blackStart, blackStart + 4).toList();
 
       if (blockInfoList[0] != 0xFF) {
         return null;
       }
 
-      final Iterable<int> radix16List = data.getRange(blackStart + 2, blackStart + 4);
+      final Iterable<int> radix16List =
+          data.getRange(blackStart + 2, blackStart + 4);
       final int blockLength = convertRadix16ToInt(radix16List.toList())! + 2;
       final int typeInt = blockInfoList[1];
 

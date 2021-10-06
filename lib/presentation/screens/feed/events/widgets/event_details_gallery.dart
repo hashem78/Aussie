@@ -46,7 +46,8 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
                     child: CircularProgressIndicator(value: progress.progress),
                   );
                 },
-                imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) {
+                imageBuilder: (BuildContext context,
+                    ImageProvider<Object> imageProvider) {
                   return Ink.image(
                     image: imageProvider,
                     fit: BoxFit.cover,

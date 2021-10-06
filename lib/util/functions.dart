@@ -2,7 +2,8 @@ import 'dart:math';
 import 'package:aussie/aussie_imports.dart';
 
 Color getRandomColor() {
-  final MaterialColor _col = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  final MaterialColor _col =
+      Colors.primaries[Random().nextInt(Colors.primaries.length)];
   if (_col == Colors.amber) return Colors.lightBlue;
 
   return _col.shade700;

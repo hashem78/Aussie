@@ -15,7 +15,7 @@ class EventCreationFormFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const<Widget> [
+      children: const <Widget>[
         TitleFormField(),
         SubtitleFormField(),
         StartDateFormField(),

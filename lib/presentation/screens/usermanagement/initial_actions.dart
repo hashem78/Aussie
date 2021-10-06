@@ -109,7 +109,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                             ),
                           ),
                           BlocBuilder<UserManagementCubit, UserManagementState>(
-                            builder: (BuildContext context, UserManagementState state) {
+                            builder: (BuildContext context,
+                                UserManagementState state) {
                               Widget? child;
 
                               if (state is UserManagementPerformingAction) {

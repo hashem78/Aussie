@@ -102,7 +102,8 @@ class EventCreationScreen extends StatelessWidget {
                           _sn('Failed to create Event');
                         }
                       },
-                      builder: (BuildContext context, EventManagementState state) {
+                      builder:
+                          (BuildContext context, EventManagementState state) {
                         if (state is EventManagementPerformingAction) {
                           return const EventCreationSubmitButton(
                             enabled: false,

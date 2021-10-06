@@ -99,7 +99,8 @@ class WeatherModel extends Equatable {
       'pressure': pressure,
       'humidity': humidity,
       'description': description,
-      'fourDayModels': fourDayModels!.map((WeatherModel x) => x.toMap()).toList(),
+      'fourDayModels':
+          fourDayModels!.map((WeatherModel x) => x.toMap()).toList(),
     };
   }
 

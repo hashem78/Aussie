@@ -30,7 +30,7 @@ class ProfileScreenCardStats extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children:<Widget> [
+        children: <Widget>[
           Text(
             '${user.numberOfPosts} $postsString',
           ),

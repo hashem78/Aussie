@@ -34,7 +34,8 @@ class _AussieLocalizationsDelegate
   const _AussieLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'ar'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'ar'].contains(locale.languageCode);
 
   @override
   Future<AussieLocalizations> load(Locale locale) async {

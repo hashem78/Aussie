@@ -38,7 +38,7 @@ class WeatherCardChild extends StatelessWidget {
               color: Colors.teal,
             ),
             Column(
-              children:<Widget> [
+              children: <Widget>[
                 AutoSizeText(
                   'H ${_weatherModel.highTemp}°C',
                   maxLines: 1,
@@ -71,7 +71,7 @@ class WeatherCardChild extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
-                  children:<Widget> [
+                  children: <Widget>[
                     SvgPicture.asset(
                       'assets/images/humidity.svg',
                       height: 30,
@@ -85,7 +85,7 @@ class WeatherCardChild extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
-                  children:<Widget> [
+                  children: <Widget>[
                     SvgPicture.asset(
                       'assets/images/barometer.svg',
                       height: 30,

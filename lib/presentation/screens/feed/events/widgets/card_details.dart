@@ -15,7 +15,7 @@ class EventCardDetails extends StatelessWidget {
       margin: EdgeInsets.all(.05.sw),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const <Widget> [
+        children: const <Widget>[
           EventCardDetailsHeader(),
           EventCardDescription(),
         ],

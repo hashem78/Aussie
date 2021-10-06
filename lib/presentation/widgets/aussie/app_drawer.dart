@@ -204,7 +204,8 @@ class _DrawerHeader extends StatelessWidget {
                       height: 100,
                       child: CachedNetworkImage(
                         imageUrl: state.user.profilePictureLink!,
-                        imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) {
+                        imageBuilder: (BuildContext context,
+                            ImageProvider<Object> imageProvider) {
                           return Ink.image(image: imageProvider);
                         },
                       ),
@@ -244,7 +245,7 @@ class _DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children:<Widget> [
+      children: <Widget>[
         ListTile(
           onTap: () {
             Navigator.of(context).pushNamed(model.navPath);

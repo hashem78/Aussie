@@ -178,7 +178,8 @@ class EventManagementProvider {
         final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
             _data.docs;
 
-        final List<Map<String, dynamic>> _internalList = <Map<String, dynamic>>[];
+        final List<Map<String, dynamic>> _internalList =
+            <Map<String, dynamic>>[];
         for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
           _internalList.add(element.data());
         }

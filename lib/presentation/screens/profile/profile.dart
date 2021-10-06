@@ -130,7 +130,7 @@ class _FeedFAB extends StatelessWidget {
         backgroundColor: color,
         child: Center(
           child: Row(
-            children:<Widget> [
+            children: <Widget>[
               const Expanded(
                 child: Icon(Icons.add, size: 20),
               ),
