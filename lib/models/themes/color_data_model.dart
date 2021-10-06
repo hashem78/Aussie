@@ -97,12 +97,12 @@ class AussieThemeBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeModeCubit, ThemeMode>(
-      builder: (context, state) {
+      builder: (BuildContext context, ThemeMode state) {
         if (state == ThemeMode.light) {
           return AussieThemeProvider(
             color: light,
             child: Builder(
-              builder: (context) {
+              builder: (BuildContext context) {
                 return builder(context, light);
               },
             ),
@@ -111,7 +111,7 @@ class AussieThemeBuilder extends StatelessWidget {
           return AussieThemeProvider(
             color: dark,
             child: Builder(
-              builder: (context) {
+              builder: (BuildContext context) {
                 return builder(context, dark);
               },
             ),

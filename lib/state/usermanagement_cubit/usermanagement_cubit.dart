@@ -19,7 +19,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     emit(UserManagementPerformingAction());
 
     repository.signup(model).then(
-      (value) {
+      (UserManagementNotification? value) {
         if (value is UserSignupSuccessfulNotification) {
           emit(UserManagementSignup(value));
         } else {
@@ -37,7 +37,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
   void singin(SigninModel model) {
     emit(UserManagementPerformingAction());
     repository.signin(model).then(
-      (value) {
+      (UserManagementNotification? value) {
         if (value is UserSigninSuccessfulNotification) {
           emit(const UserManagementSignin());
         } else {
@@ -51,7 +51,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     emit(UserManagementPerformingAction());
 
     repository.isSignedin().then(
-      (value) {
+      (UserManagementNotification value) {
         if (value is UserSigninSuccessfulNotification) {
           emit(const UserManagementSignin());
         } else {
@@ -63,7 +63,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void getUserData() {
     repository.getUserData().then(
-      (value) {
+      (UserManagementNotification? value) {
         if (value is UserModelContainingActualNotification) {
           emit(UserMangementHasUserData(value.user));
         } else {
@@ -75,7 +75,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void getUserDataFromUid(String? uid) {
     repository.getUserDataFromUid(uid).then(
-      (value) {
+      (UserManagementNotification value) {
         if (value is UserModelContainingActualNotification) {
           emit(UserMangementHasUserData(value.user));
         } else {
@@ -94,7 +94,7 @@ class UserManagementCubit extends Cubit<UserManagementState> {
       eventUuid,
     )
         .then(
-      (value) {
+      (UserManagementNotification value) {
         if (value is UserMangementUserAttendedEventNotification) {
           emit(const UserManagementAttended());
         } else {

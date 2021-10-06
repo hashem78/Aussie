@@ -17,16 +17,21 @@ class _CardOwnerState extends State<CardOwner>
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (context, state) {
+        builder: (BuildContext context, UserManagementState state) {
           Widget child;
           if (state is UserMangementHasUserData) {
             child = InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) => UserManagementCubit()
-                        ..getUserDataFromUid(state.user.uid),
+                  MaterialPageRoute<BlocProvider<Object?>>(
+                    builder: (BuildContext context) =>
+                        BlocProvider<UserManagementCubit>(
+                      create: (BuildContext context) {
+                        return UserManagementCubit()
+                          ..getUserDataFromUid(
+                            state.user.uid,
+                          );
+                      },
                       child: const UserProfileScreen(
                         allowEventCreation: false,
                       ),
@@ -37,10 +42,13 @@ class _CardOwnerState extends State<CardOwner>
               child: SizedBox(
                 height: 50,
                 child: Row(
-                  children: [
+                  children: <Widget>[
                     CachedNetworkImage(
                       imageUrl: state.user.profilePictureLink!,
-                      imageBuilder: (context, imageProvider) {
+                      imageBuilder: (
+                        BuildContext context,
+                        ImageProvider<Object> imageProvider,
+                      ) {
                         return SizedBox(
                           width: 50,
                           child: Ink.image(image: imageProvider),

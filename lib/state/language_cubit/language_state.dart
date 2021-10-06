@@ -5,7 +5,7 @@ abstract class LanguageState extends Equatable {
   const LanguageState(this.currentLocale);
 
   @override
-  List<Object> get props => [currentLocale.languageCode];
+  List<Object> get props => <Object>[currentLocale.languageCode];
 }
 
 class LanguageInitial extends LanguageState {

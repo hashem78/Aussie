@@ -17,7 +17,7 @@ class _DrawerItemModel extends Equatable {
   });
 
   @override
-  List<Object> get props => [navPath, svgName];
+  List<Object> get props => <Object>[navPath, svgName];
 }
 
 class _DrawerSection extends StatelessWidget {
@@ -36,14 +36,14 @@ class _DrawerSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
+      children: <Widget>[
         _DrawerSectionTitle(
           iconData: sectionIcon,
           title: getTranslation(context, tSectionTitle),
         ),
         ...models!
             .map(
-              (e) => _DrawerItem(e, color: tilesColor),
+              (_DrawerItemModel e) => _DrawerItem(e, color: tilesColor),
             )
             .toList(),
       ],
@@ -52,7 +52,7 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  static const List<_DrawerItemModel> infoModels = [
+  static const List<_DrawerItemModel> infoModels = <_DrawerItemModel>[
     _DrawerItemModel(
       navPath: AussieScreenData.faunaNavPath,
       svgName: AussieScreenData.faunaSvgName,
@@ -84,7 +84,7 @@ class AussieAppDrawer extends StatelessWidget {
       iconColor: Color(0xFF1B5E20),
     ),
   ];
-  static const List<_DrawerItemModel> miscModels = [
+  static const List<_DrawerItemModel> miscModels = <_DrawerItemModel>[
     _DrawerItemModel(
       tTitle: AussieScreenData.settingsTitle,
       svgName: AussieScreenData.settingsSvgName,
@@ -92,24 +92,24 @@ class AussieAppDrawer extends StatelessWidget {
       iconColor: Colors.grey,
     ),
   ];
-  static const List<_DrawerSection> _sections = [
+  static const List<_DrawerSection> _sections = <_DrawerSection>[
     _DrawerSection(
       sectionIcon: Icons.info,
-      tSectionTitle: "infoSectionTitle",
+      tSectionTitle: 'infoSectionTitle',
       tilesColor: Colors.blue,
       models: infoModels,
     ),
     _DrawerSection(
       sectionIcon: Icons.miscellaneous_services,
-      tSectionTitle: "miscSectionTitle",
+      tSectionTitle: 'miscSectionTitle',
       tilesColor: Colors.blue,
       models: miscModels,
     ),
   ];
-  static const List<_DrawerSection> _sectionsNoMisc = [
+  static const List<_DrawerSection> _sectionsNoMisc = <_DrawerSection>[
     _DrawerSection(
       sectionIcon: Icons.info,
-      tSectionTitle: "infoSectionTitle",
+      tSectionTitle: 'infoSectionTitle',
       tilesColor: Colors.blue,
       models: infoModels,
     ),
@@ -121,12 +121,12 @@ class AussieAppDrawer extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: CustomScrollView(
-          slivers: [
+          slivers: <Widget>[
             const SliverToBoxAdapter(
               child: _DrawerHeader(),
             ),
             BlocBuilder<UserManagementCubit, UserManagementState>(
-              builder: (context, state) {
+              builder: (BuildContext context, UserManagementState state) {
                 if (state is UserMangementHasUserData) {
                   return buildSliverList(_sections);
                 } else {
@@ -173,26 +173,30 @@ class _DrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserManagementCubit, UserManagementState>(
-      builder: (context, state) {
+      builder: (BuildContext context, UserManagementState state) {
         if (state is UserMangementHasUserData) {
           return Material(
             color: Theme.of(context).backgroundColor,
             child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) => UserManagementCubit()..getUserData(),
-                      child: const UserProfileScreen(
-                        allowEventCreation: true,
-                      ),
-                    ),
+                  MaterialPageRoute<UserProfileScreen>(
+                    builder: (BuildContext context) {
+                      return BlocProvider<UserManagementCubit>(
+                        create: (BuildContext context) {
+                          return UserManagementCubit()..getUserData();
+                        },
+                        child: const UserProfileScreen(
+                          allowEventCreation: true,
+                        ),
+                      );
+                    },
                   ),
                 );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: SizedBox(
@@ -200,7 +204,7 @@ class _DrawerHeader extends StatelessWidget {
                       height: 100,
                       child: CachedNetworkImage(
                         imageUrl: state.user.profilePictureLink!,
-                        imageBuilder: (context, imageProvider) {
+                        imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) {
                           return Ink.image(image: imageProvider);
                         },
                       ),
@@ -240,13 +244,13 @@ class _DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children:<Widget> [
         ListTile(
           onTap: () {
             Navigator.of(context).pushNamed(model.navPath);
           },
           leading: SvgPicture.asset(
-            "assets/images/${model.svgName}",
+            'assets/images/${model.svgName}',
             height: 30,
             color: model.iconColor,
           ),
@@ -274,7 +278,7 @@ class _DrawerSectionTitle extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Row(
-        children: [
+        children: <Widget>[
           const SizedBox(
             width: 10,
           ),

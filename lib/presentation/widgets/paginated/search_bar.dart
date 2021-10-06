@@ -13,7 +13,7 @@ class PaginatedSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Row(
-        children: [
+        children:<Widget> [
           const Icon(
             Icons.search,
             size: 40,
@@ -25,7 +25,7 @@ class PaginatedSearchBar extends StatelessWidget {
               style: TextStyle(fontSize: 70.sp, fontWeight: FontWeight.w600),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: getTranslation(context, "searchTitle"),
+                hintText: getTranslation(context, 'searchTitle'),
                 hintStyle: TextStyle(
                   fontSize: 70.sp,
                   fontWeight: FontWeight.w600,

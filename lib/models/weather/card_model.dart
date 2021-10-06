@@ -13,5 +13,5 @@ class WeatherCardChildModel extends Equatable {
   });
 
   @override
-  List<Object?> get props => [model, title];
+  List<Object?> get props => <Object?>[model, title];
 }

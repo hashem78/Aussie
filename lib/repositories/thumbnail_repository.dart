@@ -9,6 +9,6 @@ class ThumbnailRepository {
   }) : _repo = ThumbnailOnlineProivder(route: route);
   Future<List<String>> fetch() async {
     final List<String> _internalList = await _repo.fetch();
-    return UnmodifiableListView(_internalList);
+    return UnmodifiableListView<String>(_internalList);
   }
 }

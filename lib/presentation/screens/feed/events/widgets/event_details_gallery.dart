@@ -1,7 +1,4 @@
-import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
-import 'package:aussie/util/functions.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class EventDetailsGallery extends StatefulWidget {
   const EventDetailsGallery({
@@ -17,19 +14,19 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final e = getEventModel(context);
+    final EventModel e = getEventModel(context);
 
     return ListView.builder(
       itemCount: e.galleryImages!.length,
       padding: const EdgeInsets.all(16.0),
-      itemBuilder: (context, index) {
+      itemBuilder: (BuildContext context, int index) {
         return AspectRatio(
           aspectRatio: 16 / 9,
           child: InkWell(
               onTap: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
+                  MaterialPageRoute<AussiePhotoView>(
+                    builder: (BuildContext context) {
                       return AussiePhotoView(
                         url: e.galleryImages![index].imageLink,
                       );
@@ -40,12 +37,16 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
               child: CachedNetworkImage(
                 imageUrl: e.galleryImages![index].imageLink!,
                 fadeOutDuration: Duration.zero,
-                progressIndicatorBuilder: (context, url, progress) {
+                progressIndicatorBuilder: (
+                  BuildContext context,
+                  String url,
+                  DownloadProgress progress,
+                ) {
                   return Center(
                     child: CircularProgressIndicator(value: progress.progress),
                   );
                 },
-                imageBuilder: (context, imageProvider) {
+                imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) {
                   return Ink.image(
                     image: imageProvider,
                     fit: BoxFit.cover,

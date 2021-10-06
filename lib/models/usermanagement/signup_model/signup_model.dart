@@ -28,7 +28,7 @@ class SignupModel extends Equatable {
   Map<String, dynamic> toJson() => _$SignupModelToJson(this);
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         email,
         password,
         profileImagePath,

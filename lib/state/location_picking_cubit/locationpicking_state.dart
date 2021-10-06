@@ -5,7 +5,7 @@ abstract class LocationPickingState extends Equatable {
   final String message;
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => <Object?>[message];
 }
 
 class LocationPicked extends LocationPickingState {
@@ -13,9 +13,9 @@ class LocationPicked extends LocationPickingState {
 
   LocationPicked(this.result) : super(result.formattedAddress ?? '');
   @override
-  List<Object> get props => [result];
+  List<Object> get props => <Object>[result];
 }
 
 class LocationNotPicked extends LocationPickingState {
-  const LocationNotPicked() : super("locationStateInitial");
+  const LocationNotPicked() : super('locationStateInitial');
 }

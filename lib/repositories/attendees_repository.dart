@@ -6,7 +6,7 @@ class AttendeesRepository {
   final AttendeesProvider _provider = AttendeesProvider();
   Future<EventManagementNotification> fetchAttendees(
     String? eventId,
-    DocumentSnapshot? prevsnap,
+    DocumentSnapshot<Object?>? prevsnap,
   ) async {
     return _provider.fetchAttendees(eventId, prevsnap);
   }

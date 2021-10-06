@@ -8,6 +8,6 @@ class BlockEntity {
 
   @override
   String toString() {
-    return "BlockEntity (type:$type, length:$length)";
+    return 'BlockEntity (type:$type, length:$length)';
   }
 }

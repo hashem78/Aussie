@@ -36,9 +36,9 @@ class _AussieGMapState extends State<AussieGMap>
       child: GoogleMap(
         initialCameraPosition: widget._position,
         mapType: MapType.hybrid,
-        gestureRecognizers: {}
+        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
           ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
-        markers: {
+        markers: <Marker>{
           Marker(
             markerId: MarkerId(UniqueKey().toString()),
             position: LatLng(

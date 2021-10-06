@@ -22,15 +22,15 @@ class EventCreationScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(getTranslation(context, "eventCreationTitle")),
+          title: Text(getTranslation(context, 'eventCreationTitle')),
           toolbarHeight: 100,
           flexibleSpace: const AspectRatio(
             aspectRatio: 16 / 9,
             child: EventBannerPicker(),
           ),
-          actions: [
+          actions: <Widget>[
             BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(
-              builder: (context, state) {
+              builder: (BuildContext context, SingleImagePickingState state) {
                 Widget? child;
                 if (state is SingleImagePickingDone) {
                   child = IconButton(
@@ -42,7 +42,7 @@ class EventCreationScreen extends StatelessWidget {
                 } else if (state is SingleImagePickingInitial) {
                   child = IconButton(
                     tooltip:
-                        getTranslation(context, "eventCreationAddBannerTip"),
+                        getTranslation(context, 'eventCreationAddBannerTip'),
                     icon: const Icon(Icons.add),
                     onPressed: () {
                       context.read<SingleImagePickingCubit>().pickImage(
@@ -62,19 +62,20 @@ class EventCreationScreen extends StatelessWidget {
           ],
         ),
         body: LayoutBuilder(
-          builder: (context, constraint) {
+          builder: (BuildContext context, BoxConstraints constraint) {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
+                  children: <Widget>[
                     const EventCreationFormFields(),
                     const EventLocationPicker(),
                     const EventImageGalleryStatus(),
                     const EventImageGalleryPickerButton(),
                     BlocBuilder<EventManagementCubit, EventManagementState>(
-                      builder: (context, state) {
+                      builder:
+                          (BuildContext context, EventManagementState state) {
                         if (state is EventManagementPerformingAction) {
                           return const Center(
                             child: CircularProgressIndicator(),
@@ -84,16 +85,24 @@ class EventCreationScreen extends StatelessWidget {
                       },
                     ),
                     BlocConsumer<EventManagementCubit, EventManagementState>(
-                      listener: (context, state) {
+                      listener:
+                          (BuildContext context, EventManagementState state) {
                         if (state is EventManagementCreated) {
-                          _sn("Event created");
-                          Future.delayed(const Duration(seconds: 2))
-                              .whenComplete(() => Navigator.of(context).pop());
+                          _sn('Event created');
+                          Future<void>.delayed(
+                            const Duration(
+                              seconds: 2,
+                            ),
+                          ).whenComplete(
+                            () {
+                              Navigator.of(context).pop();
+                            },
+                          );
                         } else if (state is EventManagementError) {
-                          _sn("Failed to create Event");
+                          _sn('Failed to create Event');
                         }
                       },
-                      builder: (context, state) {
+                      builder: (BuildContext context, EventManagementState state) {
                         if (state is EventManagementPerformingAction) {
                           return const EventCreationSubmitButton(
                             enabled: false,

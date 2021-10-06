@@ -1,3 +1,4 @@
+import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
@@ -17,11 +18,11 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     emit(EventmanagementInitial());
   }
 
-  DocumentSnapshot? prevSnap;
+  DocumentSnapshot<Object?>? prevSnap;
   void addEvent(EventCreationModel model) {
     emit(EventManagementPerformingAction());
     _repository.addUserEvent(model).then(
-      (value) {
+      (EventManagementNotification value) {
         if (value is SuccessNotification) {
           emit(EventManagementCreated());
         } else {
@@ -33,10 +34,12 @@ class EventManagementCubit extends Cubit<EventManagementState> {
 
   void fetchEventsForUser({
     required String uid,
-    DocumentSnapshot? lastdoc,
+    DocumentSnapshot<Object?>? lastdoc,
   }) {
     _repository.fetchEventsForUser(uid, lastdoc).then(
-      (value) {
+      (
+        EventManagementNotification value,
+      ) {
         if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
           emit(EventManagementEventsFetched(value.models));
@@ -47,9 +50,9 @@ class EventManagementCubit extends Cubit<EventManagementState> {
     );
   }
 
-  void fetchPublicEvents({DocumentSnapshot? lastdoc}) {
+  void fetchPublicEvents({DocumentSnapshot<Object?>? lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
-      (value) {
+      (EventManagementNotification value) {
         if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
           emit(EventManagementEventsFetched(value.models));
@@ -65,6 +68,6 @@ class EventManagementCubit extends Cubit<EventManagementState> {
   }
 
   bool validate(dynamic data) {
-    return data == null || data == "";
+    return data == null || data == '';
   }
 }

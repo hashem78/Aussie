@@ -48,18 +48,19 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
     super.dispose();
   }
 
-  String searchQuery = "";
+  String searchQuery = '';
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _controller!.addPageRequestListener(
-      (pageKey) {
+      (int pageKey) {
         if (searchQuery.isNotEmpty) {
           context.read<PaginatedCubit<T>>().filter(
-              context.read<LanguageCubit>().locale.languageCode,
-              widget.filterFor,
-              searchQuery);
+                context.read<LanguageCubit>().locale.languageCode,
+                widget.filterFor,
+                searchQuery,
+              );
         } else {
           context.read<PaginatedCubit<T>>().loadMoreAsync(
                 context.read<LanguageCubit>().locale.languageCode,
@@ -79,26 +80,27 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
       child: Scaffold(
         backgroundColor: AussieThemeProvider.of(context)!.color.backgroundColor,
         body: CustomScrollView(
-          slivers: [
-            BlocProvider(
-              create: (context) =>
-                  ThumbnailCubit(widget.thumbnailCubitRoute)..fetch(),
+          slivers: <Widget>[
+            BlocProvider<ThumbnailCubit>(
+              create: (BuildContext context) {
+                return ThumbnailCubit(widget.thumbnailCubitRoute)..fetch();
+              },
               child: AussieThumbnailedAppBar(
                 title: widget.title,
               ),
             ),
             PaginatedSearchBar(
-              onSubmitted: (val) {
+              onSubmitted: (String val) {
                 searchQuery = val;
                 _controller!.refresh();
               },
             ),
             BlocListener<PaginatedCubit<T>, PaginatedState>(
-              listener: (context, state) {
+              listener: (BuildContext context, PaginatedState state) {
                 if (state is PaginatedInitialLoaded) {
                   _controller!.appendPage(state.models, _pageSize);
                 } else if (state is PaginatedDataChanged) {
-                  final nextKey =
+                  final int nextKey =
                       _controller!.nextPageKey! + state.models.length;
                   _controller!.appendPage(state.models, nextKey);
                 } else if (state is PaginatedEnd) {
@@ -127,7 +129,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
           height: 100,
           child: Center(
             child: Text(
-              getTranslation(context, "searchablePaginatedNoItemsFound"),
+              getTranslation(context, 'searchablePaginatedNoItemsFound'),
             ),
           ),
         ),
@@ -144,7 +146,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
           height: 100,
           child: Center(
             child: Text(
-              getTranslation(context, "searchablePaginatedNoItemsFound"),
+              getTranslation(context, 'searchablePaginatedNoItemsFound'),
             ),
           ),
         ),

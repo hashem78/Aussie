@@ -11,52 +11,58 @@ import 'package:path/path.dart' as path;
 
 @immutable
 class UserManagementProvider {
-  static final _authInstance = FirebaseAuth.instance;
-  static final _storageInstance = FirebaseStorage.instance;
-  static final _firestoreInstance = FirebaseFirestore.instance;
+  static final FirebaseAuth _authInstance = FirebaseAuth.instance;
+  static final FirebaseStorage _storageInstance = FirebaseStorage.instance;
+  static final FirebaseFirestore _firestoreInstance =
+      FirebaseFirestore.instance;
   Future<UserManagementNotification?> signup(Map<String, dynamic> map) async {
     // if (await DataConnectionChecker().connectionStatus ==
     //     DataConnectionStatus.disconnected) {
     //   return const UserManagementErrorNotification();
     // }
-    if (map["email"] == "") {
+    if (map['email'] == '') {
       return const InvalidEmailNotification();
-    } else if (map["password"] == "") {
+    } else if (map['password'] == '') {
       return const WeakPasswordNotification();
-    } else if (map["username"] == "" || map["fullname"] == "") {
+    } else if (map['username'] == '' || map['fullname'] == '') {
       return const WrongNameNotification();
-    } else if (map["profileImagePath"] == "") {
+    } else if (map['profileImagePath'] == '') {
       return const ProfileImageRequiredNotification();
     }
 
     try {
       await _authInstance.createUserWithEmailAndPassword(
-        email: map["email"] as String,
-        password: map["password"] as String,
+        email: map['email'] as String,
+        password: map['password'] as String,
       );
       final String uid = FirebaseAuth.instance.currentUser!.uid;
       final String _filename = path.basename(map['profileImagePath'] as String);
 
-      final _ref =
-          _storageInstance.ref().child("users/$uid/profile/$_filename");
-      final _uploadTask = _ref.putFile(File(map['profileImagePath'] as String));
+      final Reference _ref = _storageInstance.ref().child(
+            'users/$uid/profile/$_filename',
+          );
+      final UploadTask _uploadTask = _ref.putFile(
+        File(
+          map['profileImagePath'] as String,
+        ),
+      );
 
       await _uploadTask.whenComplete(
         () async {
           final String _profileImageLink = await _ref.getDownloadURL();
 
-          await _firestoreInstance.doc("users/$uid").set(
-            {
-              "uid": uid,
-              "profilePictureLink": _profileImageLink,
-              "username": map["username"],
-              "profileBannerLink":
-                  map["profileBannerLink"] ?? "https://picsum.photos/1200",
-              "fullname": map["fullname"],
-              "numberOfFollowers": 0,
-              "numberOfFollowing": 0,
-              "numberOfPosts": 0,
-              "attends": [],
+          await _firestoreInstance.doc('users/$uid').set(
+            <String, dynamic>{
+              'uid': uid,
+              'profilePictureLink': _profileImageLink,
+              'username': map['username'],
+              'profileBannerLink':
+                  map['profileBannerLink'] ?? 'https://picsum.photos/1200',
+              'fullname': map['fullname'],
+              'numberOfFollowers': 0,
+              'numberOfFollowing': 0,
+              'numberOfPosts': 0,
+              'attends': <dynamic>[],
             },
           );
         },
@@ -80,18 +86,18 @@ class UserManagementProvider {
     //     DataConnectionStatus.disconnected) {
     //   return const UserManagementErrorNotification();
     // }
-    if (map["email"] == "") {
+    if (map['email'] == '') {
       return const InvalidEmailNotification();
-    } else if (map["password"] == "") {
+    } else if (map['password'] == '') {
       return const WeakPasswordNotification();
-    } else if (map["username"] == "") {
+    } else if (map['username'] == '') {
       return const WrongNameNotification();
     }
 
     try {
       await _authInstance.signInWithEmailAndPassword(
-        email: map["email"] as String,
-        password: map["password"] as String,
+        email: map['email'] as String,
+        password: map['password'] as String,
       );
 
       return const UserSigninSuccessfulNotification();
@@ -106,25 +112,27 @@ class UserManagementProvider {
     try {
       final User? user = FirebaseAuth.instance.currentUser;
       if (user == null) return const UserHasNotSignedInNotification();
-      final _db = FirebaseFirestore.instance;
-      final _shot = await _db.doc('users/${user.uid}').get();
-      final _data = _shot.data()!;
+      final FirebaseFirestore _db = FirebaseFirestore.instance;
+      final DocumentSnapshot<Map<String, dynamic>> _shot =
+          await _db.doc('users/${user.uid}').get();
+      final Map<String, dynamic> _data = _shot.data()!;
 
-      final _internalMap = {
-        "uid": user.uid,
-        "name": user.displayName,
-        "email": user.email,
-        "verified": user.emailVerified,
-        "profilePictureLink": _data["profilePictureLink"],
-        "username": _data["username"],
-        "fullname": _data["fullname"],
-        "profileBannerLink": _data["profileBannerLink"],
-        "numberOfFollowers": _data["numberOfFollowers"],
-        "numberOfFollowing": _data["numberOfFollowing"],
-        "numberOfPosts": _data["numberOfPosts"],
-        "attends": _data["attends"],
+      final Map<String, dynamic> _internalMap = <String, dynamic>{
+        'uid': user.uid,
+        'name': user.displayName,
+        'email': user.email,
+        'verified': user.emailVerified,
+        'profilePictureLink': _data['profilePictureLink'],
+        'username': _data['username'],
+        'fullname': _data['fullname'],
+        'profileBannerLink': _data['profileBannerLink'],
+        'numberOfFollowers': _data['numberOfFollowers'],
+        'numberOfFollowing': _data['numberOfFollowing'],
+        'numberOfPosts': _data['numberOfPosts'],
+        'attends': _data['attends'],
       };
-      return UserModelContainingNotification(UnmodifiableMapView(_internalMap));
+      return UserModelContainingNotification(
+          UnmodifiableMapView<String, dynamic>(_internalMap));
     } on FirebaseAuthException catch (e) {
       return UserManagementNotification.firebaseAuthErrorCodes[e.code];
     } catch (e) {
@@ -135,10 +143,10 @@ class UserManagementProvider {
   Future<UserManagementNotification> getUserDataFromUid(String? uid) async {
     if (uid == null) return const UserManagementErrorNotification();
     try {
-      final _userModel =
-          await _firestoreInstance.collection("users").doc(uid).get();
+      final DocumentSnapshot<Map<String, dynamic>> _userModel =
+          await _firestoreInstance.collection('users').doc(uid).get();
       return UserModelContainingNotification(
-        UnmodifiableMapView(
+        UnmodifiableMapView<String, dynamic>(
           _userModel.data()!,
         ),
       );
@@ -148,23 +156,28 @@ class UserManagementProvider {
   }
 
   Future<UserManagementNotification> makeUserWithIdAttendEvent(
-      String? uid, String? eventUuid) async {
+    String? uid,
+    String? eventUuid,
+  ) async {
     if (uid == null || eventUuid == null) {
       return const UserManagementErrorNotification();
     }
     try {
       final WriteBatch writeBatch = _firestoreInstance.batch();
       writeBatch.set(
-          _firestoreInstance
-              .collection("event")
-              .doc(eventUuid)
-              .collection("attendees")
-              .doc(uid),
-          {"uid": uid});
+        _firestoreInstance
+            .collection('event')
+            .doc(eventUuid)
+            .collection('attendees')
+            .doc(uid),
+        <String, String?>{
+          'uid': uid,
+        },
+      );
       writeBatch.update(
-        _firestoreInstance.collection("users").doc(uid),
-        {
-          "attends": FieldValue.arrayUnion([eventUuid])
+        _firestoreInstance.collection('users').doc(uid),
+        <String, dynamic>{
+          'attends': FieldValue.arrayUnion(<dynamic>[eventUuid])
         },
       );
       writeBatch.commit();
@@ -181,15 +194,15 @@ class UserManagementProvider {
 
       writeBatch.delete(
         _firestoreInstance
-            .collection("event")
+            .collection('event')
             .doc(eventUuid)
-            .collection("attendees")
+            .collection('attendees')
             .doc(uid),
       );
       writeBatch.update(
-        _firestoreInstance.collection("users").doc(uid),
-        {
-          "attends": FieldValue.arrayRemove([eventUuid])
+        _firestoreInstance.collection('users').doc(uid),
+        <String, dynamic>{
+          'attends': FieldValue.arrayRemove(<dynamic>[eventUuid])
         },
       );
       writeBatch.commit();

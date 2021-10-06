@@ -31,18 +31,18 @@ class NaturalParksTile extends StatelessWidget {
         ),
       ),
       subtitle: Column(
-        children: [
+        children: <Widget>[
           Row(
-            children: [
+            children: <Widget>[
               Expanded(
                 child: buildChip(
-                  getTranslation(context, "longitude"),
+                  getTranslation(context, 'longitude'),
                   model.longitude!,
                 ),
               ),
               Expanded(
                 child: buildChip(
-                  getTranslation(context, "latitude"),
+                  getTranslation(context, 'latitude'),
                   model.latitude!,
                 ),
               ),
@@ -64,7 +64,7 @@ class NaturalParksTile extends StatelessWidget {
             ),
         ],
       ),
-      titleImage: model.image_link != ""
+      titleImage: model.image_link != ''
           ? Hero(
               tag: heroTag,
               child: buildImage(
@@ -91,7 +91,7 @@ class NaturalParksTile extends StatelessWidget {
         color: Colors.lime,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Expanded(
               child: Text(
                 title,

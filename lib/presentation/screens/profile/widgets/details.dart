@@ -13,7 +13,7 @@ class ProfileScreenCardDetails extends StatelessWidget {
     final AussieUser user = getCurrentUser(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children:<Widget> [
         AutoSizeText(
           user.fullname!,
           maxLines: 1,

@@ -8,13 +8,13 @@ class FeedScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (context, state) {
+        builder: (BuildContext context, UserManagementState state) {
           return AussieScaffold(
             drawer: const AussieAppDrawer(),
             appBar: AppBar(
               centerTitle: true,
               title: AutoSizeText(
-                getTranslation(context, "feedScreenTitle"),
+                getTranslation(context, 'feedScreenTitle'),
                 style: TextStyle(
                   fontSize: 100.sp,
                   fontWeight: FontWeight.w400,
@@ -23,10 +23,10 @@ class FeedScreen extends StatelessWidget {
               elevation: 0,
             ),
             body: state is UserMangementHasUserData
-                ? Provider.value(
+                ? Provider<AussieUser>.value(
                     value: state.user,
-                    child: BlocProvider(
-                      create: (context) => EventManagementCubit(),
+                    child: BlocProvider<EventManagementCubit>(
+                      create: (BuildContext context) => EventManagementCubit(),
                       child: const PublicEventsTab(),
                     ),
                   )
@@ -37,4 +37,3 @@ class FeedScreen extends StatelessWidget {
     );
   }
 }
-

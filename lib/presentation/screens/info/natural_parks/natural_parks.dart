@@ -1,3 +1,4 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/info/natural_parks/details.dart';
@@ -16,26 +17,28 @@ class NaturalParksScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.naturalParksDark,
       light: AussieScreenColorData.naturalParksLight,
-      builder: (context, color) {
+      builder: (BuildContext context, AussieColor color) {
         return SearchablePaginatedScreen<NaturalParkModel>.list(
           title: getTranslation(context, AussieScreenData.naturalParksTitle),
-          filterFor: "park_name",
+          filterFor: 'park_name',
           thumbnailCubitRoute: AussieScreenData.naturalParksThumbnailRoute,
-          itemBuilder: (_, item, index) {
-            final _casted = item as NaturalParkModel;
-            final _key = UniqueKey();
+          itemBuilder: (_, IPaginatedData item, int index) {
+            final NaturalParkModel _casted = item as NaturalParkModel;
+            final UniqueKey _key = UniqueKey();
             return NaturalParksTile(
               heroTag: _key.toString(),
               model: _casted,
               onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AussieThemeProvider(
-                    color: color,
-                    child: NaturalParksDetailsScreen(
-                      heroTag: _key.toString(),
-                      model: _casted,
-                    ),
-                  ),
+                MaterialPageRoute<AussieThemeProvider>(
+                  builder: (BuildContext context) {
+                    return AussieThemeProvider(
+                      color: color,
+                      child: NaturalParksDetailsScreen(
+                        heroTag: _key.toString(),
+                        model: _casted,
+                      ),
+                    );
+                  },
                 ),
               ),
             );

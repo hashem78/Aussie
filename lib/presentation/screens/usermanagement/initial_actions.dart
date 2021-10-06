@@ -34,8 +34,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, kToolbarHeight),
             child: AppBar(
-              title: const Text("Aussie"),
-              actions: [
+              title: const Text('Aussie'),
+              actions: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.translate),
                   onPressed: () {
@@ -49,27 +49,31 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
             )),
         key: sstate,
         body: BlocListener<UserManagementCubit, UserManagementState>(
-          listener: (context, state) {
+          listener: (BuildContext context, UserManagementState state) {
             if (state is UserManagementSignin) {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => UserManagementCubit()..getUserData(),
-                    child: const FeedScreen(),
-                  ),
+                MaterialPageRoute<FeedScreen>(
+                  builder: (BuildContext context) {
+                    return BlocProvider<UserManagementCubit>(
+                      create: (BuildContext context) {
+                        return UserManagementCubit()..getUserData();
+                      },
+                      child: const FeedScreen(),
+                    );
+                  },
                 ),
               );
             }
           },
           child: LayoutBuilder(
-            builder: (context, constraints) {
+            builder: (BuildContext context, BoxConstraints constraints) {
               return SingleChildScrollView(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+                    children: <Widget>[
                       Container(
                         height: .2.sh,
                         width: .2.sh,
@@ -77,12 +81,12 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
+                        children: <Widget>[
                           TextField(
                             controller: _emailEditingController,
                             decoration: InputDecoration(
                               hintText: getTranslation(
-                                  context, "initialActionsEmailTitle"),
+                                  context, 'initialActionsEmailTitle'),
                               hintStyle: TextStyle(fontSize: 80.sp),
                               prefixIcon: const Icon(Icons.login),
                               filled: true,
@@ -96,7 +100,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                               controller: _passwordEditingController,
                               decoration: InputDecoration(
                                 hintText: getTranslation(
-                                    context, "initialActionsPasswordTitle"),
+                                    context, 'initialActionsPasswordTitle'),
                                 hintStyle: TextStyle(fontSize: 80.sp),
                                 prefixIcon: const Icon(Icons.lock),
                                 filled: true,
@@ -105,7 +109,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                             ),
                           ),
                           BlocBuilder<UserManagementCubit, UserManagementState>(
-                            builder: (context, state) {
+                            builder: (BuildContext context, UserManagementState state) {
                               Widget? child;
 
                               if (state is UserManagementPerformingAction) {
@@ -147,17 +151,17 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
       ),
       onPressed: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
+          MaterialPageRoute<SingupScreen>(
+            builder: (BuildContext context) {
               return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
+                providers: <BlocProvider<Object?>>[
+                  BlocProvider<SingleImagePickingCubit>(
                     create: (BuildContext context) => SingleImagePickingCubit(),
                   ),
-                  BlocProvider(
+                  BlocProvider<UserManagementCubit>(
                     create: (BuildContext context) => UserManagementCubit(),
                   ),
-                  BlocProvider(
+                  BlocProvider<SignupBloc>(
                     create: (BuildContext context) => SignupBloc(),
                   )
                 ],
@@ -168,7 +172,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         );
       },
       child: Text(
-        getTranslation(context, "signupButtonText"),
+        getTranslation(context, 'signupButtonText'),
         style: TextStyle(fontSize: 85.sp),
       ),
     );
@@ -188,7 +192,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Text(
-        getTranslation(context, "signinButtonText"),
+        getTranslation(context, 'signinButtonText'),
         style: TextStyle(fontSize: 85.sp),
       ),
     );

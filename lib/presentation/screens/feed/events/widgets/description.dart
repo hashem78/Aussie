@@ -15,7 +15,7 @@ class EventCardDescription extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children:<Widget> [
           AutoSizeText(
             e.title!,
             style: Theme.of(context).textTheme.headline6,

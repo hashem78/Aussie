@@ -22,7 +22,7 @@ class WeatherDetails extends StatelessWidget {
         centerTitle: true,
       ),
       body: Column(
-        children: [
+        children: <Widget>[
           Expanded(
             child: WeatherCard(
               day: WeatherCardChildModel(
@@ -37,7 +37,7 @@ class WeatherDetails extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
             ),
-            itemBuilder: (context, index) {
+            itemBuilder: (BuildContext context, int index) {
               return AbsorbPointer(
                 child: WeatherTile(
                   model: model.fourDayModels![index],

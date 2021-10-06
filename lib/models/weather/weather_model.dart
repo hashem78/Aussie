@@ -45,7 +45,7 @@ class WeatherModel extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
+    return <Object?>[
       day,
       state,
       iconString,
@@ -88,7 +88,7 @@ class WeatherModel extends Equatable {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'day': day,
       'state': state,
       'iconString': iconString,
@@ -99,16 +99,16 @@ class WeatherModel extends Equatable {
       'pressure': pressure,
       'humidity': humidity,
       'description': description,
-      'fourDayModels': fourDayModels!.map((x) => x.toMap()).toList(),
+      'fourDayModels': fourDayModels!.map((WeatherModel x) => x.toMap()).toList(),
     };
   }
 
   factory WeatherModel.fromMapWithFourDays(Map<String, dynamic>? map) {
-    final List<WeatherModel> weatherModels = [];
+    final List<WeatherModel> weatherModels = <WeatherModel>[];
     if (map?['fourDayModels'] != null) {
       final List<dynamic> fourDays = map!['fourDayModels'] as List<dynamic>;
 
-      for (final model in fourDays) {
+      for (final WeatherModel model in fourDays) {
         weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
       }
     }

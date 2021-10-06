@@ -34,7 +34,7 @@ class NaturalParkModel extends Equatable implements IPaginatedData {
 
   @override
   List<Object?> get props {
-    return [
+    return<Object?> [
       park_name,
       summary,
       image_link,

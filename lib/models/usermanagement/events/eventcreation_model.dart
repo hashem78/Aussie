@@ -46,7 +46,7 @@ class EventCreationModel extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
+    return <Object?>[
       startingTimeStamp,
       endingTimeStamp,
       description,

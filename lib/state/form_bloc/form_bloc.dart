@@ -4,33 +4,51 @@ import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 class EventCreationBlocForm extends FormBloc<String, String> {
   final InputFieldBloc<DateTime, Object> dateAndTime1 =
       InputFieldBloc<DateTime, Object>(
-    validators: [FieldBlocValidators.required],
+    validators: <Validator<DateTime?>>[
+      FieldBlocValidators.required,
+    ],
   );
   final InputFieldBloc<DateTime, Object> dateAndTime2 =
       InputFieldBloc<DateTime, Object>(
-    validators: [FieldBlocValidators.required],
+    validators: <Validator<DateTime?>>[
+      FieldBlocValidators.required,
+    ],
   );
   final InputFieldBloc<TimeOfDay, Object> timeonly1 =
       InputFieldBloc<TimeOfDay, Object>(
-    validators: [FieldBlocValidators.required],
+    validators: <Validator<TimeOfDay?>>[
+      FieldBlocValidators.required,
+    ],
   );
 
   final InputFieldBloc<TimeOfDay, Object> timeonly2 =
       InputFieldBloc<TimeOfDay, Object>(
-    validators: [FieldBlocValidators.required],
+    validators: <Validator<TimeOfDay?>>[
+      FieldBlocValidators.required,
+    ],
   );
 
-  final description = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
+  final TextFieldBloc<Validator<String?>> description =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+    ],
   );
-  final title = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
+  final TextFieldBloc<Validator<String?>> title =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+    ],
   );
-  final subtitle = TextFieldBloc(
-    validators: [FieldBlocValidators.required],
+  final TextFieldBloc<Validator<String?>> subtitle =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+    ],
   );
   late List<FieldBloc> _blocs;
   EventCreationBlocForm() {
+    // ignore: always_specify_types
     _blocs = [
       dateAndTime1,
       dateAndTime2,
@@ -47,14 +65,14 @@ class EventCreationBlocForm extends FormBloc<String, String> {
   @override
   Future<void> onSubmitting() async {
     emitSubmitting();
-    for (final val in _blocs) {
+    for (final FieldBloc val in _blocs) {
       if (val is InputFieldBloc) {
         if (val.value == null) {
           emitFailure();
           return;
         }
       } else if (val is TextFieldBloc) {
-        if (val.value == null || val.value == "") {
+        if (val.value == null || val.value == '') {
           emitFailure();
           return;
         }

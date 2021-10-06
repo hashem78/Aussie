@@ -31,7 +31,7 @@ class AussieScaffold extends StatelessWidget {
       body: DoubleBackToCloseApp(
         snackBar: SnackBar(
           content: Text(
-            getTranslation(context, "tapbackToClose"),
+            getTranslation(context, 'tapbackToClose'),
           ),
         ),
         child: body!,

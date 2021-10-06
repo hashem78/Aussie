@@ -4,7 +4,7 @@ abstract class MultiImagePickingState extends Equatable {
   const MultiImagePickingState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => <Object>[];
 }
 
 class MultiImagePickingInitial extends MultiImagePickingState {}
@@ -18,5 +18,5 @@ class MultiImagePickingDone extends MultiImagePickingState {
 
   const MultiImagePickingDone(this.assets);
   @override
-  List<Object> get props => [assets];
+  List<Object> get props => <Object>[assets];
 }

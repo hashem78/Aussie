@@ -24,7 +24,7 @@ class _UserEventsState extends State<UserEvents>
     user = context.read<AussieUser>();
     eventManagementCubit = BlocProvider.of<EventManagementCubit>(context);
     _controller.addPageRequestListener(
-      (pageKey) {
+      (int pageKey) {
         if (eventManagementCubit.prevSnap == null) {
           eventManagementCubit.fetchEventsForUser(
             uid: user.uid!,
@@ -50,7 +50,7 @@ class _UserEventsState extends State<UserEvents>
     super.build(context);
     return BlocListener<EventManagementCubit, EventManagementState>(
       bloc: eventManagementCubit,
-      listener: (context, state) {
+      listener: (BuildContext context, EventManagementState state) {
         if (state is EventManagementEventsFetched) {
           _controller.appendPage(
             state.models,
@@ -62,21 +62,21 @@ class _UserEventsState extends State<UserEvents>
       },
       child: PagedSliverList<int, EventModel>(
         pagingController: _controller,
-        builderDelegate: PagedChildBuilderDelegate(
-          itemBuilder: (context, item, index) {
+        builderDelegate: PagedChildBuilderDelegate<EventModel>(
+          itemBuilder: (BuildContext context, EventModel item, int index) {
             return Provider<EventModel>.value(
               value: item,
               child: Builder(
-                builder: (context) {
+                builder: (BuildContext context) {
                   return const EventCard();
                 },
               ),
             );
           },
-          noItemsFoundIndicatorBuilder: (context) {
+          noItemsFoundIndicatorBuilder: (BuildContext context) {
             return Center(
               child: Text(
-                getTranslation(context, "eventsNoHome"),
+                getTranslation(context, 'eventsNoHome'),
               ),
             );
           },

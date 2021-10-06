@@ -11,7 +11,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   final PagingController<int, WeatherModel> _pagingController =
       PagingController<int, WeatherModel>(firstPageKey: 0);
 
-  final List<LatLng> _coords = const [
+  final List<LatLng> _coords = const <LatLng>[
     LatLng(-34.93, 138.6),
     LatLng(-33.861481, 151.205475),
     LatLng(-37.813938, 144.963425),
@@ -27,7 +27,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _pagingController.addPageRequestListener(
-      (index) {
+      (int index) {
         context.read<WeatherCubit>().fetch(_coords[index]);
       },
     );
@@ -41,28 +41,29 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          ThumbnailCubit(AussieScreenData.weatherThumbnailRoute),
+    return BlocProvider<ThumbnailCubit>(
+      create: (BuildContext context) {
+        return ThumbnailCubit(AussieScreenData.weatherThumbnailRoute);
+      },
       child: AussieThemeBuilder(
-        builder: (BuildContext context, color) {
+        builder: (BuildContext context, AussieColor color) {
           return Scaffold(
             backgroundColor: color.backgroundColor,
             body: CustomScrollView(
-              slivers: [
+              slivers: <Widget>[
                 AussieThumbnailedAppBar(
-                  title: getTranslation(context, "weatherTitle"),
+                  title: getTranslation(context, 'weatherTitle'),
                 ),
                 SliverToBoxAdapter(
                   child: BlocBuilder<WeatherCubit, WeatherState>(
-                    builder: (context, state) {
+                    builder: (BuildContext context, WeatherState state) {
                       Widget child;
                       if (state is WeatherError) {
-                        child = Text(getTranslation(context, "weatherError"));
+                        child = Text(getTranslation(context, 'weatherError'));
                       } else {
                         final String formattedTime =
-                            DateFormat("dd-MM-YY hh:mm").format(DateTime.now());
-                        child = Text("Data as of $formattedTime local time");
+                            DateFormat('dd-MM-YY hh:mm').format(DateTime.now());
+                        child = Text('Data as of $formattedTime local time');
                       }
                       return AnimatedSwitcher(
                         duration: const Duration(milliseconds: 500),
@@ -72,15 +73,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                 ),
                 BlocListener<WeatherCubit, WeatherState>(
-                  listener: (context, state) {
+                  listener: (BuildContext context, WeatherState state) {
                     if (state is WeatherLoaded) {
                       if (_pagingController.nextPageKey! + 1 < _coords.length) {
                         _pagingController.appendPage(
-                          [state.model],
+                          <WeatherModel>[state.model],
                           _pagingController.nextPageKey! + 1,
                         );
                       } else {
-                        _pagingController.appendLastPage([state.model]);
+                        _pagingController.appendLastPage(
+                          <WeatherModel>[state.model],
+                        );
                       }
                     }
                   },
@@ -90,8 +93,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       crossAxisCount: 2,
                     ),
                     pagingController: _pagingController,
-                    builderDelegate: PagedChildBuilderDelegate(
-                      itemBuilder: (context, item, index) {
+                    builderDelegate: PagedChildBuilderDelegate<WeatherModel>(
+                      itemBuilder: (
+                        BuildContext context,
+                        WeatherModel item,
+                        int index,
+                      ) {
                         return WeatherTile(
                           model: item,
                           showTitle: true,

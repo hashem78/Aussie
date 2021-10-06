@@ -32,7 +32,7 @@ class SingleImagePickingCubit extends Cubit<SingleImagePickingState> {
       final String docPath = docDir.path;
       final ByteBuffer buffer = data.buffer;
 
-      final File file = File("$docPath/singUpImage.jpeg")
+      final File file = File('$docPath/singUpImage.jpeg')
         ..writeAsBytesSync(
           buffer.asUint8List(
             data.offsetInBytes,

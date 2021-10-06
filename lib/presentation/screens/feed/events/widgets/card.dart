@@ -21,11 +21,11 @@ class _EventCardState extends State<EventCard>
       child: InkWell(
         onTap: () => Navigator.push(
           context,
-          MaterialPageRoute(
-            builder: (context) => MultiProvider(
-              providers: [
-                Provider.value(value: e),
-                Provider.value(value: u),
+          MaterialPageRoute<MultiProvider>(
+            builder: (BuildContext context) => MultiProvider(
+              providers: <Provider<Object>>[
+                Provider<EventModel>.value(value: e),
+                Provider<AussieUser>.value(value: u),
               ],
               child: const EventDetails(),
             ),
@@ -34,7 +34,7 @@ class _EventCardState extends State<EventCard>
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            children: const [
+            children: const <Widget>[
               EventCardImage(),
               EventCardDetails(),
             ],
@@ -72,13 +72,11 @@ class _PublicEventCardState extends State<PublicEventCard>
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => MultiProvider(
-                providers: [
-                  Provider.value(
-                    value: e,
-                  ),
-                  Provider.value(value: user),
+            MaterialPageRoute<MultiProvider>(
+              builder: (BuildContext context) => MultiProvider(
+                providers: <Provider<Object>>[
+                  Provider<EventModel>.value(value: e),
+                  Provider<AussieUser>.value(value: user),
                 ],
                 child: const EventDetails(),
               ),
@@ -89,13 +87,18 @@ class _PublicEventCardState extends State<PublicEventCard>
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Row(
-                children: [
+                children: <Widget>[
                   const Expanded(child: CardOwner()),
-                  BlocProvider(
-                    create: (context) => UserManagementCubit()
-                      ..isUserAttending(getCurrentUser(context), e),
+                  BlocProvider<UserManagementCubit>(
+                    create: (BuildContext context) {
+                      return UserManagementCubit()
+                        ..isUserAttending(
+                          getCurrentUser(context),
+                          e,
+                        );
+                    },
                     child: const PublicAttendButton(),
                   ),
                 ],

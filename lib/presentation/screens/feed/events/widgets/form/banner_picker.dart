@@ -8,7 +8,7 @@ class EventBannerPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
-      listener: (context, state) {
+      listener: (BuildContext context, SingleImagePickingState state) {
         if (state is SingleImagePickingError) {
           ScaffoldMessenger.of(context)
               .showSnackBar(
@@ -24,7 +24,7 @@ class EventBannerPicker extends StatelessWidget {
           );
         }
       },
-      builder: (context, state) {
+      builder: (BuildContext context, SingleImagePickingState state) {
         Widget? child;
         if (state is SingleImagePickingDone) {
           child = Ink.image(

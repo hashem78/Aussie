@@ -1,3 +1,4 @@
+import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/repositories/attendees_repository.dart';
 import 'package:bloc/bloc.dart';
@@ -9,9 +10,10 @@ part 'attendees_state.dart';
 class AttendeesCubit extends Cubit<AttendeesState> {
   AttendeesCubit() : super(const AttendeesInitial());
   final AttendeesRepository _repository = AttendeesRepository();
-  DocumentSnapshot? prevsnap;
+  DocumentSnapshot<Object?>? prevsnap;
   Future<void> fetchAttendees(String? eventId) async {
-    final notif = await _repository.fetchAttendees(eventId, prevsnap);
+    final EventManagementNotification notif =
+        await _repository.fetchAttendees(eventId, prevsnap);
 
     if (notif is AttendeesNotification) {
       if (notif.uuids.isEmpty && prevsnap == null) {

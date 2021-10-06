@@ -31,9 +31,9 @@ class EventModel extends Equatable {
   final String? eventId;
   final String? uid;
   final EventImageModel? bannerImage;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? title;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? subtitle;
   @JsonKey(defaultValue: 0)
   final int? startingTimeStamp;
@@ -43,11 +43,11 @@ class EventModel extends Equatable {
   final double? lat;
   @JsonKey(defaultValue: 0)
   final double? lng;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? description;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? address;
-  @JsonKey(defaultValue: [])
+  @JsonKey(defaultValue: <EventImageModel>[])
   final List<EventImageModel>? galleryImages;
 
   factory EventModel.fromJson(Map<String, dynamic> json) =>
@@ -56,7 +56,7 @@ class EventModel extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
+    return <Object?>[
       eventId,
       uid,
       bannerImage,

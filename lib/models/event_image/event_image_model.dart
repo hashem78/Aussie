@@ -25,7 +25,7 @@ class EventImageModel extends Equatable {
   Map<String, dynamic> toJson() => _$EventImageModelToJson(this);
 
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         imageLink,
         width,
         height,

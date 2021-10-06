@@ -20,9 +20,9 @@ class EventDetails extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: buildImage(e.bannerImage!.imageLink, fit: BoxFit.fitWidth),
           ),
-          title: Text(getTranslation(context, "eventDetailsTitle")),
+          title: Text(getTranslation(context, 'eventDetailsTitle')),
           bottom: const TabBar(
-            tabs: [
+            tabs: <Icon>[
               Icon(Icons.description),
               Icon(Icons.photo_album),
               Icon(Icons.attach_email_rounded),
@@ -30,7 +30,7 @@ class EventDetails extends StatelessWidget {
           ),
         ),
         body: const TabBarView(
-          children: [
+          children: <Widget>[
             EventDetailsMain(),
             EventDetailsGallery(),
             PaginatedAtendees(),
@@ -52,9 +52,9 @@ class EventDetailsMain extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           const EventCardStack(),
-          buildTitle(context, getTranslation(context, "description")),
+          buildTitle(context, getTranslation(context, 'description')),
           const EventDetailsDescriptionCard(),
         ],
       ),

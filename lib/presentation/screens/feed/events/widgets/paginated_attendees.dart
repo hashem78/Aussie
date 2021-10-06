@@ -24,9 +24,11 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
     super.didChangeDependencies();
 
     final EventModel e = getEventModel(context);
-    pagingController.addPageRequestListener((pageKey) {
-      context.read<AttendeesCubit>().fetchAttendees(e.eventId);
-    });
+    pagingController.addPageRequestListener(
+      (int pageKey) {
+        context.read<AttendeesCubit>().fetchAttendees(e.eventId);
+      },
+    );
 
     pagingController.notifyPageRequestListeners(0);
   }
@@ -41,7 +43,7 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocConsumer<AttendeesCubit, AttendeesState>(
-      listener: (context, state) {
+      listener: (BuildContext context, AttendeesState state) {
         if (state is AttendeesActual) {
           pagingController.appendPage(
             state.uuids,
@@ -51,19 +53,19 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
           pagingController.appendLastPage(state.uuids);
         }
       },
-      builder: (context, state) {
+      builder: (BuildContext context, AttendeesState state) {
         if (state is AttendeesInitial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is AttendeesEmpty) {
           return Center(
             child: Column(
-              children: [
+              children: <Widget>[
                 Icon(
                   Icons.sentiment_dissatisfied,
                   size: 300.sp,
                 ),
                 const Text(
-                  "There are no attendees at this moment, refresh or try again later",
+                  'There are no attendees at this moment, refresh or try again later',
                   textAlign: TextAlign.center,
                 )
               ],
@@ -79,10 +81,11 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
               pagingController: pagingController,
               padding: const EdgeInsets.all(16.0),
               builderDelegate: PagedChildBuilderDelegate<String>(
-                itemBuilder: (context, item, index) {
-                  return BlocProvider(
-                    create: (context) =>
-                        UserManagementCubit()..getUserDataFromUid(item),
+                itemBuilder: (BuildContext context, String item, int index) {
+                  return BlocProvider<UserManagementCubit>(
+                    create: (BuildContext context) {
+                      return UserManagementCubit()..getUserDataFromUid(item);
+                    },
                     child: const CardOwner(),
                   );
                 },

@@ -9,71 +9,76 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
 class EventManagementProvider {
-  static final _storage = FirebaseStorage.instance;
-  static final _firestore = FirebaseFirestore.instance;
-  static final _auth = FirebaseAuth.instance;
+  static final FirebaseStorage _storage = FirebaseStorage.instance;
+  static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<EventManagementNotification> addEvent(EventCreationModel model) async {
     try {
       final String uid = _auth.currentUser!.uid;
 
-      final String path = "users/$uid/events/${model.eventId}";
+      final String path = 'users/$uid/events/${model.eventId}';
       final WriteBatch batch = _firestore.batch();
       batch.update(
-        _firestore.collection("users").doc(uid),
-        {
-          "numberOfPosts": FieldValue.increment(1),
+        _firestore.collection('users').doc(uid),
+        <String, dynamic>{
+          'numberOfPosts': FieldValue.increment(1),
         },
       );
 
       batch.set(
         _firestore.doc(path),
-        {
-          "uid": uid,
-          "eventId": model.eventId,
-          "startingTimeStamp": model.startingTimeStamp,
-          "endingTimeStamp": model.endingTimeStamp,
-          "description": model.description,
-          "address": model.address,
-          "lat": model.lat,
-          "lng": model.lng,
-          "title": model.title,
-          "subtitle": model.subtitle,
-          "galleryImages": [],
-          "bannerImage": {},
-          "created": FieldValue.serverTimestamp(),
+        <String, dynamic>{
+          'uid': uid,
+          'eventId': model.eventId,
+          'startingTimeStamp': model.startingTimeStamp,
+          'endingTimeStamp': model.endingTimeStamp,
+          'description': model.description,
+          'address': model.address,
+          'lat': model.lat,
+          'lng': model.lng,
+          'title': model.title,
+          'subtitle': model.subtitle,
+          'galleryImages': <dynamic>[],
+          'bannerImage': <dynamic>{},
+          'created': FieldValue.serverTimestamp(),
         },
       );
       updateGalleryLinksCallback(String value, AussieByteData byteData) {
-        return batch.update(_firestore.doc(path), {
-          "galleryImages": FieldValue.arrayUnion([
-            {
-              "imageLink": value,
-              "height": byteData.height,
-              "width": byteData.width,
-            }
-          ])
-        });
+        return batch.update(
+          _firestore.doc(path),
+          <String, dynamic>{
+            'galleryImages': FieldValue.arrayUnion(
+              <Map<String, dynamic>>[
+                <String, dynamic>{
+                  'imageLink': value,
+                  'height': byteData.height,
+                  'width': byteData.width,
+                }
+              ],
+            )
+          },
+        );
       }
 
       dlGalleryCallback(AussieByteData element) async {
-        final _refG = _storage.ref(path).child(const Uuid().v4());
+        final Reference _refG = _storage.ref(path).child(const Uuid().v4());
 
-        final _gUploadTask = await _refG.putData(
+        final TaskSnapshot _gUploadTask = await _refG.putData(
           element.byteData!.buffer.asUint8List(),
         );
-        final downloadUrl = await _gUploadTask.ref.getDownloadURL();
+        final String downloadUrl = await _gUploadTask.ref.getDownloadURL();
         updateGalleryLinksCallback(downloadUrl, element);
       }
 
       updateBannerLinkCallback(String link, AussieByteData byteData) {
         return batch.update(
           _firestore.doc(path),
-          {
-            "bannerImage": {
-              "imageLink": link,
-              "height": byteData.height,
-              "width": byteData.width,
+          <String, Map<String, dynamic>>{
+            'bannerImage': <String, dynamic>{
+              'imageLink': link,
+              'height': byteData.height,
+              'width': byteData.width,
             }
           },
         );
@@ -81,15 +86,15 @@ class EventManagementProvider {
 
       dlBannerCallback(AussieByteData? element) async {
         if (element == null) return;
-        final _refB = _storage.ref(path).child(const Uuid().v4());
-        final _bUploadTask = await _refB.putData(
+        final Reference _refB = _storage.ref(path).child(const Uuid().v4());
+        final TaskSnapshot _bUploadTask = await _refB.putData(
           element.byteData!.buffer.asUint8List(),
         );
-        final downloadUrl = await _bUploadTask.ref.getDownloadURL();
+        final String downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl, element);
       }
 
-      for (final data in model.imageData!) {
+      for (final AussieByteData data in model.imageData!) {
         await dlGalleryCallback(data);
       }
       await dlBannerCallback(model.bannerData);
@@ -104,39 +109,44 @@ class EventManagementProvider {
 
   Future<EventManagementNotification> fetchEventsForUser(
     String uid,
-    DocumentSnapshot? documentSnapshot,
+    DocumentSnapshot<Object?>? documentSnapshot,
   ) async {
     try {
       if (documentSnapshot != null) {
-        final _data = await _firestore
-            .collection("users/$uid/events")
-            .orderBy("eventId")
+        final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
+            .collection('users/$uid/events')
+            .orderBy('eventId')
             .startAfterDocument(documentSnapshot)
             .limit(10)
             .get();
-        final _docs = _data.docs;
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
+            _data.docs;
 
-        final List<Map<String, dynamic>> _internalList = [];
-        for (var element in _docs) {
+        final List<Map<String, dynamic>> _internalList =
+            <Map<String, dynamic>>[];
+        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
           return EventsEndNotification(_internalList);
         }
         return EventModelsNotification(
-          eventModels: UnmodifiableListView(_internalList),
+          eventModels:
+              UnmodifiableListView<Map<String, dynamic>>(_internalList),
           prevsnap: _docs.last,
         );
       } else {
-        final _data = await _firestore
-            .collection("users/$uid/events")
-            .orderBy("eventId")
+        final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
+            .collection('users/$uid/events')
+            .orderBy('eventId')
             .limit(10)
             .get();
-        final _docs = _data.docs;
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
+            _data.docs;
 
-        final List<Map<String, dynamic>> _internalList = [];
-        for (var element in _docs) {
+        final List<Map<String, dynamic>> _internalList =
+            <Map<String, dynamic>>[];
+        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
@@ -144,7 +154,9 @@ class EventManagementProvider {
         }
 
         return EventModelsNotification(
-          eventModels: UnmodifiableListView(_internalList),
+          eventModels: UnmodifiableListView<Map<String, dynamic>>(
+            _internalList,
+          ),
           prevsnap: _docs.last,
         );
       }
@@ -154,35 +166,40 @@ class EventManagementProvider {
   }
 
   Future<EventManagementNotification> fetchPublicEvents(
-    DocumentSnapshot? documentSnapshot,
+    DocumentSnapshot<Object?>? documentSnapshot,
   ) async {
     try {
       if (documentSnapshot != null) {
-        final _data = await _firestore
-            .collectionGroup("events")
+        final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
+            .collectionGroup('events')
             .startAfterDocument(documentSnapshot)
             .limit(10)
             .get();
-        final _docs = _data.docs;
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
+            _data.docs;
 
-        final List<Map<String, dynamic>> _internalList = [];
-        for (var element in _docs) {
+        final List<Map<String, dynamic>> _internalList = <Map<String, dynamic>>[];
+        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
           return EventsEndNotification(_internalList);
         }
         return EventModelsNotification(
-          eventModels: UnmodifiableListView(_internalList),
+          eventModels: UnmodifiableListView<Map<String, dynamic>>(
+            _internalList,
+          ),
           prevsnap: _docs.last,
         );
       } else {
-        final _data =
-            await _firestore.collectionGroup("events").limit(10).get();
-        final _docs = _data.docs;
+        final QuerySnapshot<Map<String, dynamic>> _data =
+            await _firestore.collectionGroup('events').limit(10).get();
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
+            _data.docs;
 
-        final List<Map<String, dynamic>> _internalList = [];
-        for (var element in _docs) {
+        final List<Map<String, dynamic>> _internalList =
+            <Map<String, dynamic>>[];
+        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
           _internalList.add(element.data());
         }
 
@@ -191,7 +208,9 @@ class EventManagementProvider {
         }
 
         return EventModelsNotification(
-          eventModels: UnmodifiableListView(_internalList),
+          eventModels: UnmodifiableListView<Map<String, dynamic>>(
+            _internalList,
+          ),
           prevsnap: _docs.last,
         );
       }

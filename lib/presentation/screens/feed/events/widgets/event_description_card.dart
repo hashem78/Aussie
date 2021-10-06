@@ -1,3 +1,4 @@
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ class EventDetailsDescriptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final e = getEventModel(context);
+    final EventModel e = getEventModel(context);
 
     return Card(
       shape: const RoundedRectangleBorder(),

@@ -17,22 +17,20 @@ class WeatherTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _today = model;
-
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
+          MaterialPageRoute<WeatherDetails>(
             builder: (BuildContext context) {
-              return WeatherDetails(model: _today);
+              return WeatherDetails(model: model);
             },
           ),
         );
       },
       child: Column(
-        children: [
+        children: <Widget>[
           AutoSizeText(
-            showTitle ? model.title ?? "Title" : model.day!,
+            showTitle ? model.title ?? 'Title' : model.day!,
             maxLines: 1,
             style: TextStyle(
               fontSize: 150.sp,
@@ -40,12 +38,12 @@ class WeatherTile extends StatelessWidget {
             ),
           ),
           BoxedIcon(
-            WeatherIcons.fromString(model.iconString ?? "wi-day-sunny"),
+            WeatherIcons.fromString(model.iconString ?? 'wi-day-sunny'),
             size: 250.sp,
             color: Colors.amber,
           ),
           AutoSizeText(
-            "${model.highTemp}°C",
+            '${model.highTemp}°C',
             softWrap: true,
             maxLines: 1,
             textAlign: TextAlign.center,

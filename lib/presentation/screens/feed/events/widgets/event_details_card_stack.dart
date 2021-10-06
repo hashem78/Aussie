@@ -15,20 +15,22 @@ class EventCardStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);
-    final DateTime begin =
-        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp!);
-    final DateTime end =
-        DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
-    final formattedBeginDate = DateFormat("dd/MM/yyyy").format(begin);
-    final formattedEndDate = DateFormat("dd/MM/yyyy").format(end);
-    final formattedBeginTime = DateFormat("hh:mm:ss").format(begin);
-    final formattedEndTime = DateFormat("hh:mm:ss").format(end);
+    final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
+      e.startingTimeStamp!,
+    );
+    final DateTime end = DateTime.fromMillisecondsSinceEpoch(
+      e.endingTimeStamp!,
+    );
+    final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
+    final String formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
+    final String formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
+    final String formattedEndTime = DateFormat('hh:mm:ss').format(end);
     return Card(
       margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           Align(
             child: AutoSizeText(
               e.title!,
@@ -45,10 +47,10 @@ class EventCardStack extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     formattedBeginDate,
                     style: Theme.of(context)
@@ -59,7 +61,7 @@ class EventCardStack extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
-                      "Starts $formattedBeginTime",
+                      'Starts $formattedBeginTime',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   )
@@ -67,7 +69,7 @@ class EventCardStack extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
+                children: <Widget>[
                   Text(
                     formattedEndDate,
                     style: Theme.of(context)
@@ -78,7 +80,7 @@ class EventCardStack extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 15),
                     child: Text(
-                      "Ends $formattedEndTime",
+                      'Ends $formattedEndTime',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   )
@@ -92,13 +94,13 @@ class EventCardStack extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
+                    MaterialPageRoute<AussieGMapScreen>(
+                      builder: (BuildContext context) {
                         return AussieGMapScreen(
                           model: AussieGMapModel(
                             longitude: e.lng.toString(),
                             latitude: e.lat.toString(),
-                            title: "",
+                            title: '',
                           ),
                         );
                       },
@@ -108,7 +110,7 @@ class EventCardStack extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
-                    children: [
+                    children: <Widget>[
                       const Icon(
                         Icons.location_pin,
                         color: Colors.red,

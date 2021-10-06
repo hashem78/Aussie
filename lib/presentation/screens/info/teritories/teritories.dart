@@ -1,3 +1,4 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,23 +19,25 @@ class TeritoriesScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.territoreisDark,
       light: AussieScreenColorData.territoriesLight,
-      builder: (context, color) {
+      builder: (BuildContext context, AussieColor color) {
         return SearchablePaginatedScreen<TeritoryModel>.list(
           title: getTranslation(context, AussieScreenData.territoriesTitle),
           thumbnailCubitRoute: AussieScreenData.territoriesThumbnailRoute,
-          filterFor: "title",
-          itemBuilder: (context, item, index) {
-            final _casted = item as TeritoryModel;
+          filterFor: 'title',
+          itemBuilder: (BuildContext context, IPaginatedData item, int index) {
+            final TeritoryModel _casted = item as TeritoryModel;
             return PaginatedScreenTile(
               onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => AussieGMapScreen(
-                    model: AussieGMapModel(
-                      latitude: _casted.lat,
-                      longitude: _casted.lng,
-                      title: _casted.city,
-                    ),
-                  ),
+                MaterialPageRoute<AussieGMapScreen>(
+                  builder: (BuildContext context) {
+                    return AussieGMapScreen(
+                      model: AussieGMapModel(
+                        latitude: _casted.lat,
+                        longitude: _casted.lng,
+                        title: _casted.city,
+                      ),
+                    );
+                  },
                 ),
               ),
               title: Text(
@@ -44,13 +47,13 @@ class TeritoriesScreen extends StatelessWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Row(
-                      children: [
+                      children: <Widget>[
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "population"),
+                            getTranslation(context, 'population'),
                             _casted.population!,
                           ),
                         ),
@@ -58,18 +61,18 @@ class TeritoriesScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Row(
-                      children: [
+                      children: <Widget>[
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "longitude"),
+                            getTranslation(context, 'longitude'),
                             _casted.lng!,
                           ),
                         ),
                         Expanded(
                           child: buildChip(
                             color.swatchColor,
-                            getTranslation(context, "latitude"),
+                            getTranslation(context, 'latitude'),
                             _casted.lat!,
                           ),
                         ),
@@ -95,7 +98,7 @@ class TeritoriesScreen extends StatelessWidget {
         color: chipColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Expanded(
               child: Text(
                 title,

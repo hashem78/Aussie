@@ -8,32 +8,32 @@ class EventImageGalleryStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MultiImagePickingCubit, MultiImagePickingState>(
-      builder: (context, state) {
+      builder: (BuildContext context, MultiImagePickingState state) {
         Widget child;
         if (state is MultiImageMultiPickingLoading) {
           child = const Center(child: CircularProgressIndicator());
         } else if (state is MultiImagePickingError) {
           child = Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               const Icon(
                 Icons.close,
                 color: Colors.red,
               ),
-              Text(getTranslation(context, "eventCreationMultiImageError")),
+              Text(getTranslation(context, 'eventCreationMultiImageError')),
             ],
           );
         } else if (state is MultiImagePickingDone) {
           child = Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               const Icon(
                 Icons.check,
                 color: Colors.green,
               ),
               Text(
-                getTranslation(context, "eventCreationMultiImagesAdded")
-                    .replaceFirst(" ", " ${state.assets.length} "),
+                getTranslation(context, 'eventCreationMultiImagesAdded')
+                    .replaceFirst(' ', ' ${state.assets.length} '),
               ),
             ],
           );

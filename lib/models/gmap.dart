@@ -13,11 +13,11 @@ class AussieGMapModel extends Equatable {
     required this.title,
   }) : assert(
           longitude != null && latitude != null && title != null,
-          "A maps model has a null value in it",
+          'A maps model has a null value in it',
         );
 
   @override
-  List<Object?> get props => [longitude, latitude];
+  List<Object?> get props => <Object?>[longitude, latitude];
   @override
   bool get stringify => true;
 }

@@ -27,7 +27,7 @@ class TeritoryModel extends Equatable implements IPaginatedData {
   });
 
   @override
-  List<Object?> get props => [city, lat, lng, admin];
+  List<Object?> get props => <Object?>[city, lat, lng, admin];
   factory TeritoryModel.fromJson(Map<String, dynamic> json) =>
       _$TeritoryModelFromJson(json);
 

@@ -20,18 +20,18 @@ class SpeciesDetails extends StatelessWidget {
           elevation: 0,
           title: Text(model.commonName!),
           bottom: const TabBar(
-            tabs: [
+            tabs: <Icon>[
               Icon(Icons.info),
               Icon(Icons.image),
             ],
           ),
         ),
         body: TabBarView(
-          children: [
+          children: <Widget>[
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
+                children: <Widget>[
                   buildDataTable(context),
                   Text(
                     model.description!.trim(),
@@ -42,7 +42,7 @@ class SpeciesDetails extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 if (!condition && model.imageUrls!.isEmpty)
                   const Expanded(
                     child: Center(
@@ -56,18 +56,20 @@ class SpeciesDetails extends StatelessWidget {
                       crossAxisCount: 2,
                     ),
                     itemCount: !condition ? model.imageUrls!.length : 1,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return AussiePhotoView(
-                                url: !condition
-                                    ? model.imageUrls![index]
-                                    : model.titleImageUrl,
-                              );
-                            },
-                          ));
+                          Navigator.of(context).push(
+                            MaterialPageRoute<AussiePhotoView>(
+                              builder: (BuildContext context) {
+                                return AussiePhotoView(
+                                  url: !condition
+                                      ? model.imageUrls![index]
+                                      : model.titleImageUrl,
+                                );
+                              },
+                            ),
+                          );
                         },
                         child: Ink.image(
                           padding: EdgeInsets.zero,
@@ -94,15 +96,15 @@ class SpeciesDetails extends StatelessWidget {
         dataTextStyle: const TextStyle(fontWeight: FontWeight.bold),
         columnSpacing: 3,
         headingRowHeight: 0,
-        columns: [
+        columns: <DataColumn>[
           DataColumn(label: Container()),
           DataColumn(label: Container()),
         ],
         //headingRowHeight: 0,
-        rows: [
-          if (model.commonName != null && model.commonName != "")
+        rows: <DataRow>[
+          if (model.commonName != null && model.commonName != '')
             DataRow(
-              cells: [
+              cells: <DataCell>[
                 DataCell(
                   Text(
                     getTranslation(context, 'speciesCommonName'),
@@ -115,7 +117,7 @@ class SpeciesDetails extends StatelessWidget {
               ],
             ),
           DataRow(
-            cells: [
+            cells: <DataCell>[
               DataCell(
                 Text(
                   getTranslation(context, 'speciesScientificName'),
@@ -129,7 +131,7 @@ class SpeciesDetails extends StatelessWidget {
           ),
           if (model.type != null)
             DataRow(
-              cells: [
+              cells: <DataCell>[
                 DataCell(
                   Text(
                     getTranslation(context, 'speciesType'),
@@ -143,7 +145,7 @@ class SpeciesDetails extends StatelessWidget {
             ),
           if (model.conservationStatus != null)
             DataRow(
-              cells: [
+              cells: <DataCell>[
                 DataCell(
                   Text(
                     getTranslation(context, 'speciesConStat'),

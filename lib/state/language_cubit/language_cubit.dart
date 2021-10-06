@@ -10,8 +10,8 @@ class LanguageCubit extends Cubit<LanguageState> {
   LanguageCubit(Locale initialLocale) : super(LanguageInitial(initialLocale));
 
   Future<void> changeLocale(Locale newLocale) async {
-    final _perfs = await SharedPreferences.getInstance();
-    _perfs.setString("lang", newLocale.languageCode);
+    final SharedPreferences _perfs = await SharedPreferences.getInstance();
+    _perfs.setString('lang', newLocale.languageCode);
     emit(LanguageChanged(newLocale));
   }
 

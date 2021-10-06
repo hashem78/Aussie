@@ -20,7 +20,7 @@ class SigninModel extends Equatable {
       _$SigninModelFromJson(json);
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => <Object?>[email, password];
   @override
   bool get stringify => true;
 }

@@ -9,7 +9,7 @@ class BannerImage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final banner = getCurrentUser(context).profileBannerLink;
+    final String? banner = getCurrentUser(context).profileBannerLink;
     return buildImage(
       banner,
       fit: BoxFit.cover,

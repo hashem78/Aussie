@@ -7,9 +7,12 @@ class DescriptionFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: close_sinks
-    final _formElement = context.select<EventCreationBlocForm, TextFieldBloc>(
-        (value) => value.description);
+    // ignore: close_sinks, always_specify_types
+    final TextFieldBloc _formElement =
+        // ignore: always_specify_types
+        context.select<EventCreationBlocForm, TextFieldBloc>(
+      (EventCreationBlocForm value) => value.description,
+    );
     return TextFieldBlocBuilder(
       textFieldBloc: _formElement,
       maxLines: null,
@@ -17,8 +20,8 @@ class DescriptionFormField extends StatelessWidget {
         prefixIcon: const Icon(Icons.person_pin),
         border: InputBorder.none,
         filled: true,
-        labelText: getTranslation(context, "eventCreationDescriptionTitle"),
-        hintText: getTranslation(context, "eventCreationDescriptionHint"),
+        labelText: getTranslation(context, 'eventCreationDescriptionTitle'),
+        hintText: getTranslation(context, 'eventCreationDescriptionHint'),
       ),
     );
   }

@@ -27,10 +27,10 @@ class AussieThumbnailedAppBar extends StatelessWidget {
         title: Text(title!),
         centerTitle: true,
         background: BlocBuilder<ThumbnailCubit, ThumbnailState>(
-          builder: (context, state) {
+          builder: (BuildContext context, ThumbnailState state) {
             if (state is ThumbnailLoading) {
               return CarouselSlider(
-                items: const [
+                items: const <Widget>[
                   Center(child: CircularProgressIndicator()),
                 ],
                 options: CarouselOptions(
@@ -42,12 +42,14 @@ class AussieThumbnailedAppBar extends StatelessWidget {
             } else if (state is ThumbnailLoaded) {
               return CarouselSlider.builder(
                 itemCount: state.imageUrls.length,
-                itemBuilder: (context, index, realIndex) => buildImage(
-                  state.imageUrls[index],
-                  showPlaceHolder: false,
-                  fadeIn: Duration.zero,
-                  fit: BoxFit.cover,
-                )!,
+                itemBuilder: (BuildContext context, int index, int realIndex) {
+                  return buildImage(
+                    state.imageUrls[index],
+                    showPlaceHolder: false,
+                    fadeIn: Duration.zero,
+                    fit: BoxFit.cover,
+                  )!;
+                },
                 options: CarouselOptions(
                   height: height,
                   viewportFraction: 1,

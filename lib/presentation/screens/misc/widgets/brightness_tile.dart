@@ -29,21 +29,21 @@ class BrightnessTile extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) {
+            builder: (BuildContext context) {
               final ThemeMode currentSetting =
                   context.watch<ThemeModeCubit>().state;
               return Dialog(
                 child: ListView(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: [
+                  children: <Widget>[
                     RadioListTile<ThemeMode>(
                       value: ThemeMode.system,
                       groupValue: currentSetting,
                       title: Text(
                         getTranslation(context, 'brightnessSystemTitle'),
                       ),
-                      onChanged: (val) {
+                      onChanged: (ThemeMode? val) {
                         context.read<ThemeModeCubit>().changeToSystem();
                       },
                     ),
@@ -52,7 +52,7 @@ class BrightnessTile extends StatelessWidget {
                       groupValue: currentSetting,
                       title:
                           Text(getTranslation(context, 'brightnessLightTitle')),
-                      onChanged: (val) {
+                      onChanged: (ThemeMode? val) {
                         context.read<ThemeModeCubit>().changeToLight();
                       },
                     ),
@@ -62,7 +62,7 @@ class BrightnessTile extends StatelessWidget {
                       title: Text(
                         getTranslation(context, 'brightnessDarkTitle'),
                       ),
-                      onChanged: (val) {
+                      onChanged: (ThemeMode? val) {
                         context.read<ThemeModeCubit>().changeToDark();
                       },
                     ),

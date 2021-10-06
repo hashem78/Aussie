@@ -8,54 +8,64 @@ class PaginatedOnlineDataProvider {
   final String route; // Api route for online and box name for local
 
   const PaginatedOnlineDataProvider(this.route);
-  Future<Map<String, dynamic>> fetch(String language, int page,
-      {int fetchAmount = 10}) async {
-    final _internalMap = <String, dynamic>{};
+  Future<Map<String, dynamic>> fetch(
+    String language,
+    int page, {
+    int fetchAmount = 10,
+  }) async {
+    final Map<String, dynamic> _internalMap = <String, dynamic>{};
 
-    final queries = await FirebaseFirestore.instance
-        .collection('${route}_$language')
-        .orderBy('idx')
-        .where(
-          'idx',
-          isGreaterThanOrEqualTo: page,
-          isLessThan: page + fetchAmount,
-        )
-        .get();
+    final QuerySnapshot<Map<String, dynamic>> queries =
+        await FirebaseFirestore.instance
+            .collection('${route}_$language')
+            .orderBy('idx')
+            .where(
+              'idx',
+              isGreaterThanOrEqualTo: page,
+              isLessThan: page + fetchAmount,
+            )
+            .get();
 
-    for (var element in queries.docs) {
-      final mp = element.data();
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> element
+        in queries.docs) {
+      final Map<String, dynamic> mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
     }
-    return UnmodifiableMapView(_internalMap);
+    return UnmodifiableMapView<String, dynamic>(_internalMap);
   }
 
   Future<Map<String, dynamic>> filter(
-      String language, String field, String value) async {
-    final _internalMap = <String, dynamic>{};
+    String language,
+    String field,
+    String value,
+  ) async {
+    final Map<String, dynamic> _internalMap = <String, dynamic>{};
 
     //  final _split = filed.s
-    String searchQuery = "";
+    String searchQuery = '';
     if (field.length > 1) {
       final List<String> _split = value.split(' ');
       searchQuery = _split
-          .map((e) => '${e[0].toUpperCase()}${e.substring(1)}')
+          .map((String e) => '${e[0].toUpperCase()}${e.substring(1)}')
           .toList()
-          .reduce((value, element) => '$value $element');
+          .reduce((String value, String element) => '$value $element');
     } else {
       searchQuery = searchQuery.toUpperCase();
     }
-    final queries = await FirebaseFirestore.instance
-        .collection('${route}_$language')
-        .where(
-          field,
-          isGreaterThanOrEqualTo: searchQuery,
-        )
-        .get();
+    final QuerySnapshot<Map<String, dynamic>> queries =
+        await FirebaseFirestore.instance
+            .collection('${route}_$language')
+            .where(
+              field,
+              isGreaterThanOrEqualTo: searchQuery,
+            )
+            .get();
 
-    for (var element in queries.docs) {
-      final mp = element.data();
+    for (final QueryDocumentSnapshot<Map<String, dynamic>> element
+        in queries.docs) {
+      final Map<String, dynamic> mp = element.data();
       _internalMap[mp['idx'].toString()] = mp;
     }
-    return UnmodifiableMapView(_internalMap);
+    return UnmodifiableMapView<String, dynamic>(_internalMap);
   }
 }

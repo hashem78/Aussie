@@ -10,7 +10,7 @@ class FeedCardTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: "Leave a comment!",
+        hintText: 'Leave a comment!',
         hintStyle: TextStyle(fontSize: 40.sp),
         icon: Container(
           width: .1.sw,

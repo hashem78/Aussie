@@ -17,12 +17,12 @@ class EventCardImage extends StatelessWidget {
       child: CachedNetworkImage(
         imageUrl: e.bannerImage!.imageLink!,
         fit: BoxFit.fill,
-        imageBuilder: (context, imageProvider) {
+        imageBuilder: (BuildContext context, ImageProvider<Object> imageProvider) {
           return Ink.image(
             image: imageProvider,
           );
         },
-        progressIndicatorBuilder: (context, url, progress) {
+        progressIndicatorBuilder: (BuildContext context, String url, DownloadProgress progress) {
           return Center(
             child: CircularProgressIndicator(value: progress.progress),
           );

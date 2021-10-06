@@ -4,7 +4,7 @@ abstract class AttendeesState extends Equatable {
   const AttendeesState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => <Object>[];
 }
 
 class AttendeesInitial extends AttendeesState {
@@ -16,7 +16,7 @@ class AttendeesActual extends AttendeesState {
 
   const AttendeesActual(this.uuids);
   @override
-  List<Object> get props => [uuids];
+  List<Object> get props => <Object>[uuids];
 }
 
 class AttendeesEmpty extends AttendeesState {
@@ -28,5 +28,5 @@ class AttendeesActualEnd extends AttendeesState {
 
   const AttendeesActualEnd(this.uuids);
   @override
-  List<Object> get props => [uuids];
+  List<Object> get props => <Object>[uuids];
 }

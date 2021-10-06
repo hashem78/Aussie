@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: CustomScrollView(
-          slivers: [
+          slivers:<Widget> [
             const SettingsAppbar(tTitle: AussieScreenData.settingsTitle),
             SliverList(
               delegate: SliverChildListDelegate(

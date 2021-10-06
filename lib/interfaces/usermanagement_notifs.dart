@@ -3,12 +3,12 @@ import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
 abstract class UserManagementNotification {
   static const Map<String, UserManagementNotification> firebaseAuthErrorCodes =
       <String, UserManagementNotification>{
-    "invalid-email": InvalidEmailNotification(),
-    "wrong-password": WrongPasswordNotification(),
-    "email-already-in-use": EmailAlreadyInUseNotification(),
-    "user-not-found": UserNotFoundNotification(),
-    "weak-password": WeakPasswordNotification(),
-    "missing-email": MissingEmailNotification(),
+    'invalid-email': InvalidEmailNotification(),
+    'wrong-password': WrongPasswordNotification(),
+    'email-already-in-use': EmailAlreadyInUseNotification(),
+    'user-not-found': UserNotFoundNotification(),
+    'weak-password': WeakPasswordNotification(),
+    'missing-email': MissingEmailNotification(),
     // "user-mismatch":
     //     "the supplied credentials do not correspond to the previously signed in user.",
     // "requires-recent-login":

@@ -1,3 +1,4 @@
+import 'package:aussie/models/weather/weather_model.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,10 +18,10 @@ class WeatherCardChild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _weatherModel = model.model;
+    final WeatherModel _weatherModel = model.model;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
+      children: <Widget>[
         Text(
           _weatherModel.day!,
           style: TextStyle(
@@ -30,22 +31,22 @@ class WeatherCardChild extends StatelessWidget {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             BoxedIcon(
               WeatherIcons.fromString(_weatherModel.iconString!),
               size: 200.sp,
               color: Colors.teal,
             ),
             Column(
-              children: [
+              children:<Widget> [
                 AutoSizeText(
-                  "H ${_weatherModel.highTemp}°C",
+                  'H ${_weatherModel.highTemp}°C',
                   maxLines: 1,
                   style:
                       TextStyle(fontSize: 120.sp, fontWeight: FontWeight.w600),
                 ),
                 AutoSizeText(
-                  "L ${_weatherModel.lowTemp}°C",
+                  'L ${_weatherModel.lowTemp}°C',
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 120.sp,
@@ -66,11 +67,11 @@ class WeatherCardChild extends StatelessWidget {
           alignment: FractionalOffset.bottomLeft,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
-                  children: [
+                  children:<Widget> [
                     SvgPicture.asset(
                       'assets/images/humidity.svg',
                       height: 30,
@@ -84,7 +85,7 @@ class WeatherCardChild extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Column(
-                  children: [
+                  children:<Widget> [
                     SvgPicture.asset(
                       'assets/images/barometer.svg',
                       height: 30,

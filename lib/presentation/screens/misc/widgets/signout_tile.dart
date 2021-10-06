@@ -12,15 +12,16 @@ class SignoutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserManagementCubit, UserManagementState>(
-      listener: (context, state) {
+      listener: (BuildContext context, UserManagementState state) {
         if (state is UserManagementSignOut) {
           Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) {
+            MaterialPageRoute<InitialUserActionScreen>(
+              builder: (BuildContext context) {
                 return const InitialUserActionScreen();
               },
             ),
-            (route) => false,
+            // ignore: always_specify_types
+            (Route route) => false,
           );
         }
       },
@@ -30,7 +31,7 @@ class SignoutTile extends StatelessWidget {
         },
         leading: const Icon(Icons.unsubscribe),
         title: Text(
-          getTranslation(context, "signoutTileTitle"),
+          getTranslation(context, 'signoutTileTitle'),
         ),
       ),
     );

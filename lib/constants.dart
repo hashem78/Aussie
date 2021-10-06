@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
-const kausBlue = Color(0xFF00008b);
-const kausRed = Color(0xFFD80027);
-const kaussieRadius = BorderRadius.all(Radius.circular(20));
+const Color kausBlue = Color(0xFF00008b);
+const Color kausRed = Color(0xFFD80027);
+const BorderRadius kaussieRadius = BorderRadius.all(Radius.circular(20));
 String kurl =
     'https://via.placeholder.com/500/${getRandomColor().toString().substring(10, 16)}/FFFFFF';
 const String klorem = '''

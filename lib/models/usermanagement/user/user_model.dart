@@ -33,7 +33,7 @@ class AussieUser {
   @JsonKey()
   final String? uid;
 
-  @JsonKey(defaultValue: [])
+  @JsonKey(defaultValue: <String>[])
   final List<String>? attends;
   @JsonKey(defaultValue: 0)
   final int? numberOfFollowers;
@@ -42,9 +42,9 @@ class AussieUser {
   @JsonKey(defaultValue: 0)
   final int? numberOfPosts;
 
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? profilePictureLink;
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: '')
   final String? profileBannerLink;
   factory AussieUser.fromJson(Map<String, dynamic> json) =>
       _$AussieUserFromJson(json);

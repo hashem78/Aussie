@@ -2,7 +2,7 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 
 class SingupScreen extends StatelessWidget {
-  final ValueNotifier<String> profileImage = ValueNotifier("");
+  final ValueNotifier<String> profileImage = ValueNotifier<String>('');
 
   SingupScreen({Key? key}) : super(key: key);
 
@@ -13,12 +13,12 @@ class SingupScreen extends StatelessWidget {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: AppBar(
           elevation: 0,
-          title: Text(getTranslation(context, "signup2ButtonText")),
+          title: Text(getTranslation(context, 'signup2ButtonText')),
         ),
       ),
       body: FormBlocListener<SignupBloc, String, String>(
         child: LayoutBuilder(
-          builder: (context, constraints) {
+          builder: (BuildContext context, BoxConstraints constraints) {
             return SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
@@ -26,11 +26,11 @@ class SingupScreen extends StatelessWidget {
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     _SignupProfileImage(profileImage: profileImage),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
+                      children: <Widget>[
                         TextFieldBlocBuilder(
                           textFieldBloc: getSignupBloc(context).fullName,
                           decoration: InputDecoration(
@@ -38,7 +38,7 @@ class SingupScreen extends StatelessWidget {
                             border: InputBorder.none,
                             filled: true,
                             hintText: getTranslation(
-                                context, "signupScreenFullNameTitle"),
+                                context, 'signupScreenFullNameTitle'),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -49,7 +49,7 @@ class SingupScreen extends StatelessWidget {
                             border: InputBorder.none,
                             filled: true,
                             hintText: getTranslation(
-                                context, "signupScreenUsernameTitle"),
+                                context, 'signupScreenUsernameTitle'),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -61,7 +61,7 @@ class SingupScreen extends StatelessWidget {
                             filled: true,
                             hintStyle: TextStyle(fontSize: 60.sp),
                             hintText: getTranslation(
-                                context, "signupScreenEmailTitle"),
+                                context, 'signupScreenEmailTitle'),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -74,31 +74,36 @@ class SingupScreen extends StatelessWidget {
                             filled: true,
                             hintStyle: TextStyle(fontSize: 60.sp),
                             hintText: getTranslation(
-                                context, "signupScreenPasswordTitle"),
+                                context, 'signupScreenPasswordTitle'),
                           ),
                         ),
                         const SizedBox(height: 10),
                         BlocConsumer<UserManagementCubit, UserManagementState>(
-                          listener: (context, state) {
+                          listener: (BuildContext context,
+                              UserManagementState state) {
                             if (state is UserManagementSignup) {
-                              Future.delayed(const Duration(seconds: 2))
+                              Future<void>.delayed(const Duration(seconds: 2))
                                   .whenComplete(
                                 () {
                                   Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (context) => BlocProvider(
-                                        create: (context) =>
-                                            UserManagementCubit()
-                                              ..getUserData(),
-                                        child: const FeedScreen(),
-                                      ),
+                                    MaterialPageRoute<FeedScreen>(
+                                      builder: (BuildContext context) {
+                                        return BlocProvider<
+                                            UserManagementCubit>(
+                                          create: (BuildContext context) {
+                                            return UserManagementCubit()
+                                              ..getUserData();
+                                          },
+                                          child: const FeedScreen(),
+                                        );
+                                      },
                                     ),
                                   );
                                 },
                               );
                             }
                           },
-                          builder: (context, state) {
+                          builder: (BuildContext context, UserManagementState state) {
                             Widget? child;
 
                             if (state is UserManagementPerformingAction) {
@@ -124,7 +129,7 @@ class SingupScreen extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             // ignore: close_sinks
-                            final signupBloc = getSignupBloc(context);
+                            final SignupBloc signupBloc = getSignupBloc(context);
                             FocusManager.instance.primaryFocus!.unfocus();
                             signupBloc.submit();
                             BlocProvider.of<UserManagementCubit>(context)
@@ -139,7 +144,7 @@ class SingupScreen extends StatelessWidget {
                             );
                           },
                           child: AutoSizeText(
-                            getTranslation(context, "signup2ButtonText"),
+                            getTranslation(context, 'signup2ButtonText'),
                             style: TextStyle(fontSize: 85.sp),
                           ),
                         ),
@@ -174,12 +179,12 @@ class _SignupProfileImage extends StatelessWidget {
             );
       },
       child: BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
-        listener: (context, state) {
+        listener: (BuildContext context, SingleImagePickingState state) {
           if (state is SingleImagePickingDone) {
             profileImage!.value = state.path;
           }
         },
-        builder: (context, state) {
+        builder: (BuildContext context, SingleImagePickingState state) {
           if (state is SingleImagePickingInitial ||
               state is SingleImagePickingError) {
             return Icon(

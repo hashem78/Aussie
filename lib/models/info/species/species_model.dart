@@ -27,14 +27,14 @@ class SpeciesDetailsModel extends Equatable implements IPaginatedData {
     required this.description,
     this.titleImageUrl,
     this.imageUrls,
-  })  : commonName = commonName == "" ? scientificName : commonName,
+  })  : commonName = commonName == '' ? scientificName : commonName,
         assert(
           commonName != null && scientificName != null && description != null,
         );
 
   @override
   List<Object?> get props {
-    return [
+    return <Object?>[
       commonName,
       scientificName,
       type,

@@ -17,7 +17,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
     super.initState();
 
     _controller.addPageRequestListener(
-      (pageKey) {
+      (int pageKey) {
         if (cubit.prevSnap == null) {
           cubit.fetchPublicEvents();
         } else {
@@ -37,7 +37,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
   Widget build(BuildContext context) {
     super.build(context);
     return BlocListener<EventManagementCubit, EventManagementState>(
-      listener: (context, state) {
+      listener: (BuildContext context, EventManagementState state) {
         if (state is EventManagementEventsFetched) {
           _controller.appendPage(
             state.models,
@@ -54,26 +54,30 @@ class _PublicEventsTabState extends State<PublicEventsTab>
         },
         child: PagedListView<int, EventModel>(
           pagingController: _controller,
-          builderDelegate: PagedChildBuilderDelegate(
-            itemBuilder: (context, item, index) {
+          builderDelegate: PagedChildBuilderDelegate<EventModel>(
+            itemBuilder: (BuildContext context, EventModel item, int index) {
               return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                    create: (context) =>
-                        UserManagementCubit()..getUserDataFromUid(item.uid),
+                providers: <BlocProvider<Object?>>[
+                  BlocProvider<UserManagementCubit>(
+                    create: (BuildContext context) {
+                      return UserManagementCubit()
+                        ..getUserDataFromUid(
+                          item.uid,
+                        );
+                    },
                   ),
-                  BlocProvider.value(value: cubit)
+                  BlocProvider<EventManagementCubit>.value(value: cubit)
                 ],
-                child: Provider.value(
+                child: Provider<EventModel>.value(
                   value: item,
                   child: const PublicEventCard(),
                 ),
               );
             },
-            noItemsFoundIndicatorBuilder: (context) {
+            noItemsFoundIndicatorBuilder: (BuildContext context) {
               return Center(
                 child: Text(
-                  getTranslation(context, "eventsNoPublic"),
+                  getTranslation(context, 'eventsNoPublic'),
                 ),
               );
             },

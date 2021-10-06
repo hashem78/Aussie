@@ -29,21 +29,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
+      // ignore: always_specify_types
       providers: [
-        BlocProvider(
+        BlocProvider<ThemeModeCubit>(
           create: (BuildContext context) => ThemeModeCubit(themeMode),
         ),
-        BlocProvider(create: (BuildContext context) => LanguageCubit(locale)),
-        BlocProvider(create: (BuildContext context) => UserManagementCubit()),
-        BlocProvider(create: (BuildContext context) => WeatherCubit()),
-        BlocProvider(create: (BuildContext context) => AttendeesCubit()),
+        BlocProvider<LanguageCubit>(
+            create: (BuildContext context) => LanguageCubit(locale)),
+        BlocProvider<UserManagementCubit>(
+          create: (BuildContext context) => UserManagementCubit(),
+        ),
+        BlocProvider<WeatherCubit>(
+          create: (BuildContext context) => WeatherCubit(),
+        ),
+        BlocProvider<AttendeesCubit>(
+          create: (BuildContext context) => AttendeesCubit(),
+        ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, languageState) {
+        builder: (BuildContext context, LanguageState languageState) {
           return BlocBuilder<ThemeModeCubit, ThemeMode>(
-            builder: (context, themeState) {
+            builder: (BuildContext context, ThemeMode themeState) {
               return OrientationBuilder(
-                builder: (context, orientation) {
+                builder: (BuildContext context, Orientation orientation) {
                   Size size;
                   if (orientation == Orientation.portrait) {
                     size = const Size(1920, 1080);
@@ -56,23 +64,28 @@ class MyApp extends StatelessWidget {
                       return MaterialApp(
                         locale: languageState.currentLocale,
                         debugShowCheckedModeBanner: false,
+                        // ignore: always_specify_types
                         localizationsDelegates: const [
                           GlobalMaterialLocalizations.delegate,
                           GlobalWidgetsLocalizations.delegate,
                           GlobalCupertinoLocalizations.delegate,
                           AussieLocalizations.delegate,
                         ],
-                        supportedLocales: const [
+                        supportedLocales: const <Locale>[
                           Locale('en', ''),
                           Locale('ar', ''),
                         ],
-                        localeResolutionCallback: (locale, supportedLocales) {
-                          if (supportedLocales.contains(locale)) return locale;
+                        localeResolutionCallback: (Locale? locale,
+                            Iterable<Locale> supportedLocales) {
+                          if (supportedLocales.contains(locale)) {
+                            return locale;
+                          }
                           return supportedLocales.first;
                         },
-                        home: BlocProvider(
-                          create: (context) =>
-                              UserManagementCubit()..isUserSignedIn(),
+                        home: BlocProvider<UserManagementCubit>(
+                          create: (BuildContext context) {
+                            return UserManagementCubit()..isUserSignedIn();
+                          },
                           child: const SafeArea(
                             child: InitialScreen(),
                           ),
@@ -104,40 +117,45 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  static final Map<String, Widget Function(BuildContext)> routes = {
+  static final Map<String, Widget Function(BuildContext)> routes =
+      <String, Widget Function(BuildContext)>{
     AussieScreenData.naturalParksNavPath: (BuildContext context) {
-      return BlocProvider(
+      return BlocProvider<PaginatedCubit<NaturalParkModel>>(
         create: (BuildContext context) {
-          return PaginatedCubit<NaturalParkModel>("natural_parks");
+          return PaginatedCubit<NaturalParkModel>('natural_parks');
         },
         child: const NaturalParksScreen(),
       );
     },
-    AussieScreenData.weatherNavPath: (BuildContext context) =>
-        const WeatherScreen(),
+    AussieScreenData.weatherNavPath: (BuildContext context) {
+      return const WeatherScreen();
+    },
     AussieScreenData.territoriesNavPath: (BuildContext context) {
-      return BlocProvider(
+      return BlocProvider<PaginatedCubit<TeritoryModel>>(
         create: (BuildContext context) {
-          return PaginatedCubit<TeritoryModel>("teritories");
+          return PaginatedCubit<TeritoryModel>('teritories');
         },
         child: const TeritoriesScreen(),
       );
     },
     AussieScreenData.faunaNavPath: (BuildContext context) {
-      return BlocProvider(
-        create: (BuildContext context) =>
-            PaginatedCubit<SpeciesDetailsModel>("fauna"),
+      return BlocProvider<PaginatedCubit<SpeciesDetailsModel>>(
+        create: (BuildContext context) {
+          return PaginatedCubit<SpeciesDetailsModel>('fauna');
+        },
         child: const FaunaScreen(),
       );
     },
     AussieScreenData.floraNavPath: (BuildContext context) {
-      return BlocProvider(
-        create: (BuildContext context) =>
-            PaginatedCubit<SpeciesDetailsModel>("flora"),
+      return BlocProvider<PaginatedCubit<SpeciesDetailsModel>>(
+        create: (BuildContext context) {
+          return PaginatedCubit<SpeciesDetailsModel>('flora');
+        },
         child: const FloraScreen(),
       );
     },
-    AussieScreenData.settingsNavPath: (BuildContext context) =>
-        const SettingsScreen(),
+    AussieScreenData.settingsNavPath: (BuildContext context) {
+      return const SettingsScreen();
+    },
   };
 }

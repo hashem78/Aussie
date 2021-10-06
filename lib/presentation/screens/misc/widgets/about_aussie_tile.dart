@@ -13,13 +13,13 @@ class AboutAussieTile extends StatelessWidget {
         onTap: () {
           showAboutDialog(
             context: context,
-            applicationVersion: "1.0",
-            applicationName: "Aussie",
-            applicationLegalese: getTranslation(context, "legalese"),
+            applicationVersion: '1.0',
+            applicationName: 'Aussie',
+            applicationLegalese: getTranslation(context, 'legalese'),
           );
         },
         leading: Text(
-          getTranslation(context, "aboutAussieText"),
+          getTranslation(context, 'aboutAussieText'),
         ),
         trailing: const Padding(
           padding: EdgeInsets.only(right: 20.0),

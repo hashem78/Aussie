@@ -1,23 +1,42 @@
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 
 class SignupBloc extends FormBloc<String, String> {
-  final fullName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  final userName = TextFieldBloc(validators: [FieldBlocValidators.required]);
-  final email = TextFieldBloc(
-    validators: [FieldBlocValidators.required, FieldBlocValidators.email],
+  final TextFieldBloc<Validator<String?>> fullName =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+    ],
   );
-  final password = TextFieldBloc(validators: [
-    FieldBlocValidators.required,
-    FieldBlocValidators.passwordMin6Chars
-  ]);
+  final TextFieldBloc<Validator<String?>> userName =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+    ],
+  );
+  final TextFieldBloc<Validator<String?>> email =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+      FieldBlocValidators.email,
+    ],
+  );
+  final TextFieldBloc<Validator<String?>> password =
+      TextFieldBloc<Validator<String?>>(
+    validators: <Validator<String?>>[
+      FieldBlocValidators.required,
+      FieldBlocValidators.passwordMin6Chars
+    ],
+  );
 
   SignupBloc() {
-    addFieldBlocs(fieldBlocs: [
-      fullName,
-      userName,
-      email,
-      password,
-    ]);
+    addFieldBlocs(
+      fieldBlocs: <FieldBloc>[
+        fullName,
+        userName,
+        email,
+        password,
+      ],
+    );
   }
   String? profileImagePath;
 

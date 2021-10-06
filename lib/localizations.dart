@@ -17,8 +17,8 @@ class AussieLocalizations {
   late Map<String, String> _localizedStrings;
 
   Future<void> load(Locale locale) async {
-    final _assetData =
-        await rootBundle.loadString("assets/json/${locale.languageCode}.json");
+    final String _assetData =
+        await rootBundle.loadString('assets/json/${locale.languageCode}.json');
     final Map<String, dynamic> _map =
         jsonDecode(_assetData) as Map<String, dynamic>;
     _localizedStrings = Map<String, String>.from(_map);
@@ -34,7 +34,7 @@ class _AussieLocalizationsDelegate
   const _AussieLocalizationsDelegate();
 
   @override
-  bool isSupported(Locale locale) => ['en', 'ar'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ar'].contains(locale.languageCode);
 
   @override
   Future<AussieLocalizations> load(Locale locale) async {

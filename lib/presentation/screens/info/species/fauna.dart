@@ -1,3 +1,4 @@
+import 'package:aussie/interfaces/paginated_data.dart';
 import 'package:aussie/models/info/species/species_model.dart';
 import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/info/searchable_paginated.dart';
@@ -15,20 +16,20 @@ class FaunaScreen extends StatelessWidget {
     return AussieThemeBuilder(
       dark: AussieScreenColorData.faunaDark,
       light: AussieScreenColorData.faunaLight,
-      builder: (context, color) {
+      builder: (BuildContext context, AussieColor color) {
         return SearchablePaginatedScreen<SpeciesDetailsModel>(
           title: getTranslation(context, AussieScreenData.faunaTitle),
           thumbnailCubitRoute: AussieScreenData.faunaThumbnailRoute,
-          filterFor: "commonName",
-          itemBuilder: (context, item, index) {
-            final _casted = item as SpeciesDetailsModel;
+          filterFor: 'commonName',
+          itemBuilder: (BuildContext context, IPaginatedData item, int index) {
+            final SpeciesDetailsModel _casted = item as SpeciesDetailsModel;
 
             return InkWell(
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => AussieThemeProvider(
+                  MaterialPageRoute<SpeciesDetailsModel>(
+                    builder: (BuildContext context) => AussieThemeProvider(
                       color: color,
                       child: SpeciesDetails(model: item),
                     ),

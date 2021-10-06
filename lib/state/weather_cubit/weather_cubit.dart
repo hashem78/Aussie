@@ -11,7 +11,7 @@ class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(WeatherInitial());
   final OnlineWeatherRepository _repository = OnlineWeatherRepository();
   Future<void> fetch(LatLng coord) async {
-    final weatherModel = await _repository.fetch(coord);
+    final WeatherModel weatherModel = await _repository.fetch(coord);
     emit(WeatherLoaded(weatherModel));
   }
 }

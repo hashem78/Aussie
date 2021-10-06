@@ -12,23 +12,25 @@ class EventCardDetailsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);
 
-    final DateTime begin =
-        DateTime.fromMillisecondsSinceEpoch(e.startingTimeStamp!);
-    final DateTime end =
-        DateTime.fromMillisecondsSinceEpoch(e.endingTimeStamp!);
-    final formattedBeginDate = DateFormat("dd/MM/yyyy").format(begin);
-    final formattedEndDate = DateFormat("dd/MM/yyyy").format(end);
-    final formattedBeginTime = DateFormat("hh:mm:ss").format(begin);
-    final formattedEndTime = DateFormat("hh:mm:ss").format(end);
+    final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
+      e.startingTimeStamp!,
+    );
+    final DateTime end = DateTime.fromMillisecondsSinceEpoch(
+      e.endingTimeStamp!,
+    );
+    final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
+    final String formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
+    final String formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
+    final String formattedEndTime = DateFormat('hh:mm:ss').format(end);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(
-              "Starts on $formattedBeginDate",
+              'Starts on $formattedBeginDate',
               style: Theme.of(context)
                   .textTheme
                   .caption!
@@ -37,7 +39,7 @@ class EventCardDetailsHeader extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 12.0),
               child: Text(
-                "at $formattedBeginTime",
+                'at $formattedBeginTime',
                 style: Theme.of(context).textTheme.caption,
               ),
             ),
@@ -45,9 +47,9 @@ class EventCardDetailsHeader extends StatelessWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
+          children: <Widget>[
             Text(
-              "Ends on $formattedEndDate",
+              'Ends on $formattedEndDate',
               style: Theme.of(context)
                   .textTheme
                   .caption!
@@ -56,7 +58,7 @@ class EventCardDetailsHeader extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 12.0),
               child: Text(
-                "at $formattedEndTime",
+                'at $formattedEndTime',
                 style: Theme.of(context).textTheme.caption,
               ),
             ),

@@ -9,9 +9,9 @@ class EventLocationPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocationPickingCubit, LocationPickingState>(
-      builder: (context, state) {
+      builder: (BuildContext context, LocationPickingState state) {
         String? hintText;
-        Locale locale = const Locale("en");
+        Locale locale = const Locale('en');
         if (state is LocationNotPicked) {
           hintText = getTranslation(context, state.message);
         } else if (state is LocationPicked) {
@@ -26,40 +26,41 @@ class EventLocationPicker extends StatelessWidget {
               prefixIcon: const Icon(Icons.map),
               suffixIcon: IconButton(
                 onPressed: () async {
-                  final _k = await Navigator.of(context).push(
+                  final LocationResult? _k = await Navigator.of(context).push(
                     MaterialPageRoute<LocationResult>(
-                      builder: (context) {
+                      builder: (BuildContext context) {
                         return PlacePicker(
-                          "AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k",
+                          'AIzaSyBs7N7qU5nNLY-fNcnesbnJFJZ3bo55o6k',
                           displayLocation: const LatLng(-33.8688, 151.2093),
                           localizationItem: LocalizationItem(
                             languageCode: locale.languageCode,
                             nearBy: getTranslation(
                               context,
-                              "locationNearby",
+                              'locationNearby',
                             ),
                             findingPlace: getTranslation(
                               context,
-                              "locationFindingPlace",
+                              'locationFindingPlace',
                             ),
                             unnamedLocation: getTranslation(
                               context,
-                              "locationUnamedLocation",
+                              'locationUnamedLocation',
                             ),
                             noResultsFound: getTranslation(
                               context,
-                              "locationNoResultsFound",
+                              'locationNoResultsFound',
                             ),
                             tapToSelectLocation: getTranslation(
                               context,
-                              "locationTapToSelect",
+                              'locationTapToSelect',
                             ),
                           ),
                         );
                       },
                     ),
                   );
-                  final _locCubit = context.read<LocationPickingCubit>();
+                  final LocationPickingCubit _locCubit =
+                      context.read<LocationPickingCubit>();
                   _locCubit.pickLoc(_k);
                 },
                 icon: const Icon(

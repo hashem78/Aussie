@@ -1,15 +1,15 @@
 part of 'paginated_cubit.dart';
 
-class PaginatedInitial extends PaginatedState {
-  const PaginatedInitial() : super(const []);
-}
-
 abstract class PaginatedState extends Equatable {
   final List<IPaginatedData> models;
   const PaginatedState(this.models);
 
   @override
-  List<Object> get props => [models];
+  List<Object> get props => <Object>[models];
+}
+
+class PaginatedInitial extends PaginatedState {
+  const PaginatedInitial() : super(const <IPaginatedData>[]);
 }
 
 class PaginatedInitialLoaded extends PaginatedState {

@@ -25,7 +25,7 @@ class PaginatedScreenTile extends StatelessWidget {
         color: AussieThemeProvider.of(context)!.color.swatchColor,
         shape: const RoundedRectangleBorder(),
         child: Column(
-          children: [
+          children: <Widget>[
             if (titleImage != null)
               AspectRatio(
                 aspectRatio: aspectRatio,

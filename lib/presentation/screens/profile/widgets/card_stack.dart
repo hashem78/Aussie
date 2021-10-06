@@ -15,9 +15,9 @@ class ProfileCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Row(
-            children: const [
+            children: const<Widget> [
               ProfileScreenImage(),
               SizedBox(width: 10),
               Expanded(child: ProfileScreenCardDetails()),

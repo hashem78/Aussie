@@ -10,8 +10,9 @@ class ProfileScreenCardStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AussieUser user = getCurrentUser(context);
-    var postsString = getTranslation(context, 'userProfileStatsPosts');
-    var followersString = getTranslation(context, 'userProfileStatsFollowers');
+    String postsString = getTranslation(context, 'userProfileStatsPosts');
+    String followersString =
+        getTranslation(context, 'userProfileStatsFollowers');
     if (user.numberOfPosts == 1) {
       postsString = postsString.substring(
         0,
@@ -29,12 +30,12 @@ class ProfileScreenCardStats extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children:<Widget> [
           Text(
-            "${user.numberOfPosts} $postsString",
+            '${user.numberOfPosts} $postsString',
           ),
           Text(
-            "${user.numberOfFollowers} $followersString",
+            '${user.numberOfFollowers} $followersString',
           ),
           Text(
             "${user.numberOfFollowing} ${getTranslation(context, 'userProfileStatsFollowing')}",

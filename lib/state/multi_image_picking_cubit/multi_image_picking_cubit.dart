@@ -24,10 +24,10 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
       final List<Asset> assets =
           await MultiImagePicker.pickImages(maxImages: 10);
 
-      final List<AussieByteData> data = [];
+      final List<AussieByteData> data = <AussieByteData>[];
       final Directory dir = await getApplicationDocumentsDirectory();
-      for (final element in assets) {
-        final String filePath = "${dir.path}/${element.name}.jpeg";
+      for (final Asset element in assets) {
+        final String filePath = '${dir.path}/${element.name}.jpeg';
         final ByteData byteData = await element.getByteData(quality: 80);
         File(filePath).writeAsBytesSync(
           byteData.buffer.asUint8List(
@@ -61,7 +61,7 @@ class MultiImagePickingCubit extends Cubit<MultiImagePickingState> {
       }
     } on Exception catch (e) {
       if (e is PlatformException) {
-        if (e.code == "Exif error") {}
+        if (e.code == 'Exif error') {}
       } else if (e is NoImagesSelectedException) {
         emit(MultiImagePickingError());
       }

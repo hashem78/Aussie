@@ -63,11 +63,11 @@ class _ExpandingTextTileState extends State<ExpandingTextTile>
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            children: [
+            children:<Widget> [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: <Widget>[
                     Text(
                       widget.title,
                       style: widget.titleStyle,

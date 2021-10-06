@@ -11,7 +11,7 @@ class PublicAttendButton extends StatelessWidget {
     final AussieUser currentUser = getCurrentUser(context);
 
     return BlocBuilder<UserManagementCubit, UserManagementState>(
-      builder: (context, state) {
+      builder: (BuildContext context, UserManagementState state) {
         Widget child;
         if (state is UserManagementInitial) {
           child = TextButton(
@@ -21,17 +21,17 @@ class PublicAttendButton extends StatelessWidget {
                   .makeUserWithIdAttendEvent(currentUser, e.eventId);
             },
             child: Text(
-              getTranslation(context, "attendButtonTextNormal"),
+              getTranslation(context, 'attendButtonTextNormal'),
             ),
           );
         } else if (state is UserManagementPerformingAction) {
           child = TextButton(
             onPressed: null,
             child: Row(
-              children: [
+              children: <Widget>[
                 const Center(child: CircularProgressIndicator()),
                 Text(
-                  getTranslation(context, "attendButtonTextAttempting"),
+                  getTranslation(context, 'attendButtonTextAttempting'),
                 ),
               ],
             ),
@@ -40,14 +40,14 @@ class PublicAttendButton extends StatelessWidget {
           child = TextButton(
             onPressed: null,
             child: Text(
-              getTranslation(context, "attendButtonTextAttending"),
+              getTranslation(context, 'attendButtonTextAttending'),
             ),
           );
         } else {
           child = TextButton(
             onPressed: null,
             child: Text(
-              getTranslation(context, "attendButtonTextError"),
+              getTranslation(context, 'attendButtonTextError'),
             ),
           );
         }

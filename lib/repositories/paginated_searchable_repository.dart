@@ -20,7 +20,7 @@ class PaginatedRepositoy<T extends IPaginatedData> {
     _repResponse = await _onlineDataProvider.fetch(language, page,
         fetchAmount: fetchAmount);
 
-    return UnmodifiableListView(_toData(_repResponse));
+    return UnmodifiableListView<IPaginatedData>(_toData(_repResponse));
   }
 
   Future<List<IPaginatedData>> filter(
@@ -28,28 +28,28 @@ class PaginatedRepositoy<T extends IPaginatedData> {
     Map<String, dynamic> _repResponse;
 
     _repResponse = await _onlineDataProvider.filter(language, field, value);
-    return UnmodifiableListView(_toData(_repResponse));
+    return UnmodifiableListView<IPaginatedData>(_toData(_repResponse));
   }
 
   List<IPaginatedData> _toData(Map<String, dynamic> response) {
     if (response.containsKey('error')) {
       throw response['error'] as Object;
     } else {
-      final List<IPaginatedData> _q = [];
+      final List<IPaginatedData> _q = <IPaginatedData>[];
       if (T == NaturalParkModel) {
-        for (var element in response.entries) {
+        for (final MapEntry<String, dynamic> element in response.entries) {
           _q.add(
             NaturalParkModel.fromJson(element.value as Map<String, dynamic>),
           );
         }
       } else if (T == TeritoryModel) {
-        for (var element in response.entries) {
+        for (final MapEntry<String, dynamic> element in response.entries) {
           _q.add(
             TeritoryModel.fromJson(element.value as Map<String, dynamic>),
           );
         }
       } else if (T == SpeciesDetailsModel) {
-        for (var element in response.entries) {
+        for (final MapEntry<String, dynamic> element in response.entries) {
           _q.add(
             SpeciesDetailsModel.fromJson(
               element.value as Map<String, dynamic>,

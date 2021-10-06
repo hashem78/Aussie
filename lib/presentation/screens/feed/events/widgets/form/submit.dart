@@ -22,49 +22,56 @@ class EventCreationSubmitButton extends StatelessWidget {
       onPressed: enabled
           ? () {
               // ignore: close_sinks
-              final _formBloc = context.read<EventCreationBlocForm>();
-              final _locCubit = context.read<LocationPickingCubit>();
-              final _multiImageCubit = context.read<MultiImagePickingCubit>();
-              final _singleImageCubit = context.read<SingleImagePickingCubit>();
-              final _evmCubit = context.read<EventManagementCubit>();
-              final _title = _formBloc.title;
-              final _subtitle = _formBloc.subtitle;
-              // ignore: close_sinks
-              final _description = _formBloc.description;
-              final _start = _formBloc.dateAndTime1.value;
-              final _startTime = _formBloc.timeonly1.value;
-              final _end = _formBloc.dateAndTime2.value;
-              final _endTime = _formBloc.timeonly2.value;
+              final EventCreationBlocForm _formBloc =
+                  context.read<EventCreationBlocForm>();
+              final LocationPickingCubit _locCubit =
+                  context.read<LocationPickingCubit>();
+              final MultiImagePickingCubit _multiImageCubit =
+                  context.read<MultiImagePickingCubit>();
+              final SingleImagePickingCubit _singleImageCubit =
+                  context.read<SingleImagePickingCubit>();
+              final EventManagementCubit _evmCubit =
+                  context.read<EventManagementCubit>();
+              // ignore: always_specify_types
+              final TextFieldBloc _title = _formBloc.title;
+              // ignore: always_specify_types
+              final TextFieldBloc _subtitle = _formBloc.subtitle;
+              // ignore: close_sinks, always_specify_types
+              final TextFieldBloc _description = _formBloc.description;
+              final DateTime? _start = _formBloc.dateAndTime1.value;
+              final TimeOfDay? _startTime = _formBloc.timeonly1.value;
+              final DateTime? _end = _formBloc.dateAndTime2.value;
+              final TimeOfDay? _endTime = _formBloc.timeonly2.value;
               _evmCubit.emitInitial();
               if (_evmCubit.validate(_title)) {
-                _sn("eventCreationErrorTitle");
+                _sn('eventCreationErrorTitle');
               } else if (_evmCubit.validate(_subtitle)) {
-                _sn("eventCreationErrorSubtile");
+                _sn('eventCreationErrorSubtile');
               } else if (_evmCubit.validate(_description.value)) {
-                _sn("eventCreationErrorDescription");
+                _sn('eventCreationErrorDescription');
               } else if (_evmCubit.validate(_start)) {
-                _sn("eventCreationErrorStartingDate");
+                _sn('eventCreationErrorStartingDate');
               } else if (_evmCubit.validate(_startTime)) {
-                _sn("eventCreationErrorStartingTime");
+                _sn('eventCreationErrorStartingTime');
               } else if (_evmCubit.validate(_end)) {
-                _sn("eventCreationErrorEndingDate");
+                _sn('eventCreationErrorEndingDate');
               } else if (_evmCubit.validate(_endTime)) {
-                _sn("eventCreationErrorEndingTime");
+                _sn('eventCreationErrorEndingTime');
               } else if (_evmCubit.validate(_locCubit.value)) {
-                _sn("eventCreationErrorLocation");
+                _sn('eventCreationErrorLocation');
               } else if (_evmCubit.validate(_singleImageCubit.value)) {
-                _sn("eventCreationErrorBanner");
+                _sn('eventCreationErrorBanner');
               } else if (_evmCubit.validate(_multiImageCubit.values)) {
-                _sn("eventCreationErrorGallery");
+                _sn('eventCreationErrorGallery');
               } else {
-                final _combined1 = DateTime(
+                final DateTime _combined1 = DateTime(
                   _start!.year,
                   _start.month,
                   _start.day,
                   _startTime!.hour,
                   _startTime.minute,
                 );
-                final _combined2 = DateTime(
+                final DateTime _combined2 = DateTime(
                   _end!.year,
                   _end.month,
                   _end.day,
@@ -88,8 +95,12 @@ class EventCreationSubmitButton extends StatelessWidget {
               }
             }
           : null,
-      child:
-          Text(getTranslation(context, "eventCreationCreateEventButtonTitle")),
+      child: Text(
+        getTranslation(
+          context,
+          'eventCreationCreateEventButtonTitle',
+        ),
+      ),
     );
   }
 }

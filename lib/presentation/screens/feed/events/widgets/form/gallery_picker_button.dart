@@ -11,7 +11,7 @@ class EventImageGalleryPickerButton extends StatelessWidget {
       onPressed: () {
         context.read<MultiImagePickingCubit>().pickImages();
       },
-      child: Text(getTranslation(context, "eventCreationPickerButtonText")),
+      child: Text(getTranslation(context, 'eventCreationPickerButtonText')),
     );
   }
 }

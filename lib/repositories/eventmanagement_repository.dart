@@ -13,13 +13,13 @@ class EventManagementRepository {
 
   Future<EventManagementNotification> fetchEventsForUser(
     String uid,
-    DocumentSnapshot? prevSnap,
+    DocumentSnapshot<Object?>? prevSnap,
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchEventsForUser(uid, prevSnap);
     if (notification is EventModelsNotification) {
-      final List<EventModel> models = [];
-      for (var element in notification.eventModels!) {
+      final List<EventModel> models = <EventModel>[];
+      for (final Map<String, dynamic> element in notification.eventModels!) {
         models.add(EventModel.fromJson(element));
       }
       return EventsActualNotification(
@@ -27,8 +27,8 @@ class EventManagementRepository {
         notification.prevsnap,
       );
     } else if (notification is EventsEndNotification) {
-      final List<EventModel> models = [];
-      for (var element in notification.eventModels) {
+      final List<EventModel> models = <EventModel>[];
+      for (final Map<String, dynamic> element in notification.eventModels) {
         models.add(EventModel.fromJson(element));
       }
       return EventsActualEndNotification(models);
@@ -38,13 +38,13 @@ class EventManagementRepository {
   }
 
   Future<EventManagementNotification> fetchPublicEvents(
-    DocumentSnapshot? prevSnap,
+    DocumentSnapshot<Object?>? prevSnap,
   ) async {
     final EventManagementNotification notification =
         await _provider.fetchPublicEvents(prevSnap);
     if (notification is EventModelsNotification) {
-      final List<EventModel> models = [];
-      for (var element in notification.eventModels!) {
+      final List<EventModel> models = <EventModel>[];
+      for (final Map<String, dynamic> element in notification.eventModels!) {
         models.add(EventModel.fromJson(element));
       }
       return EventsActualNotification(
@@ -52,8 +52,8 @@ class EventManagementRepository {
         notification.prevsnap,
       );
     } else if (notification is EventsEndNotification) {
-      final List<EventModel> models = [];
-      for (var element in notification.eventModels) {
+      final List<EventModel> models = <EventModel>[];
+      for (final Map<String, dynamic> element in notification.eventModels) {
         models.add(EventModel.fromJson(element));
       }
       return EventsActualEndNotification(models);

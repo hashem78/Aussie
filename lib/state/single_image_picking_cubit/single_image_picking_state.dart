@@ -4,7 +4,7 @@ abstract class SingleImagePickingState extends Equatable {
   const SingleImagePickingState();
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => <Object?>[];
 }
 
 class SingleImagePickingInitial extends SingleImagePickingState {
@@ -22,7 +22,7 @@ class SingleImagePickingDone extends SingleImagePickingState {
     this.path,
   });
   @override
-  List<Object?> get props => [
+  List<Object?> get props => <Object?>[
         data,
         image,
         path,

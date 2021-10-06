@@ -13,12 +13,12 @@ class UserProfileScreen extends StatelessWidget {
       floatingActionButton:
           allowEventCreation ? const _FeedAnimatedFAB() : null,
       body: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (context, state) {
+        builder: (BuildContext context, UserManagementState state) {
           if (state is UserMangementHasUserData) {
-            return Provider.value(
+            return Provider<AussieUser>.value(
               value: state.user,
               child: CustomScrollView(
-                slivers: [
+                slivers: <Widget>[
                   SliverAppBar(
                     expandedHeight: .4.sh,
                     //collapsedHeight: .4.sh,
@@ -31,8 +31,8 @@ class UserProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SliverToBoxAdapter(child: ProfileCard()),
-                  BlocProvider(
-                    create: (context) => EventManagementCubit(),
+                  BlocProvider<EventManagementCubit>(
+                    create: (BuildContext context) => EventManagementCubit(),
                     child: const UserEvents(),
                   ),
                 ],
@@ -70,29 +70,33 @@ class _FeedAnimatedFAB extends StatelessWidget {
     }
 
     return BlocBuilder<ThemeModeCubit, ThemeMode>(
-      builder: (context, state) {
+      builder: (BuildContext context, ThemeMode state) {
         return OpenContainer(
           closedShape: const RoundedRectangleBorder(),
           closedColor: color!,
           openElevation: 0,
           openShape: const RoundedRectangleBorder(),
-          closedBuilder: (context, action) {
+          closedBuilder: (BuildContext context, VoidCallback action) {
             return _FeedFAB(color: color, action: action);
           },
-          openBuilder: (context, action) {
+          openBuilder: (BuildContext context, VoidCallback action) {
             return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                    create: (BuildContext context) => EventCreationBlocForm()),
-                BlocProvider(
-                    create: (BuildContext context) => EventManagementCubit()),
-                BlocProvider(
-                    create: (BuildContext context) => LocationPickingCubit()),
-                BlocProvider(
-                    create: (BuildContext context) =>
-                        SingleImagePickingCubit()),
-                BlocProvider(
-                    create: (BuildContext context) => MultiImagePickingCubit()),
+              providers: <BlocProvider<Object?>>[
+                BlocProvider<EventCreationBlocForm>(
+                  create: (BuildContext context) => EventCreationBlocForm(),
+                ),
+                BlocProvider<EventManagementCubit>(
+                  create: (BuildContext context) => EventManagementCubit(),
+                ),
+                BlocProvider<LocationPickingCubit>(
+                  create: (BuildContext context) => LocationPickingCubit(),
+                ),
+                BlocProvider<SingleImagePickingCubit>(
+                  create: (BuildContext context) => SingleImagePickingCubit(),
+                ),
+                BlocProvider<MultiImagePickingCubit>(
+                  create: (BuildContext context) => MultiImagePickingCubit(),
+                ),
               ],
               child: EventCreationScreen(
                 closeAction: action,
@@ -126,7 +130,7 @@ class _FeedFAB extends StatelessWidget {
         backgroundColor: color,
         child: Center(
           child: Row(
-            children: [
+            children:<Widget> [
               const Expanded(
                 child: Icon(Icons.add, size: 20),
               ),
@@ -135,7 +139,7 @@ class _FeedFAB extends StatelessWidget {
                 child: Text(
                   getTranslation(
                     context,
-                    "eventCreationFabTitle",
+                    'eventCreationFabTitle',
                   ),
                 ),
               ),

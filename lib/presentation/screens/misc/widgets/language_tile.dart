@@ -6,14 +6,14 @@ class LanguageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageCubit, LanguageState>(
-      builder: (context, state) {
-        final _currentLanguage = state.currentLocale.languageCode;
+      builder: (BuildContext context, LanguageState state) {
+        final String _currentLanguage = state.currentLocale.languageCode;
         return ListTile(
           title: Text(
-            getTranslation(context, "languageTitle"),
+            getTranslation(context, 'languageTitle'),
           ),
           subtitle: Text(
-            state.currentLocale.languageCode == "ar" ? "العربية" : "English",
+            state.currentLocale.languageCode == 'ar' ? 'العربية' : 'English',
           ),
           onTap: () {
             toggleLanguage(context, _currentLanguage);

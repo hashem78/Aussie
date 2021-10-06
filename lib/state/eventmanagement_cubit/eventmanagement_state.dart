@@ -4,7 +4,7 @@ abstract class EventManagementState extends Equatable {
   const EventManagementState();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => <Object>[];
 }
 
 class EventmanagementInitial extends EventManagementState {}
@@ -22,7 +22,7 @@ class EventManagementEventsFetched extends EventManagementState {
 
   const EventManagementEventsFetched(this.models);
   @override
-  List<Object> get props => [models];
+  List<Object> get props => <Object>[models];
 }
 
 class EventManagementEndEventsFetched extends EventManagementState {
@@ -30,5 +30,5 @@ class EventManagementEndEventsFetched extends EventManagementState {
 
   const EventManagementEndEventsFetched(this.models);
   @override
-  List<Object> get props => [models];
+  List<Object> get props => <Object>[models];
 }
