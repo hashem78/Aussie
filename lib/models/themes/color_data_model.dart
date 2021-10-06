@@ -135,6 +135,6 @@ class AussieThemeProvider extends InheritedWidget {
   bool updateShouldNotify(covariant AussieThemeProvider oldWidget) =>
       color == oldWidget.color;
 
-  static AussieThemeProvider? of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<AussieThemeProvider>();
+  static AussieThemeProvider of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<AussieThemeProvider>()!;
 }

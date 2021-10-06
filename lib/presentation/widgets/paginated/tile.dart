@@ -22,7 +22,7 @@ class PaginatedScreenTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        color: AussieThemeProvider.of(context)!.color.swatchColor,
+        color: AussieThemeProvider.of(context).color.swatchColor,
         shape: const RoundedRectangleBorder(),
         child: Column(
           children: <Widget>[

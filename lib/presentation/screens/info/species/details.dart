@@ -14,9 +14,9 @@ class SpeciesDetails extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context)!.color.backgroundColor,
+        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AussieThemeProvider.of(context)!.color.swatchColor,
+          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
           elevation: 0,
           title: Text(model.commonName!),
           bottom: const TabBar(
