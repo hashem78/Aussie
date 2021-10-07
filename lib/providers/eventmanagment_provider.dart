@@ -39,8 +39,8 @@ class EventManagementProvider {
           'lng': model.lng,
           'title': model.title,
           'subtitle': model.subtitle,
-          'galleryImages': <dynamic>[],
-          'bannerImage': <dynamic>{},
+          'galleryImages': <Map<String, dynamic>>[],
+          'bannerImage': <String, dynamic>{},
           'created': FieldValue.serverTimestamp(),
         },
       );
@@ -99,10 +99,9 @@ class EventManagementProvider {
       }
       await dlBannerCallback(model.bannerData);
       batch.commit();
-    } on FirebaseAuthException {
-      return const ErrorNotification();
-    } on FirebaseException {
-      return const ErrorNotification();
+    } catch (e, st) {
+      print(e);
+      print(st);
     }
     return const SuccessNotification();
   }
@@ -112,30 +111,7 @@ class EventManagementProvider {
     DocumentSnapshot<Object?>? documentSnapshot,
   ) async {
     try {
-      if (documentSnapshot != null) {
-        final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
-            .collection('users/$uid/events')
-            .orderBy('eventId')
-            .startAfterDocument(documentSnapshot)
-            .limit(10)
-            .get();
-        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
-            _data.docs;
-
-        final List<Map<String, dynamic>> _internalList =
-            <Map<String, dynamic>>[];
-        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
-          _internalList.add(element.data());
-        }
-        if (_docs.length < 10) {
-          return EventsEndNotification(_internalList);
-        }
-        return EventModelsNotification(
-          eventModels:
-              UnmodifiableListView<Map<String, dynamic>>(_internalList),
-          prevsnap: _docs.last,
-        );
-      } else {
+      if (documentSnapshot == null) {
         final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
             .collection('users/$uid/events')
             .orderBy('eventId')
@@ -157,6 +133,29 @@ class EventManagementProvider {
           eventModels: UnmodifiableListView<Map<String, dynamic>>(
             _internalList,
           ),
+          prevsnap: _docs.last,
+        );
+      } else {
+        final QuerySnapshot<Map<String, dynamic>> _data = await _firestore
+            .collection('users/$uid/events')
+            .orderBy('eventId')
+            .startAfterDocument(documentSnapshot)
+            .limit(10)
+            .get();
+        final List<QueryDocumentSnapshot<Map<String, dynamic>>> _docs =
+            _data.docs;
+
+        final List<Map<String, dynamic>> _internalList =
+            <Map<String, dynamic>>[];
+        for (QueryDocumentSnapshot<Map<String, dynamic>> element in _docs) {
+          _internalList.add(element.data());
+        }
+        if (_docs.length < 10) {
+          return EventsEndNotification(_internalList);
+        }
+        return EventModelsNotification(
+          eventModels:
+              UnmodifiableListView<Map<String, dynamic>>(_internalList),
           prevsnap: _docs.last,
         );
       }
