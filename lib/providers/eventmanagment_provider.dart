@@ -99,9 +99,10 @@ class EventManagementProvider {
       }
       await dlBannerCallback(model.bannerData);
       batch.commit();
-    } catch (e, st) {
-      print(e);
-      print(st);
+    } on FirebaseAuthException {
+      return const ErrorNotification();
+    } on FirebaseException {
+      return const ErrorNotification();
     }
     return const SuccessNotification();
   }
