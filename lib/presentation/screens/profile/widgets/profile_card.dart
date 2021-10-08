@@ -1,14 +1,11 @@
-import 'package:aussie/presentation/screens/profile/widgets/details.dart';
-import 'package:aussie/presentation/screens/profile/widgets/image.dart';
-import 'package:aussie/presentation/screens/profile/widgets/stats.dart';
-
-import 'package:flutter/material.dart';
+import 'package:aussie/aussie_imports.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({
     Key? key,
+    required this.allowFollowing,
   }) : super(key: key);
-
+  final bool allowFollowing;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -17,10 +14,12 @@ class ProfileCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
-            children: const <Widget>[
-              ProfileScreenImage(),
-              SizedBox(width: 10),
-              Expanded(child: ProfileScreenCardDetails()),
+            children:  <Widget>[
+              const ProfileScreenImage(),
+              const SizedBox(width: 10),
+              const Expanded(child: ProfileScreenCardDetails()),
+              if(allowFollowing)
+              const FollowUserButton(),
             ],
           ),
           const ProfileScreenCardStats(),

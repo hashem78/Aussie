@@ -1,6 +1,7 @@
 library aussie_state;
 
 export 'attendees_cubit/attendees_cubit.dart';
+export 'followers_cubit/followers_cubit.dart';
 export 'theme_mode_cubit/theme_mode_cubit.dart';
 export 'eventmanagement_cubit/eventmanagement_cubit.dart';
 export 'form_bloc/form_bloc.dart';

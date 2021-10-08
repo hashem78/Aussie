@@ -24,17 +24,23 @@ class _CardOwnerState extends State<CardOwner>
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<BlocProvider<Object?>>(
-                    builder: (BuildContext context) =>
+                    builder: (BuildContext context) => MultiBlocProvider(
+                      providers: <BlocProvider<Object?>>[
+                        BlocProvider<FollowersCubit>(
+                          create: (BuildContext context) {
+                            return FollowersCubit()..isUserFollowed(state.user);
+                          },
+                        ),
                         BlocProvider<UserManagementCubit>(
-                      create: (BuildContext context) {
-                        return UserManagementCubit()
-                          ..getUserDataFromUid(
-                            state.user.uid,
-                          );
-                      },
-                      child: const UserProfileScreen(
-                        allowEventCreation: false,
-                      ),
+                          create: (BuildContext context) {
+                            return UserManagementCubit()
+                              ..getUserDataFromUid(
+                                state.user.uid,
+                              );
+                          },
+                        )
+                      ],
+                      child: const UserProfileScreen(),
                     ),
                   ),
                 );

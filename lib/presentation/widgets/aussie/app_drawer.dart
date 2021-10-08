@@ -182,12 +182,21 @@ class _DrawerHeader extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute<UserProfileScreen>(
                     builder: (BuildContext context) {
-                      return BlocProvider<UserManagementCubit>(
-                        create: (BuildContext context) {
-                          return UserManagementCubit()..getUserData();
-                        },
+                      return MultiBlocProvider(
+                        providers: <BlocProvider<Object?>>[
+                          BlocProvider<UserManagementCubit>(
+                            create: (BuildContext context) {
+                              return UserManagementCubit()..getUserData();
+                            },
+                          ),
+                          BlocProvider<FollowersCubit>(
+                            create: (BuildContext context) {
+                              return FollowersCubit();
+                            },
+                          ),
+                        ],
                         child: const UserProfileScreen(
-                          allowEventCreation: true,
+
                         ),
                       );
                     },
