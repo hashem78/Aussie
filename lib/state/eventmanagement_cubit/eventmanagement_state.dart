@@ -7,11 +7,17 @@ abstract class EMCState extends Equatable {
   List<Object> get props => <Object>[];
 }
 
-class EMCInitial extends EMCState {}
+class EMCInitial extends EMCState {
+  const EMCInitial();
+}
 
-class EMCPerformingAction extends EMCState {}
+class EMCPerformingAction extends EMCState {
+  const EMCPerformingAction();
+}
 
-class EMCCreated extends EMCState {}
+class EMCCreated extends EMCState {
+  const EMCCreated();
+}
 
 class EMCError extends EMCState {
   const EMCError();

@@ -38,6 +38,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
     super.build(context);
     return BlocListener<EMCubit, EMCState>(
       listener: (BuildContext context, EMCState state) {
+        print(state);
         if (state is EMCEventsFetched) {
           _controller.appendPage(
             state.models,

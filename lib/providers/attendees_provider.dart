@@ -1,9 +1,9 @@
 import 'dart:collection';
 
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
-import 'package:aussie/providers/provider_notifications/interfaces/ievent_management_notifications.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'provider_notifications/provider_notifications.dart';
 
 class AttendeesProvider {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -38,12 +38,12 @@ class AttendeesProvider {
     );
 
     if (uuids.length >= 10) {
-      return AttendeesNotification(
+      return EAttendees(
         querySnapshot.docs.last,
         UnmodifiableListView<String>(uuids),
       );
     } else {
-      return AttendeesEndNotification(
+      return EAttendeesEnd(
         UnmodifiableListView<String>(uuids),
       );
     }

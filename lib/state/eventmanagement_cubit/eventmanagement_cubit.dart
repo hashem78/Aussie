@@ -1,30 +1,28 @@
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
-import 'package:aussie/providers/provider_notifications/interfaces/ievent_management_notifications.dart';
 import 'package:aussie/repositories/eventmanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 part 'eventmanagement_state.dart';
 
 class EMCubit extends Cubit<EMCState> {
-  EMCubit() : super(EMCInitial());
+  EMCubit() : super(const EMCInitial());
   final EventManagementRepository _repository = EventManagementRepository();
 
   void refresh() {
     prevSnap = null;
-    emit(EMCInitial());
+    emit(const EMCInitial());
   }
 
   DocumentSnapshot<Object?>? prevSnap;
   void addEvent(EventCreationModel model) {
-    emit(EMCPerformingAction());
+    emit(const EMCPerformingAction());
     _repository.addUserEvent(model).then(
       (IEMNotification value) {
-        if (value is SuccessNotification) {
-          emit(EMCCreated());
+        if (value is ESuccess) {
+          emit(const EMCCreated());
         } else {
           emit(const EMCError());
         }
@@ -40,10 +38,10 @@ class EMCubit extends Cubit<EMCState> {
       (
         IEMNotification value,
       ) {
-        if (value is EventsActualNotification) {
+        if (value is EActual) {
           prevSnap = value.prevSnap;
           emit(EMCEventsFetched(value.models));
-        } else if (value is EventsActualEndNotification) {
+        } else if (value is EActualEnd) {
           emit(EMCEndEventsFetched(value.models));
         }
       },
@@ -53,10 +51,10 @@ class EMCubit extends Cubit<EMCState> {
   void fetchPublicEvents({DocumentSnapshot<Object?>? lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
       (IEMNotification value) {
-        if (value is EventsActualNotification) {
+        if (value is EActual) {
           prevSnap = value.prevSnap;
           emit(EMCEventsFetched(value.models));
-        } else if (value is EventsActualEndNotification) {
+        } else if (value is EActualEnd) {
           emit(EMCEndEventsFetched(value.models));
         }
       },
@@ -64,7 +62,7 @@ class EMCubit extends Cubit<EMCState> {
   }
 
   void emitInitial() {
-    emit(EMCInitial());
+    emit(const EMCInitial());
   }
 
   bool validate(dynamic data) {
