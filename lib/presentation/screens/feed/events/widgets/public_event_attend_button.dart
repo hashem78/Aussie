@@ -10,21 +10,22 @@ class PublicAttendButton extends StatelessWidget {
     final EventModel e = getEventModel(context);
     final AussieUser currentUser = getCurrentUser(context);
 
-    return BlocBuilder<UMCubit, UMCState>(
-      builder: (BuildContext context, UMCState state) {
+    return BlocBuilder<AttendeesCubit, AttendeesState>(
+      builder: (BuildContext context, AttendeesState state) {
+        print(state);
         Widget child;
-        if (state is UMCInitial) {
+        if (state is AttendeesInitial) {
           child = TextButton(
             onPressed: () {
               context
-                  .read<UMCubit>()
+                  .read<AttendeesCubit>()
                   .makeUserWithIdAttendEvent(currentUser, e.eventId);
             },
             child: Text(
               getTranslation(context, 'attendButtonTextNormal'),
             ),
           );
-        } else if (state is UMCPerformingAction) {
+        } else if (state is AttendeesPerformingAction) {
           child = TextButton(
             onPressed: null,
             child: Row(
@@ -36,7 +37,7 @@ class PublicAttendButton extends StatelessWidget {
               ],
             ),
           );
-        } else if (state is UMCAttended) {
+        } else if (state is AttendeesAttended) {
           child = TextButton(
             onPressed: null,
             child: Text(

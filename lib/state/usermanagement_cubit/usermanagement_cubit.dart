@@ -1,4 +1,3 @@
-import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
@@ -82,31 +81,6 @@ class UMCubit extends Cubit<UMCState> {
         }
       },
     );
-  }
-
-  void makeUserWithIdAttendEvent(AussieUser user, String? eventUuid) {
-    emit(const UMCPerformingAction());
-
-    repository
-        .makeUserWithIdAttendEvent(
-      user.uid,
-      eventUuid,
-    )
-        .then(
-      (IUMNotification value) {
-        if (value is UMAttendedEvent) {
-          emit(const UMCAttended());
-        } else {
-          emit(UMCError(value));
-        }
-      },
-    );
-  }
-
-  void isUserAttending(AussieUser user, EventModel eventModel) {
-    if (user.attends!.contains(eventModel.eventId)) {
-      emit(const UMCAttended());
-    }
   }
 
   void emitInitial() {

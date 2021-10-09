@@ -38,8 +38,5 @@ class UserManagementRepository {
     }
   }
 
-  Future<IUMNotification> makeUserWithIdAttendEvent(
-      String? uid, String? eventUuid) async {
-    return _provider.makeUserWithIdAttendEvent(uid, eventUuid);
-  }
+  
 }

@@ -11,6 +11,19 @@ class AttendeesInitial extends AttendeesState {
   const AttendeesInitial();
 }
 
+class AttendeesPerformingAction extends AttendeesState {
+  const AttendeesPerformingAction();
+}
+
+class AttendeesAttended extends AttendeesState {
+  const AttendeesAttended();
+}
+
+class AttendeesError extends AttendeesState {
+  const AttendeesError(this.notification);
+  final IAttendeesNotification notification;
+}
+
 class AttendeesActual extends AttendeesState {
   final List<String> uuids;
 

@@ -21,22 +21,10 @@ class EModels extends IEMNotification {
   });
 }
 
-class EAttendees extends IEMNotification {
-  final DocumentSnapshot<Object?> prevsnap;
-  final List<String> uuids;
-
-  const EAttendees(this.prevsnap, this.uuids);
-}
-
 class EEnd extends IEMNotification {
   final List<Map<String, dynamic>> eventModels;
 
   const EEnd(this.eventModels);
-}
-
-class EAttendeesEnd extends IEMNotification {
-  final List<String> uuids;
-  const EAttendeesEnd(this.uuids);
 }
 
 class EActual extends IEMNotification {

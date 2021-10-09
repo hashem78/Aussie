@@ -91,9 +91,9 @@ class _PublicEventCardState extends State<PublicEventCard>
               Row(
                 children: <Widget>[
                   const Expanded(child: CardOwner()),
-                  BlocProvider<UMCubit>(
+                  BlocProvider<AttendeesCubit>(
                     create: (BuildContext context) {
-                      return UMCubit()
+                      return AttendeesCubit()
                         ..isUserAttending(
                           getCurrentUser(context),
                           e,
