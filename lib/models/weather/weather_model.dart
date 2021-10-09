@@ -109,8 +109,8 @@ class WeatherModel extends Equatable {
     if (map?['fourDayModels'] != null) {
       final List<dynamic> fourDays = map!['fourDayModels'] as List<dynamic>;
 
-      for (final WeatherModel model in fourDays) {
-        weatherModels.add(WeatherModel.fromMap(model as Map<String, dynamic>));
+      for (final Map<String, dynamic> model in fourDays) {
+        weatherModels.add(WeatherModel.fromMap(model));
       }
     }
 
