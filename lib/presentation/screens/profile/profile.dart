@@ -9,17 +9,17 @@ class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final User fbUser = FirebaseAuth.instance.currentUser!;
-    return BlocBuilder<UserManagementCubit, UserManagementState>(
-      builder: (BuildContext context, UserManagementState state) {
+    return BlocBuilder<UMCubit, UMCState>(
+      builder: (BuildContext context, UMCState state) {
         bool isLoggedInUser = false;
 
-        if (state is UserMangementHasUserData) {
+        if (state is UMCHasUserData) {
           isLoggedInUser = state.user.uid == fbUser.uid;
         }
         return Scaffold(
           floatingActionButton:
               isLoggedInUser ? const AnimatedAddEventFAB() : null,
-          body: (state is UserMangementHasUserData)
+          body: (state is UMCHasUserData)
               ? Provider<AussieUser>.value(
                   value: state.user,
                   child: CustomScrollView(
@@ -40,9 +40,9 @@ class UserProfileScreen extends StatelessWidget {
                           allowFollowing: !isLoggedInUser,
                         ),
                       ),
-                      BlocProvider<EventManagementCubit>(
+                      BlocProvider<EMCubit>(
                         create: (BuildContext context) =>
-                            EventManagementCubit(),
+                            EMCubit(),
                         child: const UserEvents(),
                       ),
                     ],

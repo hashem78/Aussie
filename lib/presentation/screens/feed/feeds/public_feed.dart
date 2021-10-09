@@ -11,7 +11,7 @@ class _PublicEventsTabState extends State<PublicEventsTab>
     with AutomaticKeepAliveClientMixin {
   final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
-  late EventManagementCubit cubit;
+  late EMCubit cubit;
   @override
   void initState() {
     super.initState();
@@ -29,21 +29,21 @@ class _PublicEventsTabState extends State<PublicEventsTab>
 
   @override
   void didChangeDependencies() {
-    cubit = context.read<EventManagementCubit>();
+    cubit = context.read<EMCubit>();
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocListener<EventManagementCubit, EventManagementState>(
-      listener: (BuildContext context, EventManagementState state) {
-        if (state is EventManagementEventsFetched) {
+    return BlocListener<EMCubit, EMCState>(
+      listener: (BuildContext context, EMCState state) {
+        if (state is EMCEventsFetched) {
           _controller.appendPage(
             state.models,
             _controller.nextPageKey! + state.models.length,
           );
-        } else if (state is EventManagementEndEventsFetched) {
+        } else if (state is EMCEndEventsFetched) {
           _controller.appendLastPage(state.models);
         }
       },
@@ -58,15 +58,15 @@ class _PublicEventsTabState extends State<PublicEventsTab>
             itemBuilder: (BuildContext context, EventModel item, int index) {
               return MultiBlocProvider(
                 providers: <BlocProvider<Object?>>[
-                  BlocProvider<UserManagementCubit>(
+                  BlocProvider<UMCubit>(
                     create: (BuildContext context) {
-                      return UserManagementCubit()
+                      return UMCubit()
                         ..getUserDataFromUid(
                           item.uid,
                         );
                     },
                   ),
-                  BlocProvider<EventManagementCubit>.value(value: cubit)
+                  BlocProvider<EMCubit>.value(value: cubit)
                 ],
                 child: Provider<EventModel>.value(
                   value: item,

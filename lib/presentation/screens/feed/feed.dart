@@ -7,8 +7,8 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (BuildContext context, UserManagementState state) {
+      child: BlocBuilder<UMCubit, UMCState>(
+        builder: (BuildContext context, UMCState state) {
           return AussieScaffold(
             drawer: const AussieAppDrawer(),
             appBar: AppBar(
@@ -22,11 +22,11 @@ class FeedScreen extends StatelessWidget {
               ),
               elevation: 0,
             ),
-            body: state is UserMangementHasUserData
+            body: state is UMCHasUserData
                 ? Provider<AussieUser>.value(
                     value: state.user,
-                    child: BlocProvider<EventManagementCubit>(
-                      create: (BuildContext context) => EventManagementCubit(),
+                    child: BlocProvider<EMCubit>(
+                      create: (BuildContext context) => EMCubit(),
                       child: const PublicEventsTab(),
                     ),
                   )
