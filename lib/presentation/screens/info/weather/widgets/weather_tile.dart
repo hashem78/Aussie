@@ -17,7 +17,7 @@ class WeatherTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute<WeatherDetails>(
@@ -27,33 +27,36 @@ class WeatherTile extends StatelessWidget {
           ),
         );
       },
-      child: Column(
-        children: <Widget>[
-          AutoSizeText(
-            showTitle ? model.title ?? 'Title' : model.day!,
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 150.sp,
-              fontWeight: FontWeight.w600,
+      child: Material(
+        type: MaterialType.transparency,
+        child: Column(
+          children: <Widget>[
+            AutoSizeText(
+              showTitle ? model.title ?? 'Title' : model.day!,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: 150.sp,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          BoxedIcon(
-            WeatherIcons.fromString(model.iconString ?? 'wi-day-sunny'),
-            size: 250.sp,
-            color: Colors.amber,
-          ),
-          AutoSizeText(
-            '${model.highTemp}°C',
-            softWrap: true,
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 150.sp,
-              color: Colors.yellow,
+            BoxedIcon(
+              WeatherIcons.fromString(model.iconString ?? 'wi-day-sunny'),
+              size: 250.sp,
+              color: Colors.amber,
             ),
-          ),
-        ],
+            AutoSizeText(
+              '${model.highTemp}°C',
+              softWrap: true,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 150.sp,
+                color: Colors.yellow,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
