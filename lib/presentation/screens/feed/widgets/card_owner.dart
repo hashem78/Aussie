@@ -16,10 +16,10 @@ class _CardOwnerState extends State<CardOwner>
     super.build(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
-      child: BlocBuilder<UserManagementCubit, UserManagementState>(
-        builder: (BuildContext context, UserManagementState state) {
+      child: BlocBuilder<UMCubit, UMCState>(
+        builder: (BuildContext context, UMCState state) {
           Widget child;
-          if (state is UserMangementHasUserData) {
+          if (state is UMCHasUserData) {
             child = InkWell(
               onTap: () {
                 Navigator.of(context).push(
@@ -31,9 +31,9 @@ class _CardOwnerState extends State<CardOwner>
                             return FollowersCubit()..isUserFollowed(state.user);
                           },
                         ),
-                        BlocProvider<UserManagementCubit>(
+                        BlocProvider<UMCubit>(
                           create: (BuildContext context) {
-                            return UserManagementCubit()
+                            return UMCubit()
                               ..getUserDataFromUid(
                                 state.user.uid,
                               );

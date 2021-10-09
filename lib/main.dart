@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<LanguageCubit>(
           create: (BuildContext context) => LanguageCubit(locale),
         ),
-        BlocProvider<UserManagementCubit>(
-          create: (BuildContext context) => UserManagementCubit(),
+        BlocProvider<UMCubit>(
+          create: (BuildContext context) => UMCubit(),
         ),
         BlocProvider<WeatherCubit>(
           create: (BuildContext context) => WeatherCubit(),
@@ -85,9 +85,9 @@ class MyApp extends StatelessWidget {
                           }
                           return supportedLocales.first;
                         },
-                        home: BlocProvider<UserManagementCubit>(
+                        home: BlocProvider<UMCubit>(
                           create: (BuildContext context) {
-                            return UserManagementCubit()..isUserSignedIn();
+                            return UMCubit()..isUserSignedIn();
                           },
                           child: const SafeArea(
                             child: InitialScreen(),

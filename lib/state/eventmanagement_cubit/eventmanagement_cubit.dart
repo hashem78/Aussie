@@ -1,7 +1,7 @@
-import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
+import 'package:aussie/providers/provider_notifications/interfaces/ievent_management_notifications.dart';
 import 'package:aussie/repositories/eventmanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,24 +9,24 @@ import 'package:equatable/equatable.dart';
 
 part 'eventmanagement_state.dart';
 
-class EventManagementCubit extends Cubit<EventManagementState> {
-  EventManagementCubit() : super(EventmanagementInitial());
+class EMCubit extends Cubit<EMCState> {
+  EMCubit() : super(EMCInitial());
   final EventManagementRepository _repository = EventManagementRepository();
 
   void refresh() {
     prevSnap = null;
-    emit(EventmanagementInitial());
+    emit(EMCInitial());
   }
 
   DocumentSnapshot<Object?>? prevSnap;
   void addEvent(EventCreationModel model) {
-    emit(EventManagementPerformingAction());
+    emit(EMCPerformingAction());
     _repository.addUserEvent(model).then(
-      (EventManagementNotification value) {
+      (IEMNotification value) {
         if (value is SuccessNotification) {
-          emit(EventManagementCreated());
+          emit(EMCCreated());
         } else {
-          emit(const EventManagementError());
+          emit(const EMCError());
         }
       },
     );
@@ -38,13 +38,13 @@ class EventManagementCubit extends Cubit<EventManagementState> {
   }) {
     _repository.fetchEventsForUser(uid, lastdoc).then(
       (
-        EventManagementNotification value,
+        IEMNotification value,
       ) {
         if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
-          emit(EventManagementEventsFetched(value.models));
+          emit(EMCEventsFetched(value.models));
         } else if (value is EventsActualEndNotification) {
-          emit(EventManagementEndEventsFetched(value.models));
+          emit(EMCEndEventsFetched(value.models));
         }
       },
     );
@@ -52,19 +52,19 @@ class EventManagementCubit extends Cubit<EventManagementState> {
 
   void fetchPublicEvents({DocumentSnapshot<Object?>? lastdoc}) {
     _repository.fetchPublicEvents(lastdoc).then(
-      (EventManagementNotification value) {
+      (IEMNotification value) {
         if (value is EventsActualNotification) {
           prevSnap = value.prevSnap;
-          emit(EventManagementEventsFetched(value.models));
+          emit(EMCEventsFetched(value.models));
         } else if (value is EventsActualEndNotification) {
-          emit(EventManagementEndEventsFetched(value.models));
+          emit(EMCEndEventsFetched(value.models));
         }
       },
     );
   }
 
   void emitInitial() {
-    emit(EventmanagementInitial());
+    emit(EMCInitial());
   }
 
   bool validate(dynamic data) {

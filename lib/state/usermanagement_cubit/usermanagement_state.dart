@@ -1,52 +1,56 @@
 part of 'usermanagement_cubit.dart';
 
-abstract class UserManagementState extends Equatable {
-  const UserManagementState();
+abstract class UMCState extends Equatable {
+  const UMCState();
 
   @override
   List<Object?> get props => <Object?>[];
 }
 
-class UserManagementInitial extends UserManagementState {
-  const UserManagementInitial();
+class UMCInitial extends UMCState {
+  const UMCInitial();
 }
 
-class UserManagementAttended extends UserManagementState {
-  const UserManagementAttended();
+class UMCAttended extends UMCState {
+  const UMCAttended();
 }
 
-class UserManagementSignOut extends UserManagementState {
-  const UserManagementSignOut();
+class UMCSignOut extends UMCState {
+  const UMCSignOut();
 }
 
-class UserManagementSignup extends UserManagementState {
-  final UserManagementNotification notification;
+class UMCSignup extends UMCState {
+  final IUMNotification notification;
 
-  const UserManagementSignup(this.notification);
+  const UMCSignup(this.notification);
   @override
   List<Object> get props => <Object>[notification];
 }
 
-class UserManagementSignin extends UserManagementState {
-  const UserManagementSignin();
+class UMCSignin extends UMCState {
+  const UMCSignin();
 }
 
-class UserManagementError extends UserManagementState {
-  final UserManagementNotification? notification;
+class UMCError extends UMCState {
+  final IUMNotification? notification;
 
-  const UserManagementError(this.notification);
+  const UMCError(this.notification);
   @override
   List<Object?> get props => <Object?>[notification];
 }
 
-class UserManagementNeedsAction extends UserManagementState {}
+class UMCNeedsAction extends UMCState {
+  const UMCNeedsAction();
+}
 
-class UserManagementPerformingAction extends UserManagementState {}
+class UMCPerformingAction extends UMCState {
+  const UMCPerformingAction();
+}
 
-class UserMangementHasUserData extends UserManagementState {
+class UMCHasUserData extends UMCState {
   final AussieUser user;
 
-  const UserMangementHasUserData(this.user);
+  const UMCHasUserData(this.user);
   @override
   List<Object> get props => <Object>[user];
 }

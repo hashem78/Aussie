@@ -30,8 +30,7 @@ class EventCreationSubmitButton extends StatelessWidget {
                   context.read<MultiImagePickingCubit>();
               final SingleImagePickingCubit _singleImageCubit =
                   context.read<SingleImagePickingCubit>();
-              final EventManagementCubit _evmCubit =
-                  context.read<EventManagementCubit>();
+              final EMCubit _evmCubit = context.read<EMCubit>();
               // ignore: always_specify_types
               final TextFieldBloc _title = _formBloc.title;
               // ignore: always_specify_types

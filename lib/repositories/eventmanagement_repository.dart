@@ -1,62 +1,61 @@
-import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:aussie/providers/eventmanagment_provider.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EventManagementRepository {
   final EventManagementProvider _provider = EventManagementProvider();
-  Future<EventManagementNotification> addUserEvent(EventCreationModel model) {
+  Future<IEMNotification> addUserEvent(EventCreationModel model) {
     return _provider.addEvent(model);
   }
 
-  Future<EventManagementNotification> fetchEventsForUser(
+  Future<IEMNotification> fetchEventsForUser(
     String uid,
     DocumentSnapshot<Object?>? prevSnap,
   ) async {
-    final EventManagementNotification notification =
+    final IEMNotification notification =
         await _provider.fetchEventsForUser(uid, prevSnap);
-    if (notification is EventModelsNotification) {
+    if (notification is EModels) {
       final List<EventModel> models = <EventModel>[];
       for (final Map<String, dynamic> element in notification.eventModels!) {
         models.add(EventModel.fromJson(element));
       }
-      return EventsActualNotification(
+      return EActual(
         models,
         notification.prevsnap,
       );
-    } else if (notification is EventsEndNotification) {
+    } else if (notification is EEnd) {
       final List<EventModel> models = <EventModel>[];
       for (final Map<String, dynamic> element in notification.eventModels) {
         models.add(EventModel.fromJson(element));
       }
-      return EventsActualEndNotification(models);
+      return EActualEnd(models);
     } else {
       return notification;
     }
   }
 
-  Future<EventManagementNotification> fetchPublicEvents(
+  Future<IEMNotification> fetchPublicEvents(
     DocumentSnapshot<Object?>? prevSnap,
   ) async {
-    final EventManagementNotification notification =
+    final IEMNotification notification =
         await _provider.fetchPublicEvents(prevSnap);
-    if (notification is EventModelsNotification) {
+    if (notification is EModels) {
       final List<EventModel> models = <EventModel>[];
       for (final Map<String, dynamic> element in notification.eventModels!) {
         models.add(EventModel.fromJson(element));
       }
-      return EventsActualNotification(
+      return EActual(
         models,
         notification.prevsnap,
       );
-    } else if (notification is EventsEndNotification) {
+    } else if (notification is EEnd) {
       final List<EventModel> models = <EventModel>[];
       for (final Map<String, dynamic> element in notification.eventModels) {
         models.add(EventModel.fromJson(element));
       }
-      return EventsActualEndNotification(models);
+      return EActualEnd(models);
     } else {
       return notification;
     }

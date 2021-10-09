@@ -125,9 +125,9 @@ class AussieAppDrawer extends StatelessWidget {
             const SliverToBoxAdapter(
               child: _DrawerHeader(),
             ),
-            BlocBuilder<UserManagementCubit, UserManagementState>(
-              builder: (BuildContext context, UserManagementState state) {
-                if (state is UserMangementHasUserData) {
+            BlocBuilder<UMCubit, UMCState>(
+              builder: (BuildContext context, UMCState state) {
+                if (state is UMCHasUserData) {
                   return buildSliverList(_sections);
                 } else {
                   return buildSliverList(_sectionsNoMisc);
@@ -172,9 +172,9 @@ class _DrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserManagementCubit, UserManagementState>(
-      builder: (BuildContext context, UserManagementState state) {
-        if (state is UserMangementHasUserData) {
+    return BlocBuilder<UMCubit, UMCState>(
+      builder: (BuildContext context, UMCState state) {
+        if (state is UMCHasUserData) {
           return Material(
             color: Theme.of(context).backgroundColor,
             child: InkWell(
@@ -184,9 +184,9 @@ class _DrawerHeader extends StatelessWidget {
                     builder: (BuildContext context) {
                       return MultiBlocProvider(
                         providers: <BlocProvider<Object?>>[
-                          BlocProvider<UserManagementCubit>(
+                          BlocProvider<UMCubit>(
                             create: (BuildContext context) {
-                              return UserManagementCubit()..getUserData();
+                              return UMCubit()..getUserData();
                             },
                           ),
                           BlocProvider<FollowersCubit>(
@@ -195,9 +195,7 @@ class _DrawerHeader extends StatelessWidget {
                             },
                           ),
                         ],
-                        child: const UserProfileScreen(
-
-                        ),
+                        child: const UserProfileScreen(),
                       );
                     },
                   ),

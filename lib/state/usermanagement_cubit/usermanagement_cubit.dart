@@ -1,9 +1,8 @@
-import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:aussie/repositories/usermanagement_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -11,19 +10,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 part 'usermanagement_state.dart';
 
-class UserManagementCubit extends Cubit<UserManagementState> {
-  UserManagementCubit() : super(const UserManagementInitial());
+class UMCubit extends Cubit<UMCState> {
+  UMCubit() : super(const UMCInitial());
   final UserManagementRepository repository = UserManagementRepository();
 
   void signup(SignupModel model) {
-    emit(UserManagementPerformingAction());
+    emit(const UMCPerformingAction());
 
     repository.signup(model).then(
-      (UserManagementNotification? value) {
-        if (value is UserSignupSuccessfulNotification) {
-          emit(UserManagementSignup(value));
+      (IUMNotification? value) {
+        if (value is UMSignupSuccessful) {
+          emit(UMCSignup(value));
         } else {
-          emit(UserManagementError(value));
+          emit(UMCError(value));
         }
       },
     );
@@ -31,31 +30,31 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   Future<void> signout() async {
     await FirebaseAuth.instance.signOut();
-    emit(const UserManagementSignOut());
+    emit(const UMCSignOut());
   }
 
   void singin(SigninModel model) {
-    emit(UserManagementPerformingAction());
+    emit(const UMCPerformingAction());
     repository.signin(model).then(
-      (UserManagementNotification? value) {
-        if (value is UserSigninSuccessfulNotification) {
-          emit(const UserManagementSignin());
+      (IUMNotification? value) {
+        if (value is UMSigninSuccessful) {
+          emit(const UMCSignin());
         } else {
-          emit(UserManagementError(value));
+          emit(UMCError(value));
         }
       },
     );
   }
 
   void isUserSignedIn() {
-    emit(UserManagementPerformingAction());
+    emit(const UMCPerformingAction());
 
     repository.isSignedin().then(
-      (UserManagementNotification value) {
-        if (value is UserSigninSuccessfulNotification) {
-          emit(const UserManagementSignin());
+      (IUMNotification value) {
+        if (value is UMSigninSuccessful) {
+          emit(const UMCSignin());
         } else {
-          emit(UserManagementNeedsAction());
+          emit(const UMCNeedsAction());
         }
       },
     );
@@ -63,11 +62,11 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void getUserData() {
     repository.getUserData().then(
-      (UserManagementNotification? value) {
-        if (value is UserModelContainingActualNotification) {
-          emit(UserMangementHasUserData(value.user));
+      (IUMNotification? value) {
+        if (value is UMModelContainingActual) {
+          emit(UMCHasUserData(value.user));
         } else {
-          emit(UserManagementError(value));
+          emit(UMCError(value));
         }
       },
     );
@@ -75,18 +74,18 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void getUserDataFromUid(String? uid) {
     repository.getUserDataFromUid(uid).then(
-      (UserManagementNotification value) {
-        if (value is UserModelContainingActualNotification) {
-          emit(UserMangementHasUserData(value.user));
+      (IUMNotification value) {
+        if (value is UMModelContainingActual) {
+          emit(UMCHasUserData(value.user));
         } else {
-          emit(UserManagementError(value));
+          emit(UMCError(value));
         }
       },
     );
   }
 
   void makeUserWithIdAttendEvent(AussieUser user, String? eventUuid) {
-    emit(UserManagementPerformingAction());
+    emit(const UMCPerformingAction());
 
     repository
         .makeUserWithIdAttendEvent(
@@ -94,11 +93,11 @@ class UserManagementCubit extends Cubit<UserManagementState> {
       eventUuid,
     )
         .then(
-      (UserManagementNotification value) {
-        if (value is UserMangementUserAttendedEventNotification) {
-          emit(const UserManagementAttended());
+      (IUMNotification value) {
+        if (value is UMAttendedEvent) {
+          emit(const UMCAttended());
         } else {
-          emit(UserManagementError(value));
+          emit(UMCError(value));
         }
       },
     );
@@ -106,15 +105,15 @@ class UserManagementCubit extends Cubit<UserManagementState> {
 
   void isUserAttending(AussieUser user, EventModel eventModel) {
     if (user.attends!.contains(eventModel.eventId)) {
-      emit(const UserManagementAttended());
+      emit(const UMCAttended());
     }
   }
 
   void emitInitial() {
-    emit(const UserManagementInitial());
+    emit(const UMCInitial());
   }
 
   void emitNeedsAction() {
-    emit(UserManagementNeedsAction());
+    emit(const UMCNeedsAction());
   }
 }

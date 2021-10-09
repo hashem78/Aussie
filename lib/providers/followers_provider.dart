@@ -1,10 +1,11 @@
 import 'dart:collection';
 
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/providers/provider_notifications/followers_notifications.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tuple/tuple.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'provider_notifications/provider_notifications.dart';
 
 typedef FollowerUserData
     = Tuple2<UnmodifiableListView<String>, DocumentSnapshot<Object?>?>;
@@ -262,7 +263,7 @@ class FollowersProvider {
               in query.docs) {
             userIds.add(doc.id);
           }
-          
+
           return FollowerUserData(
             UnmodifiableListView<String>(userIds),
             query.docs.last,

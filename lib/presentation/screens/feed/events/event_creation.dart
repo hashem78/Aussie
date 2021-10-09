@@ -73,10 +73,9 @@ class EventCreationScreen extends StatelessWidget {
                     const EventLocationPicker(),
                     const EventImageGalleryStatus(),
                     const EventImageGalleryPickerButton(),
-                    BlocBuilder<EventManagementCubit, EventManagementState>(
-                      builder:
-                          (BuildContext context, EventManagementState state) {
-                        if (state is EventManagementPerformingAction) {
+                    BlocBuilder<EMCubit, EMCState>(
+                      builder: (BuildContext context, EMCState state) {
+                        if (state is EMCPerformingAction) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
@@ -84,10 +83,9 @@ class EventCreationScreen extends StatelessWidget {
                         return Container();
                       },
                     ),
-                    BlocConsumer<EventManagementCubit, EventManagementState>(
-                      listener:
-                          (BuildContext context, EventManagementState state) {
-                        if (state is EventManagementCreated) {
+                    BlocConsumer<EMCubit, EMCState>(
+                      listener: (BuildContext context, EMCState state) {
+                        if (state is EMCCreated) {
                           _sn('Event created');
                           Future<void>.delayed(
                             const Duration(
@@ -98,18 +96,17 @@ class EventCreationScreen extends StatelessWidget {
                               Navigator.of(context).pop();
                             },
                           );
-                        } else if (state is EventManagementError) {
+                        } else if (state is EMCError) {
                           _sn('Failed to create Event');
                         }
                       },
-                      builder:
-                          (BuildContext context, EventManagementState state) {
-                        if (state is EventManagementPerformingAction) {
+                      builder: (BuildContext context, EMCState state) {
+                        if (state is EMCPerformingAction) {
                           return const EventCreationSubmitButton(
                             enabled: false,
                           );
                         } else {
-                          if (state is EventManagementCreated) {
+                          if (state is EMCCreated) {
                             return const EventCreationSubmitButton(
                               enabled: false,
                             );

@@ -14,12 +14,11 @@ class ProfileCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Row(
-            children:  <Widget>[
+            children: <Widget>[
               const ProfileScreenImage(),
               const SizedBox(width: 10),
               const Expanded(child: ProfileScreenCardDetails()),
-              if(allowFollowing)
-              const FollowUserButton(),
+              if (allowFollowing) const FollowUserButton(),
             ],
           ),
           const ProfileScreenCardStats(),

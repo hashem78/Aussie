@@ -28,7 +28,6 @@ class UserFollowingButton extends StatelessWidget {
             },
           ),
         );
-       
       },
       child: Text(
         "${user.numberOfFollowing} ${getTranslation(context, 'userProfileStatsFollowing')}",

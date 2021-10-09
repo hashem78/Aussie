@@ -78,21 +78,18 @@ class SingupScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        BlocConsumer<UserManagementCubit, UserManagementState>(
-                          listener: (BuildContext context,
-                              UserManagementState state) {
-                            if (state is UserManagementSignup) {
+                        BlocConsumer<UMCubit, UMCState>(
+                          listener: (BuildContext context, UMCState state) {
+                            if (state is UMCSignup) {
                               Future<void>.delayed(const Duration(seconds: 2))
                                   .whenComplete(
                                 () {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute<FeedScreen>(
                                       builder: (BuildContext context) {
-                                        return BlocProvider<
-                                            UserManagementCubit>(
+                                        return BlocProvider<UMCubit>(
                                           create: (BuildContext context) {
-                                            return UserManagementCubit()
-                                              ..getUserData();
+                                            return UMCubit()..getUserData();
                                           },
                                           child: const FeedScreen(),
                                         );
@@ -103,18 +100,17 @@ class SingupScreen extends StatelessWidget {
                               );
                             }
                           },
-                          builder: (BuildContext context,
-                              UserManagementState state) {
+                          builder: (BuildContext context, UMCState state) {
                             Widget? child;
 
-                            if (state is UserManagementPerformingAction) {
+                            if (state is UMCPerformingAction) {
                               child = const CircularProgressIndicator();
-                            } else if (state is UserManagementError) {
+                            } else if (state is UMCError) {
                               child = Text(
                                 state.notification!.message,
                                 style: const TextStyle(color: Colors.red),
                               );
-                            } else if (state is UserManagementSignup) {
+                            } else if (state is UMCSignup) {
                               child = Text(
                                 state.notification.message,
                                 style: const TextStyle(color: Colors.green),
@@ -134,8 +130,7 @@ class SingupScreen extends StatelessWidget {
                                 getSignupBloc(context);
                             FocusManager.instance.primaryFocus!.unfocus();
                             signupBloc.submit();
-                            BlocProvider.of<UserManagementCubit>(context)
-                                .signup(
+                            BlocProvider.of<UMCubit>(context).signup(
                               SignupModel(
                                 email: signupBloc.email.value,
                                 password: signupBloc.password.value,

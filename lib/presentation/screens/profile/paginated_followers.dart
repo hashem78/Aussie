@@ -91,9 +91,9 @@ class _PaginatedFollowersState extends State<PaginatedFollowers>
                   },
                   itemBuilder:
                       (BuildContext context, AussieUser item, int index) {
-                    return BlocProvider<UserManagementCubit>(
+                    return BlocProvider<UMCubit>(
                       create: (BuildContext context) {
-                        return UserManagementCubit()
+                        return UMCubit()
                           ..getUserDataFromUid(
                             item.uid!,
                           );

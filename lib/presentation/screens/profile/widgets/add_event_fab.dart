@@ -37,8 +37,8 @@ class AnimatedAddEventFAB extends StatelessWidget {
                 BlocProvider<EventCreationBlocForm>(
                   create: (BuildContext context) => EventCreationBlocForm(),
                 ),
-                BlocProvider<EventManagementCubit>(
-                  create: (BuildContext context) => EventManagementCubit(),
+                BlocProvider<EMCubit>(
+                  create: (BuildContext context) => EMCubit(),
                 ),
                 BlocProvider<LocationPickingCubit>(
                   create: (BuildContext context) => LocationPickingCubit(),

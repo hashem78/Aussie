@@ -1,13 +1,13 @@
 import 'dart:collection';
 
-import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
+import 'package:aussie/providers/provider_notifications/interfaces/ievent_management_notifications.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AttendeesProvider {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<EventManagementNotification> fetchAttendees(
+  Future<IEMNotification> fetchAttendees(
     String? eventId,
     DocumentSnapshot<Object?>? startAfter,
   ) async {

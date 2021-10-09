@@ -1,19 +1,19 @@
 import 'dart:collection';
 
-import 'package:aussie/interfaces/eventmanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
+
+import 'provider_notifications/provider_notifications.dart';
 
 class EventManagementProvider {
   static final FirebaseStorage _storage = FirebaseStorage.instance;
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<EventManagementNotification> addEvent(EventCreationModel model) async {
+  Future<IEMNotification> addEvent(EventCreationModel model) async {
     try {
       final String uid = _auth.currentUser!.uid;
 
@@ -100,14 +100,14 @@ class EventManagementProvider {
       await dlBannerCallback(model.bannerData);
       batch.commit();
     } on FirebaseAuthException {
-      return const ErrorNotification();
+      return const EError();
     } on FirebaseException {
-      return const ErrorNotification();
+      return const EError();
     }
-    return const SuccessNotification();
+    return const ESuccess();
   }
 
-  Future<EventManagementNotification> fetchEventsForUser(
+  Future<IEMNotification> fetchEventsForUser(
     String uid,
     DocumentSnapshot<Object?>? documentSnapshot,
   ) async {
@@ -127,10 +127,10 @@ class EventManagementProvider {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
-          return EventsEndNotification(_internalList);
+          return EEnd(_internalList);
         }
 
-        return EventModelsNotification(
+        return EModels(
           eventModels: UnmodifiableListView<Map<String, dynamic>>(
             _internalList,
           ),
@@ -152,20 +152,20 @@ class EventManagementProvider {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
-          return EventsEndNotification(_internalList);
+          return EEnd(_internalList);
         }
-        return EventModelsNotification(
+        return EModels(
           eventModels:
               UnmodifiableListView<Map<String, dynamic>>(_internalList),
           prevsnap: _docs.last,
         );
       }
     } catch (e) {
-      return const ErrorNotification();
+      return const EError();
     }
   }
 
-  Future<EventManagementNotification> fetchPublicEvents(
+  Future<IEMNotification> fetchPublicEvents(
     DocumentSnapshot<Object?>? documentSnapshot,
   ) async {
     try {
@@ -184,9 +184,9 @@ class EventManagementProvider {
           _internalList.add(element.data());
         }
         if (_docs.length < 10) {
-          return EventsEndNotification(_internalList);
+          return EEnd(_internalList);
         }
-        return EventModelsNotification(
+        return EModels(
           eventModels: UnmodifiableListView<Map<String, dynamic>>(
             _internalList,
           ),
@@ -205,10 +205,10 @@ class EventManagementProvider {
         }
 
         if (_docs.length < 10) {
-          return EventsEndNotification(_internalList);
+          return EEnd(_internalList);
         }
 
-        return EventModelsNotification(
+        return EModels(
           eventModels: UnmodifiableListView<Map<String, dynamic>>(
             _internalList,
           ),
@@ -216,7 +216,7 @@ class EventManagementProvider {
         );
       }
     } catch (e) {
-      return const ErrorNotification();
+      return const EError();
     }
   }
 }

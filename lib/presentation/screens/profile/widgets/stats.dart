@@ -32,8 +32,3 @@ class ProfileScreenCardStats extends StatelessWidget {
     );
   }
 }
-
-
-
-
-

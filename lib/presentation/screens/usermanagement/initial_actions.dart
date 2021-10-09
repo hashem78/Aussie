@@ -48,16 +48,16 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
               ],
             )),
         key: sstate,
-        body: BlocListener<UserManagementCubit, UserManagementState>(
-          listener: (BuildContext context, UserManagementState state) {
-            if (state is UserManagementSignin) {
+        body: BlocListener<UMCubit, UMCState>(
+          listener: (BuildContext context, UMCState state) {
+            if (state is UMCSignin) {
               Navigator.push(
                 context,
                 MaterialPageRoute<FeedScreen>(
                   builder: (BuildContext context) {
-                    return BlocProvider<UserManagementCubit>(
+                    return BlocProvider<UMCubit>(
                       create: (BuildContext context) {
-                        return UserManagementCubit()..getUserData();
+                        return UMCubit()..getUserData();
                       },
                       child: const FeedScreen(),
                     );
@@ -108,15 +108,14 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                               ),
                             ),
                           ),
-                          BlocBuilder<UserManagementCubit, UserManagementState>(
-                            builder: (BuildContext context,
-                                UserManagementState state) {
+                          BlocBuilder<UMCubit, UMCState>(
+                            builder: (BuildContext context, UMCState state) {
                               Widget? child;
 
-                              if (state is UserManagementPerformingAction) {
+                              if (state is UMCPerformingAction) {
                                 child = const CircularProgressIndicator();
                               } else {
-                                if (state is UserManagementError) {
+                                if (state is UMCError) {
                                   child = Text(
                                     state.notification!.message,
                                     textAlign: TextAlign.center,
@@ -159,8 +158,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                   BlocProvider<SingleImagePickingCubit>(
                     create: (BuildContext context) => SingleImagePickingCubit(),
                   ),
-                  BlocProvider<UserManagementCubit>(
-                    create: (BuildContext context) => UserManagementCubit(),
+                  BlocProvider<UMCubit>(
+                    create: (BuildContext context) => UMCubit(),
                   ),
                   BlocProvider<SignupBloc>(
                     create: (BuildContext context) => SignupBloc(),
@@ -182,7 +181,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
   Widget buildSigninButton() {
     return TextButton(
       onPressed: () {
-        BlocProvider.of<UserManagementCubit>(context).singin(
+        BlocProvider.of<UMCubit>(context).singin(
           SigninModel(
             _emailEditingController.text,
             _passwordEditingController.text,

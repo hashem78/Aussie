@@ -82,9 +82,9 @@ class _PaginatedAtendeesState extends State<PaginatedAtendees>
               padding: const EdgeInsets.all(16.0),
               builderDelegate: PagedChildBuilderDelegate<String>(
                 itemBuilder: (BuildContext context, String item, int index) {
-                  return BlocProvider<UserManagementCubit>(
+                  return BlocProvider<UMCubit>(
                     create: (BuildContext context) {
-                      return UserManagementCubit()..getUserDataFromUid(item);
+                      return UMCubit()..getUserDataFromUid(item);
                     },
                     child: const CardOwner(),
                   );

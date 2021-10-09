@@ -1,26 +1,24 @@
-import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
 import 'package:aussie/models/usermanagement/signup_model/signup_model.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/models/usermanagement/user/usermanagement_notifs.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
+
 import 'package:aussie/providers/usermanagement_provider.dart';
 
 class UserManagementRepository {
   final UserManagementProvider _provider = UserManagementProvider();
-  Future<UserManagementNotification?> signup(SignupModel model) async =>
+  Future<IUMNotification?> signup(SignupModel model) async =>
       _provider.signup(model.toJson());
 
-  Future<UserManagementNotification?> signin(SigninModel model) async =>
+  Future<IUMNotification?> signin(SigninModel model) async =>
       _provider.signin(model.toJson());
 
-  Future<UserManagementNotification> isSignedin() async =>
-      _provider.isSignedin();
+  Future<IUMNotification> isSignedin() async => _provider.isSignedin();
 
-  Future<UserManagementNotification?> getUserData() async {
-    final UserManagementNotification? notification =
-        await _provider.getUserData();
-    if (notification is UserModelContainingNotification) {
-      return UserModelContainingActualNotification(
+  Future<IUMNotification?> getUserData() async {
+    final IUMNotification? notification = await _provider.getUserData();
+    if (notification is UMModelContaining) {
+      return UMModelContainingActual(
         AussieUser.fromJson(notification.user),
       );
     } else {
@@ -28,11 +26,11 @@ class UserManagementRepository {
     }
   }
 
-  Future<UserManagementNotification> getUserDataFromUid(String? uid) async {
-    final UserManagementNotification notification =
+  Future<IUMNotification> getUserDataFromUid(String? uid) async {
+    final IUMNotification notification =
         await _provider.getUserDataFromUid(uid);
-    if (notification is UserModelContainingNotification) {
-      return UserModelContainingActualNotification(
+    if (notification is UMModelContaining) {
+      return UMModelContainingActual(
         AussieUser.fromJson(notification.user),
       );
     } else {
@@ -40,7 +38,7 @@ class UserManagementRepository {
     }
   }
 
-  Future<UserManagementNotification> makeUserWithIdAttendEvent(
+  Future<IUMNotification> makeUserWithIdAttendEvent(
       String? uid, String? eventUuid) async {
     return _provider.makeUserWithIdAttendEvent(uid, eventUuid);
   }

@@ -1,5 +1,4 @@
-import 'package:aussie/interfaces/eventmanagement_notifs.dart';
-import 'package:aussie/models/usermanagement/events/eventmanagement_notifs.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:aussie/repositories/attendees_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,17 +11,17 @@ class AttendeesCubit extends Cubit<AttendeesState> {
   final AttendeesRepository _repository = AttendeesRepository();
   DocumentSnapshot<Object?>? prevsnap;
   Future<void> fetchAttendees(String? eventId) async {
-    final EventManagementNotification notif =
+    final IEMNotification notif =
         await _repository.fetchAttendees(eventId, prevsnap);
 
-    if (notif is AttendeesNotification) {
+    if (notif is EAttendees) {
       if (notif.uuids.isEmpty && prevsnap == null) {
         emit(const AttendeesEmpty());
       } else {
         emit(AttendeesActual(notif.uuids));
         prevsnap = notif.prevsnap;
       }
-    } else if (notif is AttendeesEndNotification) {
+    } else if (notif is EAttendeesEnd) {
       emit(AttendeesActualEnd(notif.uuids));
     }
   }

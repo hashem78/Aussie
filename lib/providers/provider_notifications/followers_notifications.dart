@@ -1,10 +1,7 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:collection';
-
-abstract class FollowersNotification {
-  const FollowersNotification();
-}
 
 class FSucess extends FollowersNotification {}
 
@@ -17,9 +14,11 @@ class FError extends FollowersNotification {
 class FUserIsFollowed extends FollowersNotification {
   const FUserIsFollowed();
 }
+
 class FUserIsNotFollowed extends FollowersNotification {
   const FUserIsNotFollowed();
 }
+
 class FFollowedUser extends FollowersNotification {
   const FFollowedUser();
 }

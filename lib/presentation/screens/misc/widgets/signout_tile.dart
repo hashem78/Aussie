@@ -11,9 +11,9 @@ class SignoutTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserManagementCubit, UserManagementState>(
-      listener: (BuildContext context, UserManagementState state) {
-        if (state is UserManagementSignOut) {
+    return BlocListener<UMCubit, UMCState>(
+      listener: (BuildContext context, UMCState state) {
+        if (state is UMCSignOut) {
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute<InitialUserActionScreen>(
               builder: (BuildContext context) {
@@ -27,7 +27,7 @@ class SignoutTile extends StatelessWidget {
       },
       child: ListTile(
         onTap: () {
-          context.read<UserManagementCubit>().signout();
+          context.read<UMCubit>().signout();
         },
         leading: const Icon(Icons.unsubscribe),
         title: Text(

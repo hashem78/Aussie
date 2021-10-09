@@ -2,7 +2,7 @@ import 'dart:collection';
 
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/followers_provider.dart';
-import 'package:aussie/providers/provider_notifications/followers_notifications.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FollowersRepository {

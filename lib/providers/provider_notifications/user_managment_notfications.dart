@@ -1,93 +1,93 @@
-import 'package:aussie/interfaces/usermanagement_notifs.dart';
 import 'package:aussie/models/usermanagement/user/user_model.dart';
+import 'interfaces/iuser_management_notifications.dart';
 
-class WrongNameNotification implements UserManagementNotification {
+class UMWrongName implements IUMNotification {
   @override
   String get code => '';
 
-  const WrongNameNotification();
+  const UMWrongName();
 
   @override
   String get message => "The username supplied can't be used";
 }
 
-class MissingEmailNotification implements UserManagementNotification {
+class UMMissingEmail implements IUMNotification {
   @override
   String get code => 'missing-email';
 
-  const MissingEmailNotification();
+  const UMMissingEmail();
 
   @override
   String get message => 'An email address must be provided';
 }
 
-class WeakPasswordNotification implements UserManagementNotification {
+class UMWeakPassword implements IUMNotification {
   @override
   String get code => 'weak-password';
-  const WeakPasswordNotification();
+  const UMWeakPassword();
 
   @override
   String get message => 'The given password is invalid.';
 }
 
-class ProfileImageRequiredNotification implements UserManagementNotification {
+class UMProfileImageRequired implements IUMNotification {
   @override
   String get code => '';
-  const ProfileImageRequiredNotification();
+  const UMProfileImageRequired();
 
   @override
   String get message => 'A profile image is required';
 }
 
-class UserNotFoundNotification implements UserManagementNotification {
+class UMUserNotFound implements IUMNotification {
   @override
   String get code => 'user-not-found';
-  const UserNotFoundNotification();
+  const UMUserNotFound();
 
   @override
   String get message =>
       'There is no user record corresponding to this identifier. the user may have been deleted.';
 }
 
-class UserManagementErrorNotification implements UserManagementNotification {
+class UMError implements IUMNotification {
   @override
   String get code => 'error';
-  const UserManagementErrorNotification();
+  const UMError();
 
   @override
   String get message => 'An unknown error occured, try again later!';
 }
 
-class EmailAlreadyInUseNotification implements UserManagementNotification {
+class UMEmailAlreadyInUse implements IUMNotification {
   @override
   String get code => 'email-already-in-use';
-  const EmailAlreadyInUseNotification();
+  const UMEmailAlreadyInUse();
 
   @override
   String get message =>
       'The email address is already in use by another account.';
 }
 
-class WrongPasswordNotification implements UserManagementNotification {
+class UMWrongPassword implements IUMNotification {
   @override
   String get code => 'wrong-password';
-  const WrongPasswordNotification();
+  const UMWrongPassword();
 
   @override
   String get message =>
       'The password is invalid or the user does not have a password.';
 }
 
-class InvalidEmailNotification implements UserManagementNotification {
+class UMInvalidEmail implements IUMNotification {
   @override
   String get code => 'invalid-email';
-  const InvalidEmailNotification();
+  const UMInvalidEmail();
 
   @override
   String get message => 'The email provided is badly formatted';
 }
 
-class UserVerifiedNotification implements UserManagementNotification {
+class UMUserVerified implements IUMNotification {
   @override
   String get code => '';
 
@@ -95,8 +95,8 @@ class UserVerifiedNotification implements UserManagementNotification {
   String get message => 'Email verified';
 }
 
-class UserSignupSuccessfulNotification implements UserManagementNotification {
-  const UserSignupSuccessfulNotification();
+class UMSignupSuccessful implements IUMNotification {
+  const UMSignupSuccessful();
   @override
   String get code => '';
 
@@ -104,8 +104,8 @@ class UserSignupSuccessfulNotification implements UserManagementNotification {
   String get message => 'Successfully signed up';
 }
 
-class UserSigninSuccessfulNotification implements UserManagementNotification {
-  const UserSigninSuccessfulNotification();
+class UMSigninSuccessful implements IUMNotification {
+  const UMSigninSuccessful();
   @override
   String get code => '';
 
@@ -113,8 +113,8 @@ class UserSigninSuccessfulNotification implements UserManagementNotification {
   String get message => 'Operation sucsses';
 }
 
-class UserHasNotSignedInNotification implements UserManagementNotification {
-  const UserHasNotSignedInNotification();
+class UMNotSignedIn implements IUMNotification {
+  const UMNotSignedIn();
   @override
   String get code => '';
 
@@ -122,10 +122,10 @@ class UserHasNotSignedInNotification implements UserManagementNotification {
   String get message => 'User has not yet signed in';
 }
 
-class UserModelContainingNotification implements UserManagementNotification {
+class UMModelContaining implements IUMNotification {
   final Map<String, dynamic> user;
 
-  UserModelContainingNotification(this.user);
+  UMModelContaining(this.user);
   @override
   String get code => '';
 
@@ -133,11 +133,10 @@ class UserModelContainingNotification implements UserManagementNotification {
   String get message => '';
 }
 
-class UserModelContainingActualNotification
-    implements UserManagementNotification {
+class UMModelContainingActual implements IUMNotification {
   final AussieUser user;
 
-  UserModelContainingActualNotification(this.user);
+  UMModelContainingActual(this.user);
   @override
   String get code => '';
 
@@ -145,8 +144,7 @@ class UserModelContainingActualNotification
   String get message => '';
 }
 
-class UserMangementUserAttendedEventNotification
-    implements UserManagementNotification {
+class UMAttendedEvent implements IUMNotification {
   @override
   String get code => '';
 
@@ -154,11 +152,24 @@ class UserMangementUserAttendedEventNotification
   String get message => '';
 }
 
-class UserMangementUserUnAttendedEventNotification
-    implements UserManagementNotification {
+class UMUnAttendedEvent implements IUMNotification {
   @override
   String get code => '';
 
   @override
   String get message => '';
 }
+
+const Map<String, IUMNotification> firebaseAuthErrorCodes =
+    <String, IUMNotification>{
+  'invalid-email': UMInvalidEmail(),
+  'wrong-password': UMWrongPassword(),
+  'email-already-in-use': UMEmailAlreadyInUse(),
+  'user-not-found': UMUserNotFound(),
+  'weak-password': UMWeakPassword(),
+  'missing-email': UMMissingEmail(),
+  // 'user-mismatch': '',
+  // 'requires-recent-login': '',
+  // 'account-exists-with-different-credential': '',
+  // 'credential-already-in-use':'',
+};

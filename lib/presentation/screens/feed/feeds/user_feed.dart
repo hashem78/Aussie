@@ -12,7 +12,7 @@ class _UserEventsState extends State<UserEvents>
   final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
 
-  late EventManagementCubit eventManagementCubit;
+  late EMCubit eventManagementCubit;
   late AussieUser user;
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _UserEventsState extends State<UserEvents>
   @override
   void didChangeDependencies() {
     user = context.read<AussieUser>();
-    eventManagementCubit = BlocProvider.of<EventManagementCubit>(context);
+    eventManagementCubit = BlocProvider.of<EMCubit>(context);
     _controller.addPageRequestListener(
       (int pageKey) {
         if (eventManagementCubit.prevSnap == null) {
@@ -48,15 +48,15 @@ class _UserEventsState extends State<UserEvents>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocListener<EventManagementCubit, EventManagementState>(
+    return BlocListener<EMCubit, EMCState>(
       bloc: eventManagementCubit,
-      listener: (BuildContext context, EventManagementState state) {
-        if (state is EventManagementEventsFetched) {
+      listener: (BuildContext context, EMCState state) {
+        if (state is EMCEventsFetched) {
           _controller.appendPage(
             state.models,
             _controller.nextPageKey! + state.models.length,
           );
-        } else if (state is EventManagementEndEventsFetched) {
+        } else if (state is EMCEndEventsFetched) {
           _controller.appendLastPage(state.models);
         }
       },

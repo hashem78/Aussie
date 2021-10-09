@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/providers/provider_notifications/followers_notifications.dart';
+import 'package:aussie/providers/provider_notifications/provider_notifications.dart';
 import 'package:aussie/repositories/followers_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';

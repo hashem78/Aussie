@@ -10,22 +10,22 @@ class InitialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UserManagementCubit, UserManagementState>(
-      listener: (BuildContext context, UserManagementState state) {
-        if (state is UserManagementSignin) {
+    return BlocConsumer<UMCubit, UMCState>(
+      listener: (BuildContext context, UMCState state) {
+        if (state is UMCSignin) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<FeedScreen>(
               builder: (BuildContext context) {
-                return BlocProvider<UserManagementCubit>(
+                return BlocProvider<UMCubit>(
                   create: (BuildContext context) {
-                    return UserManagementCubit()..getUserData();
+                    return UMCubit()..getUserData();
                   },
                   child: const FeedScreen(),
                 );
               },
             ),
           );
-        } else if (state is UserManagementNeedsAction) {
+        } else if (state is UMCNeedsAction) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute<InitialUserActionScreen>(
               builder: (BuildContext context) {
@@ -35,7 +35,7 @@ class InitialScreen extends StatelessWidget {
           );
         }
       },
-      builder: (BuildContext context, UserManagementState state) {
+      builder: (BuildContext context, UMCState state) {
         return const Material(
           child: Center(
             child: CircularProgressIndicator(),
