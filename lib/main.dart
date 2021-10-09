@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 import 'aussie_imports.dart';
 
 Future<void> main() async {
@@ -93,6 +95,12 @@ class MyApp extends StatelessWidget {
                         ),
                         themeMode: themeState,
                         theme: ThemeData(
+                          brightness: themeState == ThemeMode.dark
+                              ? Brightness.dark
+                              : themeState == ThemeMode.light
+                                  ? Brightness.light
+                                  : SchedulerBinding
+                                      .instance?.window.platformBrightness,
                           pageTransitionsTheme: const PageTransitionsTheme(
                             builders: <TargetPlatform, PageTransitionsBuilder>{
                               TargetPlatform.android:
