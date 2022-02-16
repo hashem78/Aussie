@@ -30,7 +30,7 @@ class SignupBloc extends FormBloc<String, String> {
 
   SignupBloc() {
     addFieldBlocs(
-      fieldBlocs: <FieldBloc>[
+      fieldBlocs: <FieldBloc<FieldBlocStateBase>>[
         fullName,
         userName,
         email,
