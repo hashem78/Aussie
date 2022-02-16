@@ -1,60 +1,53 @@
 import 'package:aussie/aussie_imports.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:aussie/state/theme_mode.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AnimatedAddEventFAB extends StatelessWidget {
+class AnimatedAddEventFAB extends ConsumerWidget {
   const AnimatedAddEventFAB({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final ThemeMode b = context.watch<ThemeModeCubit>().state;
-    Color? color;
-    if (b == ThemeMode.system) {
-      color = SchedulerBinding.instance!.window.platformBrightness ==
-              Brightness.dark
-          ? Colors.white
-          : Colors.blue;
-    } else if (b == ThemeMode.light) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider)!;
+    late final Color color;
+
+    if (themeMode.brightness == Brightness.light) {
       color = Colors.blue;
-    } else if (b == ThemeMode.dark) {
+    } else {
       color = Colors.white;
     }
 
-    return BlocBuilder<ThemeModeCubit, ThemeMode>(
-      builder: (BuildContext context, ThemeMode state) {
-        return OpenContainer(
-          closedShape: const RoundedRectangleBorder(),
-          closedColor: color!,
-          openElevation: 0,
-          openShape: const RoundedRectangleBorder(),
-          closedBuilder: (BuildContext context, VoidCallback action) {
-            return _AddEventFAB(color: color, action: action);
-          },
-          openBuilder: (BuildContext context, VoidCallback action) {
-            return MultiBlocProvider(
-              providers: <BlocProvider<Object?>>[
-                BlocProvider<EventCreationBlocForm>(
-                  create: (BuildContext context) => EventCreationBlocForm(),
-                ),
-                BlocProvider<EMCubit>(
-                  create: (BuildContext context) => EMCubit(),
-                ),
-                BlocProvider<LocationPickingCubit>(
-                  create: (BuildContext context) => LocationPickingCubit(),
-                ),
-                BlocProvider<SingleImagePickingCubit>(
-                  create: (BuildContext context) => SingleImagePickingCubit(),
-                ),
-                BlocProvider<MultiImagePickingCubit>(
-                  create: (BuildContext context) => MultiImagePickingCubit(),
-                ),
-              ],
-              child: EventCreationScreen(
-                closeAction: action,
-              ),
-            );
-          },
+    return OpenContainer(
+      closedShape: const RoundedRectangleBorder(),
+      closedColor: color,
+      openElevation: 0,
+      openShape: const RoundedRectangleBorder(),
+      closedBuilder: (BuildContext context, VoidCallback action) {
+        return _AddEventFAB(color: color, action: action);
+      },
+      openBuilder: (BuildContext context, VoidCallback action) {
+        return MultiBlocProvider(
+          providers: <BlocProvider<Object?>>[
+            BlocProvider<EventCreationBlocForm>(
+              create: (BuildContext context) => EventCreationBlocForm(),
+            ),
+            BlocProvider<EMCubit>(
+              create: (BuildContext context) => EMCubit(),
+            ),
+            BlocProvider<LocationPickingCubit>(
+              create: (BuildContext context) => LocationPickingCubit(),
+            ),
+            BlocProvider<SingleImagePickingCubit>(
+              create: (BuildContext context) => SingleImagePickingCubit(),
+            ),
+            BlocProvider<MultiImagePickingCubit>(
+              create: (BuildContext context) => MultiImagePickingCubit(),
+            ),
+          ],
+          child: EventCreationScreen(
+            closeAction: action,
+          ),
         );
       },
     );

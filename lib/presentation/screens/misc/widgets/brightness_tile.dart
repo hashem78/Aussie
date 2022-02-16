@@ -1,20 +1,15 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/constants.dart';
+import 'package:aussie/models/theme_mode/theme_mode.dart';
+import 'package:aussie/state/theme_mode.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BrightnessTile extends StatelessWidget {
+class BrightnessTile extends ConsumerWidget {
   const BrightnessTile({Key? key}) : super(key: key);
 
-  String getThemeModeAsString(ThemeMode themeMode) {
-    if (themeMode == ThemeMode.system) {
-      return 'brightnessSystemTitle';
-    } else if (themeMode == ThemeMode.dark) {
-      return 'brightnessDarkTitle';
-    } else {
-      return 'brightnessLightTitle';
-    }
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeState = ref.watch(themeModeProvider)!;
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
@@ -22,56 +17,57 @@ class BrightnessTile extends StatelessWidget {
         subtitle: Text(
           getTranslation(
             context,
-            getThemeModeAsString(context.watch<ThemeModeCubit>().state),
+            themeState.translationKey,
           ),
         ),
         contentPadding: const EdgeInsets.all(5.0),
         onTap: () {
           showDialog(
             context: context,
-            builder: (BuildContext context) {
-              final ThemeMode currentSetting =
-                  context.watch<ThemeModeCubit>().state;
-              return Dialog(
-                child: ListView(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  children: <Widget>[
-                    RadioListTile<ThemeMode>(
-                      value: ThemeMode.system,
-                      groupValue: currentSetting,
-                      title: Text(
-                        getTranslation(context, 'brightnessSystemTitle'),
-                      ),
-                      onChanged: (ThemeMode? val) {
-                        context.read<ThemeModeCubit>().changeToSystem();
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      value: ThemeMode.light,
-                      groupValue: currentSetting,
-                      title:
-                          Text(getTranslation(context, 'brightnessLightTitle')),
-                      onChanged: (ThemeMode? val) {
-                        context.read<ThemeModeCubit>().changeToLight();
-                      },
-                    ),
-                    RadioListTile<ThemeMode>(
-                      value: ThemeMode.dark,
-                      groupValue: currentSetting,
-                      title: Text(
-                        getTranslation(context, 'brightnessDarkTitle'),
-                      ),
-                      onChanged: (ThemeMode? val) {
-                        context.read<ThemeModeCubit>().changeToDark();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            },
+            builder: (context) => const ChangeThemeDialog(),
           );
         },
+      ),
+    );
+  }
+}
+
+class ChangeThemeDialog extends ConsumerWidget {
+  const ChangeThemeDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeState = ref.watch(themeModeProvider);
+    return Dialog(
+      child: ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          RadioListTile<AThemeMode>(
+            value: kLightMode,
+            groupValue: themeState,
+            title: Text(
+              getTranslation(context, 'brightnessSystemTitle'),
+            ),
+            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+          ),
+          RadioListTile<AThemeMode>(
+            value: kLightMode,
+            groupValue: themeState,
+            title: Text(getTranslation(context, 'brightnessLightTitle')),
+            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+          ),
+          RadioListTile<AThemeMode>(
+            value: kDarkMode,
+            groupValue: themeState,
+            title: Text(
+              getTranslation(context, 'brightnessDarkTitle'),
+            ),
+            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+          ),
+        ],
       ),
     );
   }

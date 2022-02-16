@@ -1,4 +1,6 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/state/theme_mode.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AussieScreenColorData {
   static const AussieColor faunaDark = DarkAussieColor(
@@ -79,7 +81,7 @@ class LightAussieColor extends AussieColor {
   ) : super(swatchColor: swatchColor, backgroundColor: backgroundColor);
 }
 
-class AussieThemeBuilder extends StatelessWidget {
+class AussieThemeBuilder extends ConsumerWidget {
   final AussieColor dark;
   final AussieColor light;
   final Widget Function(
@@ -95,28 +97,31 @@ class AussieThemeBuilder extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ThemeModeCubit, ThemeMode>(
-      builder: (BuildContext context, ThemeMode state) {
-        if (state == ThemeMode.light) {
-          return AussieThemeProvider(
-            color: light,
-            child: Builder(
-              builder: (BuildContext context) {
-                return builder(context, light);
-              },
-            ),
-          );
-        } else {
-          return AussieThemeProvider(
-            color: dark,
-            child: Builder(
-              builder: (BuildContext context) {
-                return builder(context, dark);
-              },
-            ),
-          );
-        }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider)!;
+    final darkProvider = AussieThemeProvider(
+      color: dark,
+      child: Builder(
+        builder: (BuildContext context) {
+          return builder(context, dark);
+        },
+      ),
+    );
+    final lightProvider = AussieThemeProvider(
+      color: light,
+      child: Builder(
+        builder: (BuildContext context) {
+          return builder(context, light);
+        },
+      ),
+    );
+
+    return themeMode.when(
+      dark: (_, __, ___) => darkProvider,
+      light: (_, __, ___) => lightProvider,
+      system: (mode, _, __) {
+        if (mode == ThemeMode.light) return lightProvider;
+        return darkProvider;
       },
     );
   }

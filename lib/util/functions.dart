@@ -72,25 +72,6 @@ SignupBloc getSignupBloc(BuildContext context) =>
 EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
 
-Future<ThemeMode> onStartupBrightness() async {
-  final SharedPreferences _perfs = await SharedPreferences.getInstance();
-  String? brightnessString;
-  ThemeMode brightness;
-  if (_perfs.containsKey('brightness')) {
-    brightnessString = _perfs.getString('brightness');
-  } else {
-    brightnessString = 'system';
-    _perfs.setString('brightness', brightnessString);
-  }
-  if (brightnessString == 'system') {
-    brightness = ThemeMode.system;
-  } else if (brightnessString == 'light') {
-    brightness = ThemeMode.light;
-  } else {
-    brightness = ThemeMode.dark;
-  }
-  return brightness;
-}
 
 Future<Locale> onStartupLocale() async {
   final SharedPreferences _perfs = await SharedPreferences.getInstance();

@@ -1,7 +1,12 @@
+import 'package:aussie/models/theme_mode/theme_mode.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+
+const AThemeMode kLightMode = AThemeMode.light();
+const AThemeMode kDarkMode = AThemeMode.dark();
+const AThemeMode kSystemMode = AThemeMode.system();
 
 const Color kausBlue = Color(0xFF00008b);
 const Color kausRed = Color(0xFFD80027);

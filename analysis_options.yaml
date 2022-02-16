@@ -6,5 +6,5 @@ linter:
   rules:
     avoid_print: false
     prefer_single_quotes: true 
-    always_specify_types: true
     prefer_final_locals: true
+    non_constant_identifier_names: false
