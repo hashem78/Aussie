@@ -1,19 +1,18 @@
 import 'package:aussie/models/theme_mode/theme_mode.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
 
-const AThemeMode kLightMode = AThemeMode.light();
-const AThemeMode kDarkMode = AThemeMode.dark();
-const AThemeMode kSystemMode = AThemeMode.system();
+const kLightMode = AThemeMode.light();
+const kDarkMode = AThemeMode.dark();
+const kSystemMode = AThemeMode.system();
 
-const Color kausBlue = Color(0xFF00008b);
-const Color kausRed = Color(0xFFD80027);
-const BorderRadius kaussieRadius = BorderRadius.all(Radius.circular(20));
-String kurl =
+
+const kausBlue = Color(0xFF00008b);
+const kausRed = Color(0xFFD80027);
+const kaussieRadius = BorderRadius.all(Radius.circular(20));
+final kurl =
     'https://via.placeholder.com/500/${getRandomColor().toString().substring(10, 16)}/FFFFFF';
-const String klorem = '''
+const klorem = '''
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam egestas velit vitae enim maximus, vitae pulvinar ligula interdum. Quisque vitae neque efficitur sem condimentum viverra at sed justo. Etiam auctor mattis odio in porta. Quisque eget risus ut felis imperdiet vulputate. Sed cursus ut dui viverra auctor. Nunc venenatis vel neque ut cursus. Aenean ornare eu quam at aliquam.
 
 Nulla imperdiet lacus at enim consectetur consequat. Donec dapibus est sed lacinia placerat. Vestibulum finalius massa lorem, eget mattis purus dapibus ut. Donec in augue et nisi viverra laoreet. Ut interdum leo sed dictum consectetur. Proin lacinia ex sit amet turpis blandit, nec euismod mi dictum. Integer nec volutpat ipsum. Maecenas mauris turpis, viverra at ullamcorper id, eleifend in mauris. Suspendisse pretium urna eget pellentesque tristique. Cras facilisis metus et vehicula mollis. Nulla ut placerat ipsum, vel suscipit lectus. Suspendisse potenti. Suspendisse et magna eu mauris sodales consectetur non eget est. Vestibulum vel finibus augue, quis pulvinar dui.

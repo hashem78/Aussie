@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:aussie/models/themes/color_data_model.dart';
-
 class PaginatedScreenTile extends StatelessWidget {
   final Widget title;
   final Widget? subtitle;
@@ -22,7 +20,7 @@ class PaginatedScreenTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        color: AussieThemeProvider.of(context).color.swatchColor,
+        
         shape: const RoundedRectangleBorder(),
         child: Column(
           children: <Widget>[

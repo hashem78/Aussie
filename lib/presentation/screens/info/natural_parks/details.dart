@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:aussie/models/gmap.dart';
 import 'package:aussie/models/info/natural_parks/natural_parks_model.dart';
-import 'package:aussie/models/themes/color_data_model.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/util/functions.dart';
 
@@ -22,9 +21,7 @@ class NaturalParksDetailsScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
         appBar: AppBar(
-          backgroundColor: AussieThemeProvider.of(context).color.swatchColor,
           elevation: 0,
           title: Text(model.park_name!),
           flexibleSpace: model.image_link != ''

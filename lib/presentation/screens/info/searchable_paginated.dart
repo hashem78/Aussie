@@ -78,7 +78,7 @@ class _SearchablePaginatedScreenState<T extends IPaginatedData>
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: AussieThemeProvider.of(context).color.backgroundColor,
+        
         body: CustomScrollView(
           slivers: <Widget>[
             BlocProvider<ThumbnailCubit>(
