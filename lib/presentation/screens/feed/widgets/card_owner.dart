@@ -50,7 +50,7 @@ class _CardOwnerState extends State<CardOwner>
                 child: Row(
                   children: <Widget>[
                     CachedNetworkImage(
-                      imageUrl: state.user.profilePictureLink!,
+                      imageUrl: state.user.profilePictureLink,
                       imageBuilder: (
                         BuildContext context,
                         ImageProvider<Object> imageProvider,
@@ -63,7 +63,7 @@ class _CardOwnerState extends State<CardOwner>
                     ),
                     SizedBox(width: .05.sw),
                     Text(
-                      state.user.username!,
+                      state.user.username,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                   ],

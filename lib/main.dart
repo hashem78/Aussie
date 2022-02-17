@@ -43,9 +43,6 @@ class MyApp extends rv.ConsumerWidget {
         BlocProvider<UMCubit>(
           create: (BuildContext context) => UMCubit(),
         ),
-        BlocProvider<WeatherCubit>(
-          create: (BuildContext context) => WeatherCubit(),
-        ),
         BlocProvider<AttendeesCubit>(
           create: (BuildContext context) => AttendeesCubit(),
         ),
@@ -117,44 +114,8 @@ class MyApp extends rv.ConsumerWidget {
     );
   }
 
-  static final Map<String, Widget Function(BuildContext)> routes =
-      <String, Widget Function(BuildContext)>{
-    AussieScreenData.naturalParksNavPath: (BuildContext context) {
-      return BlocProvider<PaginatedCubit<NaturalParkModel>>(
-        create: (BuildContext context) {
-          return PaginatedCubit<NaturalParkModel>('natural_parks');
-        },
-        child: const NaturalParksScreen(),
-      );
-    },
-    AussieScreenData.weatherNavPath: (BuildContext context) {
-      return const WeatherScreen();
-    },
-    AussieScreenData.territoriesNavPath: (BuildContext context) {
-      return BlocProvider<PaginatedCubit<TeritoryModel>>(
-        create: (BuildContext context) {
-          return PaginatedCubit<TeritoryModel>('teritories');
-        },
-        child: const TeritoriesScreen(),
-      );
-    },
-    AussieScreenData.faunaNavPath: (BuildContext context) {
-      return BlocProvider<PaginatedCubit<SpeciesDetailsModel>>(
-        create: (BuildContext context) {
-          return PaginatedCubit<SpeciesDetailsModel>('fauna');
-        },
-        child: const FaunaScreen(),
-      );
-    },
-    AussieScreenData.floraNavPath: (BuildContext context) {
-      return BlocProvider<PaginatedCubit<SpeciesDetailsModel>>(
-        create: (BuildContext context) {
-          return PaginatedCubit<SpeciesDetailsModel>('flora');
-        },
-        child: const FloraScreen(),
-      );
-    },
-    AussieScreenData.settingsNavPath: (BuildContext context) {
+  static final routes = {
+    ScreenData.settingsNavPath: (context) {
       return const SettingsScreen();
     },
   };

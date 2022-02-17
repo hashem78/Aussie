@@ -1,11 +1,12 @@
 import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/gmap.dart';
-import 'package:aussie/presentation/screens/info/teritories/teritories.dart';
+import 'package:aussie/models/gmap/gmap.dart';
+import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+
 
 class EventCardStack extends StatelessWidget {
   const EventCardStack({
@@ -16,10 +17,10 @@ class EventCardStack extends StatelessWidget {
   Widget build(BuildContext context) {
     final EventModel e = getEventModel(context);
     final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
-      e.startingTimeStamp!,
+      e.startingTimeStamp,
     );
     final DateTime end = DateTime.fromMillisecondsSinceEpoch(
-      e.endingTimeStamp!,
+      e.endingTimeStamp,
     );
     final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
     final String formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
@@ -33,7 +34,7 @@ class EventCardStack extends StatelessWidget {
         children: <Widget>[
           Align(
             child: AutoSizeText(
-              e.title!,
+              e.title,
               style: Theme.of(context)
                   .textTheme
                   .headline5!
@@ -41,7 +42,7 @@ class EventCardStack extends StatelessWidget {
             ),
           ),
           AutoSizeText(
-            e.subtitle!,
+            e.subtitle,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline4,
           ),
@@ -94,9 +95,9 @@ class EventCardStack extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute<AussieGMapScreen>(
+                    MaterialPageRoute<AussieGMap>(
                       builder: (BuildContext context) {
-                        return AussieGMapScreen(
+                        return AussieGMap(
                           model: AussieGMapModel(
                             longitude: e.lng.toString(),
                             latitude: e.lat.toString(),
@@ -117,7 +118,7 @@ class EventCardStack extends StatelessWidget {
                       ),
                       Expanded(
                         child: AutoSizeText(
-                          e.address!,
+                          e.address,
                           maxLines: 1,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headline6,

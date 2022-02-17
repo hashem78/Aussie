@@ -17,7 +17,7 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
     final EventModel e = getEventModel(context);
 
     return ListView.builder(
-      itemCount: e.galleryImages!.length,
+      itemCount: e.galleryImages.length,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (BuildContext context, int index) {
         return AspectRatio(
@@ -28,14 +28,14 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
                   MaterialPageRoute<AussiePhotoView>(
                     builder: (BuildContext context) {
                       return AussiePhotoView(
-                        url: e.galleryImages![index].imageLink,
+                        url: e.galleryImages[index].imageLink,
                       );
                     },
                   ),
                 );
               },
               child: CachedNetworkImage(
-                imageUrl: e.galleryImages![index].imageLink!,
+                imageUrl: e.galleryImages[index].imageLink,
                 fadeOutDuration: Duration.zero,
                 progressIndicatorBuilder: (
                   BuildContext context,

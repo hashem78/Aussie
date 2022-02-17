@@ -13,10 +13,10 @@ class EventCardDetailsHeader extends StatelessWidget {
     final EventModel e = getEventModel(context);
 
     final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
-      e.startingTimeStamp!,
+      e.startingTimeStamp,
     );
     final DateTime end = DateTime.fromMillisecondsSinceEpoch(
-      e.endingTimeStamp!,
+      e.endingTimeStamp,
     );
     final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
     final String formattedEndDate = DateFormat('dd/MM/yyyy').format(end);

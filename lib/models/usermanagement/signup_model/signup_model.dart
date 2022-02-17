@@ -1,40 +1,17 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'signup_model.g.dart';
+part 'signup_model.freezed.dart';
 
-@JsonSerializable(
-  createFactory: true,
-  checked: true,
-  createToJson: true,
-)
-@immutable
-class SignupModel extends Equatable {
-  final String? email;
-  final String? password;
-  final String? profileImagePath;
-  final String? username;
-  final String? fullname;
-  const SignupModel({
-    required this.email,
-    required this.password,
-    required this.profileImagePath,
-    required this.username,
-    required this.fullname,
-  });
+@freezed
+class SignupModel with _$SignupModel {
+  const factory SignupModel({
+    String? email,
+    String? password,
+    String? profileImagePath,
+    String? username,
+    String? fullname,
+  }) = _SignupModel;
   factory SignupModel.fromJson(Map<String, dynamic> json) =>
       _$SignupModelFromJson(json);
-  Map<String, dynamic> toJson() => _$SignupModelToJson(this);
-
-  @override
-  List<Object?> get props => <Object?>[
-        email,
-        password,
-        profileImagePath,
-        username,
-        fullname,
-      ];
-  @override
-  bool get stringify => true;
 }

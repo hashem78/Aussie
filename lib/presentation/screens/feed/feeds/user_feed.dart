@@ -27,11 +27,11 @@ class _UserEventsState extends State<UserEvents>
       (int pageKey) {
         if (eventManagementCubit.prevSnap == null) {
           eventManagementCubit.fetchEventsForUser(
-            uid: user.uid!,
+            uid: user.uid,
           );
         } else {
           eventManagementCubit.fetchEventsForUser(
-              uid: user.uid!, lastdoc: eventManagementCubit.prevSnap);
+              uid: user.uid, lastdoc: eventManagementCubit.prevSnap);
         }
       },
     );

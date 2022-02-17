@@ -17,12 +17,7 @@ Widget? buildImage(
   ColorFilter? colorFilter,
 }) {
   if (imageUrl == null) return null;
-  if (imageUrl.contains('.svg')) {
-    return SvgPicture.network(
-      imageUrl,
-      fit: fit,
-    );
-  } else if (imageUrl.isNotEmpty) {
+   if (imageUrl.isNotEmpty) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       imageBuilder: (

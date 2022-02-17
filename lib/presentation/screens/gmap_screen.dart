@@ -1,4 +1,4 @@
-import 'package:aussie/models/gmap.dart';
+import 'package:aussie/models/gmap/gmap.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +6,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AussieGMap extends StatefulWidget {
   final AussieGMapModel model;
-  final Size size;
   AussieGMap({
     Key? key,
     required this.model,
-    required this.size,
   })  : _position = CameraPosition(
           target: LatLng(
             double.parse(model.latitude!),
@@ -31,23 +29,20 @@ class _AussieGMapState extends State<AussieGMap>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return SizedBox.fromSize(
-      size: widget.size,
-      child: GoogleMap(
-        initialCameraPosition: widget._position,
-        mapType: MapType.hybrid,
-        gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
-          ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
-        markers: <Marker>{
-          Marker(
-            markerId: MarkerId(UniqueKey().toString()),
-            position: LatLng(
-              double.parse(widget.model.latitude!),
-              double.parse(widget.model.longitude!),
-            ),
+    return GoogleMap(
+      initialCameraPosition: widget._position,
+      mapType: MapType.hybrid,
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{}
+        ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer())),
+      markers: <Marker>{
+        Marker(
+          markerId: MarkerId(UniqueKey().toString()),
+          position: LatLng(
+            double.parse(widget.model.latitude!),
+            double.parse(widget.model.longitude!),
           ),
-        },
-      ),
+        ),
+      },
     );
   }
 

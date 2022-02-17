@@ -15,7 +15,7 @@ class FollowersCubit extends Cubit<FollowersState> {
   DocumentSnapshot<Object?>? prevSnap;
   void isUserFollowed(AussieUser user) {
     emit(const FollowersWorking());
-    repository.isUserFollowed(user.uid!).then(
+    repository.isUserFollowed(user.uid).then(
       (bool isFollowed) {
         if (isFollowed) {
           emit(const FollowingUser());
@@ -28,7 +28,7 @@ class FollowersCubit extends Cubit<FollowersState> {
 
   void followUser(AussieUser user) {
     emit(const FollowersWorking());
-    repository.followUser(user.uid!).then(
+    repository.followUser(user.uid).then(
       (FollowersNotification value) {
         if (value is FFollowedUser) {
           emit(const FollowedUser());
@@ -41,7 +41,7 @@ class FollowersCubit extends Cubit<FollowersState> {
 
   void unFollowUser(AussieUser user) {
     emit(const FollowersWorking());
-    repository.unFollowUser(user.uid!).then(
+    repository.unFollowUser(user.uid).then(
       (FollowersNotification value) {
         if (value is FUnFollowedUser) {
           emit(const UnFollowedUser());

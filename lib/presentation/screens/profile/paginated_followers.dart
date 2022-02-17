@@ -30,9 +30,9 @@ class _PaginatedFollowersState extends State<PaginatedFollowers>
       (int pageKey) {
         final AussieUser user = context.read<AussieUser>();
         if (widget.followersType == FollowersType.follwers) {
-          context.read<FollowersCubit>().getFollowersForUser(user.uid!);
+          context.read<FollowersCubit>().getFollowersForUser(user.uid);
         } else {
-          context.read<FollowersCubit>().getFollowingForUser(user.uid!);
+          context.read<FollowersCubit>().getFollowingForUser(user.uid);
         }
       },
     );
@@ -95,7 +95,7 @@ class _PaginatedFollowersState extends State<PaginatedFollowers>
                       create: (BuildContext context) {
                         return UMCubit()
                           ..getUserDataFromUid(
-                            item.uid!,
+                            item.uid,
                           );
                       },
                       child: const CardOwner(),

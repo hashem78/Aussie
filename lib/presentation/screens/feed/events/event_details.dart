@@ -18,7 +18,7 @@ class EventDetails extends StatelessWidget {
         appBar: AppBar(
           flexibleSpace: AspectRatio(
             aspectRatio: 16 / 9,
-            child: buildImage(e.bannerImage!.imageLink, fit: BoxFit.fitWidth),
+            child: buildImage(e.bannerImage.imageLink, fit: BoxFit.fitWidth),
           ),
           title: Text(getTranslation(context, 'eventDetailsTitle')),
           bottom: const TabBar(

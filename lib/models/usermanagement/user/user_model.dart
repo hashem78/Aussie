@@ -1,52 +1,24 @@
-import 'package:flutter/foundation.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.g.dart';
+part 'user_model.freezed.dart';
 
-@JsonSerializable(
-  createFactory: true,
-  createToJson: true,
-  checked: true,
-)
-@immutable
-class AussieUser {
-  const AussieUser({
-    this.uid,
-    this.attends,
-    this.displayName,
-    this.email,
-    this.emailVerified,
-    this.username,
-    this.numberOfFollowers,
-    this.numberOfFollowing,
-    this.numberOfPosts,
-    this.profilePictureLink,
-    this.profileBannerLink,
-    this.fullname,
-  });
-  final String? displayName;
-  final String? email;
-  final bool? emailVerified;
-  final String? username;
-  final String? fullname;
-
-  @JsonKey()
-  final String? uid;
-
-  @JsonKey(defaultValue: <String>[])
-  final List<String>? attends;
-  @JsonKey(defaultValue: 0)
-  final int? numberOfFollowers;
-  @JsonKey(defaultValue: 0)
-  final int? numberOfFollowing;
-  @JsonKey(defaultValue: 0)
-  final int? numberOfPosts;
-
-  @JsonKey(defaultValue: '')
-  final String? profilePictureLink;
-  @JsonKey(defaultValue: '')
-  final String? profileBannerLink;
+@freezed
+class AussieUser with _$AussieUser {
+  const factory AussieUser({
+    required String? displayName,
+    required String email,
+    required bool? emailVerified,
+    required String username,
+    required String fullname,
+    required String uid,
+    required List<String>? attends,
+    required int numberOfFollowers,
+    required int numberOfFollowing,
+    required int numberOfPosts,
+    required String profilePictureLink,
+    required String profileBannerLink,
+  }) = _AussieUser;
   factory AussieUser.fromJson(Map<String, dynamic> json) =>
       _$AussieUserFromJson(json);
-  Map<String, dynamic> toJson() => _$AussieUserToJson(this);
 }

@@ -15,12 +15,12 @@ class ProfileScreenCardDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         AutoSizeText(
-          user.fullname!,
+          user.fullname,
           maxLines: 1,
           style: Theme.of(context).textTheme.headline5,
         ),
         AutoSizeText(
-          user.username!,
+          user.username,
           style: Theme.of(context).textTheme.caption,
         ),
       ],

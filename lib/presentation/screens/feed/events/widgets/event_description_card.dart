@@ -16,7 +16,7 @@ class EventDetailsDescriptionCard extends StatelessWidget {
       shape: const RoundedRectangleBorder(),
       margin: EdgeInsets.zero,
       child: ExpandText(
-        e.description!,
+        e.description,
         maxLines: 20,
       ),
     );

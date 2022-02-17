@@ -4,20 +4,20 @@ import 'package:aussie/aussie_imports.dart';
 
 @immutable
 class _DrawerItemModel extends Equatable {
-  final String navPath;
-  final String svgName;
   final String tTitle;
   final Color iconColor;
+  final IconData iconData;
+  final String navPath;
 
   const _DrawerItemModel({
-    required this.navPath,
-    required this.svgName,
     required this.tTitle,
+    required this.iconData,
     this.iconColor = Colors.black,
+    required this.navPath,
   });
 
   @override
-  List<Object> get props => <Object>[navPath, svgName];
+  List<Object> get props => <Object>[tTitle, iconColor, navPath];
 }
 
 class _DrawerSection extends StatelessWidget {
@@ -52,66 +52,20 @@ class _DrawerSection extends StatelessWidget {
 }
 
 class AussieAppDrawer extends StatelessWidget {
-  static const List<_DrawerItemModel> infoModels = <_DrawerItemModel>[
-    _DrawerItemModel(
-      navPath: AussieScreenData.faunaNavPath,
-      svgName: AussieScreenData.faunaSvgName,
-      tTitle: AussieScreenData.faunaTitle,
-      iconColor: Colors.brown,
-    ),
-    _DrawerItemModel(
-      navPath: AussieScreenData.floraNavPath,
-      svgName: AussieScreenData.floraSvgName,
-      tTitle: AussieScreenData.floraTitle,
-      iconColor: Color(0xFF1B5E20),
-    ),
-    _DrawerItemModel(
-      navPath: AussieScreenData.weatherNavPath,
-      svgName: AussieScreenData.weatherSvgName,
-      tTitle: AussieScreenData.weatherTitle,
-      iconColor: Colors.lightBlue,
-    ),
-    _DrawerItemModel(
-      navPath: AussieScreenData.territoriesNavPath,
-      svgName: AussieScreenData.territoriesSvgName,
-      tTitle: AussieScreenData.territoriesTitle,
-      iconColor: Colors.green,
-    ),
-    _DrawerItemModel(
-      navPath: AussieScreenData.naturalParksNavPath,
-      svgName: AussieScreenData.naturalParksSvgName,
-      tTitle: AussieScreenData.naturalParksTitle,
-      iconColor: Color(0xFF1B5E20),
-    ),
-  ];
   static const List<_DrawerItemModel> miscModels = <_DrawerItemModel>[
     _DrawerItemModel(
-      tTitle: AussieScreenData.settingsTitle,
-      svgName: AussieScreenData.settingsSvgName,
-      navPath: AussieScreenData.settingsNavPath,
+      tTitle: ScreenData.settingsTitle,
       iconColor: Colors.grey,
+      iconData: Icons.settings,
+      navPath: ScreenData.settingsNavPath,
     ),
   ];
   static const List<_DrawerSection> _sections = <_DrawerSection>[
-    _DrawerSection(
-      sectionIcon: Icons.info,
-      tSectionTitle: 'infoSectionTitle',
-      tilesColor: Colors.blue,
-      models: infoModels,
-    ),
     _DrawerSection(
       sectionIcon: Icons.miscellaneous_services,
       tSectionTitle: 'miscSectionTitle',
       tilesColor: Colors.blue,
       models: miscModels,
-    ),
-  ];
-  static const List<_DrawerSection> _sectionsNoMisc = <_DrawerSection>[
-    _DrawerSection(
-      sectionIcon: Icons.info,
-      tSectionTitle: 'infoSectionTitle',
-      tilesColor: Colors.blue,
-      models: infoModels,
     ),
   ];
 
@@ -129,9 +83,8 @@ class AussieAppDrawer extends StatelessWidget {
               builder: (BuildContext context, UMCState state) {
                 if (state is UMCHasUserData) {
                   return buildSliverList(_sections);
-                } else {
-                  return buildSliverList(_sectionsNoMisc);
                 }
+                return Container();
               },
             )
           ],
@@ -210,7 +163,7 @@ class _DrawerHeader extends StatelessWidget {
                       width: 100,
                       height: 100,
                       child: CachedNetworkImage(
-                        imageUrl: state.user.profilePictureLink!,
+                        imageUrl: state.user.profilePictureLink,
                         imageBuilder: (BuildContext context,
                             ImageProvider<Object> imageProvider) {
                           return Ink.image(image: imageProvider);
@@ -220,7 +173,7 @@ class _DrawerHeader extends StatelessWidget {
                   ),
                   Expanded(
                     child: AutoSizeText(
-                      state.user.username!,
+                      state.user.username,
                       maxLines: 1,
                       style: Theme.of(context)
                           .textTheme
@@ -257,11 +210,7 @@ class _DrawerItem extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pushNamed(model.navPath);
           },
-          leading: SvgPicture.asset(
-            'assets/images/${model.svgName}',
-            height: 30,
-            color: model.iconColor,
-          ),
+          leading: Icon(model.iconData),
           title: Text(
             getTranslation(context, model.tTitle),
             style: TextStyle(fontSize: 80.sp),

@@ -17,11 +17,11 @@ class EventCardDescription extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           AutoSizeText(
-            e.title!,
+            e.title,
             style: Theme.of(context).textTheme.headline6,
           ),
           AutoSizeText(
-            e.address!,
+            e.address,
             style: Theme.of(context).textTheme.overline,
           ),
         ],

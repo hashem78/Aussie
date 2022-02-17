@@ -15,7 +15,7 @@ class EventCardImage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 16 / 9,
       child: CachedNetworkImage(
-        imageUrl: e.bannerImage!.imageLink!,
+        imageUrl: e.bannerImage.imageLink,
         fit: BoxFit.fill,
         imageBuilder:
             (BuildContext context, ImageProvider<Object> imageProvider) {

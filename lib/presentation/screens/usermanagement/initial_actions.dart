@@ -30,7 +30,6 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
         FocusManager.instance.primaryFocus!.unfocus();
       },
       child: Scaffold(
-        drawer: const AussieAppDrawer(),
         appBar: PreferredSize(
             preferredSize: const Size(double.infinity, kToolbarHeight),
             child: AppBar(
