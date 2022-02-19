@@ -1,12 +1,14 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FollowUserButton extends StatelessWidget {
+class FollowUserButton extends ConsumerWidget {
   const FollowUserButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return BlocBuilder<FollowersCubit, FollowersState>(
       buildWhen: (FollowersState previous, FollowersState current) {
         return current is! FollowersWorking;
@@ -23,13 +25,17 @@ class FollowUserButton extends StatelessWidget {
           onPressed: state is! FollowersWorking
               ? isBeingFollowed
                   ? () {
-                      
-                      // BlocProvider.of<FollowersCubit>(context)
-                      //     .unFollowUser(user);
+                      final uid = ref
+                          .read(scopedUserProvider)
+                          .mapOrNull(signedIn: (val) => val.uid);
+                      BlocProvider.of<FollowersCubit>(context)
+                          .unFollowUser(uid!);
                     }
                   : () {
-                      
-                      //BlocProvider.of<FollowersCubit>(context).followUser(user);
+                      final uid = ref
+                          .read(scopedUserProvider)
+                          .mapOrNull(signedIn: (val) => val.uid);
+                      BlocProvider.of<FollowersCubit>(context).followUser(uid!);
                     }
               : null,
           child: Row(

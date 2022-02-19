@@ -7,7 +7,6 @@ enum FollowersType { follwers, following }
 class PaginatedFollowers extends ConsumerStatefulWidget {
   const PaginatedFollowers({
     Key? key,
-   
     required this.followersType,
   }) : super(key: key);
   final FollowersType followersType;
@@ -32,7 +31,6 @@ class _PaginatedFollowersState extends ConsumerState<PaginatedFollowers>
 
     pagingController.addPageRequestListener(
       (int pageKey) {
-        
         final user = ref.read(scopedUserProvider);
         final uid = user.mapOrNull(signedIn: (value) => value.uid)!;
         if (widget.followersType == FollowersType.follwers) {
@@ -66,9 +64,9 @@ class _PaginatedFollowersState extends ConsumerState<PaginatedFollowers>
       ),
       body: BlocConsumer<FollowersCubit, FollowersState>(
         listener: (BuildContext context, FollowersState state) {
-          print('followers cubit state: $state');
-
+        
           if (state is FollowersHasUsersList) {
+            
             pagingController.appendPage(
               state.users,
               pagingController.nextPageKey! + 1,
@@ -96,7 +94,9 @@ class _PaginatedFollowersState extends ConsumerState<PaginatedFollowers>
                     );
                   },
                   itemBuilder: (context, user, index) {
-                    return const CardOwner();
+                    return ProviderScope(overrides: [
+                      scopedUserProvider.overrideWithValue(user),
+                    ], child: const CardOwner());
                   },
                 ),
               ),
