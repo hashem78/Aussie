@@ -126,11 +126,11 @@ class _DrawerHeader extends ConsumerWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) {
-                return BlocProvider(
-                  create: (_) => FollowersCubit(),
-                  child: ProviderScope(
-                      overrides: [scopedUserProvider.overrideWithValue(user)],
-                      child: const UserProfileScreen()),
+                return ProviderScope(
+                  overrides: [
+                    scopedUserProvider.overrideWithValue(user),
+                  ],
+                  child: const UserProfileScreen(),
                 );
               },
             ),

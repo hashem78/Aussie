@@ -24,19 +24,13 @@ class UserFollowersButton extends ConsumerWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute<PaginatedFollowers>(
+          MaterialPageRoute<FollowerListWidget>(
             builder: (BuildContext context) {
-              return BlocProvider<FollowersCubit>(
-                create: (BuildContext context) => FollowersCubit()
-                  ..getFollowersForUser(
-                    user.mapOrNull(signedIn: (val) => val.uid)!,
-                  ),
-                child: ProviderScope(
-                  overrides: [scopedUserProvider.overrideWithValue(user)],
-                  child: const PaginatedFollowers(
-                    followersType: FollowersType.follwers,
-                  ),
-                ),
+              return ProviderScope(
+                overrides: [
+                  scopedUserProvider.overrideWithValue(user),
+                ],
+                child: const FollowerListWidget(FollowersType.follwers),
               );
             },
           ),

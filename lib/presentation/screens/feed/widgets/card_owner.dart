@@ -2,20 +2,14 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CardOwner extends ConsumerStatefulWidget {
+class CardOwner extends ConsumerWidget {
   const CardOwner({
     Key? key,
   }) : super(key: key);
 
   @override
-  _CardOwnerState createState() => _CardOwnerState();
-}
-
-class _CardOwnerState extends ConsumerState<CardOwner>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
+  Widget build(BuildContext context,WidgetRef ref) {
+    
 
     final user = ref.watch(scopedUserProvider);
     final pfp = user.mapOrNull(signedIn: (value) => value.profilePictureLink);
@@ -26,24 +20,13 @@ class _CardOwnerState extends ConsumerState<CardOwner>
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
-            MaterialPageRoute<BlocProvider<Object?>>(
-              builder: (BuildContext context) => MultiBlocProvider(
-                providers: <BlocProvider<Object?>>[
-                  BlocProvider<FollowersCubit>(
-                    create: (BuildContext context) {
-                      return FollowersCubit()
-                        ..isUserFollowed(
-                            user.mapOrNull(signedIn: (value) => value.uid)!);
-                    },
-                  ),
-                ],
-                child: ProviderScope(
-                  overrides: [
-                    scopedUserProvider.overrideWithValue(user),
-                  ],
+            MaterialPageRoute(
+              builder: (_) {
+                return ProviderScope(
+                  overrides: [scopedUserProvider.overrideWithValue(user)],
                   child: const UserProfileScreen(),
-                ),
-              ),
+                );
+              },
             ),
           );
         },
@@ -74,7 +57,4 @@ class _CardOwnerState extends ConsumerState<CardOwner>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

@@ -76,7 +76,12 @@ class PublicEventCard extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return const EventDetails();
+                    return ProviderScope(
+                      overrides: [
+                        scopedEventProvider.overrideWithValue(e),
+                      ],
+                      child: const EventDetails(),
+                    );
                   },
                 ),
               );

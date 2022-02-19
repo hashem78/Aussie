@@ -18,14 +18,11 @@ class UserFollowingButton extends ConsumerWidget {
           context,
           MaterialPageRoute(
             builder: (context) {
-              return BlocProvider(
-                create: (context) => FollowersCubit(),
-                child: ProviderScope(
-                  overrides: [scopedUserProvider.overrideWithValue(user)],
-                  child: const PaginatedFollowers(
-                    followersType: FollowersType.following,
-                  ),
-                ),
+              return ProviderScope(
+                overrides: [
+                  scopedUserProvider.overrideWithValue(user),
+                ],
+                child: const FollowerListWidget(FollowersType.following),
               );
             },
           ),
