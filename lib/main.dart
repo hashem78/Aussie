@@ -1,12 +1,10 @@
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/presentation/screens/splash_screen.dart';
 import 'package:aussie/state/language.dart';
 import 'package:aussie/state/shared_prefrences.dart';
 import 'package:aussie/state/theme_mode.dart';
 
 import 'aussie_imports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as rv;
-
-import 'presentation/screens/feed/feed.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -93,60 +91,4 @@ class MyApp extends rv.ConsumerWidget {
   static final routes = {
     ScreenData.settingsNavPath: (_) => const SettingsScreen(),
   };
-}
-
-class SplashScreen extends rv.ConsumerWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, rv.WidgetRef ref) {
-    ref.listen<AussieUser>(
-      localUserProvider,
-      (previous, next) {
-        print('new state is : $next');
-        next.mapOrNull(
-          signedIn: (val) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return rv.ProviderScope(
-                    overrides: [
-                      scopedUserProvider.overrideWithValue(next),
-                    ],
-                    child: const FeedScreen(),
-                  );
-                },
-              ),
-            );
-          },
-          signedOut: (val) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const InitialUserActionScreen();
-                },
-              ),
-              (route) => !route.isFirst,
-            );
-          },
-          firstRun: (user) {
-            print('executing is first run');
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) {
-                  return const InitialUserActionScreen();
-                },
-              ),
-            );
-          },
-        );
-      },
-    );
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
-    );
-  }
 }
