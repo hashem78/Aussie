@@ -1,13 +1,15 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/state/location_picking.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventCreationSubmitButton extends StatelessWidget {
+class EventCreationSubmitButton extends ConsumerWidget {
   final bool enabled;
   const EventCreationSubmitButton({
     Key? key,
     required this.enabled,
   }) : super(key: key);
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     void _sn(String tid) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -24,8 +26,7 @@ class EventCreationSubmitButton extends StatelessWidget {
               // ignore: close_sinks
               final EventCreationBlocForm _formBloc =
                   context.read<EventCreationBlocForm>();
-              final LocationPickingCubit _locCubit =
-                  context.read<LocationPickingCubit>();
+              final location = ref.read(locationProvider);
               final MultiImagePickingCubit _multiImageCubit =
                   context.read<MultiImagePickingCubit>();
               final SingleImagePickingCubit _singleImageCubit =
@@ -56,7 +57,7 @@ class EventCreationSubmitButton extends StatelessWidget {
                 _sn('eventCreationErrorEndingDate');
               } else if (_evmCubit.validate(_endTime)) {
                 _sn('eventCreationErrorEndingTime');
-              } else if (_evmCubit.validate(_locCubit.value)) {
+              } else if (_evmCubit.validate(location)) {
                 _sn('eventCreationErrorLocation');
               } else if (_evmCubit.validate(_singleImageCubit.value)) {
                 _sn('eventCreationErrorBanner');
@@ -81,9 +82,9 @@ class EventCreationSubmitButton extends StatelessWidget {
                   EventCreationModel(
                     startingTimeStamp: _combined1.millisecondsSinceEpoch,
                     endingTimeStamp: _combined2.millisecondsSinceEpoch,
-                    lat: _locCubit.value!.latLng!.latitude,
-                    lng: _locCubit.value!.latLng!.longitude,
-                    address: _locCubit.value!.formattedAddress,
+                    lat: location?.latLng?.latitude,
+                    lng: location?.latLng?.longitude,
+                    address: location!.formattedAddress,
                     title: _title.value,
                     subtitle: _subtitle.value,
                     description: _formBloc.description.value,

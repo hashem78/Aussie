@@ -35,9 +35,6 @@ class AnimatedAddEventFAB extends ConsumerWidget {
             BlocProvider<EMCubit>(
               create: (BuildContext context) => EMCubit(),
             ),
-            BlocProvider<LocationPickingCubit>(
-              create: (BuildContext context) => LocationPickingCubit(),
-            ),
             BlocProvider<SingleImagePickingCubit>(
               create: (BuildContext context) => SingleImagePickingCubit(),
             ),
