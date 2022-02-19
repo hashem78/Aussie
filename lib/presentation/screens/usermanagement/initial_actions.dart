@@ -42,7 +42,7 @@ class _InitialUserActionScreenState
                   onPressed: () {
                     toggleLanguage(
                       context,
-                      context.read<LanguageCubit>().locale.languageCode,
+                      ref,
                     );
                   },
                 ),

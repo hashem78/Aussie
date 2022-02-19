@@ -21,32 +21,21 @@ Future<void> main() async {
       overrides: <rv.Override>[
         sharedPrefrencesProvider.overrideWithValue(prefs),
       ],
-      child: MyApp(
-        await onStartupLocale(),
-      ),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends rv.ConsumerWidget {
-  final Locale locale;
-
-  const MyApp(
-    this.locale, {
-    Key? key,
-  }) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, rv.WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AttendeesCubit(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => AttendeesCubit(),
       child: OrientationBuilder(
         builder: (context, orientation) {
           Size size;
@@ -71,8 +60,7 @@ class MyApp extends rv.ConsumerWidget {
                   Locale('en', ''),
                   Locale('ar', ''),
                 ],
-                localeResolutionCallback:
-                    (Locale? locale, Iterable<Locale> supportedLocales) {
+                localeResolutionCallback: (locale, supportedLocales) {
                   if (supportedLocales.contains(locale)) {
                     return locale;
                   }

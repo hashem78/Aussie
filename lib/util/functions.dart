@@ -1,5 +1,14 @@
 import 'dart:math';
-import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/localizations.dart';
+import 'package:aussie/models/event/event_model.dart';
+import 'package:aussie/state/language.dart';
+import 'package:aussie/state/signup_cubit/signup_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as pv;
+import 'package:shared_preferences/shared_preferences.dart';
 
 Color getRandomColor() {
   final MaterialColor _col =
@@ -62,10 +71,10 @@ SignupBloc getSignupBloc(BuildContext context) =>
     BlocProvider.of<SignupBloc>(context);
 
 EventModel getEventModel(BuildContext context) =>
-    Provider.of<EventModel>(context, listen: false);
+    pv.Provider.of<EventModel>(context, listen: false);
 
 Future<Locale> onStartupLocale() async {
-  final SharedPreferences _perfs = await SharedPreferences.getInstance();
+  final _perfs = await SharedPreferences.getInstance();
   Locale locale;
   if (_perfs.containsKey('lang')) {
     locale = Locale(_perfs.getString('lang')!, '');
@@ -76,34 +85,25 @@ Future<Locale> onStartupLocale() async {
   return locale;
 }
 
-void toggleLanguage(BuildContext context, String currentLanguage) {
+void toggleLanguage(BuildContext context, WidgetRef ref) {
+  final currentLanguage = ref.read(localeProvider).languageCode;
   if (currentLanguage == 'ar') {
-    BlocProvider.of<LanguageCubit>(context)
-        .changeLocale(
-          const Locale('en', ''),
-        )
-        .whenComplete(
-          () => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                getTranslation(context, 'languageChangedText'),
-              ),
-            ),
-          ),
-        );
+    ref.read(localeProvider.notifier).changeTo(const Locale('en', ''));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          getTranslation(context, 'languageChangedText'),
+        ),
+      ),
+    );
   } else {
-    BlocProvider.of<LanguageCubit>(context)
-        .changeLocale(
-          const Locale('ar', ''),
-        )
-        .whenComplete(
-          () => ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                getTranslation(context, 'languageChangedText'),
-              ),
-            ),
-          ),
-        );
+    ref.read(localeProvider.notifier).changeTo(const Locale('ar', ''));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          getTranslation(context, 'languageChangedText'),
+        ),
+      ),
+    );
   }
 }
