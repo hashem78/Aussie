@@ -46,7 +46,7 @@ class ChangeThemeDialog extends ConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           RadioListTile<AThemeMode>(
-            value: kLightMode,
+            value: kSystemMode,
             groupValue: themeState,
             title: Text(
               getTranslation(context, 'brightnessSystemTitle'),

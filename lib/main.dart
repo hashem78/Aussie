@@ -1,4 +1,5 @@
 import 'package:aussie/providers/providers.dart';
+import 'package:aussie/state/language.dart';
 import 'package:aussie/state/shared_prefrences.dart';
 import 'package:aussie/state/theme_mode.dart';
 
@@ -38,67 +39,61 @@ class MyApp extends rv.ConsumerWidget {
   @override
   Widget build(BuildContext context, rv.WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+    final locale = ref.watch(localeProvider);
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => LanguageCubit(locale),
-        ),
-        BlocProvider(
           create: (context) => AttendeesCubit(),
         ),
       ],
-      child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (context, languageState) {
-          return OrientationBuilder(
-            builder: (context, orientation) {
-              Size size;
-              if (orientation == Orientation.portrait) {
-                size = const Size(1920, 1080);
-              } else {
-                size = const Size(1080, 1920);
-              }
-              return ScreenUtilInit(
-                designSize: size,
-                builder: () {
-                  return MaterialApp(
-                    locale: languageState.currentLocale,
-                    debugShowCheckedModeBanner: false,
-                    localizationsDelegates: const [
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                      AussieLocalizations.delegate,
-                    ],
-                    supportedLocales: const <Locale>[
-                      Locale('en', ''),
-                      Locale('ar', ''),
-                    ],
-                    localeResolutionCallback:
-                        (Locale? locale, Iterable<Locale> supportedLocales) {
-                      if (supportedLocales.contains(locale)) {
-                        return locale;
-                      }
-                      return supportedLocales.first;
-                    },
-                    home: const SplashScreen(),
-                    themeMode: themeMode!.mode,
-                    theme: ThemeData(
-                      brightness: themeMode.brightness,
-                      pageTransitionsTheme: const PageTransitionsTheme(
-                        builders: {
-                          TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                        },
-                      ),
-                      textButtonTheme: TextButtonThemeData(
-                        style: TextButton.styleFrom(
-                          shape: const RoundedRectangleBorder(),
-                        ),
-                      ),
-                    ),
-                    routes: routes,
-                  );
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          Size size;
+          if (orientation == Orientation.portrait) {
+            size = const Size(1920, 1080);
+          } else {
+            size = const Size(1080, 1920);
+          }
+          return ScreenUtilInit(
+            designSize: size,
+            builder: () {
+              return MaterialApp(
+                locale: locale,
+                debugShowCheckedModeBanner: false,
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  AussieLocalizations.delegate,
+                ],
+                supportedLocales: const <Locale>[
+                  Locale('en', ''),
+                  Locale('ar', ''),
+                ],
+                localeResolutionCallback:
+                    (Locale? locale, Iterable<Locale> supportedLocales) {
+                  if (supportedLocales.contains(locale)) {
+                    return locale;
+                  }
+                  return supportedLocales.first;
                 },
+                home: const SplashScreen(),
+                themeMode: themeMode!.mode,
+                theme: ThemeData(
+                  brightness: themeMode.brightness,
+                  pageTransitionsTheme: const PageTransitionsTheme(
+                    builders: {
+                      TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                    },
+                  ),
+                  textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                      shape: const RoundedRectangleBorder(),
+                    ),
+                  ),
+                ),
+                routes: routes,
               );
             },
           );
