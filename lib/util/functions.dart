@@ -55,9 +55,6 @@ Widget? buildImage(
   }
 }
 
-AussieUser getCurrentUser(BuildContext context) =>
-    Provider.of<AussieUser>(context, listen: false);
-
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
 

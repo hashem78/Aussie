@@ -57,18 +57,8 @@ class _PublicEventsTabState extends State<PublicEventsTab>
           pagingController: _controller,
           builderDelegate: PagedChildBuilderDelegate<EventModel>(
             itemBuilder: (BuildContext context, EventModel item, int index) {
-              return MultiBlocProvider(
-                providers: <BlocProvider<Object?>>[
-                  BlocProvider<UMCubit>(
-                    create: (BuildContext context) {
-                      return UMCubit()
-                        ..getUserDataFromUid(
-                          item.uid,
-                        );
-                    },
-                  ),
-                  BlocProvider<EMCubit>.value(value: cubit)
-                ],
+              return BlocProvider<EMCubit>.value(
+                value: cubit,
                 child: Provider<EventModel>.value(
                   value: item,
                   child: const PublicEventCard(),

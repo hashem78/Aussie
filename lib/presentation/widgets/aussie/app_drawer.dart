@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 @immutable
 class _DrawerItemModel extends Equatable {
@@ -76,17 +78,8 @@ class AussieAppDrawer extends StatelessWidget {
       child: Drawer(
         child: CustomScrollView(
           slivers: <Widget>[
-            const SliverToBoxAdapter(
-              child: _DrawerHeader(),
-            ),
-            BlocBuilder<UMCubit, UMCState>(
-              builder: (BuildContext context, UMCState state) {
-                if (state is UMCHasUserData) {
-                  return buildSliverList(_sections);
-                }
-                return Container();
-              },
-            )
+            const SliverToBoxAdapter(child: _DrawerHeader()),
+            buildSliverList(_sections)
           ],
         ),
       ),
@@ -118,76 +111,62 @@ class AussieAppDrawer extends StatelessWidget {
   }
 }
 
-class _DrawerHeader extends StatelessWidget {
+class _DrawerHeader extends ConsumerWidget {
   const _DrawerHeader({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<UMCubit, UMCState>(
-      builder: (BuildContext context, UMCState state) {
-        if (state is UMCHasUserData) {
-          return Material(
-            color: Theme.of(context).backgroundColor,
-            child: InkWell(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<UserProfileScreen>(
-                    builder: (BuildContext context) {
-                      return MultiBlocProvider(
-                        providers: <BlocProvider<Object?>>[
-                          BlocProvider<UMCubit>(
-                            create: (BuildContext context) {
-                              return UMCubit()..getUserData();
-                            },
-                          ),
-                          BlocProvider<FollowersCubit>(
-                            create: (BuildContext context) {
-                              return FollowersCubit();
-                            },
-                          ),
-                        ],
-                        child: const UserProfileScreen(),
-                      );
-                    },
-                  ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(scopedUserProvider);
+    
+    return DrawerHeader(
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) {
+                return BlocProvider(
+                  create: (_) => FollowersCubit(),
+                  child: ProviderScope(
+                      overrides: [scopedUserProvider.overrideWithValue(user)],
+                      child: const UserProfileScreen()),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: CachedNetworkImage(
-                        imageUrl: state.user.profilePictureLink,
-                        imageBuilder: (BuildContext context,
-                            ImageProvider<Object> imageProvider) {
-                          return Ink.image(image: imageProvider);
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: AutoSizeText(
-                      state.user.username,
-                      maxLines: 1,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5!
-                          .copyWith(fontSize: 150.sp),
-                    ),
-                  )
-                ],
-              ),
             ),
           );
-        }
-        return const SizedBox();
-      },
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                child: CachedNetworkImage(
+                  imageUrl:
+                      user.mapOrNull(signedIn: (value) => value.profilePictureLink)!,
+                  imageBuilder: (BuildContext context,
+                      ImageProvider<Object> imageProvider) {
+                    return Ink.image(image: imageProvider);
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              child: AutoSizeText(
+                user.mapOrNull(signedIn: (value) => value.username)!,
+                maxLines: 1,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline5!
+                    .copyWith(fontSize: 150.sp),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,5 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
+import 'package:aussie/repositories/user_management_repository.dart';
+import 'package:aussie/state/local_user_management.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SingupScreen extends StatelessWidget {
   final ValueNotifier<String> profileImage = ValueNotifier<String>('');
@@ -78,59 +81,14 @@ class SingupScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        BlocConsumer<UMCubit, UMCState>(
-                          listener: (BuildContext context, UMCState state) {
-                            if (state is UMCSignup) {
-                              Future<void>.delayed(const Duration(seconds: 2))
-                                  .whenComplete(
-                                () {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute<FeedScreen>(
-                                      builder: (BuildContext context) {
-                                        return BlocProvider<UMCubit>(
-                                          create: (BuildContext context) {
-                                            return UMCubit()..getUserData();
-                                          },
-                                          child: const FeedScreen(),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          builder: (BuildContext context, UMCState state) {
-                            Widget? child;
-
-                            if (state is UMCPerformingAction) {
-                              child = const CircularProgressIndicator();
-                            } else if (state is UMCError) {
-                              child = Text(
-                                state.notification!.message,
-                                style: const TextStyle(color: Colors.red),
-                              );
-                            } else if (state is UMCSignup) {
-                              child = Text(
-                                state.notification.message,
-                                style: const TextStyle(color: Colors.green),
-                              );
-                            }
-
-                            return AnimatedSwitcher(
-                              duration: const Duration(milliseconds: 500),
-                              child: Center(child: child),
-                            );
-                          },
-                        ),
                         TextButton(
-                          onPressed: () {
+                          onPressed: () async {
                             // ignore: close_sinks
                             final SignupBloc signupBloc =
                                 getSignupBloc(context);
                             FocusManager.instance.primaryFocus!.unfocus();
                             signupBloc.submit();
-                            BlocProvider.of<UMCubit>(context).signup(
+                            final state = await UMRepository.signup(
                               SignupModel(
                                 email: signupBloc.email.value,
                                 password: signupBloc.password.value,
@@ -138,6 +96,24 @@ class SingupScreen extends StatelessWidget {
                                 username: signupBloc.userName.value,
                                 fullname: signupBloc.fullName.value,
                               ),
+                            );
+                            state.whenOrNull(
+                              goodSignup: (user) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ProviderScope(
+                                        overrides: [
+                                          scopedUserProvider
+                                              .overrideWithValue(user),
+                                        ],
+                                        child: const FeedScreen(),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
                             );
                           },
                           child: AutoSizeText(

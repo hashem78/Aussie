@@ -1,18 +1,22 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 enum FollowersType { follwers, following }
 
-class PaginatedFollowers extends StatefulWidget {
+class PaginatedFollowers extends ConsumerStatefulWidget {
   const PaginatedFollowers({
     Key? key,
+   
     required this.followersType,
   }) : super(key: key);
   final FollowersType followersType;
+
   @override
   _PaginatedFollowersState createState() => _PaginatedFollowersState();
 }
 
-class _PaginatedFollowersState extends State<PaginatedFollowers>
+class _PaginatedFollowersState extends ConsumerState<PaginatedFollowers>
     with AutomaticKeepAliveClientMixin {
   final PagingController<int, AussieUser> pagingController =
       PagingController<int, AussieUser>(firstPageKey: 1);
@@ -28,11 +32,13 @@ class _PaginatedFollowersState extends State<PaginatedFollowers>
 
     pagingController.addPageRequestListener(
       (int pageKey) {
-        final AussieUser user = context.read<AussieUser>();
+        
+        final user = ref.read(scopedUserProvider);
+        final uid = user.mapOrNull(signedIn: (value) => value.uid)!;
         if (widget.followersType == FollowersType.follwers) {
-          context.read<FollowersCubit>().getFollowersForUser(user.uid);
+          context.read<FollowersCubit>().getFollowersForUser(uid);
         } else {
-          context.read<FollowersCubit>().getFollowingForUser(user.uid);
+          context.read<FollowersCubit>().getFollowingForUser(uid);
         }
       },
     );
@@ -89,17 +95,8 @@ class _PaginatedFollowersState extends State<PaginatedFollowers>
                       child: Text('No followers found'),
                     );
                   },
-                  itemBuilder:
-                      (BuildContext context, AussieUser item, int index) {
-                    return BlocProvider<UMCubit>(
-                      create: (BuildContext context) {
-                        return UMCubit()
-                          ..getUserDataFromUid(
-                            item.uid,
-                          );
-                      },
-                      child: const CardOwner(),
-                    );
+                  itemBuilder: (context, user, index) {
+                    return const CardOwner();
                   },
                 ),
               ),

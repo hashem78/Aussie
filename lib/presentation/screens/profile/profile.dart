@@ -1,58 +1,50 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends ConsumerWidget {
   const UserProfileScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final User fbUser = FirebaseAuth.instance.currentUser!;
-    return BlocBuilder<UMCubit, UMCState>(
-      builder: (BuildContext context, UMCState state) {
-        bool isLoggedInUser = false;
-
-        if (state is UMCHasUserData) {
-          isLoggedInUser = state.user.uid == fbUser.uid;
-        }
-        return Scaffold(
-          floatingActionButton:
-              isLoggedInUser ? const AnimatedAddEventFAB() : null,
-          body: (state is UMCHasUserData)
-              ? Provider<AussieUser>.value(
-                  value: state.user,
-                  child: CustomScrollView(
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        expandedHeight: .4.sh,
-                        //collapsedHeight: .4.sh,
-                        pinned: true,
-                        flexibleSpace: BannerImage(
-                          colorFilter: ColorFilter.mode(
-                            Colors.white.withAlpha(70),
-                            BlendMode.lighten,
-                          ),
-                        ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: ProfileCard(
-                          allowFollowing: !isLoggedInUser,
-                        ),
-                      ),
-                      BlocProvider<EMCubit>(
-                        create: (BuildContext context) =>
-                            EMCubit(),
-                        child: const UserEvents(),
-                      ),
-                    ],
-                  ),
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
-        );
-      },
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(scopedUserProvider);
+    final isLoggedInUser = FirebaseAuth.instance.currentUser!.uid ==
+        user.mapOrNull(signedIn: (value) => value.uid)!;
+    print(user);
+    return Scaffold(
+      floatingActionButton: isLoggedInUser ? const AnimatedAddEventFAB() : null,
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: .4.sh,
+            pinned: true,
+            flexibleSpace: BannerImage(
+              profileBannerLink:
+                  user.mapOrNull(signedIn: (value) => value.profileBannerLink),
+              colorFilter: ColorFilter.mode(
+                Colors.white.withAlpha(70),
+                BlendMode.lighten,
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ProfileCard(
+              allowFollowing: !isLoggedInUser,
+            ),
+          ),
+          BlocProvider<EMCubit>(
+            create: (context) => EMCubit()
+              ..fetchEventsForUser(
+                uid: user.mapOrNull(signedIn: (value) => value.uid)!,
+              ),
+            lazy: false,
+            child: const UserEvents(),
+          ),
+        ],
+      ),
     );
   }
 }

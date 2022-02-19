@@ -3,15 +3,16 @@ import 'package:flutter/material.dart';
 
 class BannerImage extends StatelessWidget {
   final ColorFilter? colorFilter;
+  final String? profileBannerLink;
   const BannerImage({
     Key? key,
     this.colorFilter,
+    this.profileBannerLink,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final String? banner = getCurrentUser(context).profileBannerLink;
     return buildImage(
-      banner,
+      profileBannerLink,
       fit: BoxFit.cover,
       colorFilter: colorFilter,
     )!;

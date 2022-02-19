@@ -1,16 +1,18 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfileScreenCardStats extends StatelessWidget {
+class ProfileScreenCardStats extends ConsumerWidget {
   const ProfileScreenCardStats({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final AussieUser user = getCurrentUser(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(scopedUserProvider);
     String postsString = getTranslation(context, 'userProfileStatsPosts');
-
-    if (user.numberOfPosts == 1) {
+    final noPosts = user.mapOrNull(signedIn: (value) => value.numberOfPosts)!;
+    if (noPosts == 1) {
       postsString = postsString.substring(
         0,
         postsString.length - 1,
@@ -23,7 +25,7 @@ class ProfileScreenCardStats extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Text(
-            '${user.numberOfPosts} $postsString',
+            '$noPosts $postsString',
           ),
           const UserFollowersButton(),
           const UserFollowingButton(),

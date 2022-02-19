@@ -1,19 +1,22 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as pv;
 
-class UserEvents extends StatefulWidget {
+class UserEvents extends ConsumerStatefulWidget {
   const UserEvents({Key? key}) : super(key: key);
 
   @override
   _UserEventsState createState() => _UserEventsState();
 }
 
-class _UserEventsState extends State<UserEvents>
+class _UserEventsState extends ConsumerState<UserEvents>
     with AutomaticKeepAliveClientMixin {
   final PagingController<int, EventModel> _controller =
       PagingController<int, EventModel>(firstPageKey: 0);
 
   late EMCubit eventManagementCubit;
-  late AussieUser user;
+
   @override
   void initState() {
     super.initState();
@@ -21,17 +24,19 @@ class _UserEventsState extends State<UserEvents>
 
   @override
   void didChangeDependencies() {
-    user = context.read<AussieUser>();
+    final user = ref.read(scopedUserProvider);
+    final uid = user.mapOrNull(signedIn: (value) => value.uid)!;
+
     eventManagementCubit = BlocProvider.of<EMCubit>(context);
     _controller.addPageRequestListener(
       (int pageKey) {
         if (eventManagementCubit.prevSnap == null) {
           eventManagementCubit.fetchEventsForUser(
-            uid: user.uid,
+            uid: uid,
           );
         } else {
           eventManagementCubit.fetchEventsForUser(
-              uid: user.uid, lastdoc: eventManagementCubit.prevSnap);
+              uid: uid, lastdoc: eventManagementCubit.prevSnap);
         }
       },
     );
@@ -63,11 +68,11 @@ class _UserEventsState extends State<UserEvents>
       child: PagedSliverList<int, EventModel>(
         pagingController: _controller,
         builderDelegate: PagedChildBuilderDelegate<EventModel>(
-          itemBuilder: (BuildContext context, EventModel item, int index) {
-            return Provider<EventModel>.value(
+          itemBuilder: (context, item, index) {
+            return pv.Provider<EventModel>.value(
               value: item,
               child: Builder(
-                builder: (BuildContext context) {
+                builder: (context) {
                   return const EventCard();
                 },
               ),

@@ -1,17 +1,19 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class UserFollowersButton extends StatelessWidget {
+class UserFollowersButton extends ConsumerWidget {
   const UserFollowersButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final AussieUser user = getCurrentUser(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(scopedUserProvider);
 
     String followersString =
         getTranslation(context, 'userProfileStatsFollowers');
-    if (user.numberOfFollowers == 1) {
+    if (user.mapOrNull(signedIn: (value) => value.numberOfFollowers)! == 1) {
       followersString = followersString.substring(
         0,
         followersString.length - 1,
@@ -26,8 +28,8 @@ class UserFollowersButton extends StatelessWidget {
             builder: (BuildContext context) {
               return BlocProvider<FollowersCubit>(
                 create: (BuildContext context) => FollowersCubit(),
-                child: Provider<AussieUser>.value(
-                  value: user,
+                child: ProviderScope(
+                  overrides: [scopedUserProvider.overrideWithValue(user)],
                   child: const PaginatedFollowers(
                     followersType: FollowersType.follwers,
                   ),
@@ -38,7 +40,7 @@ class UserFollowersButton extends StatelessWidget {
         );
       },
       child: Text(
-        '${user.numberOfFollowers} $followersString',
+        '${user.mapOrNull(signedIn: (value) => value.numberOfFollowers)!} $followersString',
       ),
     );
   }

@@ -23,13 +23,13 @@ class FollowUserButton extends StatelessWidget {
           onPressed: state is! FollowersWorking
               ? isBeingFollowed
                   ? () {
-                      final AussieUser user = context.read<AussieUser>();
-                      BlocProvider.of<FollowersCubit>(context)
-                          .unFollowUser(user);
+                      
+                      // BlocProvider.of<FollowersCubit>(context)
+                      //     .unFollowUser(user);
                     }
                   : () {
-                      final AussieUser user = context.read<AussieUser>();
-                      BlocProvider.of<FollowersCubit>(context).followUser(user);
+                      
+                      //BlocProvider.of<FollowersCubit>(context).followUser(user);
                     }
               : null,
           child: Row(

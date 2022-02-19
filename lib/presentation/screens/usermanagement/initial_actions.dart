@@ -1,7 +1,8 @@
 import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/presentation/screens/feed/feed.dart';
+import 'package:aussie/repositories/user_management_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class InitialUserActionScreen extends StatefulWidget {
+class InitialUserActionScreen extends ConsumerStatefulWidget {
   const InitialUserActionScreen({Key? key}) : super(key: key);
 
   @override
@@ -9,7 +10,8 @@ class InitialUserActionScreen extends StatefulWidget {
       _InitialUserActionScreenState();
 }
 
-class _InitialUserActionScreenState extends State<InitialUserActionScreen>
+class _InitialUserActionScreenState
+    extends ConsumerState<InitialUserActionScreen>
     with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> sstate = GlobalKey();
 
@@ -25,6 +27,7 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
 
   @override
   Widget build(BuildContext context) {
+    
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus!.unfocus();
@@ -47,97 +50,57 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
               ],
             )),
         key: sstate,
-        body: BlocListener<UMCubit, UMCState>(
-          listener: (BuildContext context, UMCState state) {
-            if (state is UMCSignin) {
-              Navigator.push(
-                context,
-                MaterialPageRoute<FeedScreen>(
-                  builder: (BuildContext context) {
-                    return BlocProvider<UMCubit>(
-                      create: (BuildContext context) {
-                        return UMCubit()..getUserData();
-                      },
-                      child: const FeedScreen(),
-                    );
-                  },
-                ),
-              );
-            }
-          },
-          child: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              return SingleChildScrollView(
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Container(
-                        height: .2.sh,
-                        width: .2.sh,
-                        color: Colors.red,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          TextField(
-                            controller: _emailEditingController,
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      height: .2.sh,
+                      width: .2.sh,
+                      color: Colors.red,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        TextField(
+                          controller: _emailEditingController,
+                          decoration: InputDecoration(
+                            hintText: getTranslation(
+                                context, 'initialActionsEmailTitle'),
+                            hintStyle: TextStyle(fontSize: 80.sp),
+                            prefixIcon: const Icon(Icons.login),
+                            filled: true,
+                            border: InputBorder.none,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: TextField(
+                            obscureText: true,
+                            controller: _passwordEditingController,
                             decoration: InputDecoration(
                               hintText: getTranslation(
-                                  context, 'initialActionsEmailTitle'),
+                                  context, 'initialActionsPasswordTitle'),
                               hintStyle: TextStyle(fontSize: 80.sp),
-                              prefixIcon: const Icon(Icons.login),
+                              prefixIcon: const Icon(Icons.lock),
                               filled: true,
                               border: InputBorder.none,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: TextField(
-                              obscureText: true,
-                              controller: _passwordEditingController,
-                              decoration: InputDecoration(
-                                hintText: getTranslation(
-                                    context, 'initialActionsPasswordTitle'),
-                                hintStyle: TextStyle(fontSize: 80.sp),
-                                prefixIcon: const Icon(Icons.lock),
-                                filled: true,
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                          BlocBuilder<UMCubit, UMCState>(
-                            builder: (BuildContext context, UMCState state) {
-                              Widget? child;
-
-                              if (state is UMCPerformingAction) {
-                                child = const CircularProgressIndicator();
-                              } else {
-                                if (state is UMCError) {
-                                  child = Text(
-                                    state.notification!.message,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(color: Colors.red),
-                                  );
-                                }
-                              }
-                              return AnimatedSize(
-                                duration: const Duration(milliseconds: 500),
-                                child: Center(child: child),
-                              );
-                            },
-                          ),
-                          buildSigninButton(),
-                          buildSignupButton(),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        buildSigninButton(),
+                        buildSignupButton(),
+                      ],
+                    ),
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -156,9 +119,6 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
                 providers: <BlocProvider<Object?>>[
                   BlocProvider<SingleImagePickingCubit>(
                     create: (BuildContext context) => SingleImagePickingCubit(),
-                  ),
-                  BlocProvider<UMCubit>(
-                    create: (BuildContext context) => UMCubit(),
                   ),
                   BlocProvider<SignupBloc>(
                     create: (BuildContext context) => SignupBloc(),
@@ -179,8 +139,8 @@ class _InitialUserActionScreenState extends State<InitialUserActionScreen>
 
   Widget buildSigninButton() {
     return TextButton(
-      onPressed: () {
-        BlocProvider.of<UMCubit>(context).singin(
+      onPressed: () async {
+        await UMRepository.signin(
           SigninModel(
             _emailEditingController.text,
             _passwordEditingController.text,

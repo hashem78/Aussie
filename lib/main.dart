@@ -1,8 +1,11 @@
+import 'package:aussie/providers/providers.dart';
 import 'package:aussie/state/shared_prefrences.dart';
 import 'package:aussie/state/theme_mode.dart';
 
 import 'aussie_imports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart' as rv;
+
+import 'presentation/screens/feed/feed.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,22 +38,20 @@ class MyApp extends rv.ConsumerWidget {
   @override
   Widget build(BuildContext context, rv.WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LanguageCubit>(
-          create: (BuildContext context) => LanguageCubit(locale),
+        BlocProvider(
+          create: (context) => LanguageCubit(locale),
         ),
-        BlocProvider<UMCubit>(
-          create: (BuildContext context) => UMCubit(),
-        ),
-        BlocProvider<AttendeesCubit>(
-          create: (BuildContext context) => AttendeesCubit(),
+        BlocProvider(
+          create: (context) => AttendeesCubit(),
         ),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
-        builder: (BuildContext context, LanguageState languageState) {
+        builder: (context, languageState) {
           return OrientationBuilder(
-            builder: (BuildContext context, Orientation orientation) {
+            builder: (context, orientation) {
               Size size;
               if (orientation == Orientation.portrait) {
                 size = const Size(1920, 1080);
@@ -63,7 +64,6 @@ class MyApp extends rv.ConsumerWidget {
                   return MaterialApp(
                     locale: languageState.currentLocale,
                     debugShowCheckedModeBanner: false,
-                    // ignore: always_specify_types
                     localizationsDelegates: const [
                       GlobalMaterialLocalizations.delegate,
                       GlobalWidgetsLocalizations.delegate,
@@ -81,19 +81,12 @@ class MyApp extends rv.ConsumerWidget {
                       }
                       return supportedLocales.first;
                     },
-                    home: BlocProvider<UMCubit>(
-                      create: (BuildContext context) {
-                        return UMCubit()..isUserSignedIn();
-                      },
-                      child: const SafeArea(
-                        child: InitialScreen(),
-                      ),
-                    ),
+                    home: const SplashScreen(),
                     themeMode: themeMode!.mode,
                     theme: ThemeData(
                       brightness: themeMode.brightness,
                       pageTransitionsTheme: const PageTransitionsTheme(
-                        builders: <TargetPlatform, PageTransitionsBuilder>{
+                        builders: {
                           TargetPlatform.android: ZoomPageTransitionsBuilder(),
                         },
                       ),
@@ -115,8 +108,62 @@ class MyApp extends rv.ConsumerWidget {
   }
 
   static final routes = {
-    ScreenData.settingsNavPath: (context) {
-      return const SettingsScreen();
-    },
+    ScreenData.settingsNavPath: (_) => const SettingsScreen(),
   };
+}
+
+class SplashScreen extends rv.ConsumerWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, rv.WidgetRef ref) {
+    ref.listen<AussieUser>(
+      localUserProvider,
+      (previous, next) {
+        print('new state is : $next');
+        next.mapOrNull(
+          signedIn: (val) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return rv.ProviderScope(
+                    overrides: [
+                      scopedUserProvider.overrideWithValue(next),
+                    ],
+                    child: const FeedScreen(),
+                  );
+                },
+              ),
+            );
+          },
+          signedOut: (val) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const InitialUserActionScreen();
+                },
+              ),
+              (route) => !route.isFirst,
+            );
+          },
+          firstRun: (user) {
+            print('executing is first run');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) {
+                  return const InitialUserActionScreen();
+                },
+              ),
+            );
+          },
+        );
+      },
+    );
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
+    );
+  }
 }

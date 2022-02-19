@@ -1,14 +1,16 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PublicAttendButton extends StatelessWidget {
+class PublicAttendButton extends ConsumerWidget {
   const PublicAttendButton({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final EventModel e = getEventModel(context);
-    final AussieUser currentUser = getCurrentUser(context);
+    final user = ref.read(localUserProvider);
 
     return BlocBuilder<AttendeesCubit, AttendeesState>(
       builder: (BuildContext context, AttendeesState state) {
@@ -19,7 +21,7 @@ class PublicAttendButton extends StatelessWidget {
             onPressed: () {
               context
                   .read<AttendeesCubit>()
-                  .makeUserWithIdAttendEvent(currentUser, e.eventId);
+                  .makeUserWithIdAttendEvent(user.mapOrNull(signedIn: (value) => value.uid)!, e.eventId);
             },
             child: Text(
               getTranslation(context, 'attendButtonTextNormal'),

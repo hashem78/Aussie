@@ -1,8 +1,8 @@
 import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:aussie/providers/provider_notifications/attendees_notifications.dart';
 import 'package:aussie/providers/provider_notifications/interfaces/iattendees_notifications.dart';
 import 'package:aussie/repositories/attendees_repository.dart';
+import 'package:aussie/repositories/user_management_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -29,12 +29,12 @@ class AttendeesCubit extends Cubit<AttendeesState> {
     }
   }
 
-  void makeUserWithIdAttendEvent(AussieUser user, String? eventUuid) {
+  void makeUserWithIdAttendEvent(String uid, String? eventUuid) {
     emit(const AttendeesPerformingAction());
 
     _repository
         .makeUserWithIdAttendEvent(
-      user.uid,
+      uid,
       eventUuid,
     )
         .then(
@@ -48,8 +48,10 @@ class AttendeesCubit extends Cubit<AttendeesState> {
     );
   }
 
-  void isUserAttending(AussieUser user, EventModel eventModel) {
-    if (user.attends!.contains(eventModel.eventId)) {
+  void isUserAttending(String uid, EventModel eventModel) async {
+    final user = await UMRepository.getUserDataFromUid(uid);
+
+    if (user.mapOrNull(signedIn: (value) => value.attends)!.contains(eventModel.eventId)) {
       emit(const AttendeesAttended());
     }
   }
