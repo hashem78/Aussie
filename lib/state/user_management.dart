@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:aussie/repositories/user_management_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart' as rv;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LocalUserNotifier extends rv.StateNotifier<AussieUser> {
+class LocalUserNotifier extends StateNotifier<AussieUser> {
   static final _firestoreInstance = FirebaseFirestore.instance;
   static final _authInstance = FirebaseAuth.instance;
 
@@ -49,17 +49,17 @@ class LocalUserNotifier extends rv.StateNotifier<AussieUser> {
 }
 
 final localUserProvider =
-    rv.StateNotifierProvider<LocalUserNotifier, AussieUser>(
+    StateNotifierProvider<LocalUserNotifier, AussieUser>(
   (_) {
     return LocalUserNotifier();
   },
 );
 
-final remoteUserProvider = rv.FutureProvider.family<AussieUser, String>(
+final remoteUserProvider = FutureProvider.family<AussieUser, String>(
   (_, uid) async {
     return await UMRepository.getUserDataFromUid(uid);
   },
 );
-final scopedUserProvider = rv.Provider<AussieUser>((_) {
+final scopedUserProvider = Provider<AussieUser>((_) {
   throw UnimplementedError();
 });

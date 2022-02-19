@@ -4,7 +4,7 @@ import 'package:aussie/state/shared_prefrences.dart';
 import 'package:aussie/state/theme_mode.dart';
 
 import 'aussie_imports.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart' as rv;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +15,8 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
   runApp(
-    rv.ProviderScope(
-      overrides: <rv.Override>[
+    ProviderScope(
+      overrides: <Override>[
         sharedPrefrencesProvider.overrideWithValue(prefs),
       ],
       child: const MyApp(),
@@ -24,11 +24,11 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends rv.ConsumerWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, rv.WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final locale = ref.watch(localeProvider);
 
