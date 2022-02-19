@@ -18,10 +18,7 @@ class FeedScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: BlocProvider<EMCubit>(
-        create: (BuildContext context) => EMCubit(),
-        child: const PublicEventsTab(),
-      ),
+      body: const PublicFeed(),
     );
   }
 }

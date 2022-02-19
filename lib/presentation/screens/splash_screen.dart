@@ -14,7 +14,6 @@ class SplashScreen extends ConsumerWidget {
     ref.listen<AussieUser>(
       localUserProvider,
       (previous, next) {
-        print('new state is : $next');
         next.mapOrNull(
           signedIn: (val) {
             Navigator.push(
@@ -43,7 +42,6 @@ class SplashScreen extends ConsumerWidget {
             );
           },
           firstRun: (user) {
-            print('executing is first run');
             Navigator.push(
               context,
               MaterialPageRoute(

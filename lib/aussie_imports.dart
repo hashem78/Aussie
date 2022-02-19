@@ -24,6 +24,5 @@ export 'package:shared_preferences/shared_preferences.dart';
 export 'localizations.dart';
 export 'models/models.dart';
 export 'presentation/presentation.dart';
-export 'repositories/repositories.dart';
 export 'state/state.dart';
 export 'util/utlis.dart';

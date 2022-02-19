@@ -1,24 +1,26 @@
-import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_description_card.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_card_stack.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/event_details_gallery.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/paginated_attendees.dart';
+import 'package:aussie/state/event_management.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventDetails extends StatelessWidget {
+class EventDetails extends ConsumerWidget {
   const EventDetails({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final EventModel e = getEventModel(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final e = ref.watch(scopedEventProvider);
+    final bannerImage = e.mapOrNull(remote: (val) => val.bannerImage)!;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           flexibleSpace: AspectRatio(
             aspectRatio: 16 / 9,
-            child: buildImage(e.bannerImage.imageLink, fit: BoxFit.fitWidth),
+            child: buildImage(bannerImage.imageLink, fit: BoxFit.fitWidth),
           ),
           title: Text(getTranslation(context, 'eventDetailsTitle')),
           bottom: const TabBar(

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:aussie/models/usermanagement/events/eventcreation_model.dart';
 import 'package:aussie/util/asize.dart';
 import 'package:aussie/util/jpeg_decoder.dart';
 import 'package:bloc/bloc.dart';
@@ -11,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../models/event/event_model.dart';
 
 part 'multi_image_picking_state.dart';
 

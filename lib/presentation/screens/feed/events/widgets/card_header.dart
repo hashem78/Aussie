@@ -1,21 +1,21 @@
-import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/state/event_management.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class EventCardDetailsHeader extends StatelessWidget {
+class EventCardDetailsHeader extends ConsumerWidget {
   const EventCardDetailsHeader({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final EventModel e = getEventModel(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final e = ref.watch(scopedEventProvider);
 
-    final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
+    final begin = DateTime.fromMillisecondsSinceEpoch(
       e.startingTimeStamp,
     );
-    final DateTime end = DateTime.fromMillisecondsSinceEpoch(
+    final end = DateTime.fromMillisecondsSinceEpoch(
       e.endingTimeStamp,
     );
     final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
@@ -25,10 +25,10 @@ class EventCardDetailsHeader extends StatelessWidget {
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
+      children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
+          children: [
             Text(
               'Starts on $formattedBeginDate',
               style: Theme.of(context)
@@ -47,7 +47,7 @@ class EventCardDetailsHeader extends StatelessWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
+          children: [
             Text(
               'Ends on $formattedEndDate',
               style: Theme.of(context)

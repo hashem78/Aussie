@@ -1,36 +1,36 @@
-import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/gmap/gmap.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:aussie/state/event_management.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:intl/intl.dart';
 
-class EventCardStack extends StatelessWidget {
+class EventCardStack extends ConsumerWidget {
   const EventCardStack({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final EventModel e = getEventModel(context);
-    final DateTime begin = DateTime.fromMillisecondsSinceEpoch(
+  Widget build(BuildContext context,WidgetRef ref) {
+    final e = ref.watch(scopedEventProvider);
+    final  begin = DateTime.fromMillisecondsSinceEpoch(
       e.startingTimeStamp,
     );
-    final DateTime end = DateTime.fromMillisecondsSinceEpoch(
+    final  end = DateTime.fromMillisecondsSinceEpoch(
       e.endingTimeStamp,
     );
-    final String formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
-    final String formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
-    final String formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
-    final String formattedEndTime = DateFormat('hh:mm:ss').format(end);
+    final  formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
+    final  formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
+    final  formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
+    final  formattedEndTime = DateFormat('hh:mm:ss').format(end);
     return Card(
       margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
+        children: [
           Align(
             child: AutoSizeText(
               e.title,
@@ -47,10 +47,10 @@ class EventCardStack extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
+            children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
+                children: [
                   Text(
                     formattedBeginDate,
                     style: Theme.of(context)
@@ -69,7 +69,7 @@ class EventCardStack extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
+                children: [
                   Text(
                     formattedEndDate,
                     style: Theme.of(context)
@@ -110,7 +110,7 @@ class EventCardStack extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
-                    children: <Widget>[
+                    children: [
                       const Icon(
                         Icons.location_pin,
                         color: Colors.red,

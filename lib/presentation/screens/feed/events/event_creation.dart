@@ -6,13 +6,13 @@ class EventCreationScreen extends StatelessWidget {
   const EventCreationScreen({Key? key, this.closeAction}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    void _sn(String text) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(text),
-        ),
-      );
-    }
+    // void _sn(String text) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text(text),
+    //     ),
+    //   );
+    // }
 
     return WillPopScope(
       onWillPop: () async {
@@ -68,56 +68,12 @@ class EventCreationScreen extends StatelessWidget {
                 constraints: BoxConstraints(minHeight: constraint.maxHeight),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    const EventCreationFormFields(),
-                    const EventLocationPicker(),
-                    const EventImageGalleryStatus(),
-                    const EventImageGalleryPickerButton(),
-                    BlocBuilder<EMCubit, EMCState>(
-                      builder: (BuildContext context, EMCState state) {
-                        if (state is EMCPerformingAction) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        return Container();
-                      },
-                    ),
-                    BlocConsumer<EMCubit, EMCState>(
-                      listener: (BuildContext context, EMCState state) {
-                        if (state is EMCCreated) {
-                          _sn('Event created');
-                          Future<void>.delayed(
-                            const Duration(
-                              seconds: 2,
-                            ),
-                          ).whenComplete(
-                            () {
-                              Navigator.of(context).pop();
-                            },
-                          );
-                        } else if (state is EMCError) {
-                          _sn('Failed to create Event');
-                        }
-                      },
-                      builder: (BuildContext context, EMCState state) {
-                        if (state is EMCPerformingAction) {
-                          return const EventCreationSubmitButton(
-                            enabled: false,
-                          );
-                        } else {
-                          if (state is EMCCreated) {
-                            return const EventCreationSubmitButton(
-                              enabled: false,
-                            );
-                          } else {
-                            return const EventCreationSubmitButton(
-                              enabled: true,
-                            );
-                          }
-                        }
-                      },
-                    ),
+                  children: const [
+                    EventCreationFormFields(),
+                    EventLocationPicker(),
+                    EventImageGalleryStatus(),
+                    EventImageGalleryPickerButton(),
+                    EventCreationSubmitButton(enabled: true),
                   ],
                 ),
               ),

@@ -1,23 +1,18 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/state/event_management.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventDetailsGallery extends StatefulWidget {
-  const EventDetailsGallery({
-    Key? key,
-  }) : super(key: key);
+class EventDetailsGallery extends ConsumerWidget {
+  const EventDetailsGallery({Key? key}) : super(key: key);
 
   @override
-  _EventDetailsGalleryState createState() => _EventDetailsGalleryState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final e = ref.watch(scopedEventProvider);
 
-class _EventDetailsGalleryState extends State<EventDetailsGallery>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final EventModel e = getEventModel(context);
+    final galleryImages = e.mapOrNull(remote: (val) => val.galleryImages)!;
 
     return ListView.builder(
-      itemCount: e.galleryImages.length,
+      itemCount: galleryImages.length,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (BuildContext context, int index) {
         return AspectRatio(
@@ -28,14 +23,14 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
                   MaterialPageRoute<AussiePhotoView>(
                     builder: (BuildContext context) {
                       return AussiePhotoView(
-                        url: e.galleryImages[index].imageLink,
+                        url: galleryImages[index].imageLink,
                       );
                     },
                   ),
                 );
               },
               child: CachedNetworkImage(
-                imageUrl: e.galleryImages[index].imageLink,
+                imageUrl: galleryImages[index].imageLink,
                 fadeOutDuration: Duration.zero,
                 progressIndicatorBuilder: (
                   BuildContext context,
@@ -58,7 +53,4 @@ class _EventDetailsGalleryState extends State<EventDetailsGallery>
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

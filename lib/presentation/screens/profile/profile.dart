@@ -13,7 +13,6 @@ class UserProfileScreen extends ConsumerWidget {
     final user = ref.watch(scopedUserProvider);
     final isLoggedInUser = FirebaseAuth.instance.currentUser!.uid ==
         user.mapOrNull(signedIn: (value) => value.uid)!;
-    print(user);
     return Scaffold(
       floatingActionButton: isLoggedInUser ? const AnimatedAddEventFAB() : null,
       body: CustomScrollView(
@@ -35,13 +34,8 @@ class UserProfileScreen extends ConsumerWidget {
               allowFollowing: !isLoggedInUser,
             ),
           ),
-          BlocProvider<EMCubit>(
-            create: (context) => EMCubit()
-              ..fetchEventsForUser(
-                uid: user.mapOrNull(signedIn: (value) => value.uid)!,
-              ),
-            lazy: false,
-            child: const UserEvents(),
+          const SliverToBoxAdapter(
+            child: UserFeed(),
           ),
         ],
       ),

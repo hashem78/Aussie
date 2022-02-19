@@ -1,97 +1,49 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+import 'package:aussie/repositories/user_management_repository.dart';
+import 'package:aussie/state/event_management.dart';
+import 'package:flutterfire_ui/firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PaginatedAtendees extends StatefulWidget {
-  const PaginatedAtendees({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _PaginatedAtendeesState createState() => _PaginatedAtendeesState();
-}
-
-class _PaginatedAtendeesState extends State<PaginatedAtendees>
-    with AutomaticKeepAliveClientMixin {
-  final PagingController<int, String> pagingController =
-      PagingController<int, String>(firstPageKey: 1);
-  @override
-  void initState() {
-    super.initState();
-    context.read<AttendeesCubit>().reset();
-  }
+class PaginatedAtendees extends ConsumerWidget {
+  const PaginatedAtendees({Key? key}) : super(key: key);
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final EventModel e = getEventModel(context);
-    pagingController.addPageRequestListener(
-      (int pageKey) {
-        context.read<AttendeesCubit>().fetchAttendees(e.eventId);
-      },
-    );
-
-    pagingController.notifyPageRequestListeners(0);
-  }
-
-  @override
-  void dispose() {
-    pagingController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return BlocConsumer<AttendeesCubit, AttendeesState>(
-      listener: (BuildContext context, AttendeesState state) {
-        if (state is AttendeesActual) {
-          pagingController.appendPage(
-            state.uuids,
-            pagingController.nextPageKey! + 1,
-          );
-        } else if (state is AttendeesActualEnd) {
-          pagingController.appendLastPage(state.uuids);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final event = ref.watch(scopedEventProvider);
+    return FirestoreQueryBuilder<String>(
+      query: AttendeesRepository.fetchAttendees(event.uid),
+      builder: (context, snapshot, child) {
+        if (snapshot.isFetching) {
+          return const CircularProgressIndicator();
         }
-      },
-      builder: (BuildContext context, AttendeesState state) {
-        if (state is AttendeesInitial) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is AttendeesEmpty) {
-          return Center(
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  Icons.sentiment_dissatisfied,
-                  size: 300.sp,
-                ),
-                const Text(
-                  'There are no attendees at this moment, refresh or try again later',
-                  textAlign: TextAlign.center,
-                )
-              ],
-            ),
-          );
-        } else {
-          return RefreshIndicator(
-            onRefresh: () async {
-              context.read<AttendeesCubit>().reset();
-              pagingController.refresh();
-            },
-            child: PagedListView<int, String>(
-              pagingController: pagingController,
-              padding: const EdgeInsets.all(16.0),
-              builderDelegate: PagedChildBuilderDelegate<String>(
-                itemBuilder: (BuildContext context, String item, int index) {
-                  return const CardOwner();
-                },
-              ),
-            ),
-          );
+        if (snapshot.hasError) {
+          return Text('error ${snapshot.error}');
         }
+        return ListView.builder(
+          itemCount: snapshot.docs.length,
+          itemBuilder: (context, index) {
+            if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
+              snapshot.fetchMore();
+            }
+            final event = snapshot.docs[index].data();
+            return FutureBuilder<AussieUser>(
+              future: UMRepository.getUserDataFromUid(event),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ProviderScope(
+                    overrides: [
+                      scopedUserProvider.overrideWithValue(snapshot.data!)
+                    ],
+                    child: const CardOwner(),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            );
+          },
+        );
       },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

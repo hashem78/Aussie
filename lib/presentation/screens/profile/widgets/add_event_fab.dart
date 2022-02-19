@@ -1,4 +1,5 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
 import 'package:aussie/state/theme_mode.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +11,7 @@ class AnimatedAddEventFAB extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider)!;
+    final user = ref.watch(scopedUserProvider);
     late final Color color;
 
     if (themeMode.brightness == Brightness.light) {
@@ -32,9 +34,7 @@ class AnimatedAddEventFAB extends ConsumerWidget {
             BlocProvider<EventCreationBlocForm>(
               create: (BuildContext context) => EventCreationBlocForm(),
             ),
-            BlocProvider<EMCubit>(
-              create: (BuildContext context) => EMCubit(),
-            ),
+            
             BlocProvider<SingleImagePickingCubit>(
               create: (BuildContext context) => SingleImagePickingCubit(),
             ),
@@ -42,8 +42,13 @@ class AnimatedAddEventFAB extends ConsumerWidget {
               create: (BuildContext context) => MultiImagePickingCubit(),
             ),
           ],
-          child: EventCreationScreen(
-            closeAction: action,
+          child: ProviderScope(
+            overrides: [
+              scopedUserProvider.overrideWithValue(user)
+            ],
+            child: EventCreationScreen(
+              closeAction: action,
+            ),
           ),
         );
       },

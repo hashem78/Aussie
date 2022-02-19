@@ -17,7 +17,6 @@ class LocalUserNotifier extends rv.StateNotifier<AussieUser> {
   }
 
   Future<void> userChanges(User? user) async {
-    print('user is ${user == null ? 'null' : 'not null'}');
     if (user != null) {
       final _shot = await _firestoreInstance.doc('users/${user.uid}').get();
       if (!_shot.exists) {

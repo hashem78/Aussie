@@ -1,95 +1,41 @@
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/providers.dart';
+import 'package:aussie/repositories/event_management_repository.dart';
+import 'package:aussie/state/event_management.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart' as pv;
+import 'package:flutterfire_ui/firestore.dart';
 
-class UserEvents extends ConsumerStatefulWidget {
-  const UserEvents({Key? key}) : super(key: key);
-
-  @override
-  _UserEventsState createState() => _UserEventsState();
-}
-
-class _UserEventsState extends ConsumerState<UserEvents>
-    with AutomaticKeepAliveClientMixin {
-  final PagingController<int, EventModel> _controller =
-      PagingController<int, EventModel>(firstPageKey: 0);
-
-  late EMCubit eventManagementCubit;
+class UserFeed extends ConsumerWidget {
+  const UserFeed({Key? key}) : super(key: key);
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    final user = ref.read(scopedUserProvider);
-    final uid = user.mapOrNull(signedIn: (value) => value.uid)!;
-
-    eventManagementCubit = BlocProvider.of<EMCubit>(context);
-    _controller.addPageRequestListener(
-      (int pageKey) {
-        if (eventManagementCubit.prevSnap == null) {
-          eventManagementCubit.fetchEventsForUser(
-            uid: uid,
-          );
-        } else {
-          eventManagementCubit.fetchEventsForUser(
-              uid: uid, lastdoc: eventManagementCubit.prevSnap);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(localUserProvider);
+    final uid = user.mapOrNull(signedIn: (u) => u.uid)!;
+    return FirestoreQueryBuilder<EventModel>(
+      query: EventManagementRepository.fetchEventsForUser(uid),
+      builder: (context, snapshot, child) {
+        if (snapshot.hasError) {
+          return Text('error ${snapshot.error}');
         }
-      },
-    );
-
-    super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return BlocListener<EMCubit, EMCState>(
-      bloc: eventManagementCubit,
-      listener: (BuildContext context, EMCState state) {
-        if (state is EMCEventsFetched) {
-          _controller.appendPage(
-            state.models,
-            _controller.nextPageKey! + state.models.length,
-          );
-        } else if (state is EMCEndEventsFetched) {
-          _controller.appendLastPage(state.models);
-        }
-      },
-      child: PagedSliverList<int, EventModel>(
-        pagingController: _controller,
-        builderDelegate: PagedChildBuilderDelegate<EventModel>(
-          itemBuilder: (context, item, index) {
-            return pv.Provider<EventModel>.value(
-              value: item,
-              child: Builder(
-                builder: (context) {
-                  return const EventCard();
-                },
-              ),
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: snapshot.docs.length,
+          itemBuilder: (context, index) {
+            
+            if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
+              snapshot.fetchMore();
+            }
+            final event = snapshot.docs[index].data();
+            return  ProviderScope(
+              overrides: [
+                scopedEventProvider.overrideWithValue(event)
+              ],
+              child: const EventCard(),
             );
           },
-          noItemsFoundIndicatorBuilder: (BuildContext context) {
-            return Center(
-              child: Text(
-                getTranslation(context, 'eventsNoHome'),
-              ),
-            );
-          },
-        ),
-      ),
+        );
+      },
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
