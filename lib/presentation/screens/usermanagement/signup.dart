@@ -1,7 +1,7 @@
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/presentation/screens/feed/feed.dart';
 import 'package:aussie/repositories/user_management_repository.dart';
-import 'package:aussie/state/local_user_management.dart';
+import 'package:aussie/state/user_management.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SingupScreen extends StatelessWidget {
