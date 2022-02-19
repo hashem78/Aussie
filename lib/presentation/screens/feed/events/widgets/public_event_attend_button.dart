@@ -8,7 +8,7 @@ class PublicAttendButton extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final EventModel e = getEventModel(context);
     final user = ref.read(localUserProvider);
 
@@ -19,9 +19,8 @@ class PublicAttendButton extends ConsumerWidget {
         if (state is AttendeesInitial) {
           child = TextButton(
             onPressed: () {
-              context
-                  .read<AttendeesCubit>()
-                  .makeUserWithIdAttendEvent(user.mapOrNull(signedIn: (value) => value.uid)!, e.eventId);
+              context.read<AttendeesCubit>().makeUserWithIdAttendEvent(
+                  user.mapOrNull(signedIn: (value) => value.uid)!, e.eventId);
             },
             child: Text(
               getTranslation(context, 'attendButtonTextNormal'),

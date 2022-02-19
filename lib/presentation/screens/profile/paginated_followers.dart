@@ -64,9 +64,7 @@ class _PaginatedFollowersState extends ConsumerState<PaginatedFollowers>
       ),
       body: BlocConsumer<FollowersCubit, FollowersState>(
         listener: (BuildContext context, FollowersState state) {
-        
           if (state is FollowersHasUsersList) {
-            
             pagingController.appendPage(
               state.users,
               pagingController.nextPageKey! + 1,

@@ -9,7 +9,7 @@ class ProfileScreenCardDetails extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

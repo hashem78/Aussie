@@ -1,13 +1,13 @@
 import 'dart:collection';
 
-
 import 'package:aussie/providers/provider_notifications/attendees_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'provider_notifications/interfaces/iattendees_notifications.dart';
 
 class AttendeesProvider {
-  static final FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firestoreInstance =
+      FirebaseFirestore.instance;
   Future<IAttendeesNotification> fetchAttendees(
     String? eventId,
     DocumentSnapshot<Object?>? startAfter,
@@ -40,7 +40,6 @@ class AttendeesProvider {
 
     if (uuids.length >= 10) {
       return AteendeesList(
-        
         UnmodifiableListView<String>(uuids),
         querySnapshot.docs.last,
       );
@@ -50,6 +49,7 @@ class AttendeesProvider {
       );
     }
   }
+
   Future<IAttendeesNotification> makeUserWithIdAttendEvent(
     String? uid,
     String? eventUuid,

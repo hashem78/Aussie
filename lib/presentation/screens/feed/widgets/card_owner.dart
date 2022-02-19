@@ -39,7 +39,7 @@ class _CardOwnerState extends ConsumerState<CardOwner>
                 ],
                 child: ProviderScope(
                   overrides: [
-                    scopedUserProvider.overrideWithValue(user)
+                    scopedUserProvider.overrideWithValue(user),
                   ],
                   child: const UserProfileScreen(),
                 ),

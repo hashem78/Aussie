@@ -17,7 +17,7 @@ Widget? buildImage(
   ColorFilter? colorFilter,
 }) {
   if (imageUrl == null) return null;
-   if (imageUrl.isNotEmpty) {
+  if (imageUrl.isNotEmpty) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       imageBuilder: (
@@ -63,7 +63,6 @@ SignupBloc getSignupBloc(BuildContext context) =>
 
 EventModel getEventModel(BuildContext context) =>
     Provider.of<EventModel>(context, listen: false);
-
 
 Future<Locale> onStartupLocale() async {
   final SharedPreferences _perfs = await SharedPreferences.getInstance();

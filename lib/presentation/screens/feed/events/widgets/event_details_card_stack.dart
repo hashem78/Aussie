@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
 
-
 class EventCardStack extends StatelessWidget {
   const EventCardStack({
     Key? key,

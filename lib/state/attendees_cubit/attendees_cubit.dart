@@ -51,7 +51,9 @@ class AttendeesCubit extends Cubit<AttendeesState> {
   void isUserAttending(String uid, EventModel eventModel) async {
     final user = await UMRepository.getUserDataFromUid(uid);
 
-    if (user.mapOrNull(signedIn: (value) => value.attends)!.contains(eventModel.eventId)) {
+    if (user
+        .mapOrNull(signedIn: (value) => value.attends)!
+        .contains(eventModel.eventId)) {
       emit(const AttendeesAttended());
     }
   }

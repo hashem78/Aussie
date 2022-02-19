@@ -19,7 +19,6 @@ class AussieThumbnailedAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ThumbnailCubit>().fetch();
     return SliverAppBar(
-      
       pinned: true,
       expandedHeight: height,
       flexibleSpace: FlexibleSpaceBar(

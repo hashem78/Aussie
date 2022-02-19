@@ -22,7 +22,6 @@ class AussieUser with _$AussieUser {
   }) = _AussieUser;
   const factory AussieUser.firstRun() = _AusssieUserFirstRun;
   const factory AussieUser.signedOut() = _AusssieUserSignedOut;
-  
 
   const factory AussieUser.error({
     @JsonKey(ignore: true) AuthState? errorState,

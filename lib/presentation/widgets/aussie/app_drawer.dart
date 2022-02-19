@@ -119,7 +119,7 @@ class _DrawerHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
-    
+
     return DrawerHeader(
       child: InkWell(
         onTap: () {
@@ -145,8 +145,8 @@ class _DrawerHeader extends ConsumerWidget {
                 width: 100,
                 height: 100,
                 child: CachedNetworkImage(
-                  imageUrl:
-                      user.mapOrNull(signedIn: (value) => value.profilePictureLink)!,
+                  imageUrl: user.mapOrNull(
+                      signedIn: (value) => value.profilePictureLink)!,
                   imageBuilder: (BuildContext context,
                       ImageProvider<Object> imageProvider) {
                     return Ink.image(image: imageProvider);

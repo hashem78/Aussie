@@ -1,3 +1,3 @@
-abstract class IAttendeesNotification{
+abstract class IAttendeesNotification {
   const IAttendeesNotification();
 }

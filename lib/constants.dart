@@ -6,7 +6,6 @@ const kLightMode = AThemeMode.light();
 const kDarkMode = AThemeMode.dark();
 const kSystemMode = AThemeMode.system();
 
-
 const kausBlue = Color(0xFF00008b);
 const kausRed = Color(0xFFD80027);
 const kaussieRadius = BorderRadius.all(Radius.circular(20));
