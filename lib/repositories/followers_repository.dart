@@ -4,8 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FollowersRepository {
   static final _firestoreInstance = FirebaseFirestore.instance;
-  static Future<bool> isUserFollowed(String uid) async {
+  static Future<FollowersState> isUserFollowed(String uid) async {
     final user = FirebaseAuth.instance.currentUser;
+    print('called is user followed');
 
     try {
       final query = await _firestoreInstance
@@ -15,7 +16,7 @@ class FollowersRepository {
           .doc(uid)
           .get();
       if (query.exists) {
-        return true;
+        return const FollowersState.userIsFollowed();
       }
     } on FirebaseAuthException catch (e, st) {
       print(e);
@@ -24,7 +25,7 @@ class FollowersRepository {
       print(e);
       print(st);
     }
-    return false;
+    return const FollowersState.userIsNotFollowed();
   }
 
   static Future<FollowersState> followUser(String uid) async {
@@ -69,7 +70,7 @@ class FollowersRepository {
         );
         writeBatch.commit();
       }
-      return const FollowersState.followedUser();
+      return const FollowersState.userIsFollowed();
     } on FirebaseAuthException catch (e, st) {
       print(e);
       print(st);
@@ -118,7 +119,7 @@ class FollowersRepository {
         );
         writeBatch.commit();
       }
-      return const FollowersState.unFollowedUser();
+      return const FollowersState.userIsNotFollowed();
     } on FirebaseAuthException catch (e, st) {
       print(e);
       print(st);

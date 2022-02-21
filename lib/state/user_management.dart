@@ -88,6 +88,6 @@ final remoteUserProvider = FutureProvider.family<AussieUser, String>(
     return await UMRepository.getUserDataFromUid(uid);
   },
 );
-final scopedUserProvider = Provider<AussieUser>((_) {
+final scopedUserProvider = Provider.autoDispose<AussieUser>((_) {
   throw UnimplementedError();
 });
