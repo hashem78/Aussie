@@ -13,18 +13,18 @@ class EventCardStack extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final e = ref.watch(scopedEventProvider);
-    final  begin = DateTime.fromMillisecondsSinceEpoch(
+    final begin = DateTime.fromMillisecondsSinceEpoch(
       e.startingTimeStamp,
     );
-    final  end = DateTime.fromMillisecondsSinceEpoch(
+    final end = DateTime.fromMillisecondsSinceEpoch(
       e.endingTimeStamp,
     );
-    final  formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
-    final  formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
-    final  formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
-    final  formattedEndTime = DateFormat('hh:mm:ss').format(end);
+    final formattedBeginDate = DateFormat('dd/MM/yyyy').format(begin);
+    final formattedEndDate = DateFormat('dd/MM/yyyy').format(end);
+    final formattedBeginTime = DateFormat('hh:mm:ss').format(begin);
+    final formattedEndTime = DateFormat('hh:mm:ss').format(end);
     return Card(
       margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(),

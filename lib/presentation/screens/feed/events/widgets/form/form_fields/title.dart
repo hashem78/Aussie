@@ -7,7 +7,6 @@ class TitleFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return TextField(
       decoration: InputDecoration(
         prefixIcon: const Icon(Icons.person_pin),

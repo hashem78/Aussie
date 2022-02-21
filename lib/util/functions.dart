@@ -63,7 +63,6 @@ Widget? buildImage(
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
 
-
 Future<Locale> onStartupLocale() async {
   final _perfs = await SharedPreferences.getInstance();
   Locale locale;

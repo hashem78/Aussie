@@ -56,7 +56,7 @@ class FollowerListWidget extends ConsumerWidget {
     );
   }
 }
-  
+
 // ProviderScope(
 //                       overrides: [
 //                         scopedUserProvider.overrideWithValue(user),

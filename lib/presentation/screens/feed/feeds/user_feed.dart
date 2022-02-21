@@ -22,15 +22,12 @@ class UserFeed extends ConsumerWidget {
           shrinkWrap: true,
           itemCount: snapshot.docs.length,
           itemBuilder: (context, index) {
-            
             if (snapshot.hasMore && index + 1 == snapshot.docs.length) {
               snapshot.fetchMore();
             }
             final event = snapshot.docs[index].data();
-            return  ProviderScope(
-              overrides: [
-                scopedEventProvider.overrideWithValue(event)
-              ],
+            return ProviderScope(
+              overrides: [scopedEventProvider.overrideWithValue(event)],
               child: const EventCard(),
             );
           },

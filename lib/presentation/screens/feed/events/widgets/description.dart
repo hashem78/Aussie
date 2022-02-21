@@ -9,7 +9,7 @@ class EventCardDescription extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final e = ref.watch(scopedEventProvider);
     return Padding(
       padding: const EdgeInsets.all(8.0),

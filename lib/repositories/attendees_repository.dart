@@ -1,7 +1,6 @@
 import 'package:aussie/models/event_attention_state/event_attention_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 class AttendeesRepository {
   static final _firestoreInstance = FirebaseFirestore.instance;
   static CollectionReference<String> fetchAttendees(
@@ -19,7 +18,6 @@ class AttendeesRepository {
     String uid,
     String eventUuid,
   ) async {
-   
     try {
       final WriteBatch writeBatch = _firestoreInstance.batch();
       writeBatch.set(

@@ -8,7 +8,7 @@ class EventDetailsDescriptionCard extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final e = ref.watch(scopedEventProvider);
 
     return Card(

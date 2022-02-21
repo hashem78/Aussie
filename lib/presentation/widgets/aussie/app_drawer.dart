@@ -18,24 +18,23 @@ class _DrawerItemModel {
     required this.navPath,
   });
 
-
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is _DrawerItemModel &&
-      other.tTitle == tTitle &&
-      other.iconColor == iconColor &&
-      other.iconData == iconData &&
-      other.navPath == navPath;
+        other.tTitle == tTitle &&
+        other.iconColor == iconColor &&
+        other.iconData == iconData &&
+        other.navPath == navPath;
   }
 
   @override
   int get hashCode {
     return tTitle.hashCode ^
-      iconColor.hashCode ^
-      iconData.hashCode ^
-      navPath.hashCode;
+        iconColor.hashCode ^
+        iconData.hashCode ^
+        navPath.hashCode;
   }
 }
 

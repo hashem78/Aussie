@@ -41,7 +41,6 @@ class LocalUserNotifier extends StateNotifier<AussieUser> {
         final subscription = stream.listen(
           (finishedSignUp) {
             if (finishedSignUp) {
-              
               completer.complete();
             }
           },

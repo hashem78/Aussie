@@ -5,7 +5,6 @@ import 'package:aussie/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

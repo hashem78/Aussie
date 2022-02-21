@@ -8,9 +8,7 @@ class CardOwner extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    
-
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
     final pfp = user.mapOrNull(signedIn: (value) => value.profilePictureLink);
     final uname = user.mapOrNull(signedIn: (value) => value.username);

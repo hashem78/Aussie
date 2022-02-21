@@ -20,12 +20,7 @@ class EventCreationSubmitButton extends ConsumerWidget {
     // }
 
     return TextButton(
-      onPressed: enabled
-          ? () {
-            
-              
-            }
-          : null,
+      onPressed: enabled ? () {} : null,
       child: Text(
         getTranslation(
           context,

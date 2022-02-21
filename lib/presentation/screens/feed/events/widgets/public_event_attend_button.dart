@@ -13,7 +13,7 @@ class PublicAttendButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final e = ref.watch(scopedEventProvider);
     final user = ref.watch(localUserProvider);
-    
+
     final isUserAttending = useValueNotifier(user.mapOrNull(
       signedIn: (u) => u.attends!.contains(e.eventId),
     )!);
