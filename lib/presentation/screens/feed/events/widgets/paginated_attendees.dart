@@ -12,7 +12,7 @@ class PaginatedAtendees extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final event = ref.watch(scopedEventProvider);
     return FirestoreQueryBuilder<String>(
-      query: AttendeesRepository.fetchAttendees(event.uid),
+      query: AttendeesRepository.fetchAttendees(event.eventId),
       builder: (context, snapshot, child) {
         if (snapshot.isFetching) {
           return const CircularProgressIndicator();

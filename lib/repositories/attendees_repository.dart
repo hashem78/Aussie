@@ -9,7 +9,7 @@ class AttendeesRepository {
     return _firestoreInstance
         .collection('event/$eventId/attendees')
         .withConverter(
-          fromFirestore: (snapshot, _) => snapshot['uuid'],
+          fromFirestore: (snapshot, _) => snapshot['uid'],
           toFirestore: (uid, _) => {'uid': uid},
         );
   }
