@@ -1,5 +1,4 @@
 import 'package:aussie/state/event_management.dart';
-import 'package:expand_widget/expand_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +14,7 @@ class EventDetailsDescriptionCard extends ConsumerWidget {
     return Card(
       shape: const RoundedRectangleBorder(),
       margin: EdgeInsets.zero,
-      child: ExpandText(
+      child: Text(
         e.description,
         maxLines: 20,
       ),

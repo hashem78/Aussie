@@ -29,26 +29,10 @@ class AnimatedAddEventFAB extends ConsumerWidget {
         return _AddEventFAB(color: color, action: action);
       },
       openBuilder: (BuildContext context, VoidCallback action) {
-        return MultiBlocProvider(
-          providers: <BlocProvider<Object?>>[
-            BlocProvider<EventCreationBlocForm>(
-              create: (BuildContext context) => EventCreationBlocForm(),
-            ),
-            
-            BlocProvider<SingleImagePickingCubit>(
-              create: (BuildContext context) => SingleImagePickingCubit(),
-            ),
-            BlocProvider<MultiImagePickingCubit>(
-              create: (BuildContext context) => MultiImagePickingCubit(),
-            ),
-          ],
-          child: ProviderScope(
-            overrides: [
-              scopedUserProvider.overrideWithValue(user)
-            ],
-            child: EventCreationScreen(
-              closeAction: action,
-            ),
+        return ProviderScope(
+          overrides: [scopedUserProvider.overrideWithValue(user)],
+          child: EventCreationScreen(
+            closeAction: action,
           ),
         );
       },

@@ -1,49 +1,30 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/state/image_picking.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventImageGalleryStatus extends StatelessWidget {
+class EventImageGalleryStatus extends ConsumerWidget {
   const EventImageGalleryStatus({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<MultiImagePickingCubit, MultiImagePickingState>(
-      builder: (BuildContext context, MultiImagePickingState state) {
-        Widget child;
-        if (state is MultiImageMultiPickingLoading) {
-          child = const Center(child: CircularProgressIndicator());
-        } else if (state is MultiImagePickingError) {
-          child = Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Icon(
-                Icons.close,
-                color: Colors.red,
-              ),
-              Text(getTranslation(context, 'eventCreationMultiImageError')),
-            ],
-          );
-        } else if (state is MultiImagePickingDone) {
-          child = Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Icon(
-                Icons.check,
-                color: Colors.green,
-              ),
-              Text(
-                getTranslation(context, 'eventCreationMultiImagesAdded')
-                    .replaceFirst(' ', ' ${state.assets.length} '),
-              ),
-            ],
-          );
-        } else {
-          child = const SizedBox();
-        }
-        return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: child,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final pickerStatus = ref.watch(imagePickerProvier);
+    return pickerStatus.when(
+      picked: (paths, byteData) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+            Text(getTranslation(context, 'eventCreationMultiImageError')),
+          ],
         );
+      },
+      notPicked: () {
+        return const SizedBox();
       },
     );
   }

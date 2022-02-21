@@ -1,11 +1,11 @@
 import 'dart:math' as math;
 
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-@immutable
-class _DrawerItemModel extends Equatable {
+import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/providers/providers.dart';
+
+class _DrawerItemModel {
   final String tTitle;
   final Color iconColor;
   final IconData iconData;
@@ -18,8 +18,25 @@ class _DrawerItemModel extends Equatable {
     required this.navPath,
   });
 
+
   @override
-  List<Object> get props => <Object>[tTitle, iconColor, navPath];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is _DrawerItemModel &&
+      other.tTitle == tTitle &&
+      other.iconColor == iconColor &&
+      other.iconData == iconData &&
+      other.navPath == navPath;
+  }
+
+  @override
+  int get hashCode {
+    return tTitle.hashCode ^
+      iconColor.hashCode ^
+      iconData.hashCode ^
+      navPath.hashCode;
+  }
 }
 
 class _DrawerSection extends StatelessWidget {

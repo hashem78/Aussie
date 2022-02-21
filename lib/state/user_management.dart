@@ -5,14 +5,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final userSignupCompletionStreamController = StreamController<bool>();
+final userSignupCompletionStreamProvider = StreamProvider<bool>(
+  (ref) {
+    ref.onDispose(
+      () {
+        userSignupCompletionStreamController.close();
+      },
+    );
+    return userSignupCompletionStreamController.stream;
+  },
+);
+
 class LocalUserNotifier extends StateNotifier<AussieUser> {
   static final _firestoreInstance = FirebaseFirestore.instance;
   static final _authInstance = FirebaseAuth.instance;
 
   late final StreamSubscription<User?> authSubscription;
+  late final StreamSubscription<AussieUser> userSignupCompletionStream;
   bool isFirstRun = true;
-
-  LocalUserNotifier() : super(const AussieUser.firstRun()) {
+  Ref ref;
+  LocalUserNotifier(this.ref) : super(const AussieUser.firstRun()) {
     authSubscription = _authInstance.userChanges().listen(userChanges);
   }
 
@@ -20,12 +33,29 @@ class LocalUserNotifier extends StateNotifier<AussieUser> {
     if (user != null) {
       final _shot = await _firestoreInstance.doc('users/${user.uid}').get();
       if (!_shot.exists) {
-        // This is a signup event most likely so we will cancel until the creation process ends
+        // This is a signup event which hasn't finished creating the user so we will wait until
+        // The signup proceedure finishes and retry again
         // Navigation will handled in the signup page.
+        final stream = ref.read(userSignupCompletionStreamProvider.stream);
+        final completer = Completer();
+        final subscription = stream.listen(
+          (finishedSignUp) {
+            if (finishedSignUp) {
+              
+              completer.complete();
+            }
+          },
+        );
+        await completer.future;
+        subscription.cancel();
+        final _shot = await _firestoreInstance.doc('users/${user.uid}').get();
+        final _data = _shot.data()!;
+        state = AussieUser.fromJson(_data);
         return;
+      } else {
+        final _data = _shot.data()!;
+        state = AussieUser.fromJson(_data);
       }
-      final _data = _shot.data()!;
-      state = AussieUser.fromJson(_data);
     } else {
       if (isFirstRun) {
         // ignore: prefer_const_constructors
@@ -48,10 +78,9 @@ class LocalUserNotifier extends StateNotifier<AussieUser> {
   }
 }
 
-final localUserProvider =
-    StateNotifierProvider<LocalUserNotifier, AussieUser>(
-  (_) {
-    return LocalUserNotifier();
+final localUserProvider = StateNotifierProvider<LocalUserNotifier, AussieUser>(
+  (ref) {
+    return LocalUserNotifier(ref);
   },
 );
 

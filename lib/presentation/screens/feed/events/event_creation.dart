@@ -1,19 +1,12 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class EventCreationScreen extends StatelessWidget {
+class EventCreationScreen extends HookWidget {
   final Function? closeAction;
 
   const EventCreationScreen({Key? key, this.closeAction}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // void _sn(String text) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text(text),
-    //     ),
-    //   );
-    // }
-
     return WillPopScope(
       onWillPop: () async {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -28,36 +21,12 @@ class EventCreationScreen extends StatelessWidget {
             aspectRatio: 16 / 9,
             child: EventBannerPicker(),
           ),
-          actions: <Widget>[
-            BlocBuilder<SingleImagePickingCubit, SingleImagePickingState>(
-              builder: (BuildContext context, SingleImagePickingState state) {
-                Widget? child;
-                if (state is SingleImagePickingDone) {
-                  child = IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      context.read<SingleImagePickingCubit>().emitInitial();
-                    },
-                  );
-                } else if (state is SingleImagePickingInitial) {
-                  child = IconButton(
-                    tooltip:
-                        getTranslation(context, 'eventCreationAddBannerTip'),
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      context.read<SingleImagePickingCubit>().pickImage(
-                            aspectRatio:
-                                const CropAspectRatio(ratioX: 16, ratioY: 9),
-                            cropStyle: CropStyle.rectangle,
-                          );
-                    },
-                  );
-                }
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: child,
-                );
+          actions: [
+            IconButton(
+              onPressed: () async {
+                // TODO: Image picking
               },
+              icon: const Icon(Icons.add),
             ),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
 import 'package:aussie/state/event_management.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

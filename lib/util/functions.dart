@@ -1,13 +1,9 @@
 import 'dart:math';
 import 'package:aussie/localizations.dart';
-import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/state/language.dart';
-import 'package:aussie/state/signup_cubit/signup_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart' as pv;
 import 'package:shared_preferences/shared_preferences.dart';
 
 Color getRandomColor() {
@@ -67,11 +63,6 @@ Widget? buildImage(
 String getTranslation(BuildContext context, String key) =>
     AussieLocalizations.of(context).translate(key);
 
-SignupBloc getSignupBloc(BuildContext context) =>
-    BlocProvider.of<SignupBloc>(context);
-
-EventModel getEventModel(BuildContext context) =>
-    pv.Provider.of<EventModel>(context, listen: false);
 
 Future<Locale> onStartupLocale() async {
   final _perfs = await SharedPreferences.getInstance();

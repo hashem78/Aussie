@@ -1,45 +1,26 @@
 import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/state/image_picking.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EventBannerPicker extends StatelessWidget {
+class EventBannerPicker extends ConsumerWidget {
   const EventBannerPicker({
     Key? key,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<SingleImagePickingCubit, SingleImagePickingState>(
-      listener: (BuildContext context, SingleImagePickingState state) {
-        if (state is SingleImagePickingError) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(
-                const SnackBar(
-                  content: Text('No banner selected'),
-                ),
-              )
-              .closed
-              .whenComplete(
-            () {
-              context.read<SingleImagePickingCubit>().emitInitial();
-            },
-          );
-        }
-      },
-      builder: (BuildContext context, SingleImagePickingState state) {
-        Widget? child;
-        if (state is SingleImagePickingDone) {
-          child = Ink.image(
-            image: MemoryImage(
-              state.data!.byteData!.buffer.asUint8List(),
-            ),
-            fit: BoxFit.cover,
-          );
-        } else if (state is SingleImagePickingInitial) {
-          child = const SizedBox();
-        }
-        return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: child,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final imageState = ref.watch(imagePickerProvier);
+    return imageState.when(
+      picked: (_, byteData) {
+        return Ink.image(
+          image: MemoryImage(
+            byteData.first,
+          ),
+          fit: BoxFit.cover,
         );
+      },
+      notPicked: () {
+        return const SizedBox();
       },
     );
   }
