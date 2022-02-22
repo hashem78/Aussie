@@ -1,22 +1,9 @@
-import 'dart:typed_data';
-
 import 'package:aussie/models/event_image/event_image_model.dart';
+import 'package:aussie/models/image_picking_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'event_model.g.dart';
 part 'event_model.freezed.dart';
-
-class AussieByteData {
-  final ByteData? byteData;
-  final int? width;
-  final int? height;
-
-  AussieByteData({
-    this.byteData,
-    this.width,
-    this.height,
-  });
-}
 
 @freezed
 class EventModel with _$EventModel {
@@ -43,8 +30,8 @@ class EventModel with _$EventModel {
     required double lng,
     required String description,
     required String address,
-    @JsonKey(ignore: true) List<AussieByteData>? imageData,
-    @JsonKey(ignore: true) AussieByteData? bannerData,
+    @JsonKey(ignore: true) List<ImageWithAttributes>? imageData,
+    @JsonKey(ignore: true) ImageWithAttributes? bannerData,
     required String eventId,
     required String uid,
   }) = _EventModelSubmition;

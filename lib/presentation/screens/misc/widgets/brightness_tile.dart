@@ -2,6 +2,7 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/constants.dart';
 import 'package:aussie/models/theme_mode/theme_mode.dart';
 import 'package:aussie/state/theme_mode.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BrightnessTile extends ConsumerWidget {

@@ -1,5 +1,6 @@
 import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/event_state/event_state.dart';
+import 'package:aussie/models/image_picking_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
@@ -40,7 +41,7 @@ class EventManagementRepository {
           'runtimeType': 'remote',
         },
       );
-      updateGalleryLinksCallback(String value, AussieByteData byteData) {
+      updateGalleryLinksCallback(String value, ImageWithAttributes byteData) {
         return batch.update(
           _firestore.doc(path),
           <String, dynamic>{
@@ -57,17 +58,17 @@ class EventManagementRepository {
         );
       }
 
-      dlGalleryCallback(AussieByteData element) async {
+      dlGalleryCallback(ImageWithAttributes element) async {
         final Reference _refG = _storage.ref(path).child(const Uuid().v4());
 
         final TaskSnapshot _gUploadTask = await _refG.putData(
-          element.byteData!.buffer.asUint8List(),
+          element.byteData.buffer.asUint8List(),
         );
         final String downloadUrl = await _gUploadTask.ref.getDownloadURL();
         updateGalleryLinksCallback(downloadUrl, element);
       }
 
-      updateBannerLinkCallback(String link, AussieByteData byteData) {
+      updateBannerLinkCallback(String link, ImageWithAttributes byteData) {
         return batch.update(
           _firestore.doc(path),
           <String, Map<String, dynamic>>{
@@ -80,11 +81,11 @@ class EventManagementRepository {
         );
       }
 
-      dlBannerCallback(AussieByteData? element) async {
+      dlBannerCallback(ImageWithAttributes? element) async {
         if (element == null) return;
         final Reference _refB = _storage.ref(path).child(const Uuid().v4());
         final TaskSnapshot _bUploadTask = await _refB.putData(
-          element.byteData!.buffer.asUint8List(),
+          element.byteData.buffer.asUint8List(),
         );
         final String downloadUrl = await _bUploadTask.ref.getDownloadURL();
         updateBannerLinkCallback(downloadUrl, element);
@@ -94,7 +95,7 @@ class EventManagementRepository {
       final bannerData =
           model.mapOrNull(submition: (value) => value.bannerData)!;
 
-      for (final AussieByteData data in imageData) {
+      for (final ImageWithAttributes data in imageData) {
         await dlGalleryCallback(data);
       }
       await dlBannerCallback(bannerData);

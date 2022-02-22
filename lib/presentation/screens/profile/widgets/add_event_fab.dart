@@ -1,6 +1,7 @@
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/providers.dart';
 import 'package:aussie/state/theme_mode.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AnimatedAddEventFAB extends ConsumerWidget {
@@ -31,9 +32,7 @@ class AnimatedAddEventFAB extends ConsumerWidget {
       openBuilder: (BuildContext context, VoidCallback action) {
         return ProviderScope(
           overrides: [scopedUserProvider.overrideWithValue(user)],
-          child: EventCreationScreen(
-            closeAction: action,
-          ),
+          child: const EventCreationScreen(),
         );
       },
     );

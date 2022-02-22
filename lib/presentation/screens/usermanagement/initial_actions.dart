@@ -119,16 +119,21 @@ class FirstRegistrationScreen extends HookConsumerWidget {
                           const SizedBox(),
                         GestureDetector(
                           onTap: () {
-                            ref.read(imagePickerProvier.notifier).pick(
+                            ref
+                                .read(imagePickerProvier(PickerUse.signup)
+                                    .notifier)
+                                .pick(
                                   PickingMode.single,
                                   shouldCrop: true,
                                   cropStyle: CropStyle.circle,
                                 );
-                            showProfilePictureError.value =
-                                ref.read(imagePickerProvier).when(
-                                      picked: (_, __) => true,
-                                      notPicked: (() => false),
-                                    );
+                            showProfilePictureError.value = ref
+                                .read(imagePickerProvier(PickerUse.signup))
+                                .when(
+                                  picked: (_) => true,
+                                  notPicked: (() => false),
+                                  error: (() => false),
+                                );
                           },
                           child: const SignUpProfileImagePickerWidget(),
                         ),
@@ -274,10 +279,11 @@ class SecondRegistartionScreen extends HookConsumerWidget {
                         final isValid = _formKey.currentState!.validate();
 
                         if (isValid) {
-                          final profileImagePath =
-                              ref.read(imagePickerProvier).mapOrNull(
-                                    picked: ((value) => value.paths.first),
-                                  )!;
+                          final profileImagePath = ref
+                              .read(imagePickerProvier(PickerUse.signup))
+                              .mapOrNull(
+                                picked: ((value) => value.images.first.path),
+                              )!;
                           final state = await UMRepository.signup(
                             email: emailController.text,
                             password: passwordController.text,
@@ -324,20 +330,20 @@ class SignUpProfileImagePickerWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileImage = ref.watch(imagePickerProvier);
+    final profileImage = ref.watch(imagePickerProvier(PickerUse.signup));
 
     return Center(
       child: CircleAvatar(
         radius: 90,
-        child: profileImage.when(
-          picked: (paths, byteData) {
+        child: profileImage.whenOrNull(
+          picked: (images) {
             return Container(
               width: 180,
               height: 180,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                  image: MemoryImage(byteData.first),
+                  image: MemoryImage(images.first.byteData),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -349,7 +355,7 @@ class SignUpProfileImagePickerWidget extends ConsumerWidget {
               size: 180,
             );
           },
-        ),
+        )!,
       ),
     );
   }

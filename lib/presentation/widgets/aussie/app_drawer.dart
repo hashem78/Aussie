@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:aussie/util/functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:aussie/aussie_imports.dart';

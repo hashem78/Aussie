@@ -5,6 +5,7 @@ import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/image_picking_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:ui' as ui;
 
 enum PickingMode { single, multi }
 
@@ -33,6 +34,12 @@ class ImagePickingNotifier extends StateNotifier<ImagePickingState> {
     );
   }
 
+  Future<List<int>> getWidthHeight(Uint8List bytes) async {
+    final buffer = await ui.ImmutableBuffer.fromUint8List(bytes);
+    final descriptor = await ui.ImageDescriptor.encoded(buffer);
+    return [descriptor.width, descriptor.height];
+  }
+
   Future<void> pick(
     PickingMode mode, {
     ImageSource source = ImageSource.gallery,
@@ -45,6 +52,7 @@ class ImagePickingNotifier extends StateNotifier<ImagePickingState> {
       final img = await _picker.pickImage(source: source);
       if (img != null) {
         print('picked image is not null');
+
         if (shouldCrop) {
           final croppedImg = await cropImage(
             path: img.path,
@@ -53,15 +61,32 @@ class ImagePickingNotifier extends StateNotifier<ImagePickingState> {
             aspectRatioPresets: aspectRatioPresets,
           );
           if (croppedImg != null) {
+            final bytes = await croppedImg.readAsBytes();
+            final wh = await getWidthHeight(bytes);
+
             state = ImagePickingState.picked(
-              [croppedImg.path],
-              [await croppedImg.readAsBytes()],
+              [
+                ImageWithAttributes(
+                  path: croppedImg.path,
+                  width: wh[0],
+                  height: wh[1],
+                  byteData: bytes,
+                ),
+              ],
             );
           }
         } else {
+          final bytes = await img.readAsBytes();
+          final wh = await getWidthHeight(bytes);
           state = ImagePickingState.picked(
-            [img.path],
-            [await img.readAsBytes()],
+            [
+              ImageWithAttributes(
+                path: img.path,
+                width: wh[0],
+                height: wh[1],
+                byteData: bytes,
+              ),
+            ],
           );
         }
       }
@@ -69,8 +94,8 @@ class ImagePickingNotifier extends StateNotifier<ImagePickingState> {
       final imgs = await _picker.pickMultiImage();
       if (imgs != null) {
         if (shouldCrop) {
-          final croppedImagesPaths = <String>[];
-          final croppedImagesByteData = <Uint8List>[];
+          final croppedImages = <ImageWithAttributes>[];
+
           for (final img in imgs) {
             final croppedImg = await cropImage(
               path: img.path,
@@ -80,30 +105,91 @@ class ImagePickingNotifier extends StateNotifier<ImagePickingState> {
             );
 
             if (croppedImg != null) {
-              croppedImagesPaths.add(croppedImg.path);
-              croppedImagesByteData.add(await croppedImg.readAsBytes());
+              final bytes = await croppedImg.readAsBytes();
+              final wh = await getWidthHeight(bytes);
+              croppedImages.add(
+                ImageWithAttributes(
+                    path: img.path,
+                    width: wh[0],
+                    height: wh[1],
+                    byteData: bytes),
+              );
             }
           }
-          state = ImagePickingState.picked(
-            croppedImagesPaths,
-            croppedImagesByteData,
+
+          state = state.when(
+            picked: (val) {
+              return ImagePickingState.picked([...val, ...croppedImages]);
+            },
+            notPicked: () {
+              return ImagePickingState.picked(croppedImages);
+            },
+            error: () {
+              return ImagePickingState.picked(croppedImages);
+            },
           );
         } else {
-          state = ImagePickingState.picked(
-            imgs.map((e) => e.path).toList(),
-            await Future.wait(imgs.map((e) => e.readAsBytes()).toList()),
-          );
+          final images = <ImageWithAttributes>[];
+          for (final img in imgs) {
+            final bytes = await img.readAsBytes();
+            final wh = await getWidthHeight(bytes);
+            images.add(
+              ImageWithAttributes(
+                path: img.path,
+                width: wh[0],
+                height: wh[1],
+                byteData: bytes,
+              ),
+            );
+          }
+
+          state = state.when(picked: (val) {
+            return ImagePickingState.picked(
+              [...val, ...images],
+            );
+          }, notPicked: () {
+            return ImagePickingState.picked(images);
+          }, error: () {
+            return ImagePickingState.picked(images);
+          });
         }
-      } else {
-        state = const ImagePickingState.notPicked();
       }
     }
   }
+
+  void remove(int index) {
+    state = state.whenOrNull(
+      picked: (images) {
+        if (images.length == 1) {
+          return const ImagePickingState.notPicked();
+        } else {
+          images.removeAt(index);
+          return ImagePickingState.picked(images);
+        }
+      },
+      notPicked: () => const ImagePickingState.notPicked(),
+    )!;
+  }
+
+  bool validate() {
+    return state.when(
+      picked: (_) => true,
+      notPicked: () {
+        state = const ImagePickingState.error();
+        return false;
+      },
+      error: () {
+        state = const ImagePickingState.error();
+        return false;
+      },
+    );
+  }
 }
 
-final imagePickerProvier =
-    StateNotifierProvider.autoDispose<ImagePickingNotifier, ImagePickingState>(
-  (ref) {
+enum PickerUse { signup, banner, gallery }
+final imagePickerProvier = StateNotifierProvider.family
+    .autoDispose<ImagePickingNotifier, ImagePickingState, PickerUse>(
+  (ref, _) {
     return ImagePickingNotifier();
   },
 );

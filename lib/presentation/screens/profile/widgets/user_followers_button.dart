@@ -1,5 +1,6 @@
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/providers.dart';
+import 'package:aussie/util/functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserFollowersButton extends ConsumerWidget {

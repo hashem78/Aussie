@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+DateTime joinDateWithTime(DateTime date, TimeOfDay time) {
+  return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}
+
 Color getRandomColor() {
   final MaterialColor _col =
       Colors.primaries[Random().nextInt(Colors.primaries.length)];
