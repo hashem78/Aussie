@@ -10,7 +10,7 @@ class UserFeed extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(localUserProvider);
+    final user = ref.watch(scopedUserProvider);
     final uid = user.mapOrNull(signedIn: (u) => u.uid)!;
     return FirestoreQueryBuilder<EventModel>(
       query: EventManagementRepository.fetchEventsForUser(uid),
