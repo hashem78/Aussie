@@ -1,4 +1,4 @@
-import 'package:aussie/aussie_imports.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'theme_mode.freezed.dart';
 

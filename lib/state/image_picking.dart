@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/models/image_picking_state.dart';
+import 'package:aussie/models/image_picking_state/image_picking_state.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:ui' as ui;
 

@@ -1,6 +1,8 @@
-import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/models/event/event_model.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
 import 'package:aussie/repositories/event_management_repository.dart';
 import 'package:aussie/state/event_management.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:uuid/uuid.dart';

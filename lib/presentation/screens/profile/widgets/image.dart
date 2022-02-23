@@ -1,4 +1,4 @@
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/state/user_management.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,12 +18,13 @@ class ProfileScreenImage extends ConsumerWidget {
       imageBuilder: (context, imageProvider) {
         return Hero(
           tag: heroTag,
-          child:  AnimatedContainer(
+          child: AnimatedContainer(
             duration: const Duration(seconds: 1),
             width: 120,
             height: 120,
             decoration: BoxDecoration(
-              border: Border.all(width: 4,color: Theme.of(context).canvasColor),
+              border:
+                  Border.all(width: 4, color: Theme.of(context).canvasColor),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(

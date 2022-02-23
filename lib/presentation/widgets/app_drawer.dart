@@ -1,8 +1,12 @@
+import 'package:aussie/presentation/screens/profile/profile.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
+import 'package:aussie/state/user_management.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/providers/providers.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uuid/uuid.dart';
 
 class AussieAppDrawer extends StatelessWidget {

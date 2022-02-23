@@ -1,7 +1,9 @@
-import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/followers_state/followers_state.dart';
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
+
 import 'package:aussie/repositories/followers_repository.dart';
+import 'package:aussie/state/user_management.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FollowingStatusNotifier extends StateNotifier<FollowersState> {

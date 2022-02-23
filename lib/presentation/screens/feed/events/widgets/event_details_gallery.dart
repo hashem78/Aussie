@@ -1,6 +1,7 @@
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/presentation/widgets/aussie/aussie_photo_view.dart';
+import 'package:aussie/presentation/widgets/aussie_photo_view.dart';
 import 'package:aussie/state/event_management.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EventDetailsGallery extends ConsumerWidget {

@@ -1,8 +1,9 @@
 import 'package:aussie/presentation/screens/feed/feeds/public_feed.dart';
+import 'package:aussie/presentation/widgets/app_drawer.dart';
+import 'package:aussie/presentation/widgets/scaffold.dart';
 import 'package:aussie/util/functions.dart';
 import 'package:flutter/material.dart';
 
-import 'package:aussie/presentation/widgets/aussie/aussie_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FeedScreen extends StatelessWidget {

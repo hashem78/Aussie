@@ -1,4 +1,8 @@
-import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/presentation/screens/profile/widgets/details.dart';
+import 'package:aussie/presentation/screens/profile/widgets/follow_user_button.dart';
+import 'package:aussie/presentation/screens/profile/widgets/stats.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard({

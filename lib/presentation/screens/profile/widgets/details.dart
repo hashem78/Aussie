@@ -1,4 +1,4 @@
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/state/user_management.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
