@@ -15,9 +15,12 @@ class PublicAttendButton extends HookConsumerWidget {
     final e = ref.watch(scopedEventProvider);
     final user = ref.watch(localUserProvider);
 
-    final isUserAttending = useValueNotifier(user.mapOrNull(
-      signedIn: (u) => u.attends!.contains(e.eventId),
-    )!);
+    final isUserAttending = useValueNotifier(
+      user.mapOrNull(
+            signedIn: (u) => u.attends?.contains(e.eventId) ?? false,
+          ) ??
+          false,
+    );
     Widget child;
     if (!useValueListenable(isUserAttending)) {
       child = TextButton(

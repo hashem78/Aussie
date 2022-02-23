@@ -64,7 +64,7 @@ class PublicEventCard extends ConsumerWidget {
       );
     }, data: (user) {
       final isLoggedInUser = user.mapOrNull(
-        signedIn: (u) => u.uid == localUser.mapOrNull(signedIn: (u) => u.uid)!,
+        signedIn: (u) => u.uid == (localUser.mapOrNull(signedIn: (u) => u.uid) ?? false),
       )!;
       return ProviderScope(
         overrides: [
