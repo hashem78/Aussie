@@ -14,7 +14,6 @@ class AussieAppDrawer extends StatelessWidget {
       child: Column(
         children: const [
           DrawerHeader(),
-          Divider(),
           Spacer(),
           DrawerItem(
             title: ScreenData.settingsTitle,
@@ -41,68 +40,72 @@ class DrawerHeader extends ConsumerWidget {
     final heroTag = const Uuid().v4();
 
     return SafeArea(
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) {
-                return ProviderScope(
-                  overrides: [
-                    scopedUserProvider.overrideWithValue(user),
-                  ],
-                  child: UserProfileScreen(
-                    heroTag: heroTag,
-                  ),
-                );
-              },
-            ),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: 1.sw,
-            height: 0.1.sh,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                CachedNetworkImage(
-                  imageUrl: pfp,
-                  imageBuilder: (context, imageProvider) {
-                    return Hero(
-                      tag: heroTag,
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5,
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
+      child: Material(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) {
+                  return ProviderScope(
+                    overrides: [
+                      scopedUserProvider.overrideWithValue(user),
+                    ],
+                    child: UserProfileScreen(
+                      heroTag: heroTag,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+          child: IntrinsicHeight(
+            child: Container(
+              width: 1.sw,
+              margin: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CachedNetworkImage(
+                    imageUrl: pfp,
+                    imageBuilder: (context, imageProvider) {
+                      return Hero(
+                        tag: heroTag,
+                        child: Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.fill,
                             ),
-                          ],
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.fill,
                           ),
                         ),
-                      ),
-                    );
-                  },
-                ),
-                Text(
-                  user.mapOrNull(signedIn: (value) => value.username)!,
-                  maxLines: 1,
-                  
-                  style: TextStyle(
-                    fontSize: 150.sp,
-                    
-                    color: Colors.black.withOpacity(0.5),
+                      );
+                    },
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 0.02.sh,
+                  ),
+                  Text(
+                    user.mapOrNull(signedIn: (value) => value.username)!,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 130.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    user.mapOrNull(signedIn: (value) => value.email)!,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 75.sp,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
