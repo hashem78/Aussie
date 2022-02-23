@@ -74,6 +74,10 @@ class MyApp extends ConsumerWidget {
               themeMode: themeMode!.mode,
               theme: ThemeData(
                 brightness: themeMode.brightness,
+                inputDecorationTheme: const InputDecorationTheme(
+                  filled: true,
+                  border: InputBorder.none,
+                ),
                 pageTransitionsTheme: const PageTransitionsTheme(
                   builders: {
                     TargetPlatform.android: ZoomPageTransitionsBuilder(),

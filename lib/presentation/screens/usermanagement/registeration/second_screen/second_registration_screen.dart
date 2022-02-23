@@ -52,8 +52,6 @@ class SecondRegistartionScreen extends HookConsumerWidget {
                     controller: emailController,
                     decoration: const InputDecoration(
                       labelText: 'Email',
-                      filled: true,
-                      border: InputBorder.none,
                       prefixIcon: Icon(Icons.email),
                     ),
                     validator: (val) => EmailValidator(
@@ -64,8 +62,6 @@ class SecondRegistartionScreen extends HookConsumerWidget {
                     controller: passwordController,
                     decoration: const InputDecoration(
                       labelText: 'Password',
-                      filled: true,
-                      border: InputBorder.none,
                       prefixIcon: Icon(Icons.password),
                     ),
                     validator: passwordValidator,
@@ -75,8 +71,6 @@ class SecondRegistartionScreen extends HookConsumerWidget {
                     controller: passwordConfirmationController,
                     decoration: const InputDecoration(
                       labelText: 'Confirm Password',
-                      filled: true,
-                      border: InputBorder.none,
                       prefixIcon: Icon(Icons.password),
                     ),
                     obscureText: true,

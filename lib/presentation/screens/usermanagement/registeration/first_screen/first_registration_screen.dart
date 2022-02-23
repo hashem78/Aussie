@@ -37,8 +37,6 @@ class FirstRegistrationScreen extends HookConsumerWidget {
                       controller: userNameController,
                       decoration: const InputDecoration(
                         hintText: 'User name',
-                        filled: true,
-                        border: InputBorder.none,
                         prefixIcon: Icon(Icons.account_circle),
                       ),
                       validator: (val) => RequiredValidator(
@@ -49,8 +47,6 @@ class FirstRegistrationScreen extends HookConsumerWidget {
                       controller: fullNameController,
                       decoration: const InputDecoration(
                         hintText: 'Full name',
-                        filled: true,
-                        border: InputBorder.none,
                         prefixIcon: Icon(Icons.password),
                       ),
                       validator: (val) => RequiredValidator(

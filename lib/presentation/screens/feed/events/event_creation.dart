@@ -248,8 +248,7 @@ class EventCreationLocationPicker extends HookConsumerWidget {
               readOnly: true,
               maxLines: 2,
               decoration: InputDecoration(
-                border: InputBorder.none,
-                filled: true,
+
                 hintText: locationController.whenOrNull(
                   notPicked: () => 'Select a location',
                   error: () {
@@ -296,10 +295,7 @@ class EventCreationDescription extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             expands: true,
-            decoration: const InputDecoration(
-              border: InputBorder.none,
-              filled: true,
-            ),
+
             validator: (val) => MultiValidator(
               [
                 RequiredValidator(errorText: 'This field is required'),
@@ -348,8 +344,6 @@ class EventCreationTitles extends StatelessWidget {
           autovalidateMode: AutovalidateMode.always,
           decoration: const InputDecoration(
             labelText: 'Title',
-            border: InputBorder.none,
-            filled: true,
             prefixIcon: Icon(Icons.text_fields),
           ),
           validator: (val) => MultiValidator(
@@ -368,8 +362,6 @@ class EventCreationTitles extends StatelessWidget {
           autovalidateMode: AutovalidateMode.always,
           decoration: const InputDecoration(
             labelText: 'Sub title',
-            border: InputBorder.none,
-            filled: true,
             prefixIcon: Icon(Icons.text_fields),
           ),
           validator: (val) => MultiValidator(
@@ -672,8 +664,6 @@ class EventCreationDateRangeSection extends HookConsumerWidget {
               controller: txtCntrl1,
               readOnly: true,
               decoration: const InputDecoration(
-                border: InputBorder.none,
-                filled: true,
                 prefixIcon: Icon(Icons.date_range),
                 labelText: 'Starting on',
               ),
@@ -691,8 +681,7 @@ class EventCreationDateRangeSection extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.always,
               readOnly: true,
               decoration: const InputDecoration(
-                border: InputBorder.none,
-                filled: true,
+
                 prefixIcon: Icon(Icons.date_range),
                 labelText: 'Ending on',
               ),
