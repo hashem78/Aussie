@@ -1,7 +1,11 @@
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
+import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
+
+import 'package:aussie/repositories/attendees_repository.dart';
 import 'package:aussie/repositories/user_management_repository.dart';
 import 'package:aussie/state/event_management.dart';
+import 'package:aussie/state/user_management.dart';
+import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
@@ -36,7 +40,7 @@ class PaginatedAtendees extends ConsumerWidget {
                     overrides: [
                       scopedUserProvider.overrideWithValue(snapshot.data!)
                     ],
-                    child:  CardOwner(
+                    child: CardOwner(
                       heroTag: const Uuid().v4(),
                     ),
                   );

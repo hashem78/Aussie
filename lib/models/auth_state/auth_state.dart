@@ -1,4 +1,4 @@
-import 'package:aussie/aussie_imports.dart';
+import 'package:aussie/models/usermanagement/user/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'auth_state.freezed.dart';
 

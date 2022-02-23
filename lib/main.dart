@@ -1,16 +1,24 @@
+import 'package:aussie/localizations.dart';
+import 'package:aussie/presentation/screens/misc/settings.dart';
+import 'package:aussie/presentation/screens/screen_data.dart';
 import 'package:aussie/presentation/screens/splash_screen.dart';
 import 'package:aussie/state/language.dart';
 import 'package:aussie/state/shared_prefrences.dart';
 import 'package:aussie/state/theme_mode.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'aussie_imports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance();
 
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 

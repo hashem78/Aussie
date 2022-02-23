@@ -1,5 +1,5 @@
-import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/state/shared_prefrences.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 class LocaleNotifier extends StateNotifier<Locale> {

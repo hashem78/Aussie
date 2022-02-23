@@ -1,8 +1,11 @@
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/presentation/screens/feed/events/event_creation.dart';
+
 import 'package:aussie/state/theme_mode.dart';
+import 'package:aussie/state/user_management.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:animations/animations.dart';
 
 class AnimatedAddEventFAB extends ConsumerWidget {
   const AnimatedAddEventFAB({

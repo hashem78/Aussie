@@ -1,18 +1,22 @@
-import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/models/date_range_picking_state/date_range_picking_state.dart';
+import 'package:aussie/models/event/event_model.dart';
 import 'package:aussie/models/location_picking_state/location_picking_state.dart';
 import 'package:aussie/presentation/screens/feed/events/widgets/location_picker.dart';
-import 'package:aussie/providers/providers.dart';
 import 'package:aussie/repositories/event_management_repository.dart';
 import 'package:aussie/state/date_range_picking.dart';
 import 'package:aussie/state/image_picking.dart';
 import 'package:aussie/state/location_picking.dart';
+import 'package:aussie/state/user_management.dart';
 import 'package:aussie/util/functions.dart';
+import 'package:flutter/material.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
+import 'package:place_picker/entities/location_result.dart';
 import 'package:uuid/uuid.dart';
 
 class EventCreationScreen extends HookWidget {

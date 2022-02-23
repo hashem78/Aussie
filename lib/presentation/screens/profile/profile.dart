@@ -1,8 +1,14 @@
 import 'dart:ui';
 
-import 'package:aussie/aussie_imports.dart';
-import 'package:aussie/providers/providers.dart';
+import 'package:aussie/presentation/screens/feed/feeds/user_feed.dart';
+import 'package:aussie/presentation/screens/profile/widgets/add_event_fab.dart';
+import 'package:aussie/presentation/screens/profile/widgets/image.dart';
+import 'package:aussie/state/user_management.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
