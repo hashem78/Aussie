@@ -5,13 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CardOwner extends ConsumerWidget {
   const CardOwner({
     Key? key,
+    required this.heroTag,
   }) : super(key: key);
-
+  final String heroTag;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
-    final pfp = user.mapOrNull(signedIn: (value) => value.profilePictureLink);
-    final uname = user.mapOrNull(signedIn: (value) => value.username);
+    final pfp = user.mapOrNull(signedIn: (value) => value.profilePictureLink)!;
+
+    final uname = user.mapOrNull(signedIn: (value) => value.username)!;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
@@ -22,35 +24,44 @@ class CardOwner extends ConsumerWidget {
               builder: (_) {
                 return ProviderScope(
                   overrides: [scopedUserProvider.overrideWithValue(user)],
-                  child: const UserProfileScreen(),
+                  child: UserProfileScreen(
+                    heroTag: heroTag,
+                  ),
                 );
               },
             ),
           );
         },
-        child: SizedBox(
-          height: 50,
-          child: Row(
-            children: <Widget>[
-              CachedNetworkImage(
-                imageUrl: pfp!,
-                imageBuilder: (
-                  BuildContext context,
-                  ImageProvider<Object> imageProvider,
-                ) {
-                  return SizedBox(
-                    width: 50,
-                    child: Ink.image(image: imageProvider),
-                  );
-                },
-              ),
-              SizedBox(width: .05.sw),
-              Text(
-                uname!,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-            ],
-          ),
+        child: Row(
+          children: <Widget>[
+            CachedNetworkImage(
+              imageUrl: pfp,
+              imageBuilder: (
+                BuildContext context,
+                ImageProvider<Object> imageProvider,
+              ) {
+                return Hero(
+                  tag: heroTag,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            SizedBox(width: .05.sw),
+            Text(
+              uname,
+              style: TextStyle(fontSize: 75.sp),
+            ),
+          ],
         ),
       ),
     );

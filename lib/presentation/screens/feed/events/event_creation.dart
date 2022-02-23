@@ -13,7 +13,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:place_picker/uuid.dart';
+import 'package:uuid/uuid.dart';
 
 class EventCreationScreen extends HookWidget {
   const EventCreationScreen({Key? key}) : super(key: key);
@@ -167,7 +167,7 @@ class EventCreationSubmitionButton extends ConsumerWidget {
             final uid = ref
                 .read(scopedUserProvider)
                 .mapOrNull(signedIn: (user) => user.uid)!;
-            final eventId = Uuid().generateV4();
+            final eventId = const Uuid().v4();
             await EventManagementRepository.addEvent(
               EventModel.submition(
                 bannerData: banner,

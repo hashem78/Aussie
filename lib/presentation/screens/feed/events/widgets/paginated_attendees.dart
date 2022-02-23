@@ -4,6 +4,7 @@ import 'package:aussie/repositories/user_management_repository.dart';
 import 'package:aussie/state/event_management.dart';
 import 'package:flutterfire_ui/firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
 
 class PaginatedAtendees extends ConsumerWidget {
   const PaginatedAtendees({Key? key}) : super(key: key);
@@ -35,7 +36,9 @@ class PaginatedAtendees extends ConsumerWidget {
                     overrides: [
                       scopedUserProvider.overrideWithValue(snapshot.data!)
                     ],
-                    child: const CardOwner(),
+                    child:  CardOwner(
+                      heroTag: const Uuid().v4(),
+                    ),
                   );
                 }
                 return const Center(child: CircularProgressIndicator());

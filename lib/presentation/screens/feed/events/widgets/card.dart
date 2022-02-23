@@ -47,8 +47,11 @@ class EventCard extends ConsumerWidget {
 }
 
 class PublicEventCard extends ConsumerWidget {
-  const PublicEventCard({Key? key}) : super(key: key);
-
+  const PublicEventCard({
+    Key? key,
+    required this.heroTag,
+  }) : super(key: key);
+  final String heroTag;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final e = ref.watch(scopedEventProvider);
@@ -93,7 +96,11 @@ class PublicEventCard extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      const Expanded(child: CardOwner()),
+                      Expanded(
+                        child: CardOwner(
+                          heroTag: heroTag,
+                        ),
+                      ),
                       if (!isLoggedInUser) const PublicAttendButton(),
                     ],
                   ),

@@ -19,6 +19,7 @@ class UserFeed extends ConsumerWidget {
           return Text('error ${snapshot.error}');
         }
         return ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: snapshot.docs.length,
           itemBuilder: (context, index) {

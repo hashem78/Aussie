@@ -23,7 +23,10 @@ class FeedScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: const PublicFeed(),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: PublicFeed(),
+      ),
     );
   }
 }

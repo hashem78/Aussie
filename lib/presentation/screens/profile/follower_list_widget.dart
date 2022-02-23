@@ -4,6 +4,7 @@ import 'package:aussie/repositories/followers_repository.dart';
 import 'package:aussie/repositories/user_management_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:uuid/uuid.dart';
 
 enum FollowersType { follwers, following }
 
@@ -43,7 +44,9 @@ class FollowerListWidget extends ConsumerWidget {
                       overrides: [
                         scopedUserProvider.overrideWithValue(snapshot.data!)
                       ],
-                      child: const CardOwner(),
+                      child: CardOwner(
+                        heroTag: const Uuid().v4(),
+                      ),
                     );
                   }
                   return const Center(child: CircularProgressIndicator());

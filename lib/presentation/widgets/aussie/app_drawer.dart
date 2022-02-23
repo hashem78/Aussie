@@ -1,143 +1,46 @@
-import 'dart:math' as math;
-
-import 'package:aussie/util/functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:aussie/aussie_imports.dart';
 import 'package:aussie/providers/providers.dart';
-
-class _DrawerItemModel {
-  final String tTitle;
-  final Color iconColor;
-  final IconData iconData;
-  final String navPath;
-
-  const _DrawerItemModel({
-    required this.tTitle,
-    required this.iconData,
-    this.iconColor = Colors.black,
-    required this.navPath,
-  });
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is _DrawerItemModel &&
-        other.tTitle == tTitle &&
-        other.iconColor == iconColor &&
-        other.iconData == iconData &&
-        other.navPath == navPath;
-  }
-
-  @override
-  int get hashCode {
-    return tTitle.hashCode ^
-        iconColor.hashCode ^
-        iconData.hashCode ^
-        navPath.hashCode;
-  }
-}
-
-class _DrawerSection extends StatelessWidget {
-  final List<_DrawerItemModel>? models;
-  final IconData? sectionIcon;
-  final String tSectionTitle;
-
-  final Color? tilesColor;
-  const _DrawerSection({
-    this.models,
-    this.sectionIcon,
-    required this.tSectionTitle,
-    this.tilesColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _DrawerSectionTitle(
-          iconData: sectionIcon,
-          title: getTranslation(context, tSectionTitle),
-        ),
-        ...models!
-            .map(
-              (_DrawerItemModel e) => _DrawerItem(e, color: tilesColor),
-            )
-            .toList(),
-      ],
-    );
-  }
-}
+import 'package:aussie/util/functions.dart';
+import 'package:uuid/uuid.dart';
 
 class AussieAppDrawer extends StatelessWidget {
-  static const List<_DrawerItemModel> miscModels = <_DrawerItemModel>[
-    _DrawerItemModel(
-      tTitle: ScreenData.settingsTitle,
-      iconColor: Colors.grey,
-      iconData: Icons.settings,
-      navPath: ScreenData.settingsNavPath,
-    ),
-  ];
-  static const List<_DrawerSection> _sections = <_DrawerSection>[
-    _DrawerSection(
-      sectionIcon: Icons.miscellaneous_services,
-      tSectionTitle: 'miscSectionTitle',
-      tilesColor: Colors.blue,
-      models: miscModels,
-    ),
-  ];
-
   const AussieAppDrawer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Drawer(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            const SliverToBoxAdapter(child: _DrawerHeader()),
-            buildSliverList(_sections)
-          ],
-        ),
-      ),
-    );
-  }
-
-  SliverList buildSliverList(List<_DrawerSection> sections) {
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          final int itemIndex = index ~/ 2;
-          if (index.isEven) {
-            return sections[itemIndex];
-          }
-          return const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Divider(
-              color: Colors.grey,
-              thickness: 2,
-            ),
-          );
-        },
-        childCount: math.max(
-          0,
-          sections.length * 2 - 1,
-        ),
+    return Drawer(
+      elevation: 10,
+      child: Column(
+        children: const [
+          DrawerHeader(),
+          Divider(),
+          Spacer(),
+          DrawerItem(
+            title: ScreenData.settingsTitle,
+            iconData: Icons.settings,
+            navPath: ScreenData.settingsNavPath,
+          ),
+        ],
       ),
     );
   }
 }
 
-class _DrawerHeader extends ConsumerWidget {
-  const _DrawerHeader({
+class DrawerHeader extends ConsumerWidget {
+  const DrawerHeader({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
+    final pfp = user.mapOrNull(
+      signedIn: (value) => value.profilePictureLink,
+    )!;
+    final heroTag = const Uuid().v4();
 
-    return DrawerHeader(
+    return SafeArea(
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -147,106 +50,86 @@ class _DrawerHeader extends ConsumerWidget {
                   overrides: [
                     scopedUserProvider.overrideWithValue(user),
                   ],
-                  child: const UserProfileScreen(),
+                  child: UserProfileScreen(
+                    heroTag: heroTag,
+                  ),
                 );
               },
             ),
           );
         },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                child: CachedNetworkImage(
-                  imageUrl: user.mapOrNull(
-                      signedIn: (value) => value.profilePictureLink)!,
-                  imageBuilder: (BuildContext context,
-                      ImageProvider<Object> imageProvider) {
-                    return Ink.image(image: imageProvider);
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SizedBox(
+            width: 1.sw,
+            height: 0.1.sh,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                CachedNetworkImage(
+                  imageUrl: pfp,
+                  imageBuilder: (context, imageProvider) {
+                    return Hero(
+                      tag: heroTag,
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5,
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                            ),
+                          ],
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    );
                   },
                 ),
-              ),
+                Text(
+                  user.mapOrNull(signedIn: (value) => value.username)!,
+                  maxLines: 1,
+                  
+                  style: TextStyle(
+                    fontSize: 150.sp,
+                    
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                )
+              ],
             ),
-            Expanded(
-              child: AutoSizeText(
-                user.mapOrNull(signedIn: (value) => value.username)!,
-                maxLines: 1,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5!
-                    .copyWith(fontSize: 150.sp),
-              ),
-            )
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _DrawerItem extends StatelessWidget {
-  final _DrawerItemModel model;
-
-  final Color? color;
-
-  const _DrawerItem(
-    this.model, {
-    this.color = Colors.lightBlue,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        ListTile(
-          onTap: () {
-            Navigator.of(context).pushNamed(model.navPath);
-          },
-          leading: Icon(model.iconData),
-          title: Text(
-            getTranslation(context, model.tTitle),
-            style: TextStyle(fontSize: 80.sp),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DrawerSectionTitle extends StatelessWidget {
-  final IconData? iconData;
-
-  final String? title;
-  const _DrawerSectionTitle({
-    required this.iconData,
+class DrawerItem extends StatelessWidget {
+  const DrawerItem({
+    Key? key,
     required this.title,
-  }) : assert(iconData != null && title != null);
-
+    required this.iconData,
+    required this.navPath,
+  }) : super(key: key);
+  final String title;
+  final IconData iconData;
+  final String navPath;
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Row(
-        children: <Widget>[
-          const SizedBox(
-            width: 10,
-          ),
-          Icon(iconData, size: 140.sp),
-          const SizedBox(
-            width: 10,
-          ),
-          Expanded(
-            flex: 5,
-            child: Text(
-              title!,
-              style: TextStyle(fontSize: 120.sp),
-            ),
-          ),
-        ],
+    return ListTile(
+      onTap: () {
+        Navigator.of(context).pushNamed(navPath);
+      },
+      leading: Icon(iconData),
+      title: Text(
+        getTranslation(context, title),
       ),
     );
   }

@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserProfileScreen extends ConsumerWidget {
+  final String heroTag;
   const UserProfileScreen({
     Key? key,
+    required this.heroTag,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class UserProfileScreen extends ConsumerWidget {
           SliverToBoxAdapter(
             child: ProfileCard(
               allowFollowing: !isLoggedInUser,
+              heroTag: heroTag,
             ),
           ),
           const SliverToBoxAdapter(

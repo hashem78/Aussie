@@ -3,6 +3,7 @@ import 'package:aussie/repositories/event_management_repository.dart';
 import 'package:aussie/state/event_management.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';
+import 'package:uuid/uuid.dart';
 
 class PublicFeed extends StatelessWidget {
   const PublicFeed({Key? key}) : super(key: key);
@@ -29,7 +30,9 @@ class PublicFeed extends StatelessWidget {
               overrides: [
                 scopedEventProvider.overrideWithValue(event),
               ],
-              child: const PublicEventCard(),
+              child: PublicEventCard(
+                heroTag: const Uuid().v4(),
+              ),
             );
           },
         );
