@@ -12,7 +12,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
   runApp(
     ProviderScope(
