@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/profile/follower_list_widget.dart';
+import 'package:aussie/presentation/screens/profile/follower_list_screen.dart';
 import 'package:aussie/state/user_management.dart';
 
 import 'package:aussie/util/functions.dart';
@@ -27,13 +27,13 @@ class UserFollowersButton extends ConsumerWidget {
       onPressed: () {
         Navigator.push(
           context,
-          MaterialPageRoute<FollowerListWidget>(
+          MaterialPageRoute<FollowerListScreen>(
             builder: (BuildContext context) {
               return ProviderScope(
                 overrides: [
                   scopedUserProvider.overrideWithValue(user),
                 ],
-                child: const FollowerListWidget(FollowersType.follwers),
+                child: const FollowerListScreen(FollowersType.follwers),
               );
             },
           ),

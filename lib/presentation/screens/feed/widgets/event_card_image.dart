@@ -23,11 +23,6 @@ class EventCardImage extends ConsumerWidget {
             image: imageProvider,
           );
         },
-        progressIndicatorBuilder: (context, String url, progress) {
-          return Center(
-            child: CircularProgressIndicator(value: progress.progress),
-          );
-        },
       ),
     );
   }

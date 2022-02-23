@@ -57,64 +57,75 @@ class PublicEventCard extends ConsumerWidget {
     final e = ref.watch(scopedEventProvider);
     final user = ref.watch(remoteUserProvider(e.uid));
     final localUser = ref.watch(localUserProvider);
-
-    return user.when(loading: () {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }, data: (user) {
-      final isLoggedInUser = user.mapOrNull(
-        signedIn: (u) =>
-            u.uid == (localUser.mapOrNull(signedIn: (u) => u.uid) ?? false),
-      )!;
-      return ProviderScope(
-        overrides: [
-          scopedUserProvider.overrideWithValue(user),
-          scopedEventProvider.overrideWithValue(e),
-        ],
-        child: Card(
-          shape: const RoundedRectangleBorder(),
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ProviderScope(
-                      overrides: [
-                        scopedEventProvider.overrideWithValue(e),
-                      ],
-                      child: const EventDetails(),
-                    );
-                  },
-                ),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+    final banner = e.mapOrNull(remote: (val) => val.bannerImage)!;
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 500),
+      child: user.when(
+        loading: () {
+          return Card(
+            shape: const RoundedRectangleBorder(),
+            child: SizedBox(
+              width: banner.width.toDouble(),
+              height: banner.height.toDouble(),
+            ),
+          );
+        },
+        data: (user) {
+          final isLoggedInUser = user.mapOrNull(
+            signedIn: (u) =>
+                u.uid == (localUser.mapOrNull(signedIn: (u) => u.uid) ?? false),
+          )!;
+          return ProviderScope(
+            overrides: [
+              scopedUserProvider.overrideWithValue(user),
+              scopedEventProvider.overrideWithValue(e),
+            ],
+            child: Card(
+              shape: const RoundedRectangleBorder(),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProviderScope(
+                          overrides: [
+                            scopedEventProvider.overrideWithValue(e),
+                          ],
+                          child: const EventDetails(),
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: CardOwner(
-                          heroTag: heroTag,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: CardOwner(
+                              heroTag: heroTag,
+                            ),
+                          ),
+                          if (!isLoggedInUser) const PublicAttendButton(),
+                        ],
                       ),
-                      if (!isLoggedInUser) const PublicAttendButton(),
+                      const EventCardImage(),
+                      const EventCardDetails(),
                     ],
                   ),
-                  const EventCardImage(),
-                  const EventCardDetails(),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      );
-    }, error: (err, st) {
-      return Text(err as String);
-    });
+          );
+        },
+        error: (err, st) {
+          return Text(err as String);
+        },
+      ),
+    );
   }
 }

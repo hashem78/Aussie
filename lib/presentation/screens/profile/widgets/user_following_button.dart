@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/profile/follower_list_widget.dart';
+import 'package:aussie/presentation/screens/profile/follower_list_screen.dart';
 import 'package:aussie/state/user_management.dart';
 
 import 'package:aussie/util/functions.dart';
@@ -25,7 +25,7 @@ class UserFollowingButton extends ConsumerWidget {
                 overrides: [
                   scopedUserProvider.overrideWithValue(user),
                 ],
-                child: const FollowerListWidget(FollowersType.following),
+                child: const FollowerListScreen(FollowersType.following),
               );
             },
           ),

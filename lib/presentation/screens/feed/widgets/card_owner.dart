@@ -59,6 +59,9 @@ class CardOwner extends ConsumerWidget {
                   ),
                 );
               },
+              placeholder: (context,_){
+                return const SizedBox(width: 40,height: 40);
+              },
             ),
             SizedBox(width: .05.sw),
             Text(

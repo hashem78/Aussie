@@ -16,7 +16,7 @@ class PublicFeed extends StatelessWidget {
       query: EventManagementRepository.fetchPublicEvents(),
       builder: (context, snapshot, child) {
         if (snapshot.isFetching) {
-          return const CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           return Text('error ${snapshot.error}');
