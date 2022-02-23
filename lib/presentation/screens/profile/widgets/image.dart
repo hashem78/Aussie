@@ -18,10 +18,12 @@ class ProfileScreenImage extends ConsumerWidget {
       imageBuilder: (context, imageProvider) {
         return Hero(
           tag: heroTag,
-          child:  Container(
+          child:  AnimatedContainer(
+            duration: const Duration(seconds: 1),
             width: 120,
             height: 120,
             decoration: BoxDecoration(
+              border: Border.all(width: 4,color: Theme.of(context).canvasColor),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -32,7 +34,7 @@ class ProfileScreenImage extends ConsumerWidget {
               ],
               image: DecorationImage(
                 image: imageProvider,
-                fit: BoxFit.fill,
+                fit: BoxFit.contain,
               ),
             ),
           ),

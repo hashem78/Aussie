@@ -13,7 +13,7 @@ class BannerImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return buildImage(
       profileBannerLink,
-      fit: BoxFit.cover,
+      fit: BoxFit.fitWidth,
       colorFilter: colorFilter,
     )!;
   }
