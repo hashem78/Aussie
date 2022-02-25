@@ -1,5 +1,4 @@
 import 'package:aussie/state/event_management.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,11 +15,11 @@ class EventCardDescription extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          AutoSizeText(
+          Text(
             e.title,
             style: Theme.of(context).textTheme.headline6,
           ),
-          AutoSizeText(
+          Text(
             e.address,
             style: Theme.of(context).textTheme.overline,
           ),

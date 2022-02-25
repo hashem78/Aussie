@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +20,7 @@ class SettingsAppbar extends StatelessWidget {
         background: Stack(
           children: <Widget>[
             Center(
-              child: AutoSizeText(
+              child: Text(
                 getTranslation(context, tTitle),
                 maxLines: 1,
                 textAlign: TextAlign.center,

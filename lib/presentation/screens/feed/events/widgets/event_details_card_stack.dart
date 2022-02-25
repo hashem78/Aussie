@@ -1,7 +1,6 @@
 import 'package:aussie/models/gmap/gmap.dart';
 import 'package:aussie/presentation/screens/gmap_screen.dart';
 import 'package:aussie/state/event_management.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +31,7 @@ class EventCardStack extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-            child: AutoSizeText(
+            child: Text(
               e.title,
               style: Theme.of(context)
                   .textTheme
@@ -40,7 +39,7 @@ class EventCardStack extends ConsumerWidget {
                   .copyWith(color: Colors.black),
             ),
           ),
-          AutoSizeText(
+          Text(
             e.subtitle,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline4,
@@ -116,7 +115,7 @@ class EventCardStack extends ConsumerWidget {
                         color: Colors.red,
                       ),
                       Expanded(
-                        child: AutoSizeText(
+                        child: Text(
                           e.address,
                           maxLines: 1,
                           textAlign: TextAlign.center,
