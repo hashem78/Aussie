@@ -7,6 +7,7 @@ import 'package:aussie/state/event_management.dart';
 import 'package:aussie/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EventCard extends ConsumerWidget {
   const EventCard({Key? key}) : super(key: key);
@@ -57,16 +58,15 @@ class PublicEventCard extends ConsumerWidget {
     final e = ref.watch(scopedEventProvider);
     final user = ref.watch(remoteUserProvider(e.uid));
     final localUser = ref.watch(localUserProvider);
-    final banner = e.mapOrNull(remote: (val) => val.bannerImage)!;
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(seconds: 1),
       child: user.when(
         loading: () {
           return Card(
             shape: const RoundedRectangleBorder(),
             child: SizedBox(
-              width: banner.width.toDouble(),
-              height: banner.height.toDouble(),
+              width: 1.sw,
+              height: 0.4.sh,
             ),
           );
         },

@@ -19,7 +19,7 @@ class PublicFeed extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
-          return Text('error ${snapshot.error}');
+          return Center(child: Text('error ${snapshot.error}'));
         }
         return ListView.builder(
           itemCount: snapshot.docs.length,
