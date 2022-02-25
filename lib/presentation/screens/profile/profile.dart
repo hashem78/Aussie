@@ -1,69 +1,33 @@
-import 'dart:ui';
-
-import 'package:aussie/presentation/screens/feed/feeds/user_feed.dart';
+import 'package:aussie/models/event/event_model.dart';
+import 'package:aussie/presentation/screens/feed/events/widgets/card.dart';
 import 'package:aussie/presentation/screens/profile/widgets/add_event_fab.dart';
 import 'package:aussie/presentation/screens/profile/widgets/image.dart';
+import 'package:aussie/presentation/screens/profile/widgets/profile_card.dart';
+import 'package:aussie/repositories/event_management_repository.dart';
+import 'package:aussie/state/event_management.dart';
 import 'package:aussie/state/user_management.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutterfire_ui/firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UserProfileScreen extends ConsumerStatefulWidget {
-  final String heroTag;
+class UserProfileScreen extends HookConsumerWidget {
   const UserProfileScreen({
     Key? key,
     required this.heroTag,
   }) : super(key: key);
 
-  @override
-  ConsumerState<UserProfileScreen> createState() => _UserProfileScreenState();
-}
-
-class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
-  late final ScrollController scrollController;
-  final expandedHeight = 0.3.sh;
-  final pImageCenterHeight = 0.22.sh;
-  double top = 0.22.sh;
-  @override
-  void initState() {
-    scrollController = ScrollController();
-    scrollController.addListener(() {
-      setState(() {});
-    });
-    super.initState();
-  }
+  final String heroTag;
 
   @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
-
-  double getNextTop() {
-    top = pImageCenterHeight;
-    if (scrollController.hasClients) {
-      final offset = scrollController.offset;
-
-      top = lerpDouble(top, pImageCenterHeight - offset, 1.25)!;
-    }
-    return top;
-  }
-
-  double getPadding() {
-    if (scrollController.hasClients) {
-      final offset = scrollController.offset;
-
-      return 60 * (1 - offset / expandedHeight);
-    }
-    return 60;
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(scopedUserProvider);
+    final uid = user.mapOrNull(signedIn: (u) => u.uid)!;
     final banner = user.mapOrNull(
       signedIn: (value) => value.profileBannerLink,
     )!;
@@ -71,44 +35,108 @@ class _UserProfileScreenState extends ConsumerState<UserProfileScreen> {
         user.mapOrNull(
           signedIn: (value) => value.uid,
         )!;
+    final showFAB = useValueNotifier(true);
 
-    return Scaffold(
-      floatingActionButton: isLoggedInUser ? const AnimatedAddEventFAB() : null,
-      body: Stack(
-        children: [
-          NestedScrollView(
-            controller: scrollController,
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                SliverAppBar(
-                  expandedHeight: expandedHeight,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: DecoratedBox(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: CachedNetworkImageProvider(banner),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
+    return NotificationListener<UserScrollNotification>(
+      onNotification: (notification) {
+        if (notification.direction == ScrollDirection.reverse) {
+          showFAB.value = false;
+        } else {
+          showFAB.value = true;
+        }
+        return true;
+      },
+      child: Scaffold(
+        floatingActionButton: isLoggedInUser && useValueListenable(showFAB)
+            ? const AnimatedAddEventFAB()
+            : null,
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              collapsedHeight: 0.3.sh,
+              flexibleSpace: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  SizedBox(
+                    height: 0.3.sh,
+                    width: 1.sw,
+                    child: CachedNetworkImage(
+                      imageUrl: banner,
+                      fit: BoxFit.fill,
                     ),
                   ),
-                ),
-              ];
-            },
-            body: Padding(
-              padding: EdgeInsets.only(
-                top: getPadding(),
+                  Positioned(
+                    bottom: -0.065.sh,
+                    right: 0,
+                    left: 0,
+                    child: ProfileScreenImage(heroTag: heroTag),
+                  ),
+                ],
               ),
-              child: const UserFeed(),
             ),
-          ),
-          Positioned(
-            top: getNextTop(),
-            right: 0,
-            left: 0,
-            child: ProfileScreenImage(heroTag: widget.heroTag),
-          ),
-        ],
+            SliverPadding(
+              padding: EdgeInsets.only(top: 0.065.sh, left: 12, right: 12),
+              sliver: SliverToBoxAdapter(
+                child: Card(
+                  child: ProfileCard(
+                    allowFollowing: !isLoggedInUser,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.all(12),
+              sliver: SliverToBoxAdapter(
+                child: Text(
+                  'Events',
+                  style: TextStyle(
+                    fontSize: 150.sp,
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              sliver: FirestoreQueryBuilder<EventModel>(
+                query: EventManagementRepository.fetchEventsForUser(uid),
+                builder: (context, snapshot, child) {
+                  if (snapshot.hasData && snapshot.docs.isEmpty) {
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: Text('There are no events'),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: Text('error ${snapshot.error}'),
+                      ),
+                    );
+                  }
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        if (snapshot.hasMore &&
+                            index + 1 == snapshot.docs.length) {
+                          snapshot.fetchMore();
+                        }
+                        final event = snapshot.docs[index].data();
+                        return ProviderScope(
+                          overrides: [
+                            scopedEventProvider.overrideWithValue(event)
+                          ],
+                          child: const EventCard(),
+                        );
+                      },
+                      childCount: snapshot.docs.length,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
