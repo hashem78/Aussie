@@ -1,4 +1,4 @@
-import 'package:aussie/state/event_management.dart';
+import 'package:evento/state/event_management.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

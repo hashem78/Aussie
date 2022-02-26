@@ -1,8 +1,8 @@
-import 'package:aussie/presentation/screens/profile/widgets/add_event_fab.dart';
-import 'package:aussie/presentation/screens/profile/widgets/profile_card.dart';
-import 'package:aussie/presentation/screens/profile/widgets/profile_screen_appbar.dart';
-import 'package:aussie/presentation/screens/profile/widgets/user_events.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/profile/widgets/add_event_fab.dart';
+import 'package:evento/presentation/screens/profile/widgets/profile_card.dart';
+import 'package:evento/presentation/screens/profile/widgets/profile_screen_appbar.dart';
+import 'package:evento/presentation/screens/profile/widgets/user_events.dart';
+import 'package:evento/state/user_management.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

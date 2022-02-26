@@ -1,4 +1,4 @@
-import 'package:aussie/models/gmap/gmap.dart';
+import 'package:evento/models/gmap/gmap.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
-import 'package:aussie/repositories/user_management_repository.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/repositories/user_management_repository.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class SignoutTile extends StatelessWidget {

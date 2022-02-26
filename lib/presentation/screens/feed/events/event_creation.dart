@@ -1,5 +1,5 @@
-import 'package:aussie/presentation/screens/feed/events/widgets/form/event_creation_form.dart';
-import 'package:aussie/state/theme_mode.dart';
+import 'package:evento/presentation/screens/feed/events/widgets/form/event_creation_form.dart';
+import 'package:evento/state/theme_mode.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';

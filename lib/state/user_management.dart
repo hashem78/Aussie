@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/repositories/user_management_repository.dart';
+import 'package:evento/models/usermanagement/user/user_model.dart';
+import 'package:evento/repositories/user_management_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

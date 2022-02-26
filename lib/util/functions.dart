@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:aussie/localizations.dart';
-import 'package:aussie/state/language.dart';
+import 'package:evento/localizations.dart';
+import 'package:evento/state/language.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

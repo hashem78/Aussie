@@ -1,7 +1,7 @@
-import 'package:aussie/presentation/screens/profile/widgets/details.dart';
-import 'package:aussie/presentation/screens/profile/widgets/follow_user_button.dart';
-import 'package:aussie/presentation/screens/profile/widgets/stats.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/profile/widgets/details.dart';
+import 'package:evento/presentation/screens/profile/widgets/follow_user_button.dart';
+import 'package:evento/presentation/screens/profile/widgets/stats.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

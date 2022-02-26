@@ -1,7 +1,7 @@
-import 'package:aussie/presentation/screens/profile/follower_list_screen.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/profile/follower_list_screen.dart';
+import 'package:evento/state/user_management.dart';
 
-import 'package:aussie/util/functions.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

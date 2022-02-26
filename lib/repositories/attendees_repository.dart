@@ -1,4 +1,4 @@
-import 'package:aussie/models/event_attention_state/event_attention_state.dart';
+import 'package:evento/models/event_attention_state/event_attention_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AttendeesRepository {

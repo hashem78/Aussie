@@ -1,6 +1,6 @@
-import 'package:aussie/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_continue_button.dart';
-import 'package:aussie/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_image_picking.dart';
-import 'package:aussie/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_subtitle.dart';
+import 'package:evento/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_continue_button.dart';
+import 'package:evento/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_image_picking.dart';
+import 'package:evento/presentation/screens/usermanagement/registeration/first_screen/widgets/first_screen_subtitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_field_validator/form_field_validator.dart';

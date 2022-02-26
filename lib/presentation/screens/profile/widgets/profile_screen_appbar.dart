@@ -1,5 +1,5 @@
-import 'package:aussie/presentation/screens/profile/widgets/image.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/profile/widgets/image.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

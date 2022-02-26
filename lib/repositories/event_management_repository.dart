@@ -1,6 +1,6 @@
-import 'package:aussie/models/event/event_model.dart';
-import 'package:aussie/models/event_state/event_state.dart';
-import 'package:aussie/models/image_picking_state/image_picking_state.dart';
+import 'package:evento/models/event/event_model.dart';
+import 'package:evento/models/event_state/event_state.dart';
+import 'package:evento/models/image_picking_state/image_picking_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';

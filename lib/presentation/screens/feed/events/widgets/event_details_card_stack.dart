@@ -1,6 +1,6 @@
-import 'package:aussie/models/gmap/gmap.dart';
-import 'package:aussie/presentation/screens/gmap_screen.dart';
-import 'package:aussie/state/event_management.dart';
+import 'package:evento/models/gmap/gmap.dart';
+import 'package:evento/presentation/screens/gmap_screen.dart';
+import 'package:evento/state/event_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

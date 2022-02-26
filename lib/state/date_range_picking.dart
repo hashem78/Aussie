@@ -1,4 +1,4 @@
-import 'package:aussie/models/date_range_picking_state/date_range_picking_state.dart';
+import 'package:evento/models/date_range_picking_state/date_range_picking_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

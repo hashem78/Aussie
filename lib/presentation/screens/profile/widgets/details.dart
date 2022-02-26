@@ -1,4 +1,4 @@
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

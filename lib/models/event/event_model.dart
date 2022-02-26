@@ -1,5 +1,5 @@
-import 'package:aussie/models/event_image/event_image_model.dart';
-import 'package:aussie/models/image_picking_state/image_picking_state.dart';
+import 'package:evento/models/event_image/event_image_model.dart';
+import 'package:evento/models/image_picking_state/image_picking_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'event_model.g.dart';

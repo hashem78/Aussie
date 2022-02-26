@@ -1,10 +1,10 @@
-import 'package:aussie/localizations.dart';
-import 'package:aussie/presentation/screens/misc/settings.dart';
-import 'package:aussie/presentation/screens/screen_data.dart';
-import 'package:aussie/presentation/screens/splash_screen.dart';
-import 'package:aussie/state/language.dart';
-import 'package:aussie/state/shared_prefrences.dart';
-import 'package:aussie/state/theme_mode.dart';
+import 'package:evento/localizations.dart';
+import 'package:evento/presentation/screens/misc/settings.dart';
+import 'package:evento/presentation/screens/screen_data.dart';
+import 'package:evento/presentation/screens/splash_screen.dart';
+import 'package:evento/state/language.dart';
+import 'package:evento/state/shared_prefrences.dart';
+import 'package:evento/state/theme_mode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

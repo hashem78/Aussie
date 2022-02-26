@@ -1,5 +1,5 @@
-import 'package:aussie/models/theme_mode/theme_mode.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/models/theme_mode/theme_mode.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 
 const kLightMode = AThemeMode.light();

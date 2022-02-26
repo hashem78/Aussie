@@ -1,4 +1,4 @@
-import 'package:aussie/models/auth_state/auth_state.dart';
+import 'package:evento/models/auth_state/auth_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.g.dart';

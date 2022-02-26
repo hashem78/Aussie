@@ -1,7 +1,7 @@
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 
-import 'package:aussie/util/functions.dart';
+import 'package:evento/util/functions.dart';
 
 class AussieScaffold extends StatelessWidget {
   final Widget? body;

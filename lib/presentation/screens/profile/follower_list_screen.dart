@@ -1,9 +1,9 @@
-import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
+import 'package:evento/models/usermanagement/user/user_model.dart';
+import 'package:evento/presentation/screens/feed/widgets/card_owner.dart';
 
-import 'package:aussie/repositories/followers_repository.dart';
-import 'package:aussie/repositories/user_management_repository.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/repositories/followers_repository.dart';
+import 'package:evento/repositories/user_management_repository.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/firestore.dart';

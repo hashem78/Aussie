@@ -1,7 +1,7 @@
-import 'package:aussie/presentation/screens/feed/feeds/public_feed.dart';
-import 'package:aussie/presentation/widgets/app_drawer.dart';
-import 'package:aussie/presentation/widgets/scaffold.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/presentation/screens/feed/feeds/public_feed.dart';
+import 'package:evento/presentation/widgets/app_drawer.dart';
+import 'package:evento/presentation/widgets/scaffold.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';

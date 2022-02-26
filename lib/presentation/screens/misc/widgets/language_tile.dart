@@ -1,5 +1,5 @@
-import 'package:aussie/state/language.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/state/language.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

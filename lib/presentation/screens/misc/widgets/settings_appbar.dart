@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:aussie/util/functions.dart';
+import 'package:evento/util/functions.dart';
 
 class SettingsAppbar extends StatelessWidget {
   final String tTitle;

@@ -1,5 +1,5 @@
-import 'package:aussie/localizations.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/localizations.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:place_picker/entities/localization_item.dart';

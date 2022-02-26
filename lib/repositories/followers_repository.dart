@@ -1,4 +1,4 @@
-import 'package:aussie/models/followers_state/followers_state.dart';
+import 'package:evento/models/followers_state/followers_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

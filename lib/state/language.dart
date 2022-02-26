@@ -1,4 +1,4 @@
-import 'package:aussie/state/shared_prefrences.dart';
+import 'package:evento/state/shared_prefrences.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 

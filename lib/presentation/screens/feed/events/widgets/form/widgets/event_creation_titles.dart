@@ -1,5 +1,5 @@
 
-import 'package:aussie/presentation/screens/feed/events/widgets/form/widgets/event_creation_section_title.dart';
+import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_section_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';

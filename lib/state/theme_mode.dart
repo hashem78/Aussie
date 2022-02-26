@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:aussie/constants.dart';
-import 'package:aussie/models/theme_mode/theme_mode.dart';
-import 'package:aussie/state/shared_prefrences.dart';
+import 'package:evento/constants.dart';
+import 'package:evento/models/theme_mode/theme_mode.dart';
+import 'package:evento/state/shared_prefrences.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:aussie/models/auth_state/auth_state.dart';
-import 'package:aussie/models/usermanagement/signin_model/signin_model.dart';
-import 'package:aussie/models/usermanagement/user/user_model.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/models/auth_state/auth_state.dart';
+import 'package:evento/models/usermanagement/signin_model/signin_model.dart';
+import 'package:evento/models/usermanagement/user/user_model.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';

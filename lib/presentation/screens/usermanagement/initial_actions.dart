@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/usermanagement/registeration/first_screen/first_registration_screen.dart';
+import 'package:evento/presentation/screens/usermanagement/registeration/first_screen/first_registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

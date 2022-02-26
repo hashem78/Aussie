@@ -1,7 +1,7 @@
-import 'package:aussie/presentation/screens/feed/feed.dart';
-import 'package:aussie/repositories/user_management_repository.dart';
-import 'package:aussie/state/image_picking.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/feed/feed.dart';
+import 'package:evento/repositories/user_management_repository.dart';
+import 'package:evento/state/image_picking.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

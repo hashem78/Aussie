@@ -1,4 +1,4 @@
-import 'package:aussie/models/location_picking_state/location_picking_state.dart';
+import 'package:evento/models/location_picking_state/location_picking_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:place_picker/entities/entities.dart';
 

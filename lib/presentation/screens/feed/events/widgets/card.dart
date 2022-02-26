@@ -1,10 +1,10 @@
-import 'package:aussie/presentation/screens/feed/events/event_details.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/card_details.dart';
-import 'package:aussie/presentation/screens/feed/events/widgets/public_event_attend_button.dart';
-import 'package:aussie/presentation/screens/feed/widgets/card_owner.dart';
-import 'package:aussie/presentation/screens/feed/widgets/event_card_image.dart';
-import 'package:aussie/state/event_management.dart';
-import 'package:aussie/state/user_management.dart';
+import 'package:evento/presentation/screens/feed/events/event_details.dart';
+import 'package:evento/presentation/screens/feed/events/widgets/card_details.dart';
+import 'package:evento/presentation/screens/feed/events/widgets/public_event_attend_button.dart';
+import 'package:evento/presentation/screens/feed/widgets/card_owner.dart';
+import 'package:evento/presentation/screens/feed/widgets/event_card_image.dart';
+import 'package:evento/state/event_management.dart';
+import 'package:evento/state/user_management.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

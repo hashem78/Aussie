@@ -1,4 +1,4 @@
-import 'package:aussie/util/functions.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 
 class AboutAussieTile extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:aussie/presentation/screens/usermanagement/registeration/second_screen/second_registration_screen.dart';
+import 'package:evento/presentation/screens/usermanagement/registeration/second_screen/second_registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

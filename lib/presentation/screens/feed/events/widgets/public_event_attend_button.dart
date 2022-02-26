@@ -1,8 +1,8 @@
-import 'package:aussie/repositories/attendees_repository.dart';
+import 'package:evento/repositories/attendees_repository.dart';
 
-import 'package:aussie/state/event_management.dart';
-import 'package:aussie/state/user_management.dart';
-import 'package:aussie/util/functions.dart';
+import 'package:evento/state/event_management.dart';
+import 'package:evento/state/user_management.dart';
+import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
