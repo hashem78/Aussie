@@ -1,4 +1,4 @@
-package com.hashem.aussie.Aussie
+package com.hashem.evento
 
 import io.flutter.embedding.android.FlutterActivity
 
