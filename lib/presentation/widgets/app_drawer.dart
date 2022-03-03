@@ -37,7 +37,7 @@ class DrawerHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(scopedUserProvider);
+    final user = ref.watch(localUserProvider);
     final pfp = user.mapOrNull(
       signedIn: (value) => value.profilePictureLink,
     )!;
@@ -48,6 +48,7 @@ class DrawerHeader extends ConsumerWidget {
         color: Theme.of(context).colorScheme.secondaryContainer,
         child: InkWell(
           onTap: () {
+            final user = ref.read(localUserProvider);
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) {
