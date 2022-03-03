@@ -83,6 +83,11 @@ class MyApp extends ConsumerWidget {
                     TargetPlatform.android: ZoomPageTransitionsBuilder(),
                   },
                 ),
+                outlinedButtonTheme: OutlinedButtonThemeData(
+                  style: OutlinedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(),
+                  ),
+                ),
                 textButtonTheme: TextButtonThemeData(
                   style: TextButton.styleFrom(
                     shape: const RoundedRectangleBorder(),
