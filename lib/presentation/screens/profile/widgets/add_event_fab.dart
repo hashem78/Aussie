@@ -1,5 +1,4 @@
-import 'package:evento/presentation/screens/feed/events/event_creation.dart';
-
+import 'package:evento/presentation/screens/events/event_creation.dart';
 import 'package:evento/state/theme_mode.dart';
 import 'package:evento/state/user_management.dart';
 import 'package:evento/util/functions.dart';

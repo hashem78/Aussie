@@ -1,4 +1,4 @@
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_section_title.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_section_title.dart';
 import 'package:evento/state/image_picking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

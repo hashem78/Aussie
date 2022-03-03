@@ -1,6 +1,6 @@
 import 'package:evento/models/event/event_model.dart';
 import 'package:evento/models/submittion_button_state/submition_button_state.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/event_creation_form.dart';
+import 'package:evento/presentation/screens/events/widgets/form/event_creation_form.dart';
 import 'package:evento/repositories/event_management_repository.dart';
 import 'package:evento/state/date_range_picking.dart';
 import 'package:evento/state/image_picking.dart';

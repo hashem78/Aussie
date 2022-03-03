@@ -74,4 +74,3 @@ class UserProfileScreen extends HookConsumerWidget {
     );
   }
 }
-

@@ -1,6 +1,6 @@
 import 'package:evento/models/location_picking_state/location_picking_state.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_section_title.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/location_picker.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_section_title.dart';
+import 'package:evento/presentation/screens/events/widgets/location_picker.dart';
 import 'package:evento/state/location_picking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';

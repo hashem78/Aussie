@@ -1,10 +1,10 @@
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_banner_picker.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_date_range_section.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_description.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_gallery_picker.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_location_picker.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_submition_button.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_titles.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_banner_picker.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_date_range_section.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_description.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_gallery_picker.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_location_picker.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_submition_button.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_titles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

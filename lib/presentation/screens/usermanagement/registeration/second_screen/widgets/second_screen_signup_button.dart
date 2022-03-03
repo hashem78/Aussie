@@ -1,4 +1,4 @@
-import 'package:evento/presentation/screens/feed/feed.dart';
+import 'package:evento/presentation/screens/feed/feed_screen.dart';
 import 'package:evento/repositories/user_management_repository.dart';
 import 'package:evento/state/image_picking.dart';
 import 'package:evento/state/user_management.dart';

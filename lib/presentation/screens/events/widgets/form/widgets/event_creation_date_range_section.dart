@@ -1,5 +1,5 @@
 import 'package:evento/models/date_range_picking_state/date_range_picking_state.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/form/widgets/event_creation_section_title.dart';
+import 'package:evento/presentation/screens/events/widgets/form/widgets/event_creation_section_title.dart';
 import 'package:evento/state/date_range_picking.dart';
 import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +104,6 @@ class EventCreationDateRangeSection extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.always,
               readOnly: true,
               decoration: const InputDecoration(
-
                 prefixIcon: Icon(Icons.date_range),
                 labelText: 'Ending on',
               ),

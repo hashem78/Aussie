@@ -1,7 +1,7 @@
-import 'package:evento/presentation/screens/feed/events/widgets/event_description_card.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/event_details_card_stack.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/event_details_gallery.dart';
-import 'package:evento/presentation/screens/feed/events/widgets/paginated_attendees.dart';
+import 'package:evento/presentation/screens/events/widgets/event_description_card.dart';
+import 'package:evento/presentation/screens/events/widgets/event_details_card_stack.dart';
+import 'package:evento/presentation/screens/events/widgets/event_details_gallery.dart';
+import 'package:evento/presentation/screens/events/widgets/paginated_attendees.dart';
 import 'package:evento/state/event_management.dart';
 import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';

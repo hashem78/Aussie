@@ -1,4 +1,4 @@
-import 'package:evento/presentation/screens/feed/events/widgets/form/event_creation_form.dart';
+import 'package:evento/presentation/screens/events/widgets/form/event_creation_form.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';

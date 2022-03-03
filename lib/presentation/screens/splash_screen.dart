@@ -1,4 +1,4 @@
-import 'package:evento/presentation/screens/feed/feed.dart';
+import 'package:evento/presentation/screens/feed/feed_screen.dart';
 import 'package:evento/presentation/screens/usermanagement/initial_actions.dart';
 import 'package:evento/state/user_management.dart';
 
