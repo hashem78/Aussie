@@ -78,6 +78,7 @@ class DrawerHeader extends ConsumerWidget {
                         child: Container(
                           width: 80,
                           height: 80,
+                          alignment: Alignment.centerLeft,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
