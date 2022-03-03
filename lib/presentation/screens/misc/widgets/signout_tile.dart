@@ -12,6 +12,7 @@ class SignoutTile extends StatelessWidget {
     return ListTile(
       onTap: () async {
         await UMRepository.signout();
+        Navigator.pop(context);
       },
       leading: const Icon(Icons.unsubscribe),
       title: Text(

@@ -20,9 +20,8 @@ class AussieUser with _$AussieUser {
     required String profilePictureLink,
     required String profileBannerLink,
   }) = _AussieUser;
-  const factory AussieUser.firstRun() = _AusssieUserFirstRun;
   const factory AussieUser.signedOut() = _AusssieUserSignedOut;
-
+  const factory AussieUser.loading() = _AusssieUserLoading;
   const factory AussieUser.error({
     @JsonKey(ignore: true) AuthState? errorState,
   }) = _AusssieUserError;

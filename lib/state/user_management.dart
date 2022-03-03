@@ -25,7 +25,7 @@ class LocalUserNotifier extends StateNotifier<AussieUser> {
   late final StreamSubscription<AussieUser> userSignupCompletionStream;
   bool isFirstRun = true;
   Ref ref;
-  LocalUserNotifier(this.ref) : super(const AussieUser.firstRun()) {
+  LocalUserNotifier(this.ref) : super(const AussieUser.loading()) {
     authSubscription = _authInstance.userChanges().listen(userChanges);
   }
 
@@ -56,13 +56,7 @@ class LocalUserNotifier extends StateNotifier<AussieUser> {
         state = AussieUser.fromJson(_data);
       }
     } else {
-      if (isFirstRun) {
-        // ignore: prefer_const_constructors
-        state = AussieUser.firstRun();
-        isFirstRun = !isFirstRun;
-      } else {
-        state = const AussieUser.signedOut();
-      }
+      state = const AussieUser.signedOut();
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:evento/models/usermanagement/user/user_model.dart';
 import 'package:evento/presentation/screens/feed/feed.dart';
 import 'package:evento/presentation/screens/usermanagement/initial_actions.dart';
 import 'package:evento/state/user_management.dart';
@@ -11,51 +10,25 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AussieUser>(
-      localUserProvider,
-      (previous, next) {
-        next.mapOrNull(
-          signedIn: (val) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return ProviderScope(
-                    overrides: [
-                      scopedUserProvider.overrideWithValue(next),
-                    ],
-                    child: const FeedScreen(),
-                  );
-                },
-              ),
-            );
-          },
-          signedOut: (val) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const InitialUserActionScreen();
-                },
-              ),
-              (route) => !route.isFirst,
-            );
-          },
-          firstRun: (user) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) {
-                  return const InitialUserActionScreen();
-                },
-              ),
-            );
-          },
+    return ref.watch(localUserProvider).map(
+      signedIn: (_) {
+        return const FeedScreen();
+      },
+      loading: (_) {
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       },
-    );
-    return const Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+      signedOut: (_) {
+        return const InitialUserActionScreen();
+      },
+      error: (err) {
+        return const Center(
+          child: Text('Error'),
+        );
+      },
     );
   }
 }
