@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:evento/models/auth_state/auth_state.dart';
 import 'package:evento/models/usermanagement/signin_model/signin_model.dart';
 import 'package:evento/models/usermanagement/user/user_model.dart';
-import 'package:evento/state/user_management.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -47,30 +46,25 @@ class UMRepository {
       final ref = _storageInstance.ref().child(
             'users/${user.uid}/profile/$filename',
           );
-      final uploadTask = ref.putFile(File(profileImagePath));
+      await ref.putFile(File(profileImagePath));
+      final _profileImageLink = await ref.getDownloadURL();
+
       final userData = {
         'uid': user.uid,
         'name': user.displayName,
         'email': user.email,
         'verified': user.emailVerified,
-        'profilePictureLink': '',
+        'profilePictureLink': _profileImageLink,
         'username': username,
         'profileBannerLink': 'https://picsum.photos/1200',
         'fullname': fullname,
         'numberOfFollowers': 0,
         'numberOfFollowing': 0,
         'numberOfPosts': 0,
-        'attends': <dynamic>[],
+        'attends': const [],
         'runtimeType': 'signedIn',
       };
-      await uploadTask.whenComplete(
-        () async {
-          final _profileImageLink = await ref.getDownloadURL();
-          userData['profilePictureLink'] = _profileImageLink;
-          await _firestoreInstance.doc('users/${user.uid}').set(userData);
-          userSignupCompletionStreamController.sink.add(true);
-        },
-      );
+      await _firestoreInstance.doc('users/${user.uid}').set(userData);
 
       return AuthState.goodSignup(AussieUser.fromJson(userData));
     } on FirebaseAuthException catch (e) {

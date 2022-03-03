@@ -5,56 +5,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final userSignupCompletionStreamController = StreamController<bool>();
-final userSignupCompletionStreamProvider = StreamProvider<bool>(
-  (ref) {
-    ref.onDispose(
-      () {
-        userSignupCompletionStreamController.close();
-      },
-    );
-    return userSignupCompletionStreamController.stream;
-  },
-);
-
 class LocalUserNotifier extends StateNotifier<AussieUser> {
   static final _firestoreInstance = FirebaseFirestore.instance;
   static final _authInstance = FirebaseAuth.instance;
 
   late final StreamSubscription<User?> authSubscription;
-  late final StreamSubscription<AussieUser> userSignupCompletionStream;
-  bool isFirstRun = true;
-  Ref ref;
+  final Ref ref;
   LocalUserNotifier(this.ref) : super(const AussieUser.loading()) {
     authSubscription = _authInstance.userChanges().listen(userChanges);
   }
 
   Future<void> userChanges(User? user) async {
     if (user != null) {
-      final _shot = await _firestoreInstance.doc('users/${user.uid}').get();
-      if (!_shot.exists) {
-        // This is a signup event which hasn't finished creating the user so we will wait until
-        // The signup proceedure finishes and retry again
-        // Navigation will handled in the signup page.
-        final stream = ref.read(userSignupCompletionStreamProvider.stream);
-        final completer = Completer();
-        final subscription = stream.listen(
-          (finishedSignUp) {
-            if (finishedSignUp) {
-              completer.complete();
-            }
-          },
-        );
-        await completer.future;
-        subscription.cancel();
-        final _shot = await _firestoreInstance.doc('users/${user.uid}').get();
-        final _data = _shot.data()!;
-        state = AussieUser.fromJson(_data);
-        return;
-      } else {
-        final _data = _shot.data()!;
-        state = AussieUser.fromJson(_data);
-      }
+      final snapshot = await _firestoreInstance
+          .doc('users/${user.uid}')
+          .snapshots()
+          .firstWhere((snapshot) => snapshot.exists);
+      final _data = snapshot.data()!;
+      state = AussieUser.fromJson(_data);
     } else {
       state = const AussieUser.signedOut();
     }
