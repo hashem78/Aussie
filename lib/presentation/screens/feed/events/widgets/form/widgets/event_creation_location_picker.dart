@@ -58,9 +58,7 @@ class EventCreationLocationPicker extends HookConsumerWidget {
               autovalidateMode: AutovalidateMode.always,
               controller: controller,
               readOnly: true,
-              maxLines: 2,
               decoration: InputDecoration(
-
                 hintText: locationController.whenOrNull(
                   notPicked: () => 'Select a location',
                   error: () {

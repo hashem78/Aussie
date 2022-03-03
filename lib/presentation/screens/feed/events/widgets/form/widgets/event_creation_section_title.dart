@@ -15,7 +15,6 @@ class EventCreationSectionTitle extends StatelessWidget {
       children: [
         Icon(
           iconData,
-          color: Colors.black.withOpacity(.5),
         ),
         SizedBox(
           width: 0.03.sw,
@@ -25,7 +24,6 @@ class EventCreationSectionTitle extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: 75.sp,
-              color: Colors.black.withOpacity(.5),
             ),
           ),
         ),
