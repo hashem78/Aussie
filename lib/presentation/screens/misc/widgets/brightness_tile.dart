@@ -3,6 +3,7 @@ import 'package:evento/models/theme_mode/theme_mode.dart';
 import 'package:evento/state/theme_mode.dart';
 import 'package:evento/util/functions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BrightnessTile extends ConsumerWidget {
@@ -10,7 +11,7 @@ class BrightnessTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.watch(themeModeProvider)!;
+    final themeState = ref.watch(themeModeProvider);
     return Padding(
       padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
       child: ListTile(
@@ -47,18 +48,38 @@ class ChangeThemeDialog extends ConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: <Widget>[
           RadioListTile<AThemeMode>(
-            value: kSystemMode,
+            value: () {
+              final systemBrightness =
+                  SchedulerBinding.instance!.window.platformBrightness;
+              if (systemBrightness == Brightness.dark) {
+                return const AThemeMode.system(
+                  mode: ThemeMode.dark,
+                  brightness: Brightness.dark,
+                );
+              } else {
+                return const AThemeMode.system(
+                  mode: ThemeMode.light,
+                  brightness: Brightness.light,
+                );
+              }
+            }.call(),
             groupValue: themeState,
             title: Text(
               getTranslation(context, 'brightnessSystemTitle'),
             ),
-            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+            onChanged: (themeMode) =>
+                ref.read(themeModeProvider.notifier).changeTo(
+                      themeMode!,
+                    ),
           ),
           RadioListTile<AThemeMode>(
             value: kLightMode,
             groupValue: themeState,
             title: Text(getTranslation(context, 'brightnessLightTitle')),
-            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+            onChanged: (themeMode) =>
+                ref.read(themeModeProvider.notifier).changeTo(
+                      themeMode!,
+                    ),
           ),
           RadioListTile<AThemeMode>(
             value: kDarkMode,
@@ -66,7 +87,10 @@ class ChangeThemeDialog extends ConsumerWidget {
             title: Text(
               getTranslation(context, 'brightnessDarkTitle'),
             ),
-            onChanged: ref.read(themeModeProvider.notifier).changeTo,
+            onChanged: (themeMode) =>
+                ref.read(themeModeProvider.notifier).changeTo(
+                      themeMode!,
+                    ),
           ),
         ],
       ),

@@ -14,7 +14,7 @@ class AnimatedAddEventFAB extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider)!;
+    final themeMode = ref.watch(themeModeProvider);
     final user = ref.watch(scopedUserProvider);
     late final Color color;
 

@@ -9,16 +9,16 @@ class EventCreationScreen extends ConsumerWidget {
   const EventCreationScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(themeModeProvider)!;
+    final theme = ref.watch(themeModeProvider);
     final correctColor = theme.map(
-              dark: (t) => Colors.white,
-              light: (t) => Colors.black.withOpacity(0.5),
-              system: (t) {
-                return t.brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black.withOpacity(0.5);
-              },
-            );
+      dark: (t) => Colors.white,
+      light: (t) => Colors.black.withOpacity(0.5),
+      system: (t) {
+        return t.brightness == Brightness.dark
+            ? Colors.white
+            : Colors.black.withOpacity(0.5);
+      },
+    );
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();

@@ -71,7 +71,7 @@ class MyApp extends ConsumerWidget {
                 return supportedLocales.first;
               },
               home: const SplashScreen(),
-              themeMode: themeMode!.mode,
+              themeMode: themeMode.mode,
               theme: ThemeData(
                 brightness: themeMode.brightness,
                 inputDecorationTheme: const InputDecorationTheme(
